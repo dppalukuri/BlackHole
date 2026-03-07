@@ -1,23 +1,28 @@
 """
 CAPTCHA detection and solving for UAE real estate scrapers.
 
+Solving priority:
+  1. Local CLIP vision model (free, no API key) via captcha-solver
+  2. CapSolver API (paid fallback) if CAPSOLVER_API_KEY is set
+
 Supports:
-  - hCaptcha (Bayut)
-  - reCAPTCHA v2/v3 (Dubizzle)
-
-Uses CapSolver API (capsolver.com) - sign up for free trial credits.
-Set env var: CAPSOLVER_API_KEY=your_key
-
-Alternative services can be added by implementing the solve_* methods.
+  - hCaptcha (Bayut) - image grid challenges
+  - reCAPTCHA v2 (Dubizzle) - image selection challenges
 """
 
 import os
+import sys
 import re
 import asyncio
 import httpx
 
 CAPSOLVER_API_KEY = os.environ.get("CAPSOLVER_API_KEY", "")
 CAPSOLVER_API = "https://api.capsolver.com"
+
+# Add captcha-solver to path for local CLIP solving
+_SOLVER_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "captcha-solver")
+if _SOLVER_PATH not in sys.path:
+    sys.path.insert(0, _SOLVER_PATH)
 
 
 async def detect_captcha(page) -> dict | None:
@@ -66,14 +71,127 @@ async def detect_captcha(page) -> dict | None:
     return info
 
 
-async def solve_captcha(captcha_info: dict) -> str | None:
+async def solve_captcha_locally(page, captcha_info: dict) -> bool:
     """
-    Solve a CAPTCHA using CapSolver API.
+    Solve CAPTCHA using local CLIP vision model.
 
-    Returns the solution token, or None if solving fails.
+    Extracts challenge images from the page, classifies with CLIP,
+    clicks matching images, and submits.
+
+    Returns True if solved successfully, False otherwise.
     """
-    api_key = CAPSOLVER_API_KEY
-    if not api_key:
+    try:
+        from solver import solve_hcaptcha_challenge
+    except ImportError:
+        return False
+
+    captcha_type = captcha_info.get("type")
+    if captcha_type != "hcaptcha":
+        return False  # Only hCaptcha has extractable image grids
+
+    # Find the hCaptcha challenge frame
+    challenge_frame = None
+    for frame in page.frames:
+        if "hcaptcha" in frame.url:
+            challenge_frame = frame
+            break
+
+    if not challenge_frame:
+        return False
+
+    # Click the checkbox to trigger the challenge
+    try:
+        checkbox = await challenge_frame.wait_for_selector("#checkbox", timeout=3000)
+        if checkbox:
+            await checkbox.click()
+            await asyncio.sleep(2)
+    except Exception:
+        pass
+
+    # Re-find the challenge frame (may have changed after checkbox click)
+    for frame in page.frames:
+        if "hcaptcha" in frame.url and "challenge" in frame.url:
+            challenge_frame = frame
+            break
+
+    # Extract task text and images from the challenge
+    challenge_data = await challenge_frame.evaluate("""() => {
+        const taskEl = document.querySelector('.prompt-text, [class*="prompt"]');
+        const task = taskEl ? taskEl.textContent.trim() : '';
+
+        const images = [];
+
+        // Try img elements first
+        const imgs = document.querySelectorAll('.task-image img, .challenge-image img, [class*="image"] img');
+        for (const img of imgs) {
+            if (img.src && img.src.startsWith('http')) images.push(img.src);
+        }
+
+        // Try background images
+        if (images.length === 0) {
+            const divs = document.querySelectorAll('.task-image, [class*="image"], [class*="cell"]');
+            for (const div of divs) {
+                const bg = getComputedStyle(div).backgroundImage;
+                const match = bg.match(/url\\("?(.+?)"?\\)/);
+                if (match && match[1].startsWith('http')) images.push(match[1]);
+            }
+        }
+
+        // Try canvas elements (convert to data URL)
+        if (images.length === 0) {
+            const canvases = document.querySelectorAll('canvas');
+            for (const c of canvases) {
+                try { images.push(c.toDataURL('image/png')); } catch(e) {}
+            }
+        }
+
+        return { task, images };
+    }""")
+
+    task = challenge_data.get("task", "")
+    images = challenge_data.get("images", [])
+
+    if not task or not images:
+        return False
+
+    # Solve with CLIP
+    result = await solve_hcaptcha_challenge(task, images, threshold=0.4)
+    selections = result.get("selections", [])
+
+    if not selections:
+        return False
+
+    # Click matching images in the challenge
+    for idx in selections:
+        try:
+            await challenge_frame.evaluate(f"""() => {{
+                const cells = document.querySelectorAll('.task-image, [class*="image"], [class*="cell"]');
+                if (cells[{idx}]) cells[{idx}].click();
+            }}""")
+            await asyncio.sleep(0.3)
+        except Exception:
+            pass
+
+    # Click verify/submit button
+    await asyncio.sleep(0.5)
+    try:
+        await challenge_frame.evaluate("""() => {
+            const btn = document.querySelector('.button-submit, [class*="submit"], button');
+            if (btn) btn.click();
+        }""")
+    except Exception:
+        pass
+
+    await asyncio.sleep(3)
+
+    # Check if CAPTCHA is gone
+    remaining = await detect_captcha(page)
+    return remaining is None
+
+
+async def solve_captcha_api(captcha_info: dict) -> str | None:
+    """Solve CAPTCHA via CapSolver API (paid fallback)."""
+    if not CAPSOLVER_API_KEY:
         return None
 
     captcha_type = captcha_info.get("type")
@@ -83,22 +201,13 @@ async def solve_captcha(captcha_info: dict) -> str | None:
     if not sitekey or not page_url:
         return None
 
-    if captcha_type == "hcaptcha":
-        return await _solve_hcaptcha(api_key, sitekey, page_url)
-    elif captcha_type == "recaptcha":
-        return await _solve_recaptcha(api_key, sitekey, page_url)
+    task_type = "HCaptchaTaskProxyLess" if captcha_type == "hcaptcha" else "ReCaptchaV2TaskProxyLess"
 
-    return None
-
-
-async def _solve_hcaptcha(api_key: str, sitekey: str, page_url: str) -> str | None:
-    """Solve hCaptcha via CapSolver."""
     async with httpx.AsyncClient(timeout=180) as client:
-        # Create task
         resp = await client.post(f"{CAPSOLVER_API}/createTask", json={
-            "clientKey": api_key,
+            "clientKey": CAPSOLVER_API_KEY,
             "task": {
-                "type": "HCaptchaTaskProxyLess",
+                "type": task_type,
                 "websiteURL": page_url,
                 "websiteKey": sitekey,
             }
@@ -112,46 +221,19 @@ async def _solve_hcaptcha(api_key: str, sitekey: str, page_url: str) -> str | No
             return None
 
         # Poll for result
-        return await _poll_result(client, api_key, task_id)
+        for _ in range(40):
+            await asyncio.sleep(3)
+            resp = await client.post(f"{CAPSOLVER_API}/getTaskResult", json={
+                "clientKey": CAPSOLVER_API_KEY,
+                "taskId": task_id,
+            })
+            result = resp.json()
+            if result.get("status") == "ready":
+                solution = result.get("solution", {})
+                return solution.get("gRecaptchaResponse") or solution.get("token")
+            elif result.get("status") == "failed":
+                return None
 
-
-async def _solve_recaptcha(api_key: str, sitekey: str, page_url: str) -> str | None:
-    """Solve reCAPTCHA v2 via CapSolver."""
-    async with httpx.AsyncClient(timeout=180) as client:
-        resp = await client.post(f"{CAPSOLVER_API}/createTask", json={
-            "clientKey": api_key,
-            "task": {
-                "type": "ReCaptchaV2TaskProxyLess",
-                "websiteURL": page_url,
-                "websiteKey": sitekey,
-            }
-        })
-        data = resp.json()
-        if data.get("errorId", 0) != 0:
-            return None
-
-        task_id = data.get("taskId")
-        if not task_id:
-            return None
-
-        return await _poll_result(client, api_key, task_id)
-
-
-async def _poll_result(client: httpx.AsyncClient, api_key: str, task_id: str, max_wait: int = 120) -> str | None:
-    """Poll CapSolver for task result."""
-    for _ in range(max_wait // 3):
-        await asyncio.sleep(3)
-        resp = await client.post(f"{CAPSOLVER_API}/getTaskResult", json={
-            "clientKey": api_key,
-            "taskId": task_id,
-        })
-        data = resp.json()
-        status = data.get("status")
-        if status == "ready":
-            solution = data.get("solution", {})
-            return solution.get("gRecaptchaResponse") or solution.get("token")
-        elif status == "failed":
-            return None
     return None
 
 
@@ -159,129 +241,66 @@ async def inject_captcha_token(page, captcha_info: dict, token: str) -> bool:
     """Inject solved CAPTCHA token into the page and submit."""
     captcha_type = captcha_info.get("type")
 
-    if captcha_type == "hcaptcha":
-        return await _inject_hcaptcha(page, token)
-    elif captcha_type == "recaptcha":
-        return await _inject_recaptcha(page, token)
-    return False
+    result = await page.evaluate("""(args) => {
+        const [token, type] = args;
 
+        // Set response textareas
+        const names = type === 'hcaptcha'
+            ? ['h-captcha-response', 'g-recaptcha-response']
+            : ['g-recaptcha-response'];
 
-async def _inject_hcaptcha(page, token: str) -> bool:
-    """Inject hCaptcha token and trigger callback."""
-    result = await page.evaluate(f"""(token) => {{
-        // Set the response textarea
-        const textarea = document.querySelector('[name="h-captcha-response"], textarea[name="h-captcha-response"]');
-        if (textarea) textarea.value = token;
-
-        // Also set g-recaptcha-response (hCaptcha compat mode)
-        const gTextarea = document.querySelector('[name="g-recaptcha-response"]');
-        if (gTextarea) gTextarea.value = token;
-
-        // Try to trigger the callback
-        if (typeof window.hcaptcha !== 'undefined') {{
-            try {{
-                // Get the widget ID
-                const widgetIds = window.hcaptcha.getAllWidgetIds ? window.hcaptcha.getAllWidgetIds() : [0];
-                for (const id of widgetIds) {{
-                    window.hcaptcha.setData(id, {{ response: token }});
-                }}
-            }} catch(e) {{}}
-        }}
+        for (const name of names) {
+            const el = document.querySelector(`[name="${name}"]`);
+            if (el) { el.value = token; el.style.display = 'block'; }
+        }
 
         // Submit the form
         const form = document.querySelector('form');
-        if (form) {{
-            form.submit();
-            return true;
-        }}
+        if (form) { form.submit(); return true; }
 
-        // Try clicking a submit button
-        const btn = document.querySelector('button[type="submit"], input[type="submit"], .challenge-submit');
-        if (btn) {{
-            btn.click();
-            return true;
-        }}
+        const btn = document.querySelector('button[type="submit"], input[type="submit"]');
+        if (btn) { btn.click(); return true; }
 
         return false;
-    }}""", token)
+    }""", [token, captcha_type])
+
     return bool(result)
 
 
-async def _inject_recaptcha(page, token: str) -> bool:
-    """Inject reCAPTCHA token and trigger callback."""
-    result = await page.evaluate(f"""(token) => {{
-        const textarea = document.querySelector('#g-recaptcha-response, [name="g-recaptcha-response"]');
-        if (textarea) {{
-            textarea.style.display = 'block';
-            textarea.value = token;
-        }}
-
-        // Trigger callback
-        if (typeof ___grecaptcha_cfg !== 'undefined') {{
-            try {{
-                const clients = ___grecaptcha_cfg.clients;
-                for (const key in clients) {{
-                    const client = clients[key];
-                    // Find callback in nested structure
-                    const findCallback = (obj) => {{
-                        for (const k in obj) {{
-                            if (typeof obj[k] === 'function') return obj[k];
-                            if (typeof obj[k] === 'object' && obj[k] !== null) {{
-                                const cb = findCallback(obj[k]);
-                                if (cb) return cb;
-                            }}
-                        }}
-                        return null;
-                    }};
-                    const cb = findCallback(client);
-                    if (cb) cb(token);
-                }}
-            }} catch(e) {{}}
-        }}
-
-        // Submit form
-        const form = document.querySelector('form');
-        if (form) {{
-            form.submit();
-            return true;
-        }}
-        return false;
-    }}""", token)
-    return bool(result)
-
-
-async def handle_captcha_if_present(page, max_retries: int = 1) -> bool:
+async def handle_captcha_if_present(page, max_retries: int = 2) -> bool:
     """
     Detect and solve CAPTCHA on current page if present.
 
-    Returns True if page is now CAPTCHA-free (either no CAPTCHA was present,
-    or it was solved successfully). Returns False if CAPTCHA couldn't be solved.
+    Solving priority:
+      1. Local CLIP solver (free)
+      2. CapSolver API (if CAPSOLVER_API_KEY is set)
+
+    Returns True if page is now CAPTCHA-free, False if unsolvable.
     """
     for attempt in range(max_retries):
         captcha = await detect_captcha(page)
         if not captcha:
-            return True  # No CAPTCHA, good to go
+            return True  # No CAPTCHA
 
-        if not CAPSOLVER_API_KEY:
-            return False  # Can't solve without API key
+        # Strategy 1: Local CLIP solver
+        solved = await solve_captcha_locally(page, captcha)
+        if solved:
+            return True
 
-        sitekey = captcha.get("sitekey")
-        if not sitekey:
-            return False
+        # Strategy 2: CapSolver API fallback
+        if CAPSOLVER_API_KEY:
+            token = await solve_captcha_api(captcha)
+            if token:
+                await inject_captcha_token(page, captcha, token)
+                await asyncio.sleep(3)
+                try:
+                    await page.wait_for_load_state("networkidle", timeout=10000)
+                except Exception:
+                    pass
 
-        token = await solve_captcha(captcha)
-        if not token:
-            return False
+                # Check if solved
+                remaining = await detect_captcha(page)
+                if not remaining:
+                    return True
 
-        await inject_captcha_token(page, captcha, token)
-        await asyncio.sleep(3)
-
-        # Wait for navigation after CAPTCHA solve
-        try:
-            await page.wait_for_load_state("networkidle", timeout=10000)
-        except Exception:
-            pass
-
-    # Final check - is CAPTCHA still there?
-    final_captcha = await detect_captcha(page)
-    return final_captcha is None
+    return False
