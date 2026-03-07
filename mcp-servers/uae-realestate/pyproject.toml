@@ -1,0 +1,37 @@
+[project]
+name = "uae-realestate-mcp"
+version = "0.1.0"
+description = "MCP server for UAE real estate data from Bayut, Dubizzle, and PropertyFinder"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+keywords = ["mcp", "real-estate", "uae", "dubai", "property", "bayut", "dubizzle", "propertyfinder"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "httpx>=0.27.0",
+]
+
+[project.optional-dependencies]
+scraping = [
+    "playwright>=1.40.0",
+]
+all = [
+    "playwright>=1.40.0",
+]
+
+[project.scripts]
+uae-realestate-mcp = "server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
