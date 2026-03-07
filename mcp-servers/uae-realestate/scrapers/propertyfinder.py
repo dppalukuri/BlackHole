@@ -1,27 +1,24 @@
 """
-PropertyFinder.ae scraper - Stealth Playwright with CAPTCHA solving.
+PropertyFinder.ae scraper - Stealth Playwright (headless).
 
-Extracts data from __NEXT_DATA__ (Next.js SSR) and DOM articles.
+No bot protection on search pages. Extracts data from __NEXT_DATA__ (Next.js SSR)
+with DOM article parsing as fallback.
+
+URL pattern: /en/search?c={1|2}&q={location}&t={type}&pf={min}&pt={max}&bf={beds}&bt={beds}&fu={furnishing}&ob=nd
+Filters: c=category, q=location, t=type, pf/pt=price, bf/bt=beds, fu=furnishing, ob=sort, page=page
 """
 
 import asyncio
 import json
 import re
 from models import Property
+import slug_registry
 
 BASE_URL = "https://www.propertyfinder.ae"
 
 CATEGORY_MAP = {
     "for-sale": "1",
     "for-rent": "2",
-}
-
-PROPERTY_TYPE_MAP = {
-    "apartment": "1",
-    "villa": "2",
-    "townhouse": "18",
-    "penthouse": "3",
-    "duplex": "25",
 }
 
 
@@ -63,8 +60,12 @@ class PropertyFinderScraper:
             # Strategy 1: Extract from __NEXT_DATA__
             properties = await self._extract_next_data(page_obj)
 
-            # Strategy 2: Parse DOM articles
+            # Strategy 2: Parse DOM articles (scroll first to load all)
             if not properties:
+                for _ in range(5):
+                    await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
+                    await asyncio.sleep(1)
+                await asyncio.sleep(2)
                 properties = await self._parse_dom(page_obj)
 
             await sb.save_session(context)
@@ -129,8 +130,9 @@ class PropertyFinderScraper:
         params.append(f"q={location.replace(' ', '%20')}")
 
         # Property type
-        if property_type and property_type.lower() in PROPERTY_TYPE_MAP:
-            params.append(f"t={PROPERTY_TYPE_MAP[property_type.lower()]}")
+        type_id = slug_registry.resolve_property_type("propertyfinder", property_type) if property_type else None
+        if type_id:
+            params.append(f"t={type_id}")
 
         # Price range
         if min_price > 0:

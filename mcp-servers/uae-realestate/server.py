@@ -375,13 +375,48 @@ async def compare_areas(
     return "\n".join(lines)
 
 
+@mcp.tool()
+async def refresh_locations(
+    site: str = "all",
+) -> str:
+    """
+    Discover and update location slugs from real estate sites.
+
+    Scrapes the sites to find new communities and areas that may have been
+    added since the last update. Run this periodically to keep location
+    data current.
+
+    Args:
+        site: "dubizzle", "bayut", "propertyfinder", or "all"
+
+    Returns:
+        Summary of discovered locations and any new additions.
+    """
+    from slug_discovery import run_discovery
+    import slug_registry
+    import io
+    from contextlib import redirect_stdout
+
+    sites = None if site == "all" else [site]
+
+    # Capture output from discovery
+    output = io.StringIO()
+    with redirect_stdout(output):
+        await run_discovery(sites=sites)
+
+    # Reload the registry so scrapers pick up new slugs
+    slug_registry.reload()
+
+    return output.getvalue()
+
+
 # ─── RESOURCES ─────────────────────────────────────────────────────────────────
 
 
 @mcp.resource("uae-realestate://locations")
 def list_locations() -> str:
-    """List all searchable locations with their IDs."""
-    from scrapers.bayut import LOCATION_IDS as bayut_locs
+    """List all searchable locations across all platforms."""
+    import slug_registry
 
     lines = ["Available UAE Locations:", ""]
     lines.append("EMIRATES:")
@@ -389,10 +424,19 @@ def list_locations() -> str:
     for e in emirates:
         lines.append(f"  - {e.title()}")
 
-    lines.append("\nDUBAI COMMUNITIES:")
-    communities = sorted(k for k in bayut_locs.keys() if k not in [e.lower() for e in emirates])
+    lines.append("\nDUBAI COMMUNITIES (all platforms):")
+    # Merge locations from all sites
+    all_locs = set()
+    for site in ["dubizzle", "bayut", "propertyfinder"]:
+        all_locs.update(slug_registry.all_locations(site))
+    # Remove emirate-level entries
+    communities = sorted(loc for loc in all_locs if loc not in [e.lower() for e in emirates])
     for c in communities:
         lines.append(f"  - {c.title()}")
+
+    updated = slug_registry.last_updated()
+    if updated:
+        lines.append(f"\nSlugs last updated: {updated}")
 
     return "\n".join(lines)
 

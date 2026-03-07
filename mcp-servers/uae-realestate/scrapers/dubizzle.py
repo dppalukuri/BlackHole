@@ -12,96 +12,9 @@ Filters: price__gte, price__lte, bedrooms, furnishing, page (as query params)
 import asyncio
 import re
 from models import Property
+import slug_registry
 
 BASE_URL = "https://dubai.dubizzle.com"
-
-# Location slugs discovered from the site's own navigation/filter data
-LOCATION_SLUGS = {
-    "dubai marina": "dubai-marina",
-    "downtown dubai": "downtown-dubai",
-    "downtown": "downtown-dubai",
-    "business bay": "business-bay",
-    "jbr": "jumeirah-beach-residence-jbr",
-    "jumeirah beach residence": "jumeirah-beach-residence-jbr",
-    "palm jumeirah": "the-palm-jumeirah",
-    "the palm jumeirah": "the-palm-jumeirah",
-    "dubai hills": "dubai-hills-estate",
-    "dubai hills estate": "dubai-hills-estate",
-    "arabian ranches": "arabian-ranches",
-    "arabian ranches 2": "arabian-ranches-2",
-    "arabian ranches 3": "arabian-ranches-3",
-    "jvc": "jumeirah-village-circle-jvc",
-    "jumeirah village circle": "jumeirah-village-circle-jvc",
-    "jvt": "jumeirah-village-triangle-jvt",
-    "jumeirah village triangle": "jumeirah-village-triangle-jvt",
-    "dubai creek harbour": "dubai-creek-harbour",
-    "creek harbour": "dubai-creek-harbour",
-    "al barsha": "al-barsha",
-    "deira": "deira",
-    "motor city": "motor-city",
-    "sports city": "dubai-sports-city",
-    "dubai sports city": "dubai-sports-city",
-    "damac hills": "damac-hills-akoya-by-damac",
-    "damac hills 2": "damac-hills-2-akoya-oxygen",
-    "jlt": "jlt-jumeirah-lake-towers",
-    "jumeirah lake towers": "jlt-jumeirah-lake-towers",
-    "difc": "difc",
-    "city walk": "city-walk",
-    "meydan": "meydan-city",
-    "meydan city": "meydan-city",
-    "silicon oasis": "dubai-silicon-oasis",
-    "dubai silicon oasis": "dubai-silicon-oasis",
-    "dso": "dubai-silicon-oasis",
-    "emirates hills": "emirates-hills",
-    "discovery gardens": "discovery-gardens",
-    "international city": "international-city",
-    "dubai south": "dubai-south-dubai-world-central",
-    "mirdif": "mirdif",
-    "dubailand": "dubailand",
-    "al furjan": "al-furjan",
-    "town square": "town-square",
-    "mudon": "mudon",
-    "al nahda": "al-nahda",
-    "jumeirah": "jumeirah",
-    "production city": "international-media-production-zone-impz",
-    "impz": "international-media-production-zone-impz",
-    "sobha hartland": "sobha-hartland",
-    "dubai land": "dubailand",
-    "al quoz": "al-quoz",
-    "dubai investment park": "dubai-investment-park-dip",
-    "dip": "dubai-investment-park-dip",
-    "bluewaters island": "bluewaters-island",
-    "dubai harbour": "dubai-harbour",
-    "emaar beachfront": "emaar-beachfront",
-    "dubai creek": "dubai-creek-harbour",
-    "tilal al ghaf": "tilal-al-ghaf",
-    "madinat jumeirah living": "madinat-jumeirah-living",
-    "mohammed bin rashid city": "mohammed-bin-rashid-city",
-    "mbr city": "mohammed-bin-rashid-city",
-    "rashid yachts marina": "rashid-yachts-and-marina",
-    "yas island": "yas-island",
-    "saadiyat island": "saadiyat-island",
-    "al reem island": "al-reem-island",
-    "reem island": "al-reem-island",
-    "khalifa city": "khalifa-city",
-    "al reef": "al-reef",
-    "masdar city": "masdar-city",
-}
-
-# Property type slugs - these go in the URL path
-PROPERTY_TYPE_SLUGS = {
-    "apartment": "apartment",
-    "flat": "apartment",
-    "villa": "villahouse",
-    "house": "villahouse",
-    "townhouse": "townhouse",
-    "penthouse": "penthouse",
-    "duplex": "duplex",
-    "hotel apartment": "hotel-apartment",
-    "residential building": "residential-building",
-    "villa compound": "villa-compound",
-    "residential floor": "residential-floor",
-}
 
 
 class DubizzleScraper:
@@ -288,11 +201,12 @@ class DubizzleScraper:
         path = f"/en/{purpose_path}/residential/"
 
         # Property type goes in path (before /in/)
-        if property_type and property_type.lower() in PROPERTY_TYPE_SLUGS:
-            path += PROPERTY_TYPE_SLUGS[property_type.lower()] + "/"
+        type_slug = slug_registry.resolve_property_type("dubizzle", property_type) if property_type else None
+        if type_slug:
+            path += type_slug + "/"
 
         # Location goes in path using /in/<slug>/ pattern
-        loc_slug = LOCATION_SLUGS.get(location.lower().strip())
+        loc_slug = slug_registry.resolve_location("dubizzle", location)
         if loc_slug:
             path += f"in/{loc_slug}/"
 

@@ -1,8 +1,12 @@
 """
 Bayut.com scraper - Stealth Playwright + CAPTCHA solving, RapidAPI fallback.
 
-Primary: Playwright with stealth + CapSolver for hCaptcha bypass
+Primary: Playwright with stealth + CAPTCHA solving (hCaptcha)
 Fallback: RapidAPI (free tier: 750 calls/month)
+
+URL pattern: /{for-sale|to-rent}/{type}/dubai/{location-slug}/
+Filters: price_min, price_max, beds_min, beds_max, furnishing_status, completion_status, page
+Data extraction: __NEXT_DATA__ (Next.js SSR), Apollo cache, DOM cards
 
 Env vars:
   CAPSOLVER_API_KEY  - For hCaptcha solving (capsolver.com)
@@ -15,111 +19,10 @@ import re
 import json
 import httpx
 from models import Property
+import slug_registry
 
 BASE_URL = "https://www.bayut.com"
 RAPIDAPI_HOST = "bayut.p.rapidapi.com"
-
-LOCATION_IDS = {
-    "dubai": "5002",
-    "abu dhabi": "5001",
-    "sharjah": "5003",
-    "ajman": "5004",
-    "ras al khaimah": "5005",
-    "fujairah": "5006",
-    "umm al quwain": "5007",
-    "dubai marina": "6901",
-    "downtown dubai": "6904",
-    "business bay": "7165",
-    "jbr": "6812",
-    "jumeirah beach residence": "6812",
-    "palm jumeirah": "6813",
-    "dubai hills": "12663",
-    "dubai hills estate": "12663",
-    "arabian ranches": "6905",
-    "jvc": "6903",
-    "jumeirah village circle": "6903",
-    "dubai creek harbour": "11238",
-    "emirates hills": "6906",
-    "dubai silicon oasis": "6911",
-    "silicon oasis": "6911",
-    "al barsha": "6814",
-    "deira": "6815",
-    "bur dubai": "6816",
-    "motor city": "6918",
-    "sports city": "6910",
-    "dubailand": "6919",
-    "meydan": "11075",
-    "damac hills": "11587",
-    "jlt": "6807",
-    "jumeirah lake towers": "6807",
-    "difc": "7166",
-    "city walk": "11149",
-    "al reem island": "5169",
-    "saadiyat island": "5419",
-    "yas island": "5541",
-    "discovery gardens": "6912",
-    "international city": "6913",
-    "mirdif": "6914",
-    "al furjan": "11078",
-    "town square": "14238",
-    "jumeirah": "6817",
-    "mudon": "11076",
-}
-
-LOCATION_SLUGS = {
-    "dubai marina": "dubai-marina",
-    "downtown dubai": "downtown-dubai",
-    "business bay": "business-bay",
-    "jbr": "jumeirah-beach-residence-jbr",
-    "jumeirah beach residence": "jumeirah-beach-residence-jbr",
-    "palm jumeirah": "palm-jumeirah",
-    "dubai hills": "dubai-hills-estate",
-    "dubai hills estate": "dubai-hills-estate",
-    "arabian ranches": "arabian-ranches",
-    "jvc": "jumeirah-village-circle-jvc",
-    "jumeirah village circle": "jumeirah-village-circle-jvc",
-    "dubai creek harbour": "dubai-creek-harbour",
-    "al barsha": "al-barsha",
-    "deira": "deira",
-    "motor city": "motor-city",
-    "sports city": "dubai-sports-city",
-    "damac hills": "damac-hills-akoya-by-damac",
-    "jlt": "jumeirah-lake-towers-jlt",
-    "jumeirah lake towers": "jumeirah-lake-towers-jlt",
-    "difc": "difc",
-    "city walk": "city-walk",
-    "meydan": "meydan-city",
-    "silicon oasis": "dubai-silicon-oasis",
-    "dubai silicon oasis": "dubai-silicon-oasis",
-    "emirates hills": "emirates-hills",
-    "discovery gardens": "discovery-gardens",
-    "international city": "international-city",
-    "mirdif": "mirdif",
-    "dubailand": "dubailand",
-    "al furjan": "al-furjan",
-    "town square": "town-square",
-    "mudon": "mudon",
-    "jumeirah": "jumeirah",
-    "bur dubai": "bur-dubai",
-}
-
-PROPERTY_TYPES = {
-    "apartment": 4,
-    "villa": 3,
-    "townhouse": 16,
-    "penthouse": 18,
-    "duplex": 21,
-    "land": 14,
-    "office": 5,
-}
-
-PROPERTY_TYPE_SLUGS = {
-    "apartment": "apartments",
-    "villa": "villas",
-    "townhouse": "townhouses",
-    "penthouse": "penthouses",
-    "duplex": "duplexes",
-}
 
 
 class BayutScraper:
@@ -185,7 +88,11 @@ class BayutScraper:
             if not captcha_solved:
                 return []
 
-            # Wait for content after CAPTCHA
+            # Wait for content after CAPTCHA, then scroll
+            await asyncio.sleep(2)
+            for _ in range(5):
+                await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
+                await asyncio.sleep(1)
             await asyncio.sleep(2)
 
             # Extract listings from page
@@ -283,20 +190,15 @@ class BayutScraper:
         """Build Bayut search URL."""
         purpose_path = "for-sale" if purpose == "for-sale" else "to-rent"
 
-        # Property type slug
-        type_slug = ""
-        if property_type and property_type.lower() in PROPERTY_TYPE_SLUGS:
-            type_slug = PROPERTY_TYPE_SLUGS[property_type.lower()]
-        else:
+        # Property type slug (for URL, need the slug form like "apartments", not the API ID)
+        type_slug = self._resolve_type_slug(property_type) if property_type else None
+        if not type_slug:
             type_slug = "property"
 
-        # Location slug
-        loc_slug = ""
-        loc_key = location.lower().strip()
-        if loc_key in LOCATION_SLUGS:
-            loc_slug = LOCATION_SLUGS[loc_key]
-        else:
-            loc_slug = loc_key.replace(" ", "-")
+        # Location slug (for URL, need the slug form like "dubai-marina", not the API ID)
+        loc_slug = self._resolve_location_slug(location)
+        if not loc_slug:
+            loc_slug = location.lower().strip().replace(" ", "-")
 
         url = f"{BASE_URL}/{purpose_path}/{type_slug}/dubai/{loc_slug}/"
 
@@ -331,8 +233,11 @@ class BayutScraper:
             "sort": "date-desc",
         }
 
-        if property_type and property_type.lower() in PROPERTY_TYPES:
-            params["categoryExternalID"] = PROPERTY_TYPES[property_type.lower()]
+        if property_type:
+            type_ids = slug_registry.get("bayut", "property_types")
+            type_id = type_ids.get(property_type.lower())
+            if type_id:
+                params["categoryExternalID"] = type_id
         if min_price > 0:
             params["priceMin"] = min_price
         if max_price > 0:
@@ -414,15 +319,40 @@ class BayutScraper:
         raise RuntimeError("Cannot fetch Bayut details without CAPSOLVER_API_KEY or BAYUT_RAPIDAPI_KEY")
 
     def _resolve_location_id(self, location: str) -> str:
+        """Resolve location to Bayut API external ID (numeric)."""
+        loc_ids = slug_registry.get("bayut", "locations")
         normalized = location.lower().strip()
-        if normalized in LOCATION_IDS:
-            return LOCATION_IDS[normalized]
-        for key, val in LOCATION_IDS.items():
+        if normalized in loc_ids:
+            return loc_ids[normalized]
+        for key, val in loc_ids.items():
             if normalized in key or key in normalized:
                 return val
+        available = sorted(loc_ids.keys())
         raise ValueError(
-            f"Unknown location '{location}'. Available: {', '.join(sorted(LOCATION_IDS.keys()))}"
+            f"Unknown location '{location}'. Available: {', '.join(available[:30])}"
         )
+
+    def _resolve_location_slug(self, location: str) -> str | None:
+        """Resolve location to Bayut URL slug (for Playwright URLs)."""
+        loc_slugs = slug_registry.get("bayut", "location_slugs")
+        normalized = location.lower().strip()
+        if normalized in loc_slugs:
+            return loc_slugs[normalized]
+        for key, val in loc_slugs.items():
+            if normalized in key or key in normalized:
+                return val
+        return None
+
+    def _resolve_type_slug(self, property_type: str) -> str | None:
+        """Resolve property type to Bayut URL slug (e.g. 'apartments')."""
+        type_slugs = slug_registry.get("bayut", "property_type_slugs")
+        normalized = property_type.lower().strip()
+        if normalized in type_slugs:
+            return type_slugs[normalized]
+        for key, val in type_slugs.items():
+            if normalized in key or key in normalized:
+                return val
+        return None
 
     def _parse_listing(self, data: dict) -> Property | None:
         try:
