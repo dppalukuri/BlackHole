@@ -1,0 +1,50 @@
+{
+  "cold_email": {
+    "subject_lines": [
+      "Quick question about {{company}}'s {{pain_point}}",
+      "Idea for {{company}} - 2 min read",
+      "How {{similar_company}} solved {{pain_point}}",
+      "{{company}} + automation = ?",
+      "Noticed something about {{company}}'s website"
+    ],
+    "templates": {
+      "value_first": {
+        "subject": "Quick idea for {{company}}",
+        "body": "Hi {{name}},\n\nI was looking at {{company}}'s {{what_you_looked_at}} and noticed {{specific_observation}}.\n\nI recently helped {{similar_company}} solve a similar challenge by {{solution_brief}}. The result: {{specific_result}}.\n\nI put together a quick {{deliverable_type}} showing how this could work for {{company}}. Want me to send it over?\n\nBest,\n{{your_name}}"
+      },
+      "curiosity": {
+        "subject": "Question about {{pain_point}} at {{company}}",
+        "body": "Hi {{name}},\n\nQuick question - how is {{company}} currently handling {{pain_point}}?\n\nI ask because I work with {{target_description}} in the UAE and most are spending {{waste_metric}} on this when it could be {{better_alternative}}.\n\nIf this is on your radar, I'd love to share what's working for others in your space. If not, no worries at all.\n\nCheers,\n{{your_name}}"
+      },
+      "case_study": {
+        "subject": "How {{similar_company}} solved {{pain_point}}",
+        "body": "Hi {{name}},\n\n{{similar_company}} had the exact same {{pain_point}} challenge.\n\nHere's what we did:\n- {{step_1}}: {{result_1}}\n- {{step_2}}: {{result_2}}\n- {{step_3}}: {{result_3}}\n\nNet result: {{big_result}}.\n\nWould something like this be useful for {{company}}? Happy to walk you through it in 15 minutes.\n\nBest,\n{{your_name}}"
+      }
+    }
+  },
+  "follow_up_sequence": {
+    "day_3": {
+      "subject": "Re: {{original_subject}}",
+      "body": "Hi {{name}},\n\nJust floating this back up in case it got buried. I know inboxes are brutal.\n\nThe quick version: I can help {{company}} {{one_line_value_prop}}.\n\nWorth a 10-minute chat?\n\nBest,\n{{your_name}}"
+    },
+    "day_7": {
+      "subject": "Re: {{original_subject}}",
+      "body": "Hi {{name}},\n\nLast follow-up, I promise.\n\nI put together a free {{deliverable}} specifically for {{company}} showing how you could {{benefit}}.\n\nWant me to send it? Either way, I'll stop filling your inbox after this.\n\nCheers,\n{{your_name}}"
+    }
+  },
+  "upwork_proposal": {
+    "template": "Hi {{client_name}},\n\n{{specific_reference_to_their_job}}.\n\nThis is right in my wheelhouse. Here's my approach:\n\n1. {{step_1}}\n2. {{step_2}}\n3. {{step_3}}\n\nI can have a working first version ready within {{timeline}}.\n\nRelevant experience: {{relevant_experience}}\n\nHappy to start with a small paid trial if you'd like to test the fit.\n\nBest,\n{{your_name}}"
+  },
+  "linkedin_connection": {
+    "template": "Hi {{name}}, I noticed {{something_specific_about_them}}. I help {{target_audience}} in the UAE {{value_prop}}. Would love to connect."
+  },
+  "linkedin_followup": {
+    "template": "Thanks for connecting, {{name}}!\n\nI've been working with companies similar to {{company}} on {{service_area}}.\n\nOne thing I've noticed is that most businesses in {{industry}} are still {{pain_point_observation}}.\n\nI recently helped a client {{specific_result}}.\n\nWould it be useful if I shared how? No pitch, just thought it might be relevant."
+  },
+  "testimonial_request": {
+    "template": "Hi {{name}},\n\nI really enjoyed working on the {{project}} with {{company}}. I hope you're seeing great results!\n\nWould you mind writing a quick 2-3 sentence testimonial about your experience? It would really help me grow my business.\n\nIf you're open to it, a LinkedIn recommendation would be incredible too.\n\nEither way, thanks for being a great client!\n\nBest,\n{{your_name}}"
+  },
+  "retainer_pitch": {
+    "template": "Hi {{name}},\n\nNow that the {{project}} is live, I wanted to make sure {{company}} gets maximum value from it.\n\nMost of my clients find that ongoing {{service_type}} support helps them:\n- {{benefit_1}}\n- {{benefit_2}}\n- {{benefit_3}}\n\nI have a monthly support plan starting at ${{price}}/month that includes:\n- {{deliverable_1}}\n- {{deliverable_2}}\n- {{deliverable_3}}\n\nWant me to put together the details?\n\nBest,\n{{your_name}}"
+  }
+}

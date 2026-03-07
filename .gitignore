@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+data/blackhole.db
+data/proposals/
+data/invoices/
+.env
+.claude/

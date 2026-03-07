@@ -1,0 +1,10 @@
+# BlackHole Engine - Dependencies
+# Core engine uses only Python standard library (no install needed).
+# Below are optional dependencies for advanced features.
+
+# Uncomment as needed:
+# requests          # HTTP client for API integrations
+# beautifulsoup4    # Web scraping for lead research
+# python-dotenv     # Environment variable management
+# schedule          # Task scheduling for automation
+# rich              # Better terminal output
