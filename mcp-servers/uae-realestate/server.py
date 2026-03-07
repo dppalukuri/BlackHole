@@ -56,9 +56,24 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
 mcp = FastMCP(
     "UAE Real Estate",
     instructions=(
-        "Access UAE property listings from Bayut, Dubizzle, and PropertyFinder. "
-        "Search properties, analyze yields, compare areas, and get market insights "
-        "across Dubai, Abu Dhabi, Sharjah, and all UAE emirates."
+        "Live UAE property search across Bayut, Dubizzle, and PropertyFinder. "
+        "Data is fetched on-the-fly from real listings — never cached or pre-scraped.\n\n"
+        "IMPORTANT WORKFLOW: When a user asks a property question, DO NOT search immediately. "
+        "First clarify their requirements by asking about:\n"
+        "  - Purpose: Are they looking to buy or rent?\n"
+        "  - Property type: Apartment, villa, townhouse, penthouse, studio?\n"
+        "  - Bedrooms: Studio, 1BHK, 2BHK, 3BHK, etc.?\n"
+        "  - Budget range: What's their min/max price in AED?\n"
+        "  - Location: Which area/community? (Dubai Marina, JVC, Downtown, etc.)\n"
+        "Only ask about filters that weren't already specified in the question. "
+        "Once filters are confirmed, call search_properties with the exact parameters.\n\n"
+        "Example: If user asks 'houses in JVC under 55000 AED' — clarify if they mean "
+        "for-rent or for-sale, what type (villa/townhouse/apartment), and how many bedrooms. "
+        "Then search with those specific filters applied.\n\n"
+        "Supported locations include: Dubai Marina, Downtown Dubai, Business Bay, JBR, "
+        "Palm Jumeirah, Dubai Hills Estate, Arabian Ranches, JVC, JVT, JLT, DIFC, "
+        "Dubai Creek Harbour, Al Barsha, Motor City, Sports City, Damac Hills, "
+        "Silicon Oasis, Mirdif, Al Furjan, Town Square, Emaar Beachfront, and 50+ more."
     ),
     lifespan=app_lifespan,
 )
@@ -79,20 +94,26 @@ async def search_properties(
     page: int = 1,
 ) -> str:
     """
-    Search for properties across UAE real estate platforms.
+    Search for properties across UAE real estate platforms (live, on-the-fly).
+
+    Scrapes real listings from Bayut, Dubizzle, and PropertyFinder in real time.
+    Always confirm filters with the user before calling this tool.
 
     Args:
-        location: Area or community name (e.g., "Dubai Marina", "Downtown Dubai", "Palm Jumeirah", "JVC", "Business Bay")
+        location: Area or community name (e.g., "Dubai Marina", "Downtown Dubai",
+                  "Palm Jumeirah", "JVC", "Business Bay", "JLT", "Dubai Hills",
+                  "Arabian Ranches", "Silicon Oasis", "DIFC", "Creek Harbour")
         purpose: "for-sale" or "for-rent"
-        property_type: "apartment", "villa", "townhouse", "penthouse", "duplex", or "" for all types
+        property_type: "apartment", "villa", "townhouse", "penthouse", "duplex",
+                       or "" for all types
         min_price: Minimum price in AED (0 for no minimum)
         max_price: Maximum price in AED (0 for no maximum)
         bedrooms: Number of bedrooms (-1 for any, 0 for studio, 1-5 for specific)
-        source: "bayut", "dubizzle", "propertyfinder", or "all" to search all platforms
-        page: Page number for results (starts at 1)
+        source: "bayut", "dubizzle", "propertyfinder", or "all"
+        page: Page number for pagination (starts at 1)
 
     Returns:
-        Property listings with price, specs, location, and source details.
+        Live property listings with price, specs, location, and source details.
     """
     ctx = mcp.get_context()
     aggregator = ctx.request_context.lifespan_context.aggregator
@@ -382,34 +403,49 @@ def help_text() -> str:
     return """
 UAE REAL ESTATE MCP SERVER - USAGE GUIDE
 
-SEARCH PROPERTIES:
-  Search for apartments in Dubai Marina under 2M AED:
-    search_properties(location="Dubai Marina", purpose="for-sale", property_type="apartment", max_price=2000000)
+HOW IT WORKS:
+  All data is scraped LIVE from real estate platforms when you ask.
+  No pre-cached data — results reflect current market listings.
 
-  Find 2-bedroom rentals in JVC:
-    search_properties(location="JVC", purpose="for-rent", bedrooms=2)
+  When a user asks a property question:
+  1. Clarify any missing filters (buy/rent, type, bedrooms, budget, area)
+  2. Search with the confirmed filters
+  3. Present results and offer follow-up analysis
 
-  Search only Bayut:
-    search_properties(location="Downtown Dubai", source="bayut")
+EXAMPLE CONVERSATIONS:
+  User: "How many apartments are available in JVC under 500K?"
+  → Clarify: buy or rent? any bedroom preference?
+  → Then search with confirmed filters
 
-YIELD CALCULATOR:
-  calculate_rental_yield(purchase_price=1500000, annual_rent=85000, service_charge=15000)
+  User: "I want to rent a 2BHK in Dubai Marina, budget 80-120K/year"
+  → All filters are clear, search directly
 
-MARKET ANALYSIS:
-  get_market_snapshot(location="Business Bay", purpose="for-sale", property_type="apartment")
+AVAILABLE TOOLS:
+  search_properties   - Live search across Bayut, Dubizzle, PropertyFinder
+  get_property_details - Detailed info for a specific listing
+  calculate_rental_yield - ROI calculator with UAE-specific costs
+  get_market_snapshot  - Area-level price statistics
+  compare_areas        - Side-by-side area comparison
 
-COMPARE AREAS:
-  compare_areas(areas=["Dubai Marina", "JVC", "Business Bay"], purpose="for-rent")
+SUPPORTED PROPERTY TYPES:
+  apartment, villa, townhouse, penthouse, duplex, hotel apartment
+
+SUPPORTED LOCATIONS (50+):
+  Dubai Marina, Downtown Dubai, Business Bay, JBR, Palm Jumeirah,
+  Dubai Hills Estate, Arabian Ranches, JVC, JVT, JLT, DIFC,
+  Dubai Creek Harbour, Al Barsha, Motor City, Sports City,
+  Damac Hills, Silicon Oasis, Mirdif, Al Furjan, Town Square,
+  Emaar Beachfront, Bluewaters, Sobha Hartland, MBR City, and more.
 
 SOURCES:
-  - bayut: Requires BAYUT_RAPIDAPI_KEY env var (free at rapidapi.com)
-  - dubizzle: Requires Playwright (pip install playwright && playwright install chromium)
-  - propertyfinder: Requires Playwright
+  - propertyfinder: Most reliable (headless stealth)
+  - dubizzle: Headed browser (Incapsula WAF bypass)
+  - bayut: Stealth browser + CAPTCHA handling
 
 NOTES:
-  - All prices in AED (1 USD = ~3.67 AED)
-  - Yield calculations include UAE-specific costs (4% DLD fee, 2% agency fee)
-  - Use "all" as source to search across all platforms
+  - All prices in AED (1 USD ≈ 3.67 AED)
+  - Yield calculations include DLD fee (4%), agency fee (2%)
+  - Bedrooms: 0 = studio, -1 = any
 """.strip()
 
 
