@@ -1,12 +1,17 @@
 """
-Bayut.com scraper - Stealth Playwright + CAPTCHA solving, RapidAPI fallback.
+Bayut.com scraper - Multiple strategies to bypass hCaptcha.
 
-Primary: Playwright with stealth + CAPTCHA solving (hCaptcha)
-Fallback: RapidAPI (free tier: 750 calls/month)
+Bayut uses hCaptcha on every request + Algolia as search backend.
+
+Strategy order:
+  1. Algolia direct API (if keys available from prior session)
+  2. Playwright with stealth + CAPTCHA solving
+  3. RapidAPI fallback (free tier: 750 calls/month)
 
 URL pattern: /{for-sale|to-rent}/{type}/dubai/{location-slug}/
 Filters: price_min, price_max, beds_min, beds_max, furnishing_status, completion_status, page
 Data extraction: __NEXT_DATA__ (Next.js SSR), Apollo cache, DOM cards
+Algolia index: bayut-production-ads-en
 
 Env vars:
   CAPSOLVER_API_KEY  - For hCaptcha solving (capsolver.com)
@@ -23,6 +28,10 @@ import slug_registry
 
 BASE_URL = "https://www.bayut.com"
 RAPIDAPI_HOST = "bayut.p.rapidapi.com"
+ALGOLIA_INDEX = "bayut-production-ads-en"
+
+# Algolia credentials cache (extracted from page after CAPTCHA solve)
+_algolia_cache = {"app_id": "", "api_key": ""}
 
 
 class BayutScraper:
@@ -46,8 +55,19 @@ class BayutScraper:
         bedrooms: int = -1,
         page: int = 1,
     ) -> list[Property]:
-        """Search Bayut - tries Playwright+stealth first, falls back to RapidAPI."""
-        # Try Playwright with stealth + CAPTCHA solving
+        """Search Bayut - tries Algolia, then Playwright, then RapidAPI."""
+        # Strategy 1: Algolia direct (if we have cached keys)
+        if _algolia_cache["app_id"] and _algolia_cache["api_key"]:
+            try:
+                results = await self._search_algolia(
+                    location, purpose, property_type, min_price, max_price, bedrooms, page
+                )
+                if results:
+                    return results
+            except Exception:
+                pass
+
+        # Strategy 2: Playwright with stealth + CAPTCHA solving
         try:
             results = await self._search_playwright(
                 location, purpose, property_type, min_price, max_price, bedrooms, page
@@ -57,7 +77,7 @@ class BayutScraper:
         except Exception:
             pass
 
-        # Fallback: RapidAPI
+        # Strategy 3: RapidAPI fallback
         if self.api_key:
             return await self._search_api(
                 location, purpose, property_type, min_price, max_price, bedrooms, page
@@ -95,6 +115,9 @@ class BayutScraper:
                 await asyncio.sleep(1)
             await asyncio.sleep(2)
 
+            # Try to extract Algolia keys for future direct queries
+            await self._extract_algolia_keys(page_obj)
+
             # Extract listings from page
             properties = await self._extract_listings(page_obj)
 
@@ -104,6 +127,114 @@ class BayutScraper:
             return properties
         finally:
             await context.close()
+
+    async def _extract_algolia_keys(self, page_obj):
+        """Extract Algolia API credentials from the page for direct queries."""
+        global _algolia_cache
+        try:
+            keys = await page_obj.evaluate("""() => {
+                // Check window.state (exposed on CAPTCHA page and listing pages)
+                if (window.state) {
+                    const s = window.state;
+                    if (s.algoliaAppId && s.algoliaApiKey) {
+                        return { app_id: s.algoliaAppId, api_key: s.algoliaApiKey };
+                    }
+                }
+
+                // Check __NEXT_DATA__ for Algolia config
+                const el = document.getElementById('__NEXT_DATA__');
+                if (el) {
+                    try {
+                        const d = JSON.parse(el.textContent);
+                        const rc = d.runtimeConfig || d.props?.runtimeConfig || {};
+                        if (rc.algoliaAppId && rc.algoliaApiKey) {
+                            return { app_id: rc.algoliaAppId, api_key: rc.algoliaApiKey };
+                        }
+                        const pp = d.props?.pageProps || {};
+                        if (pp.algoliaAppId && pp.algoliaApiKey) {
+                            return { app_id: pp.algoliaAppId, api_key: pp.algoliaApiKey };
+                        }
+                    } catch {}
+                }
+
+                // Scan script tags for Algolia config
+                for (const script of document.scripts) {
+                    const t = script.textContent;
+                    if (t.includes('algolia') || t.includes('algoliasearch')) {
+                        const appMatch = t.match(/(?:appId|applicationID|ALGOLIA_APP_ID)['":\\s]+([A-Z0-9]{10,})/i);
+                        const keyMatch = t.match(/(?:apiKey|searchKey|ALGOLIA_API_KEY)['":\\s]+([a-f0-9]{20,})/i);
+                        if (appMatch && keyMatch) {
+                            return { app_id: appMatch[1], api_key: keyMatch[1] };
+                        }
+                    }
+                }
+
+                return null;
+            }""")
+
+            if keys and keys.get("app_id") and keys.get("api_key"):
+                _algolia_cache["app_id"] = keys["app_id"]
+                _algolia_cache["api_key"] = keys["api_key"]
+        except Exception:
+            pass
+
+    async def _search_algolia(
+        self, location, purpose, property_type, min_price, max_price, bedrooms, page
+    ) -> list[Property]:
+        """Search Bayut via Algolia API directly."""
+        location_id = self._resolve_location_id(location)
+
+        # Build Algolia filters
+        filters = [f'purpose:"{purpose}"']
+        filters.append(f'location.externalID:"{location_id}"')
+
+        if property_type:
+            type_ids = slug_registry.get("bayut", "property_types")
+            type_id = type_ids.get(property_type.lower())
+            if type_id:
+                filters.append(f'category.externalID:"{type_id}"')
+
+        if min_price > 0:
+            filters.append(f"price >= {min_price}")
+        if max_price > 0:
+            filters.append(f"price <= {max_price}")
+        if bedrooms >= 0:
+            filters.append(f"rooms = {bedrooms}")
+
+        payload = {
+            "requests": [{
+                "indexName": ALGOLIA_INDEX,
+                "params": {
+                    "filters": " AND ".join(filters),
+                    "hitsPerPage": 25,
+                    "page": page - 1,
+                },
+            }],
+        }
+
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
+                f"https://{_algolia_cache['app_id']}-dsn.algolia.net/1/indexes/*/queries",
+                headers={
+                    "X-Algolia-Application-Id": _algolia_cache["app_id"],
+                    "X-Algolia-API-Key": _algolia_cache["api_key"],
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=15,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+
+        properties = []
+        results = data.get("results", [])
+        if results:
+            for hit in results[0].get("hits", []):
+                prop = self._parse_listing(hit)
+                if prop:
+                    properties.append(prop)
+
+        return properties
 
     async def _extract_listings(self, page_obj) -> list[Property]:
         """Extract property listings from Bayut search results page."""
