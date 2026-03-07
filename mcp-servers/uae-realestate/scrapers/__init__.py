@@ -10,11 +10,10 @@ from scrapers.propertyfinder import PropertyFinderScraper
 class UAEPropertyAggregator:
     """Unified interface to search across all UAE property platforms."""
 
-    def __init__(self, bayut_api_key: str = "", use_playwright: bool = True):
-        self.bayut = BayutScraper(api_key=bayut_api_key)
+    def __init__(self):
+        self.bayut = BayutScraper()
         self.dubizzle = DubizzleScraper()
         self.propertyfinder = PropertyFinderScraper()
-        self.use_playwright = use_playwright
 
     async def search(
         self,
@@ -82,6 +81,7 @@ class UAEPropertyAggregator:
         return await scraper.get_details(property_id)
 
     async def cleanup(self):
-        """Close browser instances."""
+        """Close all browser instances."""
+        await self.bayut.cleanup()
         await self.dubizzle.cleanup()
         await self.propertyfinder.cleanup()

@@ -46,8 +46,7 @@ class AppContext:
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
-    api_key = os.environ.get("BAYUT_RAPIDAPI_KEY", "")
-    aggregator = UAEPropertyAggregator(bayut_api_key=api_key)
+    aggregator = UAEPropertyAggregator()
     try:
         yield AppContext(aggregator=aggregator)
     finally:
@@ -56,7 +55,7 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
 
 mcp = FastMCP(
     "UAE Real Estate",
-    description=(
+    instructions=(
         "Access UAE property listings from Bayut, Dubizzle, and PropertyFinder. "
         "Search properties, analyze yields, compare areas, and get market insights "
         "across Dubai, Abu Dhabi, Sharjah, and all UAE emirates."
