@@ -5,3 +5,4 @@ data/proposals/
 data/invoices/
 .env
 .claude/
+.sessions/

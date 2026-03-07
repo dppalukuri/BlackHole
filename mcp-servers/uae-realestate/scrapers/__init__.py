@@ -81,7 +81,6 @@ class UAEPropertyAggregator:
         return await scraper.get_details(property_id)
 
     async def cleanup(self):
-        """Close all browser instances."""
-        await self.bayut.cleanup()
-        await self.dubizzle.cleanup()
-        await self.propertyfinder.cleanup()
+        """Close the shared stealth browser."""
+        from stealth_browser import _browser
+        await _browser.cleanup()

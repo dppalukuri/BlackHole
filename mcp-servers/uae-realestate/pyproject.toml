@@ -21,9 +21,13 @@ dependencies = [
 [project.optional-dependencies]
 scraping = [
     "playwright>=1.40.0",
+    "playwright-stealth>=2.0.0",
+    "capsolver>=1.0.0",
 ]
 all = [
     "playwright>=1.40.0",
+    "playwright-stealth>=2.0.0",
+    "capsolver>=1.0.0",
 ]
 
 [project.scripts]

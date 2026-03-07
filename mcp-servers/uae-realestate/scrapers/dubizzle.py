@@ -1,16 +1,16 @@
 """
-Dubizzle.com scraper - Uses Playwright with scroll-triggered lazy loading.
+Dubizzle.com scraper - Stealth Playwright in headed mode.
 
-NOTE: Dubizzle has aggressive anti-bot protection (reCAPTCHA).
-Headless scraping may return zero results. This scraper attempts
-multiple strategies but may fail silently. PropertyFinder and Bayut
-are more reliable sources.
+Dubizzle uses Incapsula (Imperva) WAF which blocks headless browsers entirely.
+Uses headed (non-headless) browser with stealth to bypass Incapsula detection.
+The browser window is positioned off-screen so it doesn't interfere.
 
-Requires: pip install playwright && playwright install chromium
+NOTE: Dubizzle has the most aggressive anti-bot protection of the three sites.
+Results may be limited even in headed mode. PropertyFinder and Bayut are more
+reliable sources.
 """
 
 import asyncio
-import json
 import re
 from models import Property
 
@@ -66,24 +66,13 @@ PROPERTY_TYPE_SLUGS = {
 
 class DubizzleScraper:
     def __init__(self):
-        self._browser = None
-        self._playwright = None
+        self._stealth_browser = None
 
-    async def _get_browser(self):
-        if self._browser is None:
-            try:
-                from playwright.async_api import async_playwright
-            except ImportError:
-                raise ImportError(
-                    "Dubizzle scraper requires Playwright. Install with:\n"
-                    "  pip install playwright && playwright install chromium"
-                )
-            self._playwright = await async_playwright().start()
-            self._browser = await self._playwright.chromium.launch(
-                headless=True,
-                args=["--disable-blink-features=AutomationControlled"],
-            )
-        return self._browser
+    async def _get_stealth_browser(self):
+        if self._stealth_browser is None:
+            from stealth_browser import get_stealth_browser
+            self._stealth_browser = await get_stealth_browser()
+        return self._stealth_browser
 
     async def search(
         self,
@@ -95,22 +84,10 @@ class DubizzleScraper:
         bedrooms: int = -1,
         page: int = 1,
     ) -> list[Property]:
-        """Search Dubizzle listings using Playwright with scroll loading."""
-        browser = await self._get_browser()
-        context = await browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-            ),
-            viewport={"width": 1920, "height": 1080},
-            locale="en-AE",
-            timezone_id="Asia/Dubai",
-        )
-
+        """Search Dubizzle listings using headed stealth browser."""
+        sb = await self._get_stealth_browser()
+        context = await sb.new_context(site_name="dubizzle", headed=True)
         page_obj = await context.new_page()
-        await page_obj.add_init_script(
-            "Object.defineProperty(navigator, 'webdriver', { get: () => undefined });"
-        )
 
         properties = []
         api_listings = []
@@ -124,7 +101,6 @@ class DubizzleScraper:
                         if any(kw in resp_url for kw in ["/search", "/listing", "/properties", "/api/", "graphql"]):
                             body = await response.json()
                             if isinstance(body, dict):
-                                # Look for arrays of listings
                                 for key in ["results", "listings", "hits", "items", "data"]:
                                     val = body.get(key)
                                     if isinstance(val, list) and len(val) > 0 and isinstance(val[0], dict):
@@ -137,13 +113,19 @@ class DubizzleScraper:
 
             url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
             await page_obj.goto(url, wait_until="networkidle", timeout=40000)
+            await asyncio.sleep(2)
 
-            # Scroll down to trigger lazy loading
-            for _ in range(3):
+            # Check for CAPTCHA and solve if present
+            from captcha import handle_captcha_if_present
+            captcha_solved = await handle_captcha_if_present(page_obj)
+
+            if not captcha_solved:
+                return []
+
+            # Scroll to trigger lazy loading
+            for _ in range(4):
                 await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
                 await asyncio.sleep(1.5)
-
-            # Wait for content
             await asyncio.sleep(2)
 
             # Strategy 1: Use intercepted API data
@@ -157,6 +139,9 @@ class DubizzleScraper:
             if not properties:
                 properties = await self._parse_dom(page_obj)
 
+            # Save session state
+            await sb.save_session(context)
+
         except Exception as e:
             raise RuntimeError(f"Dubizzle scraping failed: {e}")
         finally:
@@ -166,26 +151,23 @@ class DubizzleScraper:
 
     async def get_details(self, property_id: str) -> Property:
         """Get details for a specific Dubizzle listing."""
-        browser = await self._get_browser()
-        context = await browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-            ),
-        )
+        sb = await self._get_stealth_browser()
+        context = await sb.new_context(site_name="dubizzle", headed=True)
         page_obj = await context.new_page()
-        await page_obj.add_init_script(
-            "Object.defineProperty(navigator, 'webdriver', { get: () => undefined });"
-        )
 
         try:
             url = f"{BASE_URL}/en/property-for-sale/residential/details-{property_id}/"
             await page_obj.goto(url, wait_until="networkidle", timeout=30000)
             await asyncio.sleep(2)
 
+            from captcha import handle_captcha_if_present
+            await handle_captcha_if_present(page_obj)
+
             title = await page_obj.text_content("h1") or ""
             price_el = await page_obj.text_content("[class*='price'], [class*='Price']") or "0"
             price = float(re.sub(r"[^\d.]", "", price_el) or 0)
+
+            await sb.save_session(context)
 
             return Property(
                 id=property_id,
@@ -258,10 +240,8 @@ class DubizzleScraper:
         """Parse visible listing cards from the page DOM."""
         properties = []
 
-        # Dubizzle uses various card layouts - try multiple selectors
         listings = await page_obj.evaluate("""() => {
-            // Try to find listing links with prices
-            const allLinks = document.querySelectorAll('a[href*="/property-for"]');
+            const allLinks = document.querySelectorAll('a[href*="property-for"]');
             const seen = new Set();
             const results = [];
 
@@ -270,11 +250,9 @@ class DubizzleScraper:
                 if (seen.has(href) || !href.includes('details') && !href.includes('/residential/')) continue;
                 seen.add(href);
 
-                // Walk up to find the card container
                 let card = link.closest('li, article, [class*="card"], [class*="Card"], [class*="listing"]') || link;
                 const text = card.textContent.trim();
 
-                // Only include if it looks like a listing (has price-like text)
                 if (text.match(/\\d{3,}/)) {
                     results.push({
                         href: href,
@@ -283,7 +261,6 @@ class DubizzleScraper:
                 }
             }
 
-            // If no links found, try a broader approach
             if (results.length === 0) {
                 const elements = document.querySelectorAll('[data-testid], [class*="listing-item"], [class*="ListingItem"]');
                 for (const el of elements) {
@@ -305,7 +282,6 @@ class DubizzleScraper:
             text = item.get("text", "")
             href = item.get("href", "")
 
-            # Extract price (AED format or plain numbers)
             price_match = re.search(r"(?:AED|aed)?\s*([\d,]+(?:\.\d+)?)\s*(?:AED)?", text)
             price = 0
             if price_match:
@@ -314,17 +290,14 @@ class DubizzleScraper:
                 except ValueError:
                     pass
 
-            # Skip if price seems too low (probably not a property price)
             if price < 10000:
                 continue
 
-            # Specs
             beds_match = re.search(r"(\d+)\s*(?:bed|BR|Bed)", text, re.I)
             studio = bool(re.search(r"studio", text, re.I))
             baths_match = re.search(r"(\d+)\s*(?:bath|Bath)", text, re.I)
             area_match = re.search(r"([\d,]+)\s*(?:sqft|sq\.?\s*ft)", text, re.I)
 
-            # Title - try to extract from text
             title_parts = text.split("\n")
             title = ""
             for part in title_parts:
@@ -333,14 +306,13 @@ class DubizzleScraper:
                     title = part[:100]
                     break
 
-            # ID from URL
             id_match = re.search(r"details?-?(\d+)", href) or re.search(r"/(\d+)/?$", href)
             prop_id = id_match.group(1) if id_match else ""
 
             properties.append(Property(
                 id=prop_id,
                 source="dubizzle",
-                title=title or f"Property listing",
+                title=title or "Property listing",
                 price=price,
                 bedrooms=int(beds_match.group(1)) if beds_match else (0 if studio else 0),
                 bathrooms=int(baths_match.group(1)) if baths_match else 0,
@@ -351,7 +323,6 @@ class DubizzleScraper:
         return properties
 
     async def cleanup(self):
-        if self._browser:
-            await self._browser.close()
-        if self._playwright:
-            await self._playwright.stop()
+        if self._stealth_browser:
+            await self._stealth_browser.cleanup()
+            self._stealth_browser = None

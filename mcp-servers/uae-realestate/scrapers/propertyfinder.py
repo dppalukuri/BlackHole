@@ -1,8 +1,7 @@
 """
-PropertyFinder.ae scraper - Uses Playwright for browser automation.
+PropertyFinder.ae scraper - Stealth Playwright with CAPTCHA solving.
 
-Extracts data from __NEXT_DATA__ (similar_properties) and DOM articles.
-Requires: pip install playwright && playwright install chromium
+Extracts data from __NEXT_DATA__ (Next.js SSR) and DOM articles.
 """
 
 import asyncio
@@ -28,24 +27,13 @@ PROPERTY_TYPE_MAP = {
 
 class PropertyFinderScraper:
     def __init__(self):
-        self._browser = None
-        self._playwright = None
+        self._stealth_browser = None
 
-    async def _get_browser(self):
-        if self._browser is None:
-            try:
-                from playwright.async_api import async_playwright
-            except ImportError:
-                raise ImportError(
-                    "PropertyFinder scraper requires Playwright. Install with:\n"
-                    "  pip install playwright && playwright install chromium"
-                )
-            self._playwright = await async_playwright().start()
-            self._browser = await self._playwright.chromium.launch(
-                headless=True,
-                args=["--disable-blink-features=AutomationControlled"],
-            )
-        return self._browser
+    async def _get_stealth_browser(self):
+        if self._stealth_browser is None:
+            from stealth_browser import get_stealth_browser
+            self._stealth_browser = await get_stealth_browser()
+        return self._stealth_browser
 
     async def search(
         self,
@@ -58,21 +46,9 @@ class PropertyFinderScraper:
         page: int = 1,
     ) -> list[Property]:
         """Search PropertyFinder listings."""
-        browser = await self._get_browser()
-        context = await browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-            ),
-            viewport={"width": 1920, "height": 1080},
-            locale="en-AE",
-            timezone_id="Asia/Dubai",
-        )
-
+        sb = await self._get_stealth_browser()
+        context = await sb.new_context(site_name="propertyfinder")
         page_obj = await context.new_page()
-        await page_obj.add_init_script(
-            "Object.defineProperty(navigator, 'webdriver', { get: () => undefined });"
-        )
         properties = []
 
         try:
@@ -80,12 +56,18 @@ class PropertyFinderScraper:
             await page_obj.goto(url, wait_until="networkidle", timeout=40000)
             await asyncio.sleep(3)
 
+            # Check for CAPTCHA and solve if present
+            from captcha import handle_captcha_if_present
+            await handle_captcha_if_present(page_obj)
+
             # Strategy 1: Extract from __NEXT_DATA__
             properties = await self._extract_next_data(page_obj)
 
             # Strategy 2: Parse DOM articles
             if not properties:
                 properties = await self._parse_dom(page_obj)
+
+            await sb.save_session(context)
 
         except Exception as e:
             raise RuntimeError(f"PropertyFinder scraping failed: {e}")
@@ -96,17 +78,9 @@ class PropertyFinderScraper:
 
     async def get_details(self, property_id: str) -> Property:
         """Get detailed info for a PropertyFinder listing."""
-        browser = await self._get_browser()
-        context = await browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-            ),
-        )
+        sb = await self._get_stealth_browser()
+        context = await sb.new_context(site_name="propertyfinder")
         page_obj = await context.new_page()
-        await page_obj.add_init_script(
-            "Object.defineProperty(navigator, 'webdriver', { get: () => undefined });"
-        )
 
         try:
             url = f"{BASE_URL}/en/plp/buy/property-{property_id}.html"
@@ -385,7 +359,6 @@ class PropertyFinderScraper:
         return properties
 
     async def cleanup(self):
-        if self._browser:
-            await self._browser.close()
-        if self._playwright:
-            await self._playwright.stop()
+        if self._stealth_browser:
+            await self._stealth_browser.cleanup()
+            self._stealth_browser = None
