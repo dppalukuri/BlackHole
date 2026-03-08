@@ -2,10 +2,16 @@
 PropertyFinder.ae scraper - Stealth Playwright (headless).
 
 No bot protection on search pages. Extracts data from __NEXT_DATA__ (Next.js SSR)
-with DOM article parsing as fallback.
+with data-testid DOM selectors as fallback.
 
-URL pattern: /en/search?c={1|2}&q={location}&t={type}&pf={min}&pt={max}&bf={beds}&bt={beds}&fu={furnishing}&ob=nd
-Filters: c=category, q=location, t=type, pf/pt=price, bf/bt=beds, fu=furnishing, ob=sort, page=page
+URL pattern: /en/{buy|rent}/{city}/{type}-for-{sale|rent}.html
+  With bedrooms: /en/buy/dubai/2-bedroom-apartments-for-sale.html
+  With location: /en/buy/dubai/apartments-for-sale-dubai-marina.html
+  Studio: /en/buy/dubai/studio-apartments-for-sale.html
+
+Filter query params: pf/pt (price), bf/bt (beds), fu (furnished), cs (completion), ob (sort), page
+Category IDs: buy=1, rent=2
+City slugs: dubai, abu-dhabi, sharjah, ajman, ras-al-khaimah, umm-al-quwain, fujairah, al-ain
 """
 
 import asyncio
@@ -16,10 +22,41 @@ import slug_registry
 
 BASE_URL = "https://www.propertyfinder.ae"
 
-CATEGORY_MAP = {
-    "for-sale": "1",
-    "for-rent": "2",
+# Property type URL slug mapping for path-based URLs
+TYPE_URL_SLUGS = {
+    "apartment": "apartments",
+    "villa": "villas",
+    "townhouse": "townhouses",
+    "penthouse": "penthouses",
+    "duplex": "duplexes",
+    "land": "land",
+    "hotel apartment": "hotels-hotel-apartments",
+    "compound": "compounds",
+    "full floor": "full-floors",
+    "whole building": "whole-buildings",
 }
+
+# City slug mapping
+CITY_SLUGS = {
+    "dubai": "dubai",
+    "abu dhabi": "abu-dhabi",
+    "sharjah": "sharjah",
+    "ajman": "ajman",
+    "ras al khaimah": "ras-al-khaimah",
+    "umm al quwain": "umm-al-quwain",
+    "fujairah": "fujairah",
+    "al ain": "al-ain",
+}
+
+
+def _infer_city(location: str) -> str:
+    """Infer city slug from location name. Defaults to dubai."""
+    loc = location.lower().strip()
+    for city_name, slug in CITY_SLUGS.items():
+        if city_name == loc:
+            return slug
+    # Most UAE property queries target Dubai
+    return "dubai"
 
 
 class PropertyFinderScraper:
@@ -50,8 +87,8 @@ class PropertyFinderScraper:
 
         try:
             url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
-            await page_obj.goto(url, wait_until="networkidle", timeout=40000)
-            await asyncio.sleep(3)
+            await page_obj.goto(url, wait_until="domcontentloaded", timeout=40000)
+            await asyncio.sleep(5)
 
             # Check for CAPTCHA and solve if present
             from captcha import handle_captcha_if_present
@@ -60,7 +97,7 @@ class PropertyFinderScraper:
             # Strategy 1: Extract from __NEXT_DATA__
             properties = await self._extract_next_data(page_obj)
 
-            # Strategy 2: Parse DOM articles (scroll first to load all)
+            # Strategy 2: Parse DOM with data-testid selectors (scroll first)
             if not properties:
                 for _ in range(5):
                     await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
@@ -85,8 +122,8 @@ class PropertyFinderScraper:
 
         try:
             url = f"{BASE_URL}/en/plp/buy/property-{property_id}.html"
-            await page_obj.goto(url, wait_until="networkidle", timeout=30000)
-            await asyncio.sleep(2)
+            await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
+            await asyncio.sleep(3)
 
             # Try __NEXT_DATA__
             prop_data = await page_obj.evaluate("""() => {
@@ -105,7 +142,7 @@ class PropertyFinderScraper:
 
             # Fallback DOM
             title = await page_obj.text_content("h1") or ""
-            price_el = await page_obj.text_content("[class*='price'], [class*='Price']") or "0"
+            price_el = await page_obj.text_content("[data-testid='property-card-price'], [class*='price']") or "0"
             price = float(re.sub(r"[^\d.]", "", price_el) or 0)
 
             return Property(
@@ -119,38 +156,67 @@ class PropertyFinderScraper:
             await context.close()
 
     def _build_url(self, location, purpose, property_type, min_price, max_price, bedrooms, page):
-        """Build PropertyFinder search URL using query-based search endpoint."""
+        """
+        Build PropertyFinder path-based URL.
+
+        Pattern: /en/{buy|rent}/{city}/{beds}-{type}-for-{sale|rent}-{location}.html
+        Examples:
+          /en/buy/dubai/apartments-for-sale.html
+          /en/buy/dubai/2-bedroom-apartments-for-sale.html
+          /en/buy/dubai/apartments-for-sale-dubai-marina.html
+          /en/buy/dubai/studio-apartments-for-sale.html
+        """
+        category = "buy" if purpose == "for-sale" else "rent"
+        sale_type = "sale" if purpose == "for-sale" else "rent"
+        city = _infer_city(location)
+
+        # Property type slug
+        type_slug = "properties"
+        if property_type:
+            pt_lower = property_type.lower().strip()
+            if pt_lower in TYPE_URL_SLUGS:
+                type_slug = TYPE_URL_SLUGS[pt_lower]
+
+        # Build the path slug: {beds}-{type}-for-{sale|rent}
+        parts = []
+
+        # Bedrooms prefix
+        if bedrooms == 0:
+            parts.append("studio")
+        elif bedrooms > 0:
+            parts.append(f"{bedrooms}-bedroom")
+
+        parts.append(f"{type_slug}-for-{sale_type}")
+
+        # Location suffix (if not just a city name)
+        loc_lower = location.lower().strip()
+        if loc_lower not in CITY_SLUGS:
+            # Convert location to URL slug
+            loc_slug = slug_registry.resolve_location("propertyfinder", location)
+            if not loc_slug:
+                loc_slug = loc_lower.replace(" ", "-")
+            parts[-1] = f"{parts[-1]}-{loc_slug}"
+
+        path_slug = "-".join(parts) if bedrooms >= 0 else parts[-1]
+        url = f"{BASE_URL}/en/{category}/{city}/{path_slug}.html"
+
+        # Query params for filters not expressible in the path
         params = []
-
-        # Category (buy/rent)
-        category = CATEGORY_MAP.get(purpose, "1")
-        params.append(f"c={category}")
-
-        # Location as free-text query
-        params.append(f"q={location.replace(' ', '%20')}")
-
-        # Property type
-        type_id = slug_registry.resolve_property_type("propertyfinder", property_type) if property_type else None
-        if type_id:
-            params.append(f"t={type_id}")
-
-        # Price range
         if min_price > 0:
             params.append(f"pf={min_price}")
         if max_price > 0:
             params.append(f"pt={max_price}")
-
-        # Bedrooms
-        if bedrooms >= 0:
-            params.append(f"bf={bedrooms}")
-            params.append(f"bt={bedrooms}")
-
-        # Sorting and pagination
-        params.append("ob=nd")  # newest first
+        # Only add bed params if not already in the path
+        if bedrooms < 0:
+            pass  # "any" bedrooms, no param needed
+        # Pagination
         if page > 1:
             params.append(f"page={page}")
 
-        return f"{BASE_URL}/en/search?{'&'.join(params)}"
+        if params:
+            url += "?" + "&".join(params)
+
+        return url
 
     async def _extract_next_data(self, page_obj) -> list[Property]:
         """Extract listings from __NEXT_DATA__."""
@@ -168,7 +234,6 @@ class PropertyFinderScraper:
                     const arr = sr[key];
                     if (Array.isArray(arr)) {
                         for (const item of arr) {
-                            // Items can be direct property objects or wrapper objects
                             if (item.property) {
                                 all.push(item.property);
                             } else if (item.price || item.id) {
@@ -192,7 +257,7 @@ class PropertyFinderScraper:
         return properties
 
     def _parse_listing(self, data: dict) -> Property | None:
-        """Parse a PropertyFinder listing object."""
+        """Parse a PropertyFinder listing object from __NEXT_DATA__."""
         try:
             # Price
             price = 0
@@ -207,7 +272,6 @@ class PropertyFinderScraper:
             location_name = ""
             if isinstance(loc, dict):
                 location_name = loc.get("full_name", loc.get("name", loc.get("path_name", "")))
-                # Try building from path if full_name is empty
                 if not location_name:
                     slug = loc.get("slug", loc.get("path", ""))
                     if slug:
@@ -215,11 +279,10 @@ class PropertyFinderScraper:
             elif isinstance(loc, str):
                 location_name = loc
 
-            # Also try extracting location from details_path URL
+            # Fallback: extract location from details_path URL
             if not location_name:
                 details = data.get("details_path", data.get("share_url", ""))
                 if details:
-                    # URL format: apartment-for-sale-dubai-area-subarea-building-ID.html
                     loc_match = re.search(r"(?:sale|rent)-([a-z][a-z-]+?)-[A-Za-z0-9]{8,}\.html", details)
                     if loc_match:
                         location_name = loc_match.group(1).replace("-", " ").title()
@@ -299,64 +362,123 @@ class PropertyFinderScraper:
             return None
 
     async def _parse_dom(self, page_obj) -> list[Property]:
-        """Parse listing cards from DOM articles."""
-        properties = []
-
+        """Parse listing cards using data-testid selectors."""
         listings = await page_obj.evaluate("""() => {
-            const articles = document.querySelectorAll('article');
-            return Array.from(articles).map(article => {
-                const link = article.querySelector('a[href*="/plp/"]');
-                if (!link) return null;
+            const cards = document.querySelectorAll('[data-testid="property-card"]');
+            if (cards.length === 0) {
+                // Fallback: try article elements
+                const articles = document.querySelectorAll('article');
+                return Array.from(articles).map(el => {
+                    const link = el.querySelector('a[href]');
+                    if (!link) return null;
+                    return { text: el.textContent.trim().substring(0, 500), href: link.href };
+                }).filter(x => x && x.href);
+            }
 
-                const text = article.textContent.trim();
-                const href = link.href || '';
+            return Array.from(cards).map(card => {
+                const link = card.querySelector('a[href]');
+                const href = link ? link.href : '';
 
-                return { text, href };
-            }).filter(x => x && x.href);
+                // Use data-testid selectors for reliable extraction
+                const priceEl = card.querySelector('[data-testid="property-card-price"]');
+                const typeEl = card.querySelector('[data-testid="property-card-type"]');
+                const bedsEl = card.querySelector('[data-testid="property-card-spec-bedroom"]');
+                const areaEl = card.querySelector('[data-testid="property-card-spec-area"]');
+
+                // Get all text as fallback
+                const text = card.textContent.trim();
+
+                // Extract price
+                let price = 0;
+                if (priceEl) {
+                    const priceText = priceEl.textContent.replace(/[^\\d]/g, '');
+                    price = parseInt(priceText) || 0;
+                }
+
+                // Extract beds
+                let beds = -1;
+                if (bedsEl) {
+                    const bedsText = bedsEl.textContent.trim();
+                    if (/studio/i.test(bedsText)) beds = 0;
+                    else {
+                        const m = bedsText.match(/(\\d+)/);
+                        if (m) beds = parseInt(m[1]);
+                    }
+                }
+
+                // Extract area
+                let area = 0;
+                if (areaEl) {
+                    const areaText = areaEl.textContent.replace(/[^\\d]/g, '');
+                    area = parseInt(areaText) || 0;
+                }
+
+                // Extract baths from text
+                const bathMatch = text.match(/(\\d+)\\s*Bath/i);
+                const baths = bathMatch ? parseInt(bathMatch[1]) : 0;
+
+                // Title - find first substantial link text
+                let title = '';
+                const titleLink = card.querySelector('a[title]');
+                if (titleLink) {
+                    title = titleLink.getAttribute('title') || titleLink.textContent.trim();
+                }
+                if (!title && link) {
+                    title = link.textContent.trim().substring(0, 150);
+                }
+
+                // Property type
+                const propType = typeEl ? typeEl.textContent.trim() : '';
+
+                // Image
+                let image = '';
+                const img = card.querySelector('img[src]');
+                if (img && img.src && !img.src.includes('data:')) image = img.src;
+
+                return {
+                    href, title, price, beds, baths, area, propType, image, text: text.substring(0, 300),
+                };
+            }).filter(x => x.href && x.price > 0);
         }""")
 
+        properties = []
         for item in listings:
-            text = item.get("text", "")
             href = item.get("href", "")
-
-            # Extract price
-            price_match = re.search(r"([\d,]+)\s*AED", text)
-            if not price_match:
-                price_match = re.search(r"AED\s*([\d,]+)", text)
-            price = float(price_match.group(1).replace(",", "")) if price_match else 0
-
-            # Extract title - usually after price
-            title_match = re.search(r"AED(.+?)(?:\d+\s*(?:bed|bath|studio)|[A-Z][a-z]+\s*(?:Road|Street|Tower))", text)
-            title = title_match.group(1).strip() if title_match else ""
-
-            # Specs
-            beds_match = re.search(r"(\d+)\s*(?:bed|Bed|BR)", text)
-            studio = "studio" in text.lower()
-            baths_match = re.search(r"(\d+)\s*(?:bath|Bath)", text)
-            area_match = re.search(r"([\d,]+)\s*sqft", text, re.I)
-
-            # Location from URL
-            location = ""
-            loc_match = re.search(r"in-([\w-]+)-\d+\.html", href)
-            if loc_match:
-                location = loc_match.group(1).replace("-", " ").title()
 
             # ID from URL
             id_match = re.search(r"-(\d+)\.html", href)
             prop_id = id_match.group(1) if id_match else ""
 
-            if price > 0:
-                properties.append(Property(
-                    id=prop_id,
-                    source="propertyfinder",
-                    title=title or f"Property in {location}",
-                    price=price,
-                    bedrooms=int(beds_match.group(1)) if beds_match else (0 if studio else 0),
-                    bathrooms=int(baths_match.group(1)) if baths_match else 0,
-                    area_sqft=float(area_match.group(1).replace(",", "")) if area_match else 0,
-                    location=location,
-                    url=href,
-                ))
+            # Location from URL
+            location = ""
+            loc_match = re.search(r"(?:sale|rent)-(.+?)-\d+\.html", href)
+            if loc_match:
+                location = loc_match.group(1).replace("-", " ").title()
+
+            title = item.get("title", "")
+            if not title:
+                # Extract from text
+                text = item.get("text", "")
+                lines = text.split("\n")
+                for line in lines:
+                    line = line.strip()
+                    if len(line) > 15 and not re.match(r"^[\d,]+$|^AED", line):
+                        title = line[:120]
+                        break
+
+            properties.append(Property(
+                id=prop_id,
+                source="propertyfinder",
+                title=title or f"Property in {location}",
+                price=float(item.get("price", 0)),
+                property_type=item.get("propType", ""),
+                bedrooms=item.get("beds", -1),
+                bathrooms=item.get("baths", 0),
+                area_sqft=float(item.get("area", 0)),
+                location=location,
+                url=href,
+                image_url=item.get("image", ""),
+            ))
 
         return properties
 
