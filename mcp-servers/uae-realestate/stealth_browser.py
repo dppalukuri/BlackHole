@@ -71,7 +71,9 @@ class StealthBrowser:
                 "--disable-renderer-backgrounding",
             ]
             if headed:
-                args.append("--window-position=-32000,-32000")  # off-screen
+                args.extend([
+                    "--window-position=-32000,-32000",  # off-screen
+                ])
 
             self._browsers[key] = await self._playwright.chromium.launch(
                 headless=not headed,
@@ -169,6 +171,7 @@ class StealthBrowser:
         context._state_file = state_file
         context._site_name = site_name
 
+        context._is_headed = headed
         return context
 
     async def save_session(self, context):

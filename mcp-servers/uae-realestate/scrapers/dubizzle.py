@@ -67,14 +67,14 @@ class DubizzleScraper:
             page_obj.on("response", handle_response)
 
             url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
-            await page_obj.goto(url, wait_until="domcontentloaded", timeout=40000)
+            await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
 
-            # Wait for Incapsula JS to finish any redirects
-            await asyncio.sleep(5)
+            # Wait for Incapsula JS + content to render
             try:
-                await page_obj.wait_for_load_state("load", timeout=10000)
+                await page_obj.wait_for_load_state("load", timeout=8000)
             except Exception:
                 pass
+            await asyncio.sleep(2)
 
             # Check for CAPTCHA and solve if present
             try:
@@ -85,14 +85,14 @@ class DubizzleScraper:
             except Exception:
                 pass  # Page may have navigated, continue
 
-            # Scroll to trigger lazy loading
-            for _ in range(5):
+            # Quick scroll to trigger lazy loading
+            for _ in range(3):
                 try:
                     await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
                 except Exception:
                     break
-                await asyncio.sleep(1)
-            await asyncio.sleep(2)
+                await asyncio.sleep(0.5)
+            await asyncio.sleep(1)
 
             # Strategy 1: Use intercepted API data
             if api_listings:
@@ -205,10 +205,14 @@ class DubizzleScraper:
         if type_slug:
             path += type_slug + "/"
 
-        # Location goes in path using /in/<slug>/ pattern
+        # Location goes in path using /in/<slug>/<id>/ pattern
         loc_slug = slug_registry.resolve_location("dubizzle", location)
         if loc_slug:
-            path += f"in/{loc_slug}/"
+            loc_id = slug_registry.resolve_location_id("dubizzle", location)
+            if loc_id:
+                path += f"in/{loc_slug}/{loc_id}/"
+            else:
+                path += f"in/{loc_slug}/"
 
         url = f"{BASE_URL}{path}"
 

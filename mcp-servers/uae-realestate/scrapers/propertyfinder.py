@@ -87,22 +87,22 @@ class PropertyFinderScraper:
 
         try:
             url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
-            await page_obj.goto(url, wait_until="domcontentloaded", timeout=40000)
-            await asyncio.sleep(5)
+            await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
+            await asyncio.sleep(2)
 
             # Check for CAPTCHA and solve if present
             from captcha import handle_captcha_if_present
             await handle_captcha_if_present(page_obj)
 
-            # Strategy 1: Extract from __NEXT_DATA__
+            # Strategy 1: Extract from __NEXT_DATA__ (available immediately in HTML)
             properties = await self._extract_next_data(page_obj)
 
             # Strategy 2: Parse DOM with data-testid selectors (scroll first)
             if not properties:
-                for _ in range(5):
+                for _ in range(3):
                     await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
-                    await asyncio.sleep(1)
-                await asyncio.sleep(2)
+                    await asyncio.sleep(0.5)
+                await asyncio.sleep(1)
                 properties = await self._parse_dom(page_obj)
 
             await sb.save_session(context)
@@ -157,66 +157,43 @@ class PropertyFinderScraper:
 
     def _build_url(self, location, purpose, property_type, min_price, max_price, bedrooms, page):
         """
-        Build PropertyFinder path-based URL.
+        Build PropertyFinder search URL using query parameters.
 
-        Pattern: /en/{buy|rent}/{city}/{beds}-{type}-for-{sale|rent}-{location}.html
-        Examples:
-          /en/buy/dubai/apartments-for-sale.html
-          /en/buy/dubai/2-bedroom-apartments-for-sale.html
-          /en/buy/dubai/apartments-for-sale-dubai-marina.html
-          /en/buy/dubai/studio-apartments-for-sale.html
+        Pattern: /en/search?c={1|2}&q={location}&t={type_id}&bf={beds}&bt={beds}&pf={min}&pt={max}
+        Category: c=1 (buy), c=2 (rent)
+        Type IDs from slug registry.
         """
-        category = "buy" if purpose == "for-sale" else "rent"
-        sale_type = "sale" if purpose == "for-sale" else "rent"
-        city = _infer_city(location)
+        category = "1" if purpose == "for-sale" else "2"
 
-        # Property type slug
-        type_slug = "properties"
-        if property_type:
-            pt_lower = property_type.lower().strip()
-            if pt_lower in TYPE_URL_SLUGS:
-                type_slug = TYPE_URL_SLUGS[pt_lower]
+        params = [f"c={category}"]
 
-        # Build the path slug: {beds}-{type}-for-{sale|rent}
-        parts = []
-
-        # Bedrooms prefix
-        if bedrooms == 0:
-            parts.append("studio")
-        elif bedrooms > 0:
-            parts.append(f"{bedrooms}-bedroom")
-
-        parts.append(f"{type_slug}-for-{sale_type}")
-
-        # Location suffix (if not just a city name)
+        # Location as free-text query
         loc_lower = location.lower().strip()
         if loc_lower not in CITY_SLUGS:
-            # Convert location to URL slug
-            loc_slug = slug_registry.resolve_location("propertyfinder", location)
-            if not loc_slug:
-                loc_slug = loc_lower.replace(" ", "-")
-            parts[-1] = f"{parts[-1]}-{loc_slug}"
+            params.append(f"q={location.replace(' ', '%20')}")
 
-        path_slug = "-".join(parts) if bedrooms >= 0 else parts[-1]
-        url = f"{BASE_URL}/en/{category}/{city}/{path_slug}.html"
+        # Property type ID
+        if property_type:
+            type_id = slug_registry.resolve_property_type("propertyfinder", property_type)
+            if type_id:
+                params.append(f"t={type_id}")
 
-        # Query params for filters not expressible in the path
-        params = []
+        # Bedrooms
+        if bedrooms >= 0:
+            params.append(f"bf={bedrooms}")
+            params.append(f"bt={bedrooms}")
+
+        # Price range
         if min_price > 0:
             params.append(f"pf={min_price}")
         if max_price > 0:
             params.append(f"pt={max_price}")
-        # Only add bed params if not already in the path
-        if bedrooms < 0:
-            pass  # "any" bedrooms, no param needed
+
         # Pagination
         if page > 1:
             params.append(f"page={page}")
 
-        if params:
-            url += "?" + "&".join(params)
-
-        return url
+        return f"{BASE_URL}/en/search?{'&'.join(params)}"
 
     async def _extract_next_data(self, page_obj) -> list[Property]:
         """Extract listings from __NEXT_DATA__."""
@@ -228,17 +205,19 @@ class PropertyFinderScraper:
                 const sr = d.props?.pageProps?.searchResult;
                 if (!sr) return null;
 
-                // Collect from all arrays that have listings
                 const all = [];
                 for (const key of ['properties', 'listings', 'similar_properties', 'similar_listings']) {
-                    const arr = sr[key];
-                    if (Array.isArray(arr)) {
-                        for (const item of arr) {
-                            if (item.property) {
-                                all.push(item.property);
-                            } else if (item.price || item.id) {
-                                all.push(item);
-                            }
+                    const val = sr[key];
+                    if (!val) continue;
+
+                    // Handle both array and object-with-numeric-keys
+                    const items = Array.isArray(val) ? val : Object.values(val);
+                    for (const item of items) {
+                        if (!item || typeof item !== 'object') continue;
+                        if (item.property) {
+                            all.push(item.property);
+                        } else if (item.price || item.id) {
+                            all.push(item);
                         }
                     }
                 }

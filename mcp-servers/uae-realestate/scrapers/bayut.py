@@ -84,8 +84,8 @@ class BayutScraper:
             )
 
         raise RuntimeError(
-            "Bayut scraping blocked by CAPTCHA. Set CAPSOLVER_API_KEY for auto-solving, "
-            "or BAYUT_RAPIDAPI_KEY for API fallback."
+            "Bayut scraping blocked by CAPTCHA. The local CLIP solver was unable to solve it. "
+            "Try again, or set CAPSOLVER_API_KEY / BAYUT_RAPIDAPI_KEY as fallback."
         )
 
     async def _search_playwright(

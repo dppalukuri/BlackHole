@@ -97,6 +97,40 @@ def resolve_property_type(site: str, prop_type: str) -> str | None:
     return None
 
 
+def resolve_location_id(site: str, location: str) -> str | None:
+    """
+    Resolve a location to its numeric ID (for sites that need it, e.g. Dubizzle).
+
+    Args:
+        site: "dubizzle", "bayut", etc.
+        location: User-provided location name or slug
+
+    Returns:
+        Numeric ID string, or None if not found.
+    """
+    ids = get(site, "location_ids")
+    if not ids:
+        return None
+
+    normalized = location.lower().strip()
+
+    # Try by location name → slug → ID
+    slug = resolve_location(site, normalized)
+    if slug and slug in ids:
+        return ids[slug]
+
+    # Try direct slug match
+    if normalized in ids:
+        return ids[normalized]
+
+    # Try partial
+    for key, lid in ids.items():
+        if normalized in key or key in normalized:
+            return lid
+
+    return None
+
+
 def all_locations(site: str) -> list[str]:
     """Get all known location names for a site."""
     locations = get(site, "locations")

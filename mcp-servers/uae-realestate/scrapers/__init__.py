@@ -2,9 +2,19 @@
 UAE Real Estate Scrapers - Aggregates data from Bayut, Dubizzle, and PropertyFinder.
 """
 
+import os
+import asyncio
 from scrapers.bayut import BayutScraper
 from scrapers.dubizzle import DubizzleScraper
 from scrapers.propertyfinder import PropertyFinderScraper
+
+
+# Bayut requires CAPTCHA solving — skip unless API keys are configured
+def _bayut_available() -> bool:
+    return bool(
+        os.environ.get("CAPSOLVER_API_KEY")
+        or os.environ.get("BAYUT_RAPIDAPI_KEY")
+    )
 
 
 class UAEPropertyAggregator:
@@ -28,32 +38,31 @@ class UAEPropertyAggregator:
     ):
         """
         Search properties across all or specific platforms.
-
-        Args:
-            location: Area name (e.g., "Dubai Marina", "JBR", "Downtown Dubai")
-            purpose: "for-sale" or "for-rent"
-            property_type: "apartment", "villa", "townhouse", etc. (empty = all)
-            min_price: Minimum price in AED (0 = no min)
-            max_price: Maximum price in AED (0 = no max)
-            bedrooms: Number of bedrooms (-1 = any, 0 = studio)
-            source: "bayut", "dubizzle", "propertyfinder", or "all"
-            page: Page number for pagination
+        Runs scrapers concurrently for faster results.
+        Skips Bayut when source="all" and no API keys are configured.
         """
         results = []
         errors = []
 
         sources = {
-            "bayut": self.bayut,
             "dubizzle": self.dubizzle,
             "propertyfinder": self.propertyfinder,
         }
 
-        if source != "all":
-            sources = {source: sources[source]} if source in sources else {}
+        if source == "all":
+            if _bayut_available():
+                sources["bayut"] = self.bayut
+            else:
+                errors.append("bayut: skipped (no CAPSOLVER_API_KEY or BAYUT_RAPIDAPI_KEY)")
+        elif source == "bayut":
+            sources = {"bayut": self.bayut}
+        elif source in ("dubizzle", "propertyfinder"):
+            sources = {source: sources.get(source, self.dubizzle)}
 
-        for name, scraper in sources.items():
+        # Run all scrapers concurrently
+        async def _run_scraper(name, scraper):
             try:
-                props = await scraper.search(
+                return name, await scraper.search(
                     location=location,
                     purpose=purpose,
                     property_type=property_type,
@@ -61,10 +70,18 @@ class UAEPropertyAggregator:
                     max_price=max_price,
                     bedrooms=bedrooms,
                     page=page,
-                )
-                results.extend(props)
+                ), None
             except Exception as e:
-                errors.append(f"{name}: {str(e)}")
+                return name, [], str(e)
+
+        tasks = [_run_scraper(name, scraper) for name, scraper in sources.items()]
+        completed = await asyncio.gather(*tasks)
+
+        for name, props, error in completed:
+            if error:
+                errors.append(f"{name}: {error}")
+            else:
+                results.extend(props)
 
         return results, errors
 

@@ -43,7 +43,10 @@ async def _get_browser():
     pw = await async_playwright().start()
     browser = await pw.chromium.launch(
         headless=False,
-        args=["--disable-blink-features=AutomationControlled", "--window-position=-32000,-32000"],
+        args=[
+            "--disable-blink-features=AutomationControlled",
+            "--window-position=-32000,-32000",
+        ],
     )
     ctx = await browser.new_context(
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
@@ -54,6 +57,7 @@ async def _get_browser():
     stealth = Stealth()
     await stealth.apply_stealth_async(ctx)
     page = await ctx.new_page()
+
     return pw, browser, ctx, page
 
 
