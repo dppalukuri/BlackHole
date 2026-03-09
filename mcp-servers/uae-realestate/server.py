@@ -376,6 +376,26 @@ async def compare_areas(
 
 
 @mcp.tool()
+async def warm_up_bayut() -> str:
+    """
+    Solve Bayut CAPTCHA interactively to enable Bayut searches.
+
+    Opens a headed browser window where the user can solve the hCaptcha.
+    After solving, session cookies and Algolia keys are cached so that
+    subsequent Bayut searches work without CAPTCHA.
+
+    Only needed once per session — call this if Bayut searches fail with
+    CAPTCHA errors.
+
+    Returns:
+        Status message indicating whether the warm-up was successful.
+    """
+    ctx = mcp.get_context()
+    aggregator = ctx.request_context.lifespan_context.aggregator
+    return await aggregator.bayut.warm_up()
+
+
+@mcp.tool()
 async def refresh_locations(
     site: str = "all",
 ) -> str:
@@ -484,7 +504,7 @@ SUPPORTED LOCATIONS (50+):
 SOURCES:
   - propertyfinder: Most reliable (headless stealth)
   - dubizzle: Headed browser (Incapsula WAF bypass)
-  - bayut: Stealth browser + CAPTCHA handling
+  - bayut: Headed browser + session persistence (use warm_up_bayut if CAPTCHA blocks)
 
 NOTES:
   - All prices in AED (1 USD ≈ 3.67 AED)

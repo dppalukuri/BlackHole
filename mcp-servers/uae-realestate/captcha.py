@@ -97,18 +97,34 @@ async def detect_captcha(page) -> dict | None:
         return None
 
 
-async def _find_challenge_frame(page, captcha_type: str):
-    """Find the CAPTCHA challenge iframe."""
+def _find_checkbox_frame(page, captcha_type: str):
+    """Find the CAPTCHA checkbox iframe (separate from challenge frame)."""
     keyword = "hcaptcha" if captcha_type == "hcaptcha" else "recaptcha"
     for frame in page.frames:
-        if keyword in frame.url:
+        url = frame.url.lower()
+        if keyword in url and "checkbox" in url:
+            return frame
+    # Fallback: any frame with the keyword (for reCAPTCHA which may not have checkbox in URL)
+    for frame in page.frames:
+        if keyword in frame.url.lower():
+            return frame
+    return None
+
+
+def _find_challenge_frame(page, captcha_type: str):
+    """Find the CAPTCHA challenge iframe (where images are shown)."""
+    keyword = "hcaptcha" if captcha_type == "hcaptcha" else "recaptcha"
+    for frame in page.frames:
+        url = frame.url.lower()
+        if keyword in url and ("challenge" in url or "bframe" in url or "api2" in url):
             return frame
     return None
 
 
 async def _click_checkbox(page, captcha_type: str) -> bool:
     """Click the CAPTCHA checkbox to trigger the image challenge."""
-    frame = await _find_challenge_frame(page, captcha_type)
+    # Use the checkbox-specific frame, not the challenge frame
+    frame = _find_checkbox_frame(page, captcha_type)
     if not frame:
         return False
 
@@ -129,22 +145,7 @@ async def _click_checkbox(page, captcha_type: str) -> bool:
 
 async def _extract_challenge_data(page, captcha_type: str) -> dict:
     """Extract task text and images from the active CAPTCHA challenge frame."""
-    keyword = "hcaptcha" if captcha_type == "hcaptcha" else "recaptcha"
-
-    # Find the challenge frame (may differ from checkbox frame)
-    challenge_frame = None
-    for frame in page.frames:
-        url = frame.url.lower()
-        if keyword in url and ("challenge" in url or "bframe" in url or "api2" in url):
-            challenge_frame = frame
-            break
-
-    # Fallback: any frame with the keyword
-    if not challenge_frame:
-        for frame in page.frames:
-            if keyword in frame.url:
-                challenge_frame = frame
-                break
+    challenge_frame = _find_challenge_frame(page, captcha_type)
 
     if not challenge_frame:
         return {"task": "", "images": []}
@@ -213,16 +214,18 @@ async def _extract_challenge_data(page, captcha_type: str) -> dict:
             }
 
             // Strategy 3: canvas elements (convert to data URL)
+            let is_canvas = false;
             if (images.length === 0) {
                 const canvases = document.querySelectorAll('canvas');
                 for (const c of canvases) {
                     try {
                         images.push(c.toDataURL('image/png'));
+                        is_canvas = true;
                     } catch(e) {}
                 }
             }
 
-            return { task, images };
+            return { task, images, is_canvas };
         }""")
         return data
     except Exception:
@@ -231,19 +234,7 @@ async def _extract_challenge_data(page, captcha_type: str) -> dict:
 
 async def _click_challenge_cells(page, captcha_type: str, indices: list[int]):
     """Click specific cells in the CAPTCHA challenge grid."""
-    keyword = "hcaptcha" if captcha_type == "hcaptcha" else "recaptcha"
-
-    challenge_frame = None
-    for frame in page.frames:
-        url = frame.url.lower()
-        if keyword in url and ("challenge" in url or "bframe" in url or "api2" in url):
-            challenge_frame = frame
-            break
-    if not challenge_frame:
-        for frame in page.frames:
-            if keyword in frame.url:
-                challenge_frame = frame
-                break
+    challenge_frame = _find_challenge_frame(page, captcha_type)
     if not challenge_frame:
         return
 
@@ -272,19 +263,7 @@ async def _click_challenge_cells(page, captcha_type: str, indices: list[int]):
 
 async def _click_submit(page, captcha_type: str):
     """Click the verify/submit button in the challenge frame."""
-    keyword = "hcaptcha" if captcha_type == "hcaptcha" else "recaptcha"
-
-    challenge_frame = None
-    for frame in page.frames:
-        url = frame.url.lower()
-        if keyword in url and ("challenge" in url or "bframe" in url or "api2" in url):
-            challenge_frame = frame
-            break
-    if not challenge_frame:
-        for frame in page.frames:
-            if keyword in frame.url:
-                challenge_frame = frame
-                break
+    challenge_frame = _find_challenge_frame(page, captcha_type)
     if not challenge_frame:
         return
 
@@ -314,26 +293,71 @@ async def _click_submit(page, captcha_type: str):
         pass
 
 
+async def _solve_canvas_round(page, captcha_type: str, canvas_data_url: str, task_text: str = "") -> bool:
+    """
+    Solve one round of a canvas-based hCaptcha challenge.
+
+    Routes to the appropriate strategy based on task text:
+    - Bucket/ball: Pipe tracing (spatial reasoning)
+    - Line connection: CLIP text-to-image classification
+    - Silhouette: CLIP image-to-image similarity
+    """
+    try:
+        from solver import solve_canvas_challenge
+
+        result = await solve_canvas_challenge(canvas_data_url, task_text)
+        if not result:
+            return False
+
+        # Click at the computed position on the canvas
+        challenge_frame = _find_challenge_frame(page, captcha_type)
+        if not challenge_frame:
+            return False
+
+        canvas = await challenge_frame.wait_for_selector("canvas", timeout=3000)
+        if not canvas:
+            return False
+
+        box = await canvas.bounding_box()
+        if not box:
+            return False
+
+        # Scale canvas pixel coords to display coords
+        scale_x = box["width"] / result["canvas_width"]
+        scale_y = box["height"] / result["canvas_height"]
+        click_x = box["x"] + result["canvas_x"] * scale_x
+        click_y = box["y"] + result["canvas_y"] * scale_y
+
+        await page.mouse.click(click_x, click_y)
+        await asyncio.sleep(1)
+
+        # Click submit
+        await _click_submit(page, captcha_type)
+        return True
+    except Exception as e:
+        return False
+
+
 async def solve_captcha_locally(page, captcha_info: dict) -> bool:
     """
     Solve CAPTCHA using local CLIP vision model from captcha-solver.
 
     Handles multiple challenge rounds (hCaptcha often requires 2-3 rounds).
     Supports both hCaptcha and reCAPTCHA v2.
+    Detects silhouette challenges (canvas-based) and uses image-to-image
+    similarity instead of text-to-image classification.
 
     Returns True if solved successfully, False otherwise.
     """
     if not _solver_available():
         return False
 
-    from solver import solve_hcaptcha_challenge
-
     captcha_type = captcha_info.get("type", "hcaptcha")
     max_rounds = 5  # hCaptcha can require multiple rounds
 
     # Click the checkbox to trigger the challenge
     await _click_checkbox(page, captcha_type)
-    await asyncio.sleep(1)
+    await asyncio.sleep(3)  # hCaptcha needs time to render the challenge canvas
 
     for round_num in range(max_rounds):
         # Check if already solved (no more CAPTCHA)
@@ -345,8 +369,9 @@ async def solve_captcha_locally(page, captcha_info: dict) -> bool:
         challenge = await _extract_challenge_data(page, captcha_type)
         task = challenge.get("task", "")
         images = challenge.get("images", [])
+        is_canvas = challenge.get("is_canvas", False)
 
-        if not task or not images:
+        if not images:
             # No challenge visible — might be solved or transition
             await asyncio.sleep(2)
             remaining = await detect_captcha(page)
@@ -354,7 +379,26 @@ async def solve_captcha_locally(page, captcha_info: dict) -> bool:
                 return True
             continue
 
-        # Solve with CLIP
+        # Canvas-based challenge: silhouette matching or line connection
+        if is_canvas and len(images) == 1:
+            solved = await _solve_canvas_round(page, captcha_type, images[0], task)
+            if solved:
+                await asyncio.sleep(3)
+                remaining = await detect_captcha(page)
+                if not remaining:
+                    return True
+                continue  # More rounds possible
+
+        # Regular grid challenge: text-to-image classification
+        if not task:
+            await asyncio.sleep(2)
+            remaining = await detect_captcha(page)
+            if not remaining:
+                return True
+            continue
+
+        from solver import solve_hcaptcha_challenge
+
         result = await solve_hcaptcha_challenge(task, images, threshold=0.5)
         selections = result.get("selections", [])
 

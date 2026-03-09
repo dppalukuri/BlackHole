@@ -2,19 +2,10 @@
 UAE Real Estate Scrapers - Aggregates data from Bayut, Dubizzle, and PropertyFinder.
 """
 
-import os
 import asyncio
 from scrapers.bayut import BayutScraper
 from scrapers.dubizzle import DubizzleScraper
 from scrapers.propertyfinder import PropertyFinderScraper
-
-
-# Bayut requires CAPTCHA solving — skip unless API keys are configured
-def _bayut_available() -> bool:
-    return bool(
-        os.environ.get("CAPSOLVER_API_KEY")
-        or os.environ.get("BAYUT_RAPIDAPI_KEY")
-    )
 
 
 class UAEPropertyAggregator:
@@ -37,27 +28,20 @@ class UAEPropertyAggregator:
         page: int = 1,
     ):
         """
-        Search properties across all or specific platforms.
-        Runs scrapers concurrently for faster results.
-        Skips Bayut when source="all" and no API keys are configured.
+        Search properties across all platforms concurrently.
+        All three scrapers always run — errors are captured per-source.
         """
         results = []
         errors = []
 
         sources = {
+            "bayut": self.bayut,
             "dubizzle": self.dubizzle,
             "propertyfinder": self.propertyfinder,
         }
 
-        if source == "all":
-            if _bayut_available():
-                sources["bayut"] = self.bayut
-            else:
-                errors.append("bayut: skipped (no CAPSOLVER_API_KEY or BAYUT_RAPIDAPI_KEY)")
-        elif source == "bayut":
-            sources = {"bayut": self.bayut}
-        elif source in ("dubizzle", "propertyfinder"):
-            sources = {source: sources.get(source, self.dubizzle)}
+        if source != "all" and source in sources:
+            sources = {source: sources[source]}
 
         # Run all scrapers concurrently
         async def _run_scraper(name, scraper):

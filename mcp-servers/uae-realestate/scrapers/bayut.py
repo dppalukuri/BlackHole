@@ -1,12 +1,13 @@
 """
-Bayut.com scraper - Multiple strategies to bypass hCaptcha.
+Bayut.com scraper - Headed stealth browser with session persistence.
 
-Bayut uses hCaptcha on every request + Algolia as search backend.
+Bayut uses hCaptcha on every uncached request + Algolia as search backend.
 
 Strategy order:
-  1. Algolia direct API (if keys available from prior session)
-  2. Playwright with stealth + CAPTCHA solving
-  3. RapidAPI fallback (free tier: 750 calls/month)
+  1. Algolia direct API (if runtime keys cached from prior session)
+  2. Headed Playwright with saved session (CAPTCHA-free if session valid)
+  3. If CAPTCHA: user solves interactively via warm_up tool
+  4. RapidAPI fallback (free tier: 750 calls/month)
 
 URL pattern: /{for-sale|to-rent}/{type}/dubai/{location-slug}/
 Filters: price_min, price_max, beds_min, beds_max, furnishing_status, completion_status, page
@@ -22,6 +23,7 @@ import os
 import asyncio
 import re
 import json
+from pathlib import Path
 import httpx
 from models import Property
 import slug_registry
@@ -30,8 +32,37 @@ BASE_URL = "https://www.bayut.com"
 RAPIDAPI_HOST = "bayut.p.rapidapi.com"
 ALGOLIA_INDEX = "bayut-production-ads-en"
 
-# Algolia credentials cache (extracted from page after CAPTCHA solve)
-_algolia_cache = {"app_id": "", "api_key": ""}
+# Algolia runtime config cache file
+_SESSIONS_DIR = Path(__file__).parent.parent / ".sessions"
+_ALGOLIA_CACHE_FILE = _SESSIONS_DIR / "bayut_algolia.json"
+
+# In-memory Algolia credentials (loaded from file or extracted at runtime)
+_algolia_cache = {"app_id": "", "api_key": "", "browser_hosts": []}
+
+
+def _load_algolia_cache():
+    """Load cached Algolia config from file."""
+    global _algolia_cache
+    if _ALGOLIA_CACHE_FILE.exists():
+        try:
+            data = json.loads(_ALGOLIA_CACHE_FILE.read_text())
+            if data.get("app_id") and data.get("api_key"):
+                _algolia_cache.update(data)
+        except Exception:
+            pass
+
+
+def _save_algolia_cache():
+    """Save Algolia config to file for future sessions."""
+    _SESSIONS_DIR.mkdir(exist_ok=True)
+    try:
+        _ALGOLIA_CACHE_FILE.write_text(json.dumps(_algolia_cache, indent=2))
+    except Exception:
+        pass
+
+
+# Load cached keys on module import
+_load_algolia_cache()
 
 
 class BayutScraper:
@@ -56,8 +87,8 @@ class BayutScraper:
         page: int = 1,
     ) -> list[Property]:
         """Search Bayut - tries Algolia, then Playwright, then RapidAPI."""
-        # Strategy 1: Algolia direct (if we have cached keys)
-        if _algolia_cache["app_id"] and _algolia_cache["api_key"]:
+        # Strategy 1: Algolia direct (if we have cached runtime keys + hosts)
+        if _algolia_cache["app_id"] and _algolia_cache["api_key"] and _algolia_cache.get("browser_hosts"):
             try:
                 results = await self._search_algolia(
                     location, purpose, property_type, min_price, max_price, bedrooms, page
@@ -67,7 +98,7 @@ class BayutScraper:
             except Exception:
                 pass
 
-        # Strategy 2: Playwright with stealth + CAPTCHA solving
+        # Strategy 2: Headed Playwright with saved session (may bypass CAPTCHA)
         try:
             results = await self._search_playwright(
                 location, purpose, property_type, min_price, max_price, bedrooms, page
@@ -84,38 +115,49 @@ class BayutScraper:
             )
 
         raise RuntimeError(
-            "Bayut scraping blocked by CAPTCHA. The local CLIP solver was unable to solve it. "
-            "Try again, or set CAPSOLVER_API_KEY / BAYUT_RAPIDAPI_KEY as fallback."
+            "Bayut requires a one-time CAPTCHA solve. Please use the warm_up_bayut tool "
+            "to open a browser window and solve the CAPTCHA. After that, Bayut searches "
+            "will work automatically using the saved session.\n"
+            "Alternatively, set BAYUT_RAPIDAPI_KEY for API access (free at rapidapi.com)."
         )
 
     async def _search_playwright(
         self, location, purpose, property_type, min_price, max_price, bedrooms, page
     ) -> list[Property]:
-        """Search using stealth Playwright with CAPTCHA solving."""
+        """Search using headed stealth Playwright with session persistence."""
         sb = await self._get_stealth_browser()
-        context = await sb.new_context(site_name="bayut")
+        context = await sb.new_context(site_name="bayut", headed=True)
         page_obj = await context.new_page()
 
         try:
             url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
-            await page_obj.goto(url, wait_until="networkidle", timeout=40000)
+            await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
+            try:
+                await page_obj.wait_for_load_state("networkidle", timeout=15000)
+            except Exception:
+                pass
             await asyncio.sleep(2)
 
-            # Check for CAPTCHA and solve if present
-            from captcha import handle_captcha_if_present
-            captcha_solved = await handle_captcha_if_present(page_obj)
+            # Check for CAPTCHA — attempt automated solving
+            if "captcha" in page_obj.url.lower():
+                from captcha import handle_captcha_if_present
+                solved = await handle_captcha_if_present(page_obj, max_retries=2)
+                if not solved:
+                    return []
+                # Wait for redirect after CAPTCHA solve
+                await asyncio.sleep(3)
+                try:
+                    await page_obj.wait_for_load_state("networkidle", timeout=15000)
+                except Exception:
+                    pass
 
-            if not captcha_solved:
-                return []
-
-            # Wait for content after CAPTCHA, then scroll
-            await asyncio.sleep(2)
-            for _ in range(5):
+            # Scroll to trigger lazy loading
+            for _ in range(3):
                 await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
-                await asyncio.sleep(1)
-            await asyncio.sleep(2)
+                await asyncio.sleep(0.5)
+            await asyncio.sleep(1)
 
-            # Try to extract Algolia keys for future direct queries
+            # Extract Algolia runtime keys for future direct queries
             await self._extract_algolia_keys(page_obj)
 
             # Extract listings from page
@@ -128,60 +170,145 @@ class BayutScraper:
         finally:
             await context.close()
 
+    async def warm_up(self, timeout: int = 120) -> str:
+        """
+        Interactive CAPTCHA solve: opens browser for user to solve hCaptcha.
+
+        After solving, session cookies and Algolia keys are cached for future use.
+        Returns status message.
+        """
+        sb = await self._get_stealth_browser()
+        context = await sb.new_context(site_name="bayut", headed=True)
+        page_obj = await context.new_page()
+
+        try:
+            # Move window on-screen for user interaction
+            try:
+                cdp = await context.new_cdp_session(page_obj)
+                window = await cdp.send("Browser.getWindowForTarget")
+                window_id = window.get("windowId")
+                if window_id:
+                    await cdp.send("Browser.setWindowBounds", {
+                        "windowId": window_id,
+                        "bounds": {"left": 100, "top": 100, "width": 1200, "height": 800, "windowState": "normal"}
+                    })
+            except Exception:
+                pass
+
+            await page_obj.goto(f"{BASE_URL}/to-rent/apartments/dubai/", wait_until="domcontentloaded", timeout=30000)
+            try:
+                await page_obj.wait_for_load_state("networkidle", timeout=20000)
+            except Exception:
+                pass
+            await asyncio.sleep(3)
+
+            if "captcha" not in page_obj.url.lower():
+                # No CAPTCHA — session already valid
+                await self._extract_algolia_keys(page_obj)
+                await sb.save_session(context)
+                return "Bayut session is already active — no CAPTCHA needed!"
+
+            # Try automated CAPTCHA solving first
+            from captcha import handle_captcha_if_present
+            solved = await handle_captcha_if_present(page_obj, max_retries=3)
+
+            # If automated solving failed, wait for user to solve manually
+            if not solved:
+                for i in range(timeout // 2):
+                    await asyncio.sleep(2)
+                    if "captcha" not in page_obj.url.lower():
+                        solved = True
+                        break
+
+            if not solved:
+                return (
+                    "CAPTCHA was not solved within the timeout. "
+                    "Please try again — a browser window will appear with the CAPTCHA."
+                )
+
+            # Wait for page to fully load after redirect
+            await asyncio.sleep(3)
+            try:
+                await page_obj.wait_for_load_state("networkidle", timeout=15000)
+            except Exception:
+                pass
+
+            # Extract and cache Algolia runtime keys
+            await self._extract_algolia_keys(page_obj)
+            await sb.save_session(context)
+
+            return (
+                "Bayut CAPTCHA solved successfully! Session saved. "
+                "Bayut searches will now work without CAPTCHA until the session expires."
+            )
+        finally:
+            await context.close()
+
     async def _extract_algolia_keys(self, page_obj):
-        """Extract Algolia API credentials from the page for direct queries."""
+        """Extract Algolia runtime config from the page (app ID, API key, browser hosts)."""
         global _algolia_cache
         try:
-            keys = await page_obj.evaluate("""() => {
-                // Check window.state (exposed on CAPTCHA page and listing pages)
-                if (window.state) {
-                    const s = window.state;
-                    if (s.algoliaAppId && s.algoliaApiKey) {
-                        return { app_id: s.algoliaAppId, api_key: s.algoliaApiKey };
+            config = await page_obj.evaluate("""() => {
+                const result = {};
+
+                // Extract from window.CONFIG.runtime (Bayut's runtime config)
+                if (window.CONFIG && window.CONFIG.runtime) {
+                    const rt = window.CONFIG.runtime;
+                    for (const [k, v] of Object.entries(rt)) {
+                        if (k.toLowerCase().includes('algolia')) {
+                            result[k] = v;
+                        }
                     }
                 }
 
-                // Check __NEXT_DATA__ for Algolia config
+                // Extract from __NEXT_DATA__ runtimeConfig
                 const el = document.getElementById('__NEXT_DATA__');
                 if (el) {
                     try {
                         const d = JSON.parse(el.textContent);
                         const rc = d.runtimeConfig || d.props?.runtimeConfig || {};
-                        if (rc.algoliaAppId && rc.algoliaApiKey) {
-                            return { app_id: rc.algoliaAppId, api_key: rc.algoliaApiKey };
-                        }
-                        const pp = d.props?.pageProps || {};
-                        if (pp.algoliaAppId && pp.algoliaApiKey) {
-                            return { app_id: pp.algoliaAppId, api_key: pp.algoliaApiKey };
+                        for (const [k, v] of Object.entries(rc)) {
+                            if (k.toLowerCase().includes('algolia')) {
+                                result[k] = v;
+                            }
                         }
                     } catch {}
                 }
 
-                // Scan script tags for Algolia config
-                for (const script of document.scripts) {
-                    const t = script.textContent;
-                    if (t.includes('algolia') || t.includes('algoliasearch')) {
-                        const appMatch = t.match(/(?:appId|applicationID|ALGOLIA_APP_ID)['":\\s]+([A-Z0-9]{10,})/i);
-                        const keyMatch = t.match(/(?:apiKey|searchKey|ALGOLIA_API_KEY)['":\\s]+([a-f0-9]{20,})/i);
-                        if (appMatch && keyMatch) {
-                            return { app_id: appMatch[1], api_key: keyMatch[1] };
-                        }
+                // Try to extract the actual API key from the Redux/Algolia state
+                // The key is computed at runtime by (0,Tn.A)() but stored in state
+                try {
+                    if (window.__NEXT_DATA__?.props?.pageProps?.algoliaApiKey) {
+                        result.pageProps_apiKey = window.__NEXT_DATA__.props.pageProps.algoliaApiKey;
                     }
-                }
+                } catch {}
 
-                return null;
+                return Object.keys(result).length > 0 ? result : null;
             }""")
 
-            if keys and keys.get("app_id") and keys.get("api_key"):
-                _algolia_cache["app_id"] = keys["app_id"]
-                _algolia_cache["api_key"] = keys["api_key"]
+            if config:
+                # Map known config keys to our cache format
+                app_id = config.get("ALGOLIA_APP_ID", config.get("algoliaAppId", ""))
+                api_key = config.get("ALGOLIA_API_KEY", config.get("algoliaApiKey", config.get("pageProps_apiKey", "")))
+                hosts = config.get("ALGOLIA_BROWSER_HOST_NAMES", [])
+
+                if app_id:
+                    _algolia_cache["app_id"] = app_id
+                if api_key:
+                    _algolia_cache["api_key"] = api_key
+                if hosts:
+                    _algolia_cache["browser_hosts"] = hosts if isinstance(hosts, list) else [hosts]
+
+                # Save to file for persistence across server restarts
+                if _algolia_cache["app_id"] and (_algolia_cache["api_key"] or _algolia_cache.get("browser_hosts")):
+                    _save_algolia_cache()
         except Exception:
             pass
 
     async def _search_algolia(
         self, location, purpose, property_type, min_price, max_price, bedrooms, page
     ) -> list[Property]:
-        """Search Bayut via Algolia API directly."""
+        """Search Bayut via Algolia API directly (using cached runtime keys + proxy hosts)."""
         location_id = self._resolve_location_id(location)
 
         # Build Algolia filters
@@ -201,40 +328,48 @@ class BayutScraper:
         if bedrooms >= 0:
             filters.append(f"rooms = {bedrooms}")
 
+        filter_str = " AND ".join(filters)
+        params_str = f"filters={filter_str}&hitsPerPage=25&page={page - 1}"
+
         payload = {
             "requests": [{
                 "indexName": ALGOLIA_INDEX,
-                "params": {
-                    "filters": " AND ".join(filters),
-                    "hitsPerPage": 25,
-                    "page": page - 1,
-                },
+                "params": params_str,
             }],
         }
 
-        async with httpx.AsyncClient() as client:
-            resp = await client.post(
-                f"https://{_algolia_cache['app_id']}-dsn.algolia.net/1/indexes/*/queries",
-                headers={
-                    "X-Algolia-Application-Id": _algolia_cache["app_id"],
-                    "X-Algolia-API-Key": _algolia_cache["api_key"],
-                    "Content-Type": "application/json",
-                },
-                json=payload,
-                timeout=15,
-            )
-            resp.raise_for_status()
-            data = resp.json()
+        algolia_headers = {
+            "X-Algolia-Application-Id": _algolia_cache["app_id"],
+            "X-Algolia-API-Key": _algolia_cache["api_key"],
+            "Content-Type": "application/json",
+            "Referer": "https://www.bayut.com/",
+            "Origin": "https://www.bayut.com",
+        }
 
-        properties = []
-        results = data.get("results", [])
-        if results:
-            for hit in results[0].get("hits", []):
-                prop = self._parse_listing(hit)
-                if prop:
-                    properties.append(prop)
+        # Use browser hosts (Bayut proxy) if available, else standard Algolia
+        hosts = _algolia_cache.get("browser_hosts", [])
+        if not hosts:
+            hosts = [f"{_algolia_cache['app_id']}-dsn.algolia.net"]
 
-        return properties
+        async with httpx.AsyncClient(timeout=15) as client:
+            for host in hosts:
+                try:
+                    url = f"https://{host}/1/indexes/*/queries"
+                    resp = await client.post(url, headers=algolia_headers, json=payload)
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        properties = []
+                        results = data.get("results", [])
+                        if results:
+                            for hit in results[0].get("hits", []):
+                                prop = self._parse_listing(hit)
+                                if prop:
+                                    properties.append(prop)
+                        return properties
+                except Exception:
+                    continue
+
+        return []
 
     async def _extract_listings(self, page_obj) -> list[Property]:
         """Extract property listings from Bayut search results page."""
@@ -401,10 +536,10 @@ class BayutScraper:
 
     async def get_details(self, property_id: str) -> Property:
         """Get details for a Bayut listing."""
-        # Try Playwright first
+        # Try Playwright first (headed mode)
         try:
             sb = await self._get_stealth_browser()
-            context = await sb.new_context(site_name="bayut")
+            context = await sb.new_context(site_name="bayut", headed=True)
             page_obj = await context.new_page()
             try:
                 url = f"{BASE_URL}/property/details-{property_id}.html"

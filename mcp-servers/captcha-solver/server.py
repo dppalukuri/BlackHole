@@ -1,14 +1,18 @@
 """
 CAPTCHA Solver MCP Server
 
-AI-powered CAPTCHA solving using CLIP vision model.
-No API keys needed - runs entirely locally on CPU.
+Multi-strategy CAPTCHA solver with smart cost routing:
+  1. CLIP (free, local) — image grids, simple canvas challenges
+  2. VLM (Claude/GPT-4o) — hard canvas challenges, novel types
+  3. External API (CapSolver/2Captcha) — last resort fallback
+
+Supports: hCaptcha, reCAPTCHA v2/v3, Cloudflare Turnstile, FunCaptcha
 
 Tools:
-  - solve_hcaptcha: Solve hCaptcha image grid challenges
-  - solve_recaptcha: Solve reCAPTCHA v2 image challenges
+  - solve_captcha: Auto-detect and solve any CAPTCHA from images + task text
+  - solve_image_grid: Solve image grid selection challenges
+  - solve_canvas: Solve canvas/interactive challenges (click coordinates)
   - classify_image: General-purpose image classification
-  - extract_and_solve: Extract CAPTCHA from a live page and solve it
 
 Run:
   python server.py
@@ -18,7 +22,6 @@ import os
 import sys
 import json
 import asyncio
-import base64
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
 from dataclasses import dataclass
@@ -26,41 +29,132 @@ from dataclasses import dataclass
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from mcp.server.fastmcp import FastMCP
-from solver import solve_hcaptcha_challenge, solve_recaptcha_challenge, classify_single_image
+from core.types import CaptchaChallenge, SolverConfig
+from router import CaptchaRouter, classify_challenge
+
+
+def _load_config() -> SolverConfig:
+    """Load solver config from environment variables.
+
+    Priority: Gemini (free) > Anthropic > OpenAI
+    """
+    gemini_key = os.environ.get("GEMINI_API_KEY", "")
+    anthropic_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    openai_key = os.environ.get("OPENAI_API_KEY", "")
+
+    # Pick best available VLM provider (free first)
+    if gemini_key:
+        vlm_provider, vlm_key = "gemini", gemini_key
+    elif anthropic_key:
+        vlm_provider, vlm_key = "anthropic", anthropic_key
+    elif openai_key:
+        vlm_provider, vlm_key = "openai", openai_key
+    else:
+        vlm_provider, vlm_key = "gemini", ""
+
+    return SolverConfig(
+        enable_vlm=bool(vlm_key),
+        vlm_provider=vlm_provider,
+        vlm_api_key=vlm_key,
+        enable_external_api=bool(os.environ.get("CAPSOLVER_API_KEY") or os.environ.get("TWOCAPTCHA_API_KEY")),
+        external_api_key=os.environ.get("CAPSOLVER_API_KEY") or os.environ.get("TWOCAPTCHA_API_KEY") or "",
+        external_api_provider="capsolver" if os.environ.get("CAPSOLVER_API_KEY") else "2captcha",
+    )
 
 
 @dataclass
 class AppContext:
-    model_loaded: bool
+    router: CaptchaRouter
+    config: SolverConfig
 
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
-    # Pre-load the CLIP model on startup
-    from vision import _load_model
-    await asyncio.to_thread(_load_model)
-    yield AppContext(model_loaded=True)
+    config = _load_config()
+    router = CaptchaRouter(config)
+
+    # Pre-load CLIP model
+    try:
+        from vision.clip import _load_model
+        await asyncio.to_thread(_load_model)
+    except Exception:
+        pass  # CLIP loading failure is non-fatal if VLM is available
+
+    yield AppContext(router=router, config=config)
 
 
 mcp = FastMCP(
     "CAPTCHA Solver",
     instructions=(
-        "AI-powered CAPTCHA solver using CLIP vision model. "
-        "Solves hCaptcha and reCAPTCHA image challenges locally without API keys. "
-        "Pass challenge images and task description to get solutions."
+        "Multi-strategy CAPTCHA solver. Uses CLIP (free, local) for simple challenges, "
+        "VLM (Gemini free / Claude / GPT-4o) for hard challenges, and external APIs as fallback. "
+        "Supports hCaptcha, reCAPTCHA v2/v3, Cloudflare Turnstile, FunCaptcha."
     ),
     lifespan=app_lifespan,
 )
 
 
 @mcp.tool()
-async def solve_hcaptcha(
+async def solve_captcha(
+    task_text: str,
+    images: list[str],
+    captcha_type: str = "hcaptcha",
+    is_canvas: bool = False,
+    sitekey: str = "",
+    page_url: str = "",
+) -> str:
+    """
+    Auto-detect and solve any CAPTCHA challenge.
+
+    Smart routing: tries cheapest solver first (CLIP → VLM → External API).
+
+    Args:
+        task_text: The challenge instruction (e.g., "Click each image containing a bus")
+        images: List of image data (base64 data URIs, URLs, or single canvas data URI)
+        captcha_type: "hcaptcha", "recaptcha", "turnstile", "funcaptcha" (default: hcaptcha)
+        is_canvas: True if images contain a single canvas screenshot (interactive challenge)
+        sitekey: Optional site key for token-based solving
+        page_url: Optional page URL for token-based solving
+
+    Returns:
+        JSON with solution: selections (grid), click coordinates (canvas), or token.
+    """
+    ctx: AppContext = mcp.get_context().request_context.lifespan_context
+    result = await ctx.router.solve_raw(
+        task_text=task_text,
+        images=images,
+        is_canvas=is_canvas,
+        captcha_type=captcha_type,
+        sitekey=sitekey or None,
+        page_url=page_url or None,
+    )
+
+    return json.dumps({
+        "success": result.success,
+        "solver": result.solver_used,
+        "selections": result.selections if result.selections else None,
+        "click_x": result.click_x,
+        "click_y": result.click_y,
+        "canvas_width": result.canvas_width,
+        "canvas_height": result.canvas_height,
+        "token": result.token,
+        "confidence": round(result.confidence, 4),
+        "cost_usd": round(result.cost_usd, 6),
+        "solve_time_ms": result.solve_time_ms,
+        "error": result.error,
+    }, indent=2)
+
+
+@mcp.tool()
+async def solve_image_grid(
     task_text: str,
     image_urls: list[str],
     threshold: float = 0.55,
 ) -> str:
     """
-    Solve an hCaptcha image grid challenge using CLIP vision AI.
+    Solve an image grid CAPTCHA (hCaptcha/reCAPTCHA style).
+
+    Uses CLIP vision model locally (free). Falls back to VLM if confidence is low.
 
     Args:
         task_text: The challenge instruction (e.g., "Please click each image containing a motorbus")
@@ -70,29 +164,58 @@ async def solve_hcaptcha(
     Returns:
         JSON with matched image indices and confidence scores.
     """
-    result = await solve_hcaptcha_challenge(task_text, image_urls, threshold)
-    return json.dumps(result, indent=2)
+    ctx: AppContext = mcp.get_context().request_context.lifespan_context
+    result = await ctx.router.solve_raw(
+        task_text=task_text,
+        images=image_urls,
+        is_canvas=False,
+        captcha_type="hcaptcha",
+    )
+
+    return json.dumps({
+        "success": result.success,
+        "solver": result.solver_used,
+        "selections": result.selections,
+        "confidence": round(result.confidence, 4),
+        "details": result.details,
+    }, indent=2)
 
 
 @mcp.tool()
-async def solve_recaptcha(
+async def solve_canvas(
+    canvas_data: str,
     task_text: str,
-    image_urls: list[str],
-    threshold: float = 0.55,
 ) -> str:
     """
-    Solve a reCAPTCHA v2 image challenge using CLIP vision AI.
+    Solve a canvas/interactive CAPTCHA challenge (returns click coordinates).
+
+    Handles hCaptcha canvas challenges: silhouette matching, bucket/ball,
+    line connection, and any unknown canvas challenge via VLM.
 
     Args:
-        task_text: The challenge instruction (e.g., "Select all images with crosswalks")
-        image_urls: List of image URLs or base64 data URIs
-        threshold: Confidence threshold (0-1, default 0.55)
+        canvas_data: Canvas image as base64 data URI (from canvas.toDataURL())
+        task_text: The challenge instruction text
 
     Returns:
-        JSON with matched image indices and confidence scores.
+        JSON with click coordinates (x, y) in canvas pixel space.
     """
-    result = await solve_recaptcha_challenge(task_text, image_urls, threshold)
-    return json.dumps(result, indent=2)
+    ctx: AppContext = mcp.get_context().request_context.lifespan_context
+    result = await ctx.router.solve_raw(
+        task_text=task_text,
+        images=[canvas_data],
+        is_canvas=True,
+        captcha_type="hcaptcha",
+    )
+
+    return json.dumps({
+        "success": result.success,
+        "solver": result.solver_used,
+        "click_x": result.click_x,
+        "click_y": result.click_y,
+        "canvas_width": result.canvas_width,
+        "canvas_height": result.canvas_height,
+        "confidence": round(result.confidence, 4),
+    }, indent=2)
 
 
 @mcp.tool()
@@ -101,224 +224,88 @@ async def classify_image(
     labels: list[str],
 ) -> str:
     """
-    Classify an image against a list of text descriptions using CLIP.
+    Classify an image against text descriptions using CLIP.
 
-    Useful for general image understanding beyond just CAPTCHA solving.
+    General-purpose zero-shot classification, not limited to CAPTCHAs.
 
     Args:
         image_url: URL or base64 data URI of the image
-        labels: List of text descriptions to match against (e.g., ["a cat", "a dog", "a bird"])
+        labels: List of text descriptions to match against
 
     Returns:
         JSON with {label: probability} sorted by probability.
     """
-    result = await classify_single_image(image_url, labels)
+    from vision.clip import load_image, classify_image as _classify
+
+    img = load_image(image_url)
+    result = await asyncio.to_thread(_classify, img, labels)
     return json.dumps(result, indent=2)
 
 
 @mcp.tool()
-async def extract_and_solve_hcaptcha(
-    page_url: str,
-    sitekey: str,
-) -> str:
-    """
-    Extract hCaptcha challenge from a page and solve it.
+async def get_solver_status() -> str:
+    """Check which solvers are available and their status."""
+    ctx: AppContext = mcp.get_context().request_context.lifespan_context
+    config = ctx.config
 
-    Launches a browser, triggers the hCaptcha, extracts challenge images,
-    solves with CLIP, and returns the token.
-
-    Args:
-        page_url: The URL of the page with hCaptcha
-        sitekey: The hCaptcha sitekey (from data-sitekey attribute or iframe URL)
-
-    Returns:
-        JSON with solution token (if successful) or error details.
-    """
+    clip_ok = False
     try:
-        return json.dumps(await _browser_solve_hcaptcha(page_url, sitekey), indent=2)
-    except Exception as e:
-        return json.dumps({"error": str(e)})
+        from vision.clip import _model
+        clip_ok = _model is not None
+    except Exception:
+        pass
+
+    vlm_costs = {"gemini": "free (10 RPM / 250 RPD)", "anthropic": "~$0.004/solve", "openai": "~$0.002/solve"}
+    return json.dumps({
+        "clip": {"available": True, "loaded": clip_ok, "cost": "free"},
+        "vlm": {
+            "available": config.enable_vlm,
+            "provider": config.vlm_provider if config.enable_vlm else None,
+            "cost": vlm_costs.get(config.vlm_provider, "~$0.004/solve"),
+        },
+        "external_api": {
+            "available": config.enable_external_api,
+            "provider": config.external_api_provider if config.enable_external_api else None,
+            "cost": "~$0.002/solve",
+        },
+        "supported_types": [
+            "hcaptcha_grid", "hcaptcha_canvas (bucket, silhouette, line)",
+            "recaptcha_v2", "recaptcha_v3 (token-only)",
+            "turnstile (token-only)", "funcaptcha (vlm-only)",
+        ],
+    }, indent=2)
 
 
-async def _browser_solve_hcaptcha(page_url: str, sitekey: str) -> dict:
-    """Full browser-based hCaptcha solving pipeline."""
-    try:
-        from playwright.async_api import async_playwright
-    except ImportError:
-        return {"error": "Playwright required for browser-based solving. pip install playwright"}
-
-    pw = await async_playwright().start()
-    browser = await pw.chromium.launch(headless=True)
-    context = await browser.new_context(
-        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-    )
-    page = await context.new_page()
-
-    try:
-        await page.goto(page_url, wait_until="networkidle", timeout=30000)
-        await asyncio.sleep(2)
-
-        # Find the hCaptcha iframe
-        hcaptcha_frame = None
-        for frame in page.frames:
-            if "hcaptcha" in frame.url:
-                hcaptcha_frame = frame
-                break
-
-        if not hcaptcha_frame:
-            return {"error": "No hCaptcha iframe found on page"}
-
-        # Try to click the checkbox to trigger the challenge
-        try:
-            checkbox = await hcaptcha_frame.wait_for_selector("#checkbox", timeout=5000)
-            if checkbox:
-                await checkbox.click()
-                await asyncio.sleep(2)
-        except Exception:
-            pass
-
-        # Find the challenge frame (opens after clicking checkbox)
-        challenge_frame = None
-        for frame in page.frames:
-            if "hcaptcha" in frame.url and "challenge" in frame.url:
-                challenge_frame = frame
-                break
-
-        if not challenge_frame:
-            challenge_frame = hcaptcha_frame
-
-        # Extract task text and images
-        challenge_data = await challenge_frame.evaluate("""() => {
-            // Get task text
-            const taskEl = document.querySelector('.prompt-text, [class*="prompt"]');
-            const task = taskEl ? taskEl.textContent.trim() : '';
-
-            // Get grid images
-            const images = [];
-            const cells = document.querySelectorAll('.task-image img, .challenge-image img, [class*="image"] img');
-            for (const img of cells) {
-                if (img.src) images.push(img.src);
-            }
-
-            // If no img tags, try background images
-            if (images.length === 0) {
-                const divs = document.querySelectorAll('.task-image, [class*="image"]');
-                for (const div of divs) {
-                    const bg = getComputedStyle(div).backgroundImage;
-                    const match = bg.match(/url\\("?(.+?)"?\\)/);
-                    if (match) images.push(match[1]);
-                }
-            }
-
-            return { task, images, imageCount: images.length };
-        }""")
-
-        if not challenge_data.get("images"):
-            return {"error": "Could not extract challenge images", "data": challenge_data}
-
-        # Solve with CLIP
-        result = await solve_hcaptcha_challenge(
-            challenge_data["task"],
-            challenge_data["images"],
-        )
-
-        # Click the matching images
-        selections = result.get("selections", [])
-        if selections:
-            for idx in selections:
-                try:
-                    await challenge_frame.evaluate(f"""() => {{
-                        const cells = document.querySelectorAll('.task-image, [class*="image"]');
-                        if (cells[{idx}]) cells[{idx}].click();
-                    }}""")
-                    await asyncio.sleep(0.3)
-                except Exception:
-                    pass
-
-            # Click verify/submit
-            await asyncio.sleep(0.5)
-            try:
-                submit = await challenge_frame.wait_for_selector(
-                    '.button-submit, [class*="submit"], button[type="submit"]',
-                    timeout=3000
-                )
-                if submit:
-                    await submit.click()
-                    await asyncio.sleep(3)
-            except Exception:
-                pass
-
-        # Check if we got a token
-        token = await page.evaluate("""() => {
-            const textarea = document.querySelector('[name="h-captcha-response"], [name="g-recaptcha-response"]');
-            return textarea ? textarea.value : null;
-        }""")
-
-        result["token"] = token
-        result["success"] = bool(token)
-        return result
-
-    finally:
-        await browser.close()
-        await pw.stop()
-
-
-# ─── RESOURCES ─────────────────────────────────────────────────────────────────
+# ─── RESOURCES ─────────────────────────────────────────────────────────
 
 @mcp.resource("captcha-solver://help")
 def help_text() -> str:
     """Usage guide for the CAPTCHA Solver MCP server."""
     return """
-CAPTCHA SOLVER MCP SERVER - USAGE GUIDE
+CAPTCHA SOLVER MCP SERVER v2.0
 
-This server uses CLIP (OpenAI's vision model) to solve image-based CAPTCHAs locally.
-No API keys or external services needed.
+Multi-strategy solver with smart cost routing:
+  CLIP (free, local) → VLM (Gemini free / Claude / GPT-4o) → External API (~$0.002)
 
-SOLVE HCAPTCHA:
-  solve_hcaptcha(
-      task_text="Please click each image containing a motorbus",
-      image_urls=["https://...", "https://...", ...],
-      threshold=0.55
-  )
+QUICK START:
+  solve_captcha(task_text="...", images=["data:image/png;base64,...", ...])
 
-SOLVE RECAPTCHA:
-  solve_recaptcha(
-      task_text="Select all images with crosswalks",
-      image_urls=["https://...", ...],
-      threshold=0.55
-  )
-
-CLASSIFY ANY IMAGE:
-  classify_image(
-      image_url="https://example.com/photo.jpg",
-      labels=["a cat", "a dog", "a bird", "a car"]
-  )
-
-FULL BROWSER SOLVE:
-  extract_and_solve_hcaptcha(
-      page_url="https://example.com/page-with-captcha",
-      sitekey="the-hcaptcha-sitekey"
-  )
-
-SUPPORTED CAPTCHA TYPES:
-  - hCaptcha image grid (3x3, 4x4)
+SUPPORTED TYPES:
+  - hCaptcha image grids (3x3, 4x4)
+  - hCaptcha canvas: silhouette, bucket/ball, line connection
   - reCAPTCHA v2 image selection
+  - reCAPTCHA v3 (token via external API)
+  - Cloudflare Turnstile (token via external API)
+  - FunCaptcha (VLM-powered)
 
-HOW IT WORKS:
-  1. CLIP model matches images to text descriptions
-  2. Challenge task text is parsed and enhanced for better accuracy
-  3. Each grid image is classified as matching or not matching
-  4. Indices of matching images are returned
+CONFIGURATION (via environment variables):
+  GEMINI_API_KEY     — Enable Gemini Vision (FREE, recommended)
+  ANTHROPIC_API_KEY  — Enable Claude Vision
+  OPENAI_API_KEY     — Enable GPT-4o Vision
+  CAPSOLVER_API_KEY  — Enable CapSolver API fallback
+  TWOCAPTCHA_API_KEY — Enable 2Captcha API fallback
 
-ACCURACY:
-  - Common objects (vehicles, animals, traffic signs): ~85-90%
-  - Complex scenes (crosswalks, specific areas): ~70-80%
-  - Multiple attempts may be needed for difficult challenges
-
-MODEL:
-  - openai/clip-vit-base-patch32 (~350MB, downloaded on first use)
-  - Runs on CPU, no GPU required
-  - First request takes ~5-10s (model loading), subsequent ~1-2s
+Priority: Gemini (free) > Anthropic > OpenAI. Without API keys, only CLIP (free, local) is available.
 """.strip()
 
 
