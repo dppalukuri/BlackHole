@@ -62,55 +62,80 @@ class UAEPropertyAggregator:
         bedrooms: int = -1,
         source: str = "all",
         page: int = 1,
+        min_results: int = 15,
     ):
         """
         Search properties across all platforms concurrently.
-        All three scrapers always run — errors are captured per-source.
-        Results are deduplicated across sources.
-        """
-        results = []
-        errors = []
 
-        sources = {
+        Filters are applied at two levels:
+          1. URL params (pre-fetch) — sites get the right query
+          2. Post-filter — removes promoted/similar listings that leak through
+
+        If post-filtering drops too many results, automatically fetches more
+        pages until min_results is reached or pages are exhausted (max 3 pages).
+        """
+        sources_map = {
             "bayut": self.bayut,
             "dubizzle": self.dubizzle,
             "propertyfinder": self.propertyfinder,
         }
 
-        if source != "all" and source in sources:
-            sources = {source: sources[source]}
+        if source != "all" and source in sources_map:
+            sources_map = {source: sources_map[source]}
 
-        # Run all scrapers concurrently
-        async def _run_scraper(name, scraper):
-            try:
-                return name, await scraper.search(
-                    location=location,
-                    purpose=purpose,
-                    property_type=property_type,
-                    min_price=min_price,
-                    max_price=max_price,
-                    bedrooms=bedrooms,
-                    page=page,
-                ), None
-            except Exception as e:
-                return name, [], str(e)
+        all_results = []
+        errors = []
+        max_pages = 3  # Fetch up to 3 pages per source to fill min_results
 
-        tasks = [_run_scraper(name, scraper) for name, scraper in sources.items()]
-        completed = await asyncio.gather(*tasks)
+        for current_page in range(page, page + max_pages):
+            async def _run_scraper(name, scraper, pg):
+                try:
+                    return name, await scraper.search(
+                        location=location,
+                        purpose=purpose,
+                        property_type=property_type,
+                        min_price=min_price,
+                        max_price=max_price,
+                        bedrooms=bedrooms,
+                        page=pg,
+                    ), None
+                except Exception as e:
+                    return name, [], str(e)
 
-        for name, props, error in completed:
-            if error:
-                errors.append(f"{name}: {error}")
+            # First page: run all scrapers concurrently
+            # Subsequent pages: only re-fetch scrapers that had results (not errored)
+            if current_page == page:
+                tasks = [_run_scraper(n, s, current_page) for n, s in sources_map.items()]
             else:
-                results.extend(props)
+                tasks = [_run_scraper(n, s, current_page) for n, s in active_sources.items()]
 
-        # Post-filter: sites leak promoted/similar listings that ignore URL filters
-        results = _post_filter(results, bedrooms, min_price, max_price, property_type)
+            completed = await asyncio.gather(*tasks)
+
+            page_results = []
+            active_sources = {}
+            for name, props, error in completed:
+                if error:
+                    if current_page == page:  # Only report errors from first page
+                        errors.append(f"{name}: {error}")
+                elif props:
+                    page_results.extend(props)
+                    active_sources[name] = sources_map[name]
+
+            if not page_results:
+                break  # No more results from any source
+
+            # Post-filter this page
+            filtered = _post_filter(page_results, bedrooms, min_price, max_price, property_type)
+            all_results.extend(filtered)
+
+            # Stop if we have enough or no sources left to paginate
+            if len(all_results) >= min_results or not active_sources:
+                break
 
         # Deduplicate cross-source matches
-        results = _deduplicate(results)
+        all_results = _deduplicate(all_results)
 
-        return results, errors
+        return all_results, errors
 
     async def get_details(self, property_id: str, source: str):
         """Get detailed info for a specific listing."""
