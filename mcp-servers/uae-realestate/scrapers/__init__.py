@@ -8,6 +8,26 @@ from scrapers.dubizzle import DubizzleScraper
 from scrapers.propertyfinder import PropertyFinderScraper
 
 
+def _post_filter(properties: list, bedrooms: int, min_price: int, max_price: int,
+                  property_type: str) -> list:
+    """Enforce filters that sites may ignore (promoted/similar listings leak through)."""
+    filtered = []
+    for p in properties:
+        if bedrooms >= 0 and p.bedrooms != bedrooms:
+            continue
+        if min_price > 0 and p.price < min_price:
+            continue
+        if max_price > 0 and p.price > max_price:
+            continue
+        if property_type:
+            pt = property_type.lower()
+            pp = p.property_type.lower()
+            if pt and pp and pt not in pp and pp not in pt:
+                continue
+        filtered.append(p)
+    return filtered
+
+
 def _deduplicate(properties: list) -> list:
     """Remove duplicate listings (same price + beds + area from different sources)."""
     seen = set()
@@ -83,6 +103,9 @@ class UAEPropertyAggregator:
                 errors.append(f"{name}: {error}")
             else:
                 results.extend(props)
+
+        # Post-filter: sites leak promoted/similar listings that ignore URL filters
+        results = _post_filter(results, bedrooms, min_price, max_price, property_type)
 
         # Deduplicate cross-source matches
         results = _deduplicate(results)
