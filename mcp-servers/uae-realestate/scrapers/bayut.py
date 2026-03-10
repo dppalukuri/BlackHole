@@ -124,32 +124,43 @@ class BayutScraper:
     async def _search_playwright(
         self, location, purpose, property_type, min_price, max_price, bedrooms, page
     ) -> list[Property]:
-        """Search using headed stealth Playwright with session persistence."""
+        """Search using headed stealth Playwright with session persistence.
+
+        Automatically handles CAPTCHA (including expired sessions) and retries.
+        """
         sb = await self._get_stealth_browser()
         context = await sb.new_context(site_name="bayut", headed=True)
         page_obj = await context.new_page()
 
         try:
             url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
-            await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
-            try:
-                await page_obj.wait_for_load_state("networkidle", timeout=15000)
-            except Exception:
-                pass
-            await asyncio.sleep(2)
 
-            # Check for CAPTCHA — attempt automated solving
-            if "captcha" in page_obj.url.lower():
-                from captcha import handle_captcha_if_present
-                solved = await handle_captcha_if_present(page_obj, max_retries=2)
-                if not solved:
-                    return []
-                # Wait for redirect after CAPTCHA solve
-                await asyncio.sleep(3)
+            for attempt in range(2):  # Retry once if session expired
+                await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
                 try:
                     await page_obj.wait_for_load_state("networkidle", timeout=15000)
                 except Exception:
                     pass
+                await asyncio.sleep(2)
+
+                # Check for CAPTCHA — attempt automated solving
+                if "captcha" in page_obj.url.lower():
+                    from captcha import handle_captcha_if_present
+                    solved = await handle_captcha_if_present(page_obj, max_retries=3)
+                    if not solved:
+                        if attempt == 0:
+                            continue  # Retry once
+                        return []
+                    # Wait for redirect after CAPTCHA solve
+                    await asyncio.sleep(3)
+                    try:
+                        await page_obj.wait_for_load_state("networkidle", timeout=15000)
+                    except Exception:
+                        pass
+
+                # If we landed on the search results page, break out
+                if "captcha" not in page_obj.url.lower():
+                    break
 
             # Scroll to trigger lazy loading
             for _ in range(3):
@@ -372,84 +383,51 @@ class BayutScraper:
         return []
 
     async def _extract_listings(self, page_obj) -> list[Property]:
-        """Extract property listings from Bayut search results page."""
+        """Extract property listings from Bayut search results page.
+
+        Uses aria-label selectors on <article> cards — Bayut labels every field
+        (Title, Price, Beds, Baths, Area, Location, Type, Frequency, etc.).
+        """
         raw = await page_obj.evaluate("""() => {
-            // Try __NEXT_DATA__ first (Bayut uses Next.js)
-            const nextEl = document.getElementById('__NEXT_DATA__');
-            if (nextEl) {
-                try {
-                    const d = JSON.parse(nextEl.textContent);
-                    const pageProps = d.props?.pageProps;
-                    if (!pageProps) return null;
+            const articles = document.querySelectorAll("article");
+            const results = [];
 
-                    // Look for listings in various locations
-                    const candidates = [
-                        pageProps.properties,
-                        pageProps.listings,
-                        pageProps.searchResult?.properties,
-                        pageProps.searchResult?.hits,
-                        pageProps.hits,
-                    ];
+            for (const card of articles) {
+                // Get the listing link
+                const link = card.querySelector('a[aria-label="Listing link"]');
+                const href = link ? link.getAttribute("href") || "" : "";
+                if (!href || !href.includes("/property/")) continue;
 
-                    for (const arr of candidates) {
-                        if (Array.isArray(arr) && arr.length > 0) {
-                            return { source: '__NEXT_DATA__', listings: arr };
-                        }
-                    }
-
-                    // Try Apollo state cache
-                    const apolloState = d.props?.apolloState || d.props?.pageProps?.apolloState;
-                    if (apolloState) {
-                        const listings = [];
-                        for (const [key, val] of Object.entries(apolloState)) {
-                            if (key.startsWith('Property:') && val.price && val.title) {
-                                listings.push(val);
-                            }
-                        }
-                        if (listings.length > 0) {
-                            return { source: 'apollo', listings };
-                        }
-                    }
-                } catch(e) {}
-            }
-
-            // Fallback: parse DOM cards
-            const cards = document.querySelectorAll('[role="article"], article, [class*="property-card"], [data-testid*="listing"]');
-            if (cards.length > 0) {
-                const results = [];
-                for (const card of cards) {
-                    const link = card.querySelector('a[href*="/property/"]');
-                    if (!link) continue;
-                    results.push({
-                        href: link.href,
-                        text: card.textContent.trim().substring(0, 500),
-                    });
+                // Helper: get text from first element with matching aria-label
+                function aria(label) {
+                    const el = card.querySelector('[aria-label="' + label + '"]');
+                    return el ? el.textContent.trim() : "";
                 }
-                if (results.length > 0) {
-                    return { source: 'dom', listings: results };
-                }
-            }
 
-            return null;
+                results.push({
+                    href: href,
+                    title: aria("Title"),
+                    price: aria("Price"),
+                    currency: aria("Currency") || "AED",
+                    frequency: aria("Frequency"),
+                    type: aria("Type"),
+                    beds: aria("Beds"),
+                    baths: aria("Baths"),
+                    area: aria("Area"),
+                    location: aria("Location"),
+                });
+            }
+            return results;
         }""")
 
         if not raw:
             return []
 
         properties = []
-        source = raw.get("source", "")
-
-        if source in ("__NEXT_DATA__", "apollo"):
-            for item in raw.get("listings", []):
-                prop = self._parse_listing(item)
-                if prop:
-                    properties.append(prop)
-        elif source == "dom":
-            for item in raw.get("listings", []):
-                prop = self._parse_dom_card(item)
-                if prop:
-                    properties.append(prop)
-
+        for item in raw:
+            prop = self._parse_aria_card(item)
+            if prop:
+                properties.append(prop)
         return properties
 
     def _build_url(self, location, purpose, property_type, min_price, max_price, bedrooms, page):
@@ -684,42 +662,65 @@ class BayutScraper:
         except Exception:
             return None
 
-    def _parse_dom_card(self, item: dict) -> Property | None:
-        """Parse a listing from DOM text."""
+    def _parse_aria_card(self, item: dict) -> Property | None:
+        """Parse a listing from aria-label extracted card data."""
         try:
-            text = item.get("text", "")
             href = item.get("href", "")
-
-            price_match = re.search(r"AED\s*([\d,]+)", text)
-            price = float(price_match.group(1).replace(",", "")) if price_match else 0
-            if price < 10000:
+            price_text = item.get("price", "").replace(",", "")
+            price = float(price_text) if price_text else 0
+            if price < 1000:
                 return None
 
-            beds_match = re.search(r"(\d+)\s*(?:bed|BR|Bed)", text, re.I)
-            studio = bool(re.search(r"studio", text, re.I))
-            baths_match = re.search(r"(\d+)\s*(?:bath|Bath)", text, re.I)
-            area_match = re.search(r"([\d,]+)\s*(?:sqft|sq\.?\s*ft)", text, re.I)
-
-            id_match = re.search(r"details?-?(\d+)", href)
+            # Extract ID from /property/details-12345678.html
+            id_match = re.search(r"details-?(\d+)", href)
             prop_id = id_match.group(1) if id_match else ""
 
-            title_parts = text.split("\n")
-            title = ""
-            for part in title_parts:
-                part = part.strip()
-                if len(part) > 15 and not part.startswith("AED") and not re.match(r"^\d", part):
-                    title = part[:100]
-                    break
+            # Beds: "2" or "Studio"
+            beds_text = item.get("beds", "")
+            if beds_text.lower() == "studio":
+                bedrooms = 0
+            else:
+                beds_match = re.search(r"(\d+)", beds_text)
+                bedrooms = int(beds_match.group(1)) if beds_match else 0
+
+            # Baths
+            baths_text = item.get("baths", "")
+            baths_match = re.search(r"(\d+)", baths_text)
+            bathrooms = int(baths_match.group(1)) if baths_match else 0
+
+            # Area: "1,430 sqft" → 1430
+            area_text = item.get("area", "").replace(",", "")
+            area_match = re.search(r"([\d.]+)", area_text)
+            area = float(area_match.group(1)) if area_match else 0
+
+            # Location: "Trident Grand Residence, Dubai Marina, Dubai"
+            location = item.get("location", "")
+            loc_parts = [p.strip() for p in location.split(",")]
+            emirate = loc_parts[-1] if len(loc_parts) >= 1 else ""
+            community = loc_parts[-2] if len(loc_parts) >= 2 else ""
+            sub_community = loc_parts[0] if len(loc_parts) >= 3 else ""
+
+            # Frequency for purpose inference
+            frequency = item.get("frequency", "").lower()
+            purpose = "for-rent" if frequency in ("yearly", "monthly") else "for-sale"
+
+            url = href if href.startswith("http") else f"{BASE_URL}{href}"
 
             return Property(
                 id=prop_id,
                 source="bayut",
-                title=title or "Property listing",
+                title=item.get("title", "") or "Property listing",
                 price=price,
-                bedrooms=int(beds_match.group(1)) if beds_match else (0 if studio else 0),
-                bathrooms=int(baths_match.group(1)) if baths_match else 0,
-                area_sqft=float(area_match.group(1).replace(",", "")) if area_match else 0,
-                url=href if href.startswith("http") else f"{BASE_URL}{href}",
+                purpose=purpose,
+                property_type=item.get("type", ""),
+                bedrooms=bedrooms,
+                bathrooms=bathrooms,
+                area_sqft=area,
+                location=location,
+                emirate=emirate,
+                community=community,
+                sub_community=sub_community,
+                url=url,
             )
         except Exception:
             return None

@@ -185,18 +185,21 @@ class StealthBrowser:
             pass
 
     async def cleanup(self):
-        for key, browser in list(self._browsers.items()):
-            try:
-                await browser.close()
-            except Exception:
-                pass
-        self._browsers.clear()
-        if self._playwright:
-            try:
-                await self._playwright.stop()
-            except Exception:
-                pass
-            self._playwright = None
+        import warnings
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=ResourceWarning)
+            for key, browser in list(self._browsers.items()):
+                try:
+                    await browser.close()
+                except Exception:
+                    pass
+            self._browsers.clear()
+            if self._playwright:
+                try:
+                    await self._playwright.stop()
+                except Exception:
+                    pass
+                self._playwright = None
 
 
 # Shared singleton instance

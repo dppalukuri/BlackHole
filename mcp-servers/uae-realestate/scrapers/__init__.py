@@ -8,6 +8,22 @@ from scrapers.dubizzle import DubizzleScraper
 from scrapers.propertyfinder import PropertyFinderScraper
 
 
+def _deduplicate(properties: list) -> list:
+    """Remove duplicate listings (same price + beds + area from different sources)."""
+    seen = set()
+    unique = []
+    for p in properties:
+        # Key: price + bedrooms + area (rounded) — catches cross-platform duplicates
+        key = (int(p.price), p.bedrooms, int(p.area_sqft / 10) * 10)
+        # Also deduplicate exact same listing from same source
+        source_key = (p.source, p.id)
+        if source_key not in seen and key not in seen:
+            seen.add(source_key)
+            seen.add(key)
+            unique.append(p)
+    return unique
+
+
 class UAEPropertyAggregator:
     """Unified interface to search across all UAE property platforms."""
 
@@ -30,6 +46,7 @@ class UAEPropertyAggregator:
         """
         Search properties across all platforms concurrently.
         All three scrapers always run — errors are captured per-source.
+        Results are deduplicated across sources.
         """
         results = []
         errors = []
@@ -66,6 +83,9 @@ class UAEPropertyAggregator:
                 errors.append(f"{name}: {error}")
             else:
                 results.extend(props)
+
+        # Deduplicate cross-source matches
+        results = _deduplicate(results)
 
         return results, errors
 

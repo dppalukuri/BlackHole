@@ -1,7 +1,8 @@
 """
-Backward-compatible shim — imports from new module structure.
+Backward-compatible shim — routes through CaptchaRouter (CLIP → Gemini VLM → API).
 
-Existing code that does `from solver import solve_hcaptcha_challenge` continues to work.
+Existing code that does `from solver import solve_hcaptcha_challenge` continues to work,
+but now benefits from the full v2.0 solver chain with free Gemini VLM fallback.
 """
 
 import os
@@ -24,13 +25,22 @@ from vision.clip import (
 import asyncio
 
 
-# Old API functions
+def _get_router():
+    """Get a CaptchaRouter with config loaded from env vars (cached)."""
+    if not hasattr(_get_router, "_instance"):
+        from server import _load_config
+        from router import CaptchaRouter
+        _get_router._instance = CaptchaRouter(_load_config())
+    return _get_router._instance
+
+
+# Old API functions — now route through full CLIP → Gemini → API chain
 async def solve_hcaptcha_challenge(task_text, image_data, threshold=0.55):
-    from core.types import CaptchaChallenge, SolverConfig, HCAPTCHA_GRID
-    solver = CLIPGridSolver()
-    challenge = CaptchaChallenge(type=HCAPTCHA_GRID, task_text=task_text, images=image_data)
-    config = SolverConfig(clip_threshold=threshold)
-    result = await solver.solve(challenge, config)
+    router = _get_router()
+    result = await router.solve_raw(
+        task_text=task_text, images=image_data,
+        is_canvas=False, captcha_type="hcaptcha",
+    )
     return {
         "task": task_text,
         "target": enhance_task_text(task_text),
@@ -44,15 +54,11 @@ async def solve_recaptcha_challenge(task_text, image_data, threshold=0.55):
 
 
 async def solve_canvas_challenge(canvas_data_url, task_text=""):
-    from core.types import CaptchaChallenge, SolverConfig
-    from router import classify_challenge
-    challenge_type = classify_challenge(task_text, [canvas_data_url], True, "hcaptcha")
-    challenge = CaptchaChallenge(
-        type=challenge_type, task_text=task_text,
-        images=[canvas_data_url], is_canvas=True,
+    router = _get_router()
+    result = await router.solve_raw(
+        task_text=task_text, images=[canvas_data_url],
+        is_canvas=True, captcha_type="hcaptcha",
     )
-    solver = CLIPCanvasSolver()
-    result = await solver.solve(challenge, SolverConfig())
     if not result.success:
         return None
     return {
