@@ -337,20 +337,29 @@ async def _solve_canvas_round(page, captcha_type: str, canvas_data_url: str, tas
         return False
 
 
-async def solve_captcha_locally(page, captcha_info: dict) -> bool:
+async def solve_captcha_locally(page, captcha_info: dict, timeout: int = 90) -> bool:
     """
-    Solve CAPTCHA using local CLIP vision model from captcha-solver.
+    Solve CAPTCHA using captcha-solver (Gemini VLM → CLIP → API chain).
 
     Handles multiple challenge rounds (hCaptcha often requires 2-3 rounds).
     Supports both hCaptcha and reCAPTCHA v2.
-    Detects silhouette challenges (canvas-based) and uses image-to-image
-    similarity instead of text-to-image classification.
+    Has a timeout to prevent hanging on slow model downloads.
 
     Returns True if solved successfully, False otherwise.
     """
     if not _solver_available():
         return False
 
+    try:
+        return await asyncio.wait_for(
+            _solve_captcha_rounds(page, captcha_info), timeout=timeout
+        )
+    except asyncio.TimeoutError:
+        return False
+
+
+async def _solve_captcha_rounds(page, captcha_info: dict) -> bool:
+    """Inner CAPTCHA solving loop — multiple rounds."""
     captcha_type = captcha_info.get("type", "hcaptcha")
     max_rounds = 5  # hCaptcha can require multiple rounds
 
@@ -402,7 +411,7 @@ async def solve_captcha_locally(page, captcha_info: dict) -> bool:
         selections = result.get("selections", [])
 
         if not selections:
-            # CLIP couldn't match anything — try lower threshold
+            # Couldn't match anything — try lower threshold
             result = await solve_hcaptcha_challenge(task, images, threshold=0.35)
             selections = result.get("selections", [])
 

@@ -63,13 +63,19 @@ mcp = FastMCP(
         "  - Purpose: Are they looking to buy or rent?\n"
         "  - Property type: Apartment, villa, townhouse, penthouse, studio?\n"
         "  - Bedrooms: Studio, 1BHK, 2BHK, 3BHK, etc.?\n"
-        "  - Budget range: What's their min/max price in AED?\n"
+        "  - Budget range: What's their min/max price in AED? Use precise ranges.\n"
         "  - Location: Which area/community? (Dubai Marina, JVC, Downtown, etc.)\n"
         "Only ask about filters that weren't already specified in the question. "
         "Once filters are confirmed, call search_properties with the exact parameters.\n\n"
-        "Example: If user asks 'houses in JVC under 55000 AED' — clarify if they mean "
-        "for-rent or for-sale, what type (villa/townhouse/apartment), and how many bedrooms. "
-        "Then search with those specific filters applied.\n\n"
+        "PRICE GUIDANCE (AED):\n"
+        "  Rentals (per year):\n"
+        "    Studio: 20,000-60,000 | 1BR: 35,000-120,000 | 2BR: 50,000-200,000\n"
+        "    3BR: 80,000-350,000 | Villa 3BR: 120,000-500,000 | Villa 5BR: 250,000-1,000,000\n"
+        "  Sales:\n"
+        "    Studio: 300,000-900,000 | 1BR: 500,000-2,000,000 | 2BR: 800,000-4,000,000\n"
+        "    3BR: 1,200,000-8,000,000 | Villa: 2,000,000-30,000,000+\n"
+        "  Use tight, specific ranges based on the user's budget — e.g. for 'cheap 1BR rent' "
+        "use min_price=35000, max_price=55000, not 0 to 120000.\n\n"
         "Supported locations include: Dubai Marina, Downtown Dubai, Business Bay, JBR, "
         "Palm Jumeirah, Dubai Hills Estate, Arabian Ranches, JVC, JVT, JLT, DIFC, "
         "Dubai Creek Harbour, Al Barsha, Motor City, Sports City, Damac Hills, "
@@ -106,8 +112,10 @@ async def search_properties(
         purpose: "for-sale" or "for-rent"
         property_type: "apartment", "villa", "townhouse", "penthouse", "duplex",
                        or "" for all types
-        min_price: Minimum price in AED (0 for no minimum)
-        max_price: Maximum price in AED (0 for no maximum)
+        min_price: Minimum price in AED (0 for no minimum). Use precise values:
+                   Rent: 20000-60000 (studio), 35000-120000 (1BR), 50000-200000 (2BR)
+                   Sale: 300000-900000 (studio), 500000-2000000 (1BR), 800000-4000000 (2BR)
+        max_price: Maximum price in AED (0 for no maximum). Keep ranges tight for relevance.
         bedrooms: Number of bedrooms (-1 for any, 0 for studio, 1-5 for specific)
         source: "bayut", "dubizzle", "propertyfinder", or "all"
         page: Page number for pagination (starts at 1)

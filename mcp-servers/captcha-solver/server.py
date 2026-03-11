@@ -59,6 +59,8 @@ def _load_config() -> SolverConfig:
         enable_external_api=bool(os.environ.get("CAPSOLVER_API_KEY") or os.environ.get("TWOCAPTCHA_API_KEY")),
         external_api_key=os.environ.get("CAPSOLVER_API_KEY") or os.environ.get("TWOCAPTCHA_API_KEY") or "",
         external_api_provider="capsolver" if os.environ.get("CAPSOLVER_API_KEY") else "2captcha",
+        # When free VLM (Gemini) is available, prefer it over CLIP (avoids 350MB model download)
+        prefer_local=not bool(gemini_key),
     )
 
 

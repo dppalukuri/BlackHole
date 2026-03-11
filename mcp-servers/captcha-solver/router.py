@@ -79,9 +79,23 @@ class CaptchaRouter:
             "token_api": ExternalAPISolver(),
         }
 
+        # When VLM is available and prefer_local is False (e.g. free Gemini),
+        # reorder chains to put VLM before CLIP (avoids 350MB model download)
+        if self.config.enable_vlm and not self.config.prefer_local:
+            self._routing = {}
+            for ctype, chain in ROUTING_TABLE.items():
+                if "vlm" in chain and any(s.startswith("clip") for s in chain):
+                    # Move VLM before CLIP solvers
+                    new_chain = ["vlm"] + [s for s in chain if s != "vlm"]
+                    self._routing[ctype] = new_chain
+                else:
+                    self._routing[ctype] = chain
+        else:
+            self._routing = ROUTING_TABLE
+
     async def solve(self, challenge: CaptchaChallenge) -> SolveResult:
         """Try solvers in order until one succeeds above confidence threshold."""
-        chain = ROUTING_TABLE.get(challenge.type, ["vlm", "clip_canvas", "token_api"])
+        chain = self._routing.get(challenge.type, ["vlm", "clip_canvas", "token_api"])
 
         for solver_name in chain:
             solver = self._solvers.get(solver_name)
