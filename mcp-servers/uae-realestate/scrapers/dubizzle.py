@@ -37,88 +37,97 @@ class DubizzleScraper:
         bedrooms: int = -1,
         page: int = 1,
     ) -> list[Property]:
-        """Search Dubizzle listings using headed stealth browser."""
+        """Search Dubizzle listings using stealth browser.
+
+        Starts headless. Escalates to headed only if Incapsula WAF blocks.
+        """
         sb = await self._get_stealth_browser()
-        context = await sb.new_context(site_name="dubizzle", headed=True)
-        page_obj = await context.new_page()
+        url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
 
-        properties = []
-        api_listings = []
+        for headed in (False, True):
+            context = await sb.new_context(site_name="dubizzle", headed=headed)
+            page_obj = await context.new_page()
+            properties = []
+            api_listings = []
 
-        try:
-            # Intercept API responses containing listings
-            async def handle_response(response):
-                nonlocal api_listings
-                try:
-                    ct = response.headers.get("content-type", "")
-                    if response.status == 200 and "json" in ct:
-                        resp_url = response.url
-                        if any(kw in resp_url for kw in ["/search", "/listing", "/properties", "/api/", "graphql"]):
-                            body = await response.json()
-                            if isinstance(body, dict):
-                                for key in ["results", "listings", "hits", "items", "data"]:
-                                    val = body.get(key)
-                                    if isinstance(val, list) and len(val) > 0 and isinstance(val[0], dict):
-                                        if any(k in val[0] for k in ["price", "title", "name", "bedrooms"]):
-                                            api_listings.extend(val)
-                except Exception:
-                    pass  # Context destroyed during navigation is expected
-
-            page_obj.on("response", handle_response)
-
-            url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
-            await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
-
-            # Wait for Incapsula JS + content to render
             try:
-                await page_obj.wait_for_load_state("load", timeout=8000)
-            except Exception:
-                pass
-            await asyncio.sleep(2)
+                # Intercept API responses containing listings
+                async def handle_response(response):
+                    nonlocal api_listings
+                    try:
+                        ct = response.headers.get("content-type", "")
+                        if response.status == 200 and "json" in ct:
+                            resp_url = response.url
+                            if any(kw in resp_url for kw in ["/search", "/listing", "/properties", "/api/", "graphql"]):
+                                body = await response.json()
+                                if isinstance(body, dict):
+                                    for key in ["results", "listings", "hits", "items", "data"]:
+                                        val = body.get(key)
+                                        if isinstance(val, list) and len(val) > 0 and isinstance(val[0], dict):
+                                            if any(k in val[0] for k in ["price", "title", "name", "bedrooms"]):
+                                                api_listings.extend(val)
+                    except Exception:
+                        pass
 
-            # Check for CAPTCHA and solve if present
-            try:
-                from captcha import handle_captcha_if_present
-                captcha_solved = await handle_captcha_if_present(page_obj)
-                if not captcha_solved:
-                    return []
-            except Exception:
-                pass  # Page may have navigated, continue
+                page_obj.on("response", handle_response)
 
-            # Quick scroll to trigger lazy loading
-            for _ in range(3):
+                await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
                 try:
-                    await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
+                    await page_obj.wait_for_load_state("load", timeout=8000)
                 except Exception:
-                    break
-                await asyncio.sleep(0.5)
-            await asyncio.sleep(1)
+                    pass
+                await asyncio.sleep(2)
 
-            # Strategy 1: Use intercepted API data
-            if api_listings:
-                for item in api_listings:
-                    prop = self._parse_api_listing(item)
-                    if prop:
-                        properties.append(prop)
+                # Check if Incapsula blocked us (empty page or challenge)
+                content_len = await page_obj.evaluate("document.body.innerText.length")
+                if not headed and content_len < 100:
+                    await context.close()
+                    continue  # Escalate to headed
 
-            # Strategy 2: Parse DOM using detail link pattern
-            if not properties:
-                properties = await self._parse_dom(page_obj, location)
+                # Check for CAPTCHA
+                try:
+                    from captcha import handle_captcha_if_present
+                    await handle_captcha_if_present(page_obj)
+                except Exception:
+                    pass
 
-            # Save session state
-            await sb.save_session(context)
+                # Scroll to trigger lazy loading
+                for _ in range(3):
+                    try:
+                        await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
+                    except Exception:
+                        break
+                    await asyncio.sleep(0.5)
+                await asyncio.sleep(1)
 
-        except Exception as e:
-            raise RuntimeError(f"Dubizzle scraping failed: {e}")
-        finally:
-            await context.close()
+                # Strategy 1: Use intercepted API data
+                if api_listings:
+                    for item in api_listings:
+                        prop = self._parse_api_listing(item)
+                        if prop:
+                            properties.append(prop)
 
-        return properties
+                # Strategy 2: Parse DOM
+                if not properties:
+                    properties = await self._parse_dom(page_obj, location)
+
+                await sb.save_session(context)
+                return properties
+
+            except Exception as e:
+                if not headed:
+                    await context.close()
+                    continue  # Try headed
+                raise RuntimeError(f"Dubizzle scraping failed: {e}")
+            finally:
+                await context.close()
+
+        return []
 
     async def get_details(self, url: str) -> Property | None:
         """Get details for a specific Dubizzle listing by URL."""
         sb = await self._get_stealth_browser()
-        context = await sb.new_context(site_name="dubizzle", headed=True)
+        context = await sb.new_context(site_name="dubizzle")
         page_obj = await context.new_page()
 
         try:

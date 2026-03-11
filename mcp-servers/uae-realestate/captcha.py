@@ -26,12 +26,11 @@ if _SOLVER_PATH not in sys.path:
 
 
 def _solver_available() -> bool:
-    """Check if the local CLIP solver is importable."""
-    try:
-        from solver import solve_hcaptcha_challenge
-        return True
-    except ImportError:
-        return False
+    """Check if the local CLIP solver is importable (lightweight check)."""
+    import importlib.util
+    return importlib.util.find_spec("solver") is not None or os.path.isfile(
+        os.path.join(_SOLVER_PATH, "solver.py")
+    )
 
 
 async def detect_captcha(page) -> dict | None:

@@ -8,9 +8,7 @@ import io
 import base64
 from pathlib import Path
 
-import torch
 from PIL import Image
-from transformers import CLIPProcessor, CLIPModel
 
 _model = None
 _processor = None
@@ -19,9 +17,15 @@ MODEL_NAME = "openai/clip-vit-base-patch32"
 
 
 def _load_model():
-    """Load CLIP model (lazy, cached after first call)."""
+    """Load CLIP model (lazy, cached after first call).
+
+    Torch and transformers are imported here (not at module level) to avoid
+    loading ~500MB of native libraries at import time, which can segfault
+    when Playwright's Chromium is already running in the same process.
+    """
     global _model, _processor
     if _model is None:
+        from transformers import CLIPProcessor, CLIPModel
         _processor = CLIPProcessor.from_pretrained(MODEL_NAME)
         _model = CLIPModel.from_pretrained(MODEL_NAME)
         _model.eval()
@@ -51,6 +55,7 @@ def load_image(source: str | bytes) -> Image.Image:
 
 def classify_image(image: Image.Image, labels: list[str]) -> dict[str, float]:
     """Classify an image against text labels. Returns {label: probability}."""
+    import torch
     model, processor = _load_model()
     inputs = processor(text=labels, images=image, return_tensors="pt", padding=True)
     with torch.no_grad():
@@ -68,6 +73,7 @@ def classify_images_batch(
     threshold: float = 0.5,
 ) -> list[dict]:
     """Classify multiple images as matching or not matching a target label."""
+    import torch
     model, processor = _load_model()
 
     if negative_labels is None:
@@ -91,6 +97,7 @@ def classify_images_batch(
 
 def get_image_embeddings(images: list[Image.Image]) -> list[list[float]]:
     """Get normalized CLIP image embeddings for image-to-image similarity."""
+    import torch
     model, processor = _load_model()
     with torch.no_grad():
         inputs = processor(images=images, return_tensors="pt")

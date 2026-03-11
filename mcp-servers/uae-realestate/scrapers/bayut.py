@@ -124,18 +124,20 @@ class BayutScraper:
     async def _search_playwright(
         self, location, purpose, property_type, min_price, max_price, bedrooms, page
     ) -> list[Property]:
-        """Search using headed stealth Playwright with session persistence.
+        """Search using stealth Playwright with session persistence.
 
-        Automatically handles CAPTCHA (including expired sessions) and retries.
+        Starts headless (invisible). If CAPTCHA is hit, escalates to headed
+        mode to solve it, saves the session, then closes the window.
         """
         sb = await self._get_stealth_browser()
-        context = await sb.new_context(site_name="bayut", headed=True)
-        page_obj = await context.new_page()
+        url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
 
-        try:
-            url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
+        # Try headless first (no visible window)
+        for headed in (False, True):
+            context = await sb.new_context(site_name="bayut", headed=headed)
+            page_obj = await context.new_page()
 
-            for attempt in range(2):  # Retry once if session expired
+            try:
                 await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
                 try:
                     await page_obj.wait_for_load_state("networkidle", timeout=15000)
@@ -143,43 +145,37 @@ class BayutScraper:
                     pass
                 await asyncio.sleep(2)
 
-                # Check for CAPTCHA — attempt automated solving
+                # CAPTCHA check
                 if "captcha" in page_obj.url.lower():
+                    if not headed:
+                        await context.close()
+                        continue  # Escalate to headed mode for CAPTCHA solving
+
                     from captcha import handle_captcha_if_present
                     solved = await handle_captcha_if_present(page_obj, max_retries=3)
                     if not solved:
-                        if attempt == 0:
-                            continue  # Retry once
                         return []
-                    # Wait for redirect after CAPTCHA solve
                     await asyncio.sleep(3)
                     try:
                         await page_obj.wait_for_load_state("networkidle", timeout=15000)
                     except Exception:
                         pass
 
-                # If we landed on the search results page, break out
-                if "captcha" not in page_obj.url.lower():
-                    break
+                # Scroll to trigger lazy loading
+                for _ in range(3):
+                    await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
+                    await asyncio.sleep(0.5)
+                await asyncio.sleep(1)
 
-            # Scroll to trigger lazy loading
-            for _ in range(3):
-                await page_obj.evaluate("window.scrollBy(0, window.innerHeight)")
-                await asyncio.sleep(0.5)
-            await asyncio.sleep(1)
+                await self._extract_algolia_keys(page_obj)
+                properties = await self._extract_listings(page_obj)
+                await sb.save_session(context)
 
-            # Extract Algolia runtime keys for future direct queries
-            await self._extract_algolia_keys(page_obj)
+                return properties
+            finally:
+                await context.close()
 
-            # Extract listings from page
-            properties = await self._extract_listings(page_obj)
-
-            # Save session state for future requests
-            await sb.save_session(context)
-
-            return properties
-        finally:
-            await context.close()
+        return []
 
     async def warm_up(self, timeout: int = 120) -> str:
         """
@@ -514,10 +510,10 @@ class BayutScraper:
 
     async def get_details(self, property_id: str) -> Property:
         """Get details for a Bayut listing."""
-        # Try Playwright first (headed mode)
+        # Try Playwright first (headless, escalate if CAPTCHA)
         try:
             sb = await self._get_stealth_browser()
-            context = await sb.new_context(site_name="bayut", headed=True)
+            context = await sb.new_context(site_name="bayut")
             page_obj = await context.new_page()
             try:
                 url = f"{BASE_URL}/property/details-{property_id}.html"
