@@ -8,6 +8,7 @@ The VLM can solve challenges that CLIP cannot: complex spatial reasoning,
 import json
 import re
 import base64
+import httpx
 
 
 # Default models per provider
@@ -75,8 +76,16 @@ async def solve_canvas_vlm(
     if not api_key:
         return None
 
-    # Clean base64
-    if "," in canvas_b64:
+    # Convert URL to base64 if needed
+    if canvas_b64.startswith("http://") or canvas_b64.startswith("https://"):
+        try:
+            resp = httpx.get(canvas_b64, timeout=15, follow_redirects=True,
+                             headers={"User-Agent": "Mozilla/5.0"})
+            resp.raise_for_status()
+            canvas_b64 = base64.b64encode(resp.content).decode()
+        except Exception:
+            return None
+    elif "," in canvas_b64:
         canvas_b64 = canvas_b64.split(",", 1)[1]
 
     model = model or DEFAULT_MODELS.get(provider, "")
@@ -117,6 +126,23 @@ async def solve_grid_vlm(
     """
     if not api_key:
         return None
+
+    # Convert URL images to base64 if needed
+    converted = []
+    for img in images_b64:
+        if img.startswith("http://") or img.startswith("https://"):
+            try:
+                resp = httpx.get(img, timeout=15, follow_redirects=True,
+                                 headers={"User-Agent": "Mozilla/5.0"})
+                resp.raise_for_status()
+                converted.append(base64.b64encode(resp.content).decode())
+            except Exception:
+                converted.append(img)
+        elif "," in img:
+            converted.append(img.split(",", 1)[1])
+        else:
+            converted.append(img)
+    images_b64 = converted
 
     model = model or DEFAULT_MODELS.get(provider, "")
     n = len(images_b64)

@@ -2,11 +2,12 @@
 CAPTCHA detection and solving for UAE real estate scrapers.
 
 Solving priority:
-  1. Local CLIP vision model (free, no API key) via captcha-solver
-  2. CapSolver API (paid fallback) if CAPSOLVER_API_KEY is set
+  1. reCAPTCHA v3 (Bayut): CapSolver/2Captcha API (token-based, no images)
+  2. hCaptcha / reCAPTCHA v2: Local CLIP/VLM (free) → CapSolver API (paid)
 
 Supports:
-  - hCaptcha (Bayut) - image grid challenges (multiple rounds)
+  - reCAPTCHA v3 (Bayut) - invisible score-based, solved via token API
+  - hCaptcha - image grid challenges (multiple rounds)
   - reCAPTCHA v2 (Dubizzle) - image selection challenges
 """
 
@@ -37,8 +38,45 @@ async def detect_captcha(page) -> dict | None:
     """Detect if current page has a CAPTCHA challenge. Returns captcha info or None."""
     try:
         info = await page.evaluate("""() => {
-            // Check for CAPTCHA challenge page (Bayut redirects to /captchaChallenge)
-            if (location.pathname.includes('captcha')) {
+            const isCaptchaPage = location.pathname.includes('captcha');
+
+            // --- reCAPTCHA v3 detection (Bayut's current system) ---
+            const badge = document.querySelector('.grecaptcha-badge');
+            const rcScript = document.querySelector(
+                'script[src*="recaptcha/api.js"], script[src*="recaptcha/enterprise.js"]'
+            );
+
+            let v3Sitekey = null;
+            // Try Next.js runtime config (Bayut stores STRAT_RECAPTCHA_KEY here)
+            try {
+                const nd = window.__NEXT_DATA__;
+                if (nd) {
+                    const rc = nd.runtimeConfig || nd.props?.pageProps || {};
+                    v3Sitekey = rc.STRAT_RECAPTCHA_KEY || rc.recaptchaKey || null;
+                }
+            } catch(e) {}
+            // Try script src render= param
+            if (!v3Sitekey && rcScript) {
+                const match = (rcScript.getAttribute('src') || '').match(/render=([a-zA-Z0-9_-]+)/);
+                if (match && match[1] !== 'explicit') v3Sitekey = match[1];
+            }
+            // Try data-sitekey on any element (but not hCaptcha)
+            if (!v3Sitekey && !document.querySelector('.h-captcha')) {
+                const el = document.querySelector('[data-sitekey]');
+                if (el) v3Sitekey = el.getAttribute('data-sitekey');
+            }
+
+            // If we have v3 indicators and we're on a captcha page, it's reCAPTCHA v3
+            if (isCaptchaPage && (badge || rcScript || v3Sitekey)) {
+                return {
+                    type: 'recaptcha_v3',
+                    sitekey: v3Sitekey,
+                    url: location.href,
+                };
+            }
+
+            // --- hCaptcha detection ---
+            if (isCaptchaPage) {
                 const hcDiv = document.querySelector('[data-sitekey].h-captcha, .h-captcha[data-sitekey]');
                 if (hcDiv) {
                     return {
@@ -48,8 +86,6 @@ async def detect_captcha(page) -> dict | None:
                     };
                 }
             }
-
-            // hCaptcha iframe
             const hcIframe = document.querySelector('iframe[src*="hcaptcha"]');
             if (hcIframe) {
                 const srcMatch = hcIframe.src.match(/sitekey=([a-f0-9-]+)/);
@@ -59,7 +95,6 @@ async def detect_captcha(page) -> dict | None:
                     url: location.href,
                 };
             }
-            // hCaptcha div
             const hcDiv = document.querySelector('[data-sitekey].h-captcha, .h-captcha[data-sitekey]');
             if (hcDiv) {
                 return {
@@ -69,7 +104,7 @@ async def detect_captcha(page) -> dict | None:
                 };
             }
 
-            // reCAPTCHA iframe
+            // --- reCAPTCHA v2 detection ---
             const rcIframe = document.querySelector('iframe[src*="recaptcha"]');
             if (rcIframe) {
                 const srcMatch = rcIframe.src.match(/[?&]k=([a-zA-Z0-9_-]+)/);
@@ -79,7 +114,6 @@ async def detect_captcha(page) -> dict | None:
                     url: location.href,
                 };
             }
-            // reCAPTCHA div
             const rcDiv = document.querySelector('.g-recaptcha[data-sitekey], [data-sitekey]');
             if (rcDiv && !document.querySelector('.h-captcha')) {
                 return {
@@ -292,36 +326,43 @@ async def _click_submit(page, captcha_type: str):
         pass
 
 
-async def _solve_canvas_round(page, captcha_type: str, canvas_data_url: str, task_text: str = "") -> bool:
+async def _solve_canvas_round(page, captcha_type: str, image_data: str, task_text: str = "") -> bool:
     """
-    Solve one round of a canvas-based hCaptcha challenge.
+    Solve one round of an hCaptcha single-image challenge.
 
-    Routes to the appropriate strategy based on task text:
-    - Bucket/ball: Pipe tracing (spatial reasoning)
-    - Line connection: CLIP text-to-image classification
-    - Silhouette: CLIP image-to-image similarity
+    Handles both canvas-based and img-based challenges.
+    Routes to VLM (Gemini) or CLIP based on the solver chain.
     """
     try:
         from solver import solve_canvas_challenge
 
-        result = await solve_canvas_challenge(canvas_data_url, task_text)
+        result = await solve_canvas_challenge(image_data, task_text)
         if not result:
             return False
 
-        # Click at the computed position on the canvas
+        # Find the clickable element in the challenge frame (canvas or img)
         challenge_frame = _find_challenge_frame(page, captcha_type)
         if not challenge_frame:
             return False
 
-        canvas = await challenge_frame.wait_for_selector("canvas", timeout=3000)
-        if not canvas:
+        # Try canvas first, then img
+        element = None
+        for selector in ["canvas", ".task-image img", ".challenge-image img", "img[src]"]:
+            try:
+                element = await challenge_frame.wait_for_selector(selector, timeout=2000)
+                if element:
+                    break
+            except Exception:
+                continue
+
+        if not element:
             return False
 
-        box = await canvas.bounding_box()
+        box = await element.bounding_box()
         if not box:
             return False
 
-        # Scale canvas pixel coords to display coords
+        # Scale solver coords to display coords
         scale_x = box["width"] / result["canvas_width"]
         scale_y = box["height"] / result["canvas_height"]
         click_x = box["x"] + result["canvas_x"] * scale_x
@@ -335,6 +376,102 @@ async def _solve_canvas_round(page, captcha_type: str, canvas_data_url: str, tas
         return True
     except Exception as e:
         return False
+
+
+async def _try_recaptcha_v3_browser(page, timeout: int = 10) -> bool:
+    """
+    Wait for reCAPTCHA v3 to auto-resolve in the browser.
+
+    reCAPTCHA v3 is invisible and score-based. If the browser has good stealth,
+    the page will auto-execute grecaptcha and redirect on its own.
+    """
+    original_url = page.url
+    for _ in range(timeout):
+        await asyncio.sleep(1)
+        if "captcha" not in page.url.lower():
+            return True  # Page navigated away from captcha
+        if page.url != original_url and "captcha" not in page.url.lower():
+            return True
+    return False
+
+
+async def solve_recaptcha_v3(page, captcha_info: dict) -> bool:
+    """
+    Solve reCAPTCHA v3 challenge.
+
+    reCAPTCHA v3 is invisible/score-based — no images to classify.
+    Strategy:
+      1. Wait for browser auto-resolve (stealth might score high enough)
+      2. CapSolver/2Captcha API to get a valid token
+      3. Inject token and submit the form
+    """
+    # Strategy 1: Wait for browser to auto-resolve (free)
+    if await _try_recaptcha_v3_browser(page, timeout=8):
+        return True
+
+    # Strategy 2: CapSolver API (paid)
+    if not CAPSOLVER_API_KEY:
+        return False
+
+    sitekey = captcha_info.get("sitekey")
+    page_url = captcha_info.get("url")
+    if not sitekey or not page_url:
+        return False
+
+    token = await _solve_recaptcha_v3_api(sitekey, page_url)
+    if not token:
+        return False
+
+    # Inject token and submit
+    injected = await inject_captcha_token(page, captcha_info, token)
+    if injected:
+        await asyncio.sleep(3)
+        try:
+            await page.wait_for_load_state("networkidle", timeout=10000)
+        except Exception:
+            pass
+        # Check if we left the captcha page
+        if "captcha" not in page.url.lower():
+            return True
+
+    return False
+
+
+async def _solve_recaptcha_v3_api(sitekey: str, page_url: str) -> str | None:
+    """Get reCAPTCHA v3 token from CapSolver API."""
+    async with httpx.AsyncClient(timeout=180) as client:
+        resp = await client.post(f"{CAPSOLVER_API}/createTask", json={
+            "clientKey": CAPSOLVER_API_KEY,
+            "task": {
+                "type": "ReCaptchaV3TaskProxyLess",
+                "websiteURL": page_url,
+                "websiteKey": sitekey,
+                "pageAction": "captchaChallenge",
+                "minScore": 0.7,
+            }
+        })
+        data = resp.json()
+        if data.get("errorId", 0) != 0:
+            return None
+
+        task_id = data.get("taskId")
+        if not task_id:
+            return None
+
+        for _ in range(40):
+            await asyncio.sleep(3)
+            resp = await client.post(f"{CAPSOLVER_API}/getTaskResult", json={
+                "clientKey": CAPSOLVER_API_KEY,
+                "taskId": task_id,
+            })
+            result = resp.json()
+            if result.get("status") == "ready":
+                solution = result.get("solution", {})
+                return solution.get("gRecaptchaResponse") or solution.get("token")
+            elif result.get("status") == "failed":
+                return None
+
+    return None
 
 
 async def solve_captcha_locally(page, captcha_info: dict, timeout: int = 90) -> bool:
@@ -387,8 +524,9 @@ async def _solve_captcha_rounds(page, captcha_info: dict) -> bool:
                 return True
             continue
 
-        # Canvas-based challenge: silhouette matching or line connection
-        if is_canvas and len(images) == 1:
+        # Single-image challenge: canvas click OR image-based "tap on" challenge
+        # hCaptcha serves these as both <canvas> and <img> — handle both
+        if len(images) == 1:
             solved = await _solve_canvas_round(page, captcha_type, images[0], task)
             if solved:
                 await asyncio.sleep(3)
@@ -500,8 +638,15 @@ async def inject_captcha_token(page, captcha_info: dict, token: str) -> bool:
                 : ['g-recaptcha-response'];
 
             for (const name of names) {
-                const el = document.querySelector(`[name="${name}"]`);
-                if (el) { el.value = token; el.style.display = 'block'; }
+                // Find existing element or create one
+                let el = document.querySelector(`[name="${name}"]`);
+                if (!el) {
+                    el = document.createElement('textarea');
+                    el.name = name;
+                    el.style.display = 'none';
+                    document.body.appendChild(el);
+                }
+                el.value = token;
             }
 
             // Try hCaptcha callback
@@ -509,17 +654,40 @@ async def inject_captcha_token(page, captcha_info: dict, token: str) -> bool:
                 try { hcaptcha.execute(); } catch(e) {}
             }
 
-            // Try reCAPTCHA callback
-            if (type === 'recaptcha' && typeof grecaptcha !== 'undefined') {
+            // Try reCAPTCHA v3 callback (grecaptcha.execute resolves to token)
+            if ((type === 'recaptcha_v3' || type === 'recaptcha') && typeof grecaptcha !== 'undefined') {
                 try {
-                    const callback = grecaptcha.getResponse ? null : null;
-                    // Find the callback from the widget
+                    // Try enterprise callback
+                    if (typeof grecaptcha.enterprise !== 'undefined') {
+                        const widgets = grecaptcha.enterprise.getResponse;
+                    }
+                    // Find callback from data-callback attributes
                     const widgets = document.querySelectorAll('[data-callback]');
                     for (const w of widgets) {
                         const cbName = w.getAttribute('data-callback');
                         if (cbName && typeof window[cbName] === 'function') {
                             window[cbName](token);
                             return true;
+                        }
+                    }
+                    // Try ___grecaptcha_cfg callbacks
+                    if (window.___grecaptcha_cfg && window.___grecaptcha_cfg.clients) {
+                        for (const clientId in window.___grecaptcha_cfg.clients) {
+                            const client = window.___grecaptcha_cfg.clients[clientId];
+                            // Walk the client object tree looking for callback functions
+                            const findCallback = (obj, depth) => {
+                                if (depth > 5 || !obj) return null;
+                                for (const key in obj) {
+                                    if (typeof obj[key] === 'function') return obj[key];
+                                    if (typeof obj[key] === 'object') {
+                                        const cb = findCallback(obj[key], depth + 1);
+                                        if (cb) return cb;
+                                    }
+                                }
+                                return null;
+                            };
+                            const cb = findCallback(client, 0);
+                            if (cb) { cb(token); return true; }
                         }
                     }
                 } catch(e) {}
@@ -544,8 +712,8 @@ async def handle_captcha_if_present(page, max_retries: int = 3) -> bool:
     Detect and solve CAPTCHA on current page if present.
 
     Solving priority:
-      1. Local CLIP solver (free, handles multiple rounds)
-      2. CapSolver API (if CAPSOLVER_API_KEY is set)
+      - reCAPTCHA v3: browser auto-resolve → CapSolver API (token-based)
+      - hCaptcha/reCAPTCHA v2: Local CLIP/VLM → CapSolver API
 
     Returns True if page is now CAPTCHA-free, False if unsolvable.
     """
@@ -554,10 +722,26 @@ async def handle_captcha_if_present(page, max_retries: int = 3) -> bool:
         if not captcha:
             return True  # No CAPTCHA
 
-        # Strategy 1: Local CLIP solver (handles multi-round challenges)
+        captcha_type = captcha.get("type", "")
+
+        # --- reCAPTCHA v3: invisible, score-based (no images to classify) ---
+        if captcha_type == "recaptcha_v3":
+            solved = await solve_recaptcha_v3(page, captcha)
+            if solved:
+                await asyncio.sleep(2)
+                try:
+                    await page.wait_for_load_state("load", timeout=10000)
+                except Exception:
+                    pass
+                return True
+            # v3 failed — wait and retry (score may improve)
+            await asyncio.sleep(3)
+            continue
+
+        # --- hCaptcha / reCAPTCHA v2: image-based challenges ---
+        # Strategy 1: Local CLIP/VLM solver (handles multi-round challenges)
         solved = await solve_captcha_locally(page, captcha)
         if solved:
-            # Wait for page to settle after CAPTCHA solve
             await asyncio.sleep(2)
             try:
                 await page.wait_for_load_state("load", timeout=10000)
@@ -576,12 +760,10 @@ async def handle_captcha_if_present(page, max_retries: int = 3) -> bool:
                 except Exception:
                     pass
 
-                # Check if solved
                 remaining = await detect_captcha(page)
                 if not remaining:
                     return True
 
-        # Wait before retry
         await asyncio.sleep(2)
 
     return False

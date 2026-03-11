@@ -1,12 +1,12 @@
 """
 Bayut.com scraper - Headed stealth browser with session persistence.
 
-Bayut uses hCaptcha on every uncached request + Algolia as search backend.
+Bayut uses reCAPTCHA v3 on every uncached request + Algolia as search backend.
 
 Strategy order:
   1. Algolia direct API (if runtime keys cached from prior session)
   2. Headed Playwright with saved session (CAPTCHA-free if session valid)
-  3. If CAPTCHA: user solves interactively via warm_up tool
+  3. If CAPTCHA: auto-solve via CapSolver API or warm_up tool
   4. RapidAPI fallback (free tier: 750 calls/month)
 
 URL pattern: /{for-sale|to-rent}/{type}/dubai/{location-slug}/
@@ -15,7 +15,7 @@ Data extraction: __NEXT_DATA__ (Next.js SSR), Apollo cache, DOM cards
 Algolia index: bayut-production-ads-en
 
 Env vars:
-  CAPSOLVER_API_KEY  - For hCaptcha solving (capsolver.com)
+  CAPSOLVER_API_KEY  - For reCAPTCHA v3 solving (capsolver.com)
   BAYUT_RAPIDAPI_KEY - Fallback API key (rapidapi.com/apidojo/api/bayut)
 """
 
@@ -115,9 +115,9 @@ class BayutScraper:
             )
 
         raise RuntimeError(
-            "Bayut requires a one-time CAPTCHA solve. Please use the warm_up_bayut tool "
-            "to open a browser window and solve the CAPTCHA. After that, Bayut searches "
-            "will work automatically using the saved session.\n"
+            "Bayut requires CAPTCHA solving. Set CAPSOLVER_API_KEY for automatic reCAPTCHA v3 "
+            "solving, or use the warm_up_bayut tool to open a browser and solve manually. "
+            "After solving, Bayut searches will work automatically using the saved session.\n"
             "Alternatively, set BAYUT_RAPIDAPI_KEY for API access (free at rapidapi.com)."
         )
 

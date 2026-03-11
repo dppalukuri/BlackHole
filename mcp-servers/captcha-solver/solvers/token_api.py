@@ -61,13 +61,19 @@ class ExternalAPISolver(BaseSolver):
             return None
 
         async with httpx.AsyncClient(timeout=180) as client:
+            task = {
+                "type": task_type,
+                "websiteURL": challenge.page_url,
+                "websiteKey": challenge.sitekey,
+            }
+            # reCAPTCHA v3 requires action and minimum score
+            if challenge.type == "recaptcha_v3":
+                task["pageAction"] = challenge.metadata.get("action", "verify")
+                task["minScore"] = challenge.metadata.get("min_score", 0.7)
+
             resp = await client.post(f"{CAPSOLVER_API}/createTask", json={
                 "clientKey": api_key,
-                "task": {
-                    "type": task_type,
-                    "websiteURL": challenge.page_url,
-                    "websiteKey": challenge.sitekey,
-                }
+                "task": task,
             })
             data = resp.json()
             if data.get("errorId", 0) != 0:
@@ -111,6 +117,11 @@ class ExternalAPISolver(BaseSolver):
                 "pageurl": challenge.page_url,
                 "json": 1,
             }
+            # reCAPTCHA v3 requires version, action, and min_score
+            if challenge.type == "recaptcha_v3":
+                params["version"] = "v3"
+                params["action"] = challenge.metadata.get("action", "verify")
+                params["min_score"] = challenge.metadata.get("min_score", 0.7)
             resp = await client.get(f"{TWOCAPTCHA_API}/in.php", params=params)
             data = resp.json()
             if data.get("status") != 1:

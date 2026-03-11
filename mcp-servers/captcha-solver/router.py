@@ -40,6 +40,9 @@ def classify_challenge(task_text: str, images: list[str], is_canvas: bool,
     """Classify a raw challenge into a specific challenge type."""
     task_lower = task_text.lower()
 
+    if captcha_type == "recaptcha_v3":
+        return RECAPTCHA_V3
+
     if captcha_type == "recaptcha":
         if is_canvas:
             return RECAPTCHA_V2  # reCAPTCHA doesn't have canvas types
