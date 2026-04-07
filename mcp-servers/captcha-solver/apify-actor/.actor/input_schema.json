@@ -1,0 +1,63 @@
+{
+    "title": "CAPTCHA Solver Input",
+    "description": "Solve CAPTCHAs using AI vision models. Supports hCaptcha, reCAPTCHA v2/v3, Turnstile, and FunCaptcha.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "taskText": {
+            "title": "Challenge Text",
+            "type": "string",
+            "description": "The CAPTCHA instruction text (e.g. 'Click each image containing a bus')",
+            "editor": "textfield",
+            "example": "Please click each image containing a motorbus"
+        },
+        "images": {
+            "title": "CAPTCHA Images",
+            "type": "array",
+            "description": "List of image URLs or base64 data URIs. For grids, provide all cell images. For canvas, provide one image.",
+            "editor": "json",
+            "example": ["https://example.com/captcha-image-0.png"]
+        },
+        "captchaType": {
+            "title": "CAPTCHA Type",
+            "type": "string",
+            "description": "Type of CAPTCHA challenge",
+            "editor": "select",
+            "default": "hcaptcha",
+            "enum": ["hcaptcha", "recaptcha", "recaptcha_v3", "turnstile", "funcaptcha"],
+            "enumTitles": ["hCaptcha", "reCAPTCHA v2", "reCAPTCHA v3", "Cloudflare Turnstile", "FunCaptcha"]
+        },
+        "isCanvas": {
+            "title": "Canvas Challenge",
+            "type": "boolean",
+            "description": "Set to true for canvas/interactive challenges (single image, returns click coordinates)",
+            "default": false
+        },
+        "sitekey": {
+            "title": "Site Key",
+            "type": "string",
+            "description": "Site key for token-based solving (reCAPTCHA v3, Turnstile). Not needed for image challenges.",
+            "editor": "textfield",
+            "nullable": true,
+            "groupCaption": "Token-Based Solving",
+            "groupDescription": "For reCAPTCHA v3 and Turnstile (invisible CAPTCHAs)"
+        },
+        "pageUrl": {
+            "title": "Page URL",
+            "type": "string",
+            "description": "Page URL where the CAPTCHA appears. Required for token-based solving.",
+            "editor": "textfield",
+            "nullable": true
+        },
+        "geminiApiKey": {
+            "title": "Gemini API Key",
+            "type": "string",
+            "description": "Google Gemini API key for free VLM solving (250/day). Get one at aistudio.google.com",
+            "editor": "textfield",
+            "isSecret": true,
+            "groupCaption": "API Keys",
+            "groupDescription": "At least one VLM key recommended. Gemini is free."
+        }
+    },
+    "required": ["captchaType"]
+}

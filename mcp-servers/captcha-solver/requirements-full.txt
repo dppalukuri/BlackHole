@@ -1,0 +1,5 @@
+# Full requirements including CLIP/PyTorch (adds ~1.5GB)
+-r requirements.txt
+torch>=2.0.0
+torchvision>=0.15.0
+transformers>=4.30.0

@@ -25,7 +25,8 @@ tests/             — Test suite
 
 ## Solving Chain
 
-`CLIP (free, local) → Gemini VLM (free, 250/day) → External API (paid)`
+- **reCAPTCHA v3** (Bayut): `External API only` (token-based, no images)
+- **hCaptcha / reCAPTCHA v2**: `CLIP (free) → Gemini VLM (free, 250/day) → External API (paid)`
 
 When `GEMINI_API_KEY` is set, Gemini goes first (skips 350MB CLIP download).
 
@@ -37,6 +38,8 @@ When `GEMINI_API_KEY` is set, Gemini goes first (skips 350MB CLIP download).
 - VLM providers: Gemini (`google-genai`), Anthropic, OpenAI. Gemini uses `client.aio.models.generate_content()`
 - CLIP model: `openai/clip-vit-base-patch32` (~350MB, downloads on first use)
 - hCaptcha challenges render on `<canvas>` not `<img>` — extract via `canvas.toDataURL()`
+- **reCAPTCHA v3** is invisible/score-based — only solvable via token API (CapSolver/2Captcha), not CLIP/VLM
+- `token_api.py` passes `pageAction` + `minScore` for reCAPTCHA v3 tasks
 
 ## Environment Variables
 

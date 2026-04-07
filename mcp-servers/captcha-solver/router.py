@@ -1,5 +1,6 @@
-"""Smart solver routing — tries cheapest viable solver first, escalates on failure."""
+"""Smart solver routing -- tries cheapest viable solver first, escalates on failure."""
 
+import logging
 import re
 from core.types import (
     CaptchaChallenge, SolveResult, SolverConfig,
@@ -70,6 +71,9 @@ def classify_challenge(task_text: str, images: list[str], is_canvas: bool,
     return HCAPTCHA_CANVAS_UNKNOWN
 
 
+logger = logging.getLogger("captcha_solver.router")
+
+
 class CaptchaRouter:
     """Routes challenges to solvers based on type, cost, and confidence."""
 
@@ -119,9 +123,14 @@ class CaptchaRouter:
                 gate = CONFIDENCE_GATES.get(solver_name, 0.3)
                 # If CLIP result is below gate AND VLM is available, skip to VLM
                 if result.confidence < gate and solver_name.startswith("clip") and self.config.enable_vlm:
+                    logger.info("Solver %s below gate (%.2f < %.2f), escalating",
+                                solver_name, result.confidence, gate)
                     continue
+                logger.info("Solved via %s: success=%s conf=%.2f time=%dms",
+                            solver_name, result.success, result.confidence, result.solve_time_ms)
                 return result
 
+        logger.warning("All solvers failed for challenge type=%s", challenge.type)
         return SolveResult(success=False, error="All solvers failed")
 
     async def solve_raw(

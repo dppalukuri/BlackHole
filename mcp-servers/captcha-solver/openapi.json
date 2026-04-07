@@ -1,0 +1,509 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CAPTCHA Solver API",
+    "description": "AI-powered CAPTCHA solver with free tier. Uses CLIP (local) and Gemini Vision (free) to solve hCaptcha, reCAPTCHA, Turnstile, and FunCaptcha challenges. Drop-in compatible with 2Captcha and CapSolver APIs.",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/solve": {
+      "post": {
+        "summary": "Solve a CAPTCHA",
+        "description": "Submit a CAPTCHA challenge and get the solution immediately. Supports image grids (hCaptcha, reCAPTCHA v2), canvas challenges (hCaptcha interactive), and token-based challenges (reCAPTCHA v3, Turnstile).",
+        "operationId": "solve_direct_solve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SolveResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/createTask": {
+      "post": {
+        "summary": "Create a CAPTCHA task (CapSolver compatible)",
+        "description": "Create an async CAPTCHA solving task. Compatible with CapSolver API format. Supported types: HCaptchaTaskProxyLess, ReCaptchaV2TaskProxyLess, ReCaptchaV3TaskProxyLess, AntiTurnstileTaskProxyLess, FunCaptchaTaskProxyLess.",
+        "operationId": "create_task_createTask_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTaskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/getTaskResult": {
+      "post": {
+        "summary": "Get task result (CapSolver compatible)",
+        "description": "Poll for the result of an async CAPTCHA task created with /createTask.",
+        "operationId": "get_task_result_getTaskResult_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTaskResultRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTaskResultResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "description": "Returns API status. No authentication required.",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "summary": "Solver status",
+        "description": "Returns which solvers are available and active task count. No authentication required.",
+        "operationId": "status_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateTaskRequest": {
+        "properties": {
+          "clientKey": {
+            "type": "string",
+            "title": "Clientkey",
+            "description": "Your API key (CapSolver compatibility)",
+            "default": ""
+          },
+          "task": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Task",
+            "description": "Task object with type, websiteURL, websiteKey",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "title": "CreateTaskRequest"
+      },
+      "CreateTaskResponse": {
+        "properties": {
+          "errorId": {
+            "type": "integer",
+            "title": "Errorid",
+            "description": "0 = success, 1 = error",
+            "default": 0
+          },
+          "errorDescription": {
+            "type": "string",
+            "title": "Errordescription",
+            "description": "Error description if errorId > 0",
+            "default": ""
+          },
+          "taskId": {
+            "type": "string",
+            "title": "Taskid",
+            "description": "Task ID for polling with /getTaskResult",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "CreateTaskResponse"
+      },
+      "GetTaskResultRequest": {
+        "properties": {
+          "clientKey": {
+            "type": "string",
+            "title": "Clientkey",
+            "description": "Your API key",
+            "default": ""
+          },
+          "taskId": {
+            "type": "string",
+            "title": "Taskid",
+            "description": "Task ID from /createTask response",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "GetTaskResultRequest"
+      },
+      "GetTaskResultResponse": {
+        "properties": {
+          "errorId": {
+            "type": "integer",
+            "title": "Errorid",
+            "description": "0 = success, 1 = error",
+            "default": 0
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "'processing' or 'ready'",
+            "default": "processing"
+          },
+          "solution": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Solution",
+            "description": "Solution object when status is 'ready'",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "title": "GetTaskResultResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "SolveRequest": {
+        "properties": {
+          "task_text": {
+            "type": "string",
+            "title": "Task Text",
+            "description": "The CAPTCHA challenge instruction text (e.g. 'Click each image containing a bus')"
+          },
+          "images": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Images",
+            "description": "List of images as base64 data URIs or URLs"
+          },
+          "captcha_type": {
+            "type": "string",
+            "title": "Captcha Type",
+            "description": "Type: hcaptcha, recaptcha, recaptcha_v3, turnstile, funcaptcha",
+            "default": "hcaptcha"
+          },
+          "is_canvas": {
+            "type": "boolean",
+            "title": "Is Canvas",
+            "description": "True if this is a single canvas/interactive challenge (not a grid)",
+            "default": false
+          },
+          "sitekey": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sitekey",
+            "description": "Site key for token-based solving (reCAPTCHA v3, Turnstile)"
+          },
+          "page_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Url",
+            "description": "Page URL for token-based solving"
+          }
+        },
+        "type": "object",
+        "required": [
+          "task_text",
+          "images"
+        ],
+        "title": "SolveRequest"
+      },
+      "SolveResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "description": "Whether the CAPTCHA was solved successfully"
+          },
+          "solver": {
+            "type": "string",
+            "title": "Solver",
+            "description": "Which solver was used: clip_grid, vlm, token_api",
+            "default": ""
+          },
+          "selections": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selections",
+            "description": "Grid challenges: indices of matching images (0-indexed)"
+          },
+          "click_x": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Click X",
+            "description": "Canvas challenges: X coordinate to click"
+          },
+          "click_y": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Click Y",
+            "description": "Canvas challenges: Y coordinate to click"
+          },
+          "canvas_width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Canvas Width",
+            "description": "Canvas width for coordinate scaling"
+          },
+          "canvas_height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Canvas Height",
+            "description": "Canvas height for coordinate scaling"
+          },
+          "token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token",
+            "description": "Token-based challenges: CAPTCHA response token"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "description": "Solver confidence score (0.0 to 1.0)",
+            "default": 0.0
+          },
+          "cost_usd": {
+            "type": "number",
+            "title": "Cost Usd",
+            "description": "Estimated cost of this solve in USD",
+            "default": 0.0
+          },
+          "solve_time_ms": {
+            "type": "integer",
+            "title": "Solve Time Ms",
+            "description": "Time taken to solve in milliseconds",
+            "default": 0
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error",
+            "description": "Error message if solving failed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "title": "SolveResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

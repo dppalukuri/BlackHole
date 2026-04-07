@@ -1,0 +1,21 @@
+# Core
+mcp[cli]>=1.0.0
+pillow>=10.0.0
+httpx>=0.27.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# CLIP (optional -- only needed if prefer_local=True or no VLM key)
+# Adds ~1.5GB to image size. Skip for VLM-only mode.
+# torch>=2.0.0
+# torchvision>=0.15.0
+# transformers>=4.30.0
+
+# VLM providers
+google-genai>=1.0.0
+anthropic>=0.40.0
+openai>=1.0.0
+
+# REST API
+fastapi>=0.110.0
+uvicorn>=0.29.0

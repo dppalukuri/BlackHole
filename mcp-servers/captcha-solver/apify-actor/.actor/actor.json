@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "captcha-solver",
+    "version": "1.0",
+    "title": "AI CAPTCHA Solver - Free Tier (hCaptcha, reCAPTCHA, Turnstile)",
+    "buildTag": "latest",
+    "dockerfile": "./Dockerfile",
+    "dockerContextDir": "../..",
+    "readme": "./README.md",
+    "input": "./input_schema.json",
+    "minMemoryMbytes": 256,
+    "maxMemoryMbytes": 2048
+}

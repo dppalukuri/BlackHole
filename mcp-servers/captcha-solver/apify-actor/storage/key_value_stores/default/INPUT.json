@@ -1,0 +1,10 @@
+{
+    "taskText": "Please click each image containing a red object",
+    "images": [
+        "https://via.placeholder.com/100/FF0000/FFFFFF?text=Red",
+        "https://via.placeholder.com/100/00FF00/FFFFFF?text=Green",
+        "https://via.placeholder.com/100/0000FF/FFFFFF?text=Blue"
+    ],
+    "captchaType": "hcaptcha",
+    "isCanvas": false
+}
