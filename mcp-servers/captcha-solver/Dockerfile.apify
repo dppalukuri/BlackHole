@@ -1,0 +1,20 @@
+# Apify Actor Dockerfile — build context is mcp-servers/captcha-solver/
+FROM apify/actor-python:3.12
+
+# Install dependencies (VLM-only, no torch/CLIP)
+COPY --chown=myuser:myuser apify-actor/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy solver core library
+COPY --chown=myuser:myuser core/ ./core/
+COPY --chown=myuser:myuser router.py ./
+COPY --chown=myuser:myuser vision/ ./vision/
+COPY --chown=myuser:myuser solvers/ ./solvers/
+
+# Copy Actor source
+COPY --chown=myuser:myuser apify-actor/src/ ./src/
+
+# Copy Actor config
+COPY --chown=myuser:myuser .actor/ ./.actor/
+
+CMD python3 -m src

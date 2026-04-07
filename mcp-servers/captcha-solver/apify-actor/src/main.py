@@ -8,9 +8,10 @@ returns solution via Apify dataset. Charges per successful solve.
 import os
 import sys
 
-# Add the captcha-solver root to path so we can import core/router/vision
-SOLVER_ROOT = os.path.join(os.path.dirname(__file__), "..", "captcha-solver")
-sys.path.insert(0, SOLVER_ROOT)
+# Add the app root to path so we can import core/router/vision
+# In Docker container, everything is at /home/myuser/
+APP_ROOT = os.path.join(os.path.dirname(__file__), "..")
+sys.path.insert(0, APP_ROOT)
 
 from apify import Actor
 

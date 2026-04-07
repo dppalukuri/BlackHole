@@ -1,0 +1,9 @@
+[
+    {
+        "captcha-solved": {
+            "eventTitle": "CAPTCHA solved",
+            "eventDescription": "Charged each time a CAPTCHA is successfully solved.",
+            "eventPriceUsd": 0.003
+        }
+    }
+]
