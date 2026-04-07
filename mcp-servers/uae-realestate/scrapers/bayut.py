@@ -127,7 +127,7 @@ class BayutScraper:
         """Search using stealth Playwright with session persistence.
 
         Starts headless (invisible). If CAPTCHA is hit, escalates to headed
-        mode to solve it, saves the session, then closes the window.
+        mode with pre-warm browsing to improve reCAPTCHA v3 score.
         """
         sb = await self._get_stealth_browser()
         url = self._build_url(location, purpose, property_type, min_price, max_price, bedrooms, page)
@@ -138,6 +138,18 @@ class BayutScraper:
             page_obj = await context.new_page()
 
             try:
+                # When escalating to headed mode, pre-warm to build v3 score
+                if headed:
+                    await page_obj.goto(f"{BASE_URL}/", wait_until="domcontentloaded", timeout=30000)
+                    try:
+                        await page_obj.wait_for_load_state("networkidle", timeout=10000)
+                    except Exception:
+                        pass
+                    for _ in range(3):
+                        await page_obj.evaluate("window.scrollBy(0, window.innerHeight * 0.3)")
+                        await asyncio.sleep(0.5)
+                    await asyncio.sleep(2)
+
                 await page_obj.goto(url, wait_until="domcontentloaded", timeout=30000)
                 try:
                     await page_obj.wait_for_load_state("networkidle", timeout=15000)
@@ -179,7 +191,12 @@ class BayutScraper:
 
     async def warm_up(self, timeout: int = 120) -> str:
         """
-        Interactive CAPTCHA solve: opens browser for user to solve hCaptcha.
+        Warm up Bayut session: auto-solve reCAPTCHA v3 or manual fallback.
+
+        Bayut uses reCAPTCHA v3 (invisible, score-based). Strategy:
+          1. Pre-warm by browsing naturally to build behavior score
+          2. Auto-solve via CapSolver API if CAPSOLVER_API_KEY is set
+          3. Manual fallback for hCaptcha/reCAPTCHA v2 (legacy)
 
         After solving, session cookies and Algolia keys are cached for future use.
         Returns status message.
@@ -189,7 +206,7 @@ class BayutScraper:
         page_obj = await context.new_page()
 
         try:
-            # Move window on-screen for user interaction
+            # Move window on-screen
             try:
                 cdp = await context.new_cdp_session(page_obj)
                 window = await cdp.send("Browser.getWindowForTarget")
@@ -202,6 +219,19 @@ class BayutScraper:
             except Exception:
                 pass
 
+            # Pre-warm: visit homepage first to build reCAPTCHA v3 behavior score
+            await page_obj.goto(f"{BASE_URL}/", wait_until="domcontentloaded", timeout=30000)
+            try:
+                await page_obj.wait_for_load_state("networkidle", timeout=10000)
+            except Exception:
+                pass
+            # Simulate natural browsing (scroll, pause)
+            for _ in range(3):
+                await page_obj.evaluate("window.scrollBy(0, window.innerHeight * 0.3)")
+                await asyncio.sleep(0.5 + (asyncio.get_event_loop().time() % 0.5))
+            await asyncio.sleep(2)
+
+            # Now navigate to actual search page
             await page_obj.goto(f"{BASE_URL}/to-rent/apartments/dubai/", wait_until="domcontentloaded", timeout=30000)
             try:
                 await page_obj.wait_for_load_state("networkidle", timeout=20000)
@@ -215,17 +245,29 @@ class BayutScraper:
                 await sb.save_session(context)
                 return "Bayut session is already active — no CAPTCHA needed!"
 
-            # Try automated CAPTCHA solving first
-            from captcha import handle_captcha_if_present
+            # Detect captcha type and try automated solving
+            from captcha import handle_captcha_if_present, detect_captcha
+            captcha_info = await detect_captcha(page_obj)
+            captcha_type = captcha_info.get("type", "") if captcha_info else ""
+
             solved = await handle_captcha_if_present(page_obj, max_retries=3)
 
-            # If automated solving failed, wait for user to solve manually
             if not solved:
-                for i in range(timeout // 2):
-                    await asyncio.sleep(2)
-                    if "captcha" not in page_obj.url.lower():
-                        solved = True
-                        break
+                if captcha_type == "recaptcha_v3":
+                    # reCAPTCHA v3 is invisible — user cannot solve manually
+                    return (
+                        "reCAPTCHA v3 auto-solve failed. "
+                        "Set CAPSOLVER_API_KEY for automatic solving (reCAPTCHA v3 is invisible "
+                        "and cannot be solved manually in the browser).\n"
+                        "Alternatively, set BAYUT_RAPIDAPI_KEY for direct API access."
+                    )
+                else:
+                    # hCaptcha / reCAPTCHA v2 — wait for user to solve manually
+                    for i in range(timeout // 2):
+                        await asyncio.sleep(2)
+                        if "captcha" not in page_obj.url.lower():
+                            solved = True
+                            break
 
             if not solved:
                 return (

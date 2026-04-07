@@ -69,6 +69,9 @@ class StealthBrowser:
                 "--disable-background-timer-throttling",
                 "--disable-backgrounding-occluded-windows",
                 "--disable-renderer-backgrounding",
+                "--disable-infobars",
+                "--disable-component-extensions-with-background-pages",
+                "--disable-features=IsolateOrigins,site-per-process",
             ]
             if headed:
                 args.extend([
@@ -91,7 +94,7 @@ class StealthBrowser:
         ctx_options = {
             "user_agent": (
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+                "(KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
             ),
             "viewport": {"width": 1920, "height": 1080},
             "locale": "en-AE",
@@ -164,6 +167,67 @@ class StealthBrowser:
                     }
                     return originalQuery.call(window.Permissions.prototype, params);
                 };
+            }
+
+            // --- reCAPTCHA v3 scoring improvements ---
+
+            // Hardware fingerprint (consistent, realistic values)
+            Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 8 });
+            Object.defineProperty(navigator, 'deviceMemory', { get: () => 8 });
+            Object.defineProperty(navigator, 'maxTouchPoints', { get: () => 0 });
+
+            // Screen properties (consistent with viewport)
+            Object.defineProperty(screen, 'colorDepth', { get: () => 24 });
+            Object.defineProperty(screen, 'pixelDepth', { get: () => 24 });
+
+            // WebGL fingerprint spoofing (GPU vendor/renderer)
+            const _getParam = WebGLRenderingContext.prototype.getParameter;
+            WebGLRenderingContext.prototype.getParameter = function(param) {
+                if (param === 0x9245) return 'Google Inc. (NVIDIA)';
+                if (param === 0x9246) return 'ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Direct3D11 vs_5_0 ps_5_0, D3D11)';
+                return _getParam.call(this, param);
+            };
+            if (typeof WebGL2RenderingContext !== 'undefined') {
+                const _getParam2 = WebGL2RenderingContext.prototype.getParameter;
+                WebGL2RenderingContext.prototype.getParameter = function(param) {
+                    if (param === 0x9245) return 'Google Inc. (NVIDIA)';
+                    if (param === 0x9246) return 'ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Direct3D11 vs_5_0 ps_5_0, D3D11)';
+                    return _getParam2.call(this, param);
+                };
+            }
+
+            // Canvas fingerprint noise (prevents exact-match tracking)
+            const _toDataURL = HTMLCanvasElement.prototype.toDataURL;
+            HTMLCanvasElement.prototype.toDataURL = function(type) {
+                if (this.width > 16 && this.height > 16) {
+                    try {
+                        const ctx = this.getContext('2d');
+                        if (ctx) {
+                            const d = ctx.getImageData(0, 0, 1, 1);
+                            d.data[0] = d.data[0] ^ 1;
+                            ctx.putImageData(d, 0, 0);
+                        }
+                    } catch(e) {}
+                }
+                return _toDataURL.apply(this, arguments);
+            };
+
+            // Battery API (consistent fingerprint)
+            if (!navigator.getBattery) {
+                navigator.getBattery = () => Promise.resolve({
+                    charging: true, chargingTime: 0,
+                    dischargingTime: Infinity, level: 1.0,
+                    addEventListener: () => {},
+                });
+            }
+
+            // Consistent media devices enumeration
+            if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+                navigator.mediaDevices.enumerateDevices = async () => [
+                    { deviceId: 'default', groupId: 'g1', kind: 'audioinput', label: '' },
+                    { deviceId: 'default', groupId: 'g2', kind: 'videoinput', label: '' },
+                    { deviceId: 'default', groupId: 'g1', kind: 'audiooutput', label: '' },
+                ];
             }
         """)
 
