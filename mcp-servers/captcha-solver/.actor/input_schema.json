@@ -39,8 +39,8 @@
             "description": "Site key for token-based solving (reCAPTCHA v3, Turnstile). Not needed for image challenges.",
             "editor": "textfield",
             "nullable": true,
-            "groupCaption": "Token-Based Solving",
-            "groupDescription": "For reCAPTCHA v3 and Turnstile (invisible CAPTCHAs)"
+            "sectionCaption": "Token-Based Solving",
+            "sectionDescription": "For reCAPTCHA v3 and Turnstile (invisible CAPTCHAs)"
         },
         "pageUrl": {
             "title": "Page URL",
@@ -55,8 +55,8 @@
             "description": "Google Gemini API key for free VLM solving (250/day). Get one at aistudio.google.com",
             "editor": "textfield",
             "isSecret": true,
-            "groupCaption": "API Keys",
-            "groupDescription": "At least one VLM key recommended. Gemini is free."
+            "sectionCaption": "API Keys",
+            "sectionDescription": "At least one VLM key recommended. Gemini is free."
         }
     },
     "required": ["captchaType"]
