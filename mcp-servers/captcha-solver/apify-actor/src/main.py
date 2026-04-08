@@ -40,7 +40,14 @@ async def main() -> None:
             await Actor.fail(exit_code=1)
             return
 
-        # Configure solver
+        if not gemini_key:
+            Actor.log.error("GEMINI_API_KEY is required. Pass it as 'geminiApiKey' in input "
+                            "or set GEMINI_API_KEY in Actor environment variables. "
+                            "Get a free key at https://aistudio.google.com")
+            await Actor.fail(exit_code=1)
+            return
+
+        # Configure solver (VLM-only mode — no torch/CLIP in this container)
         config = SolverConfig(
             enable_vlm=bool(gemini_key),
             vlm_provider="gemini" if gemini_key else "",
