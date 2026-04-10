@@ -1,0 +1,36 @@
+name: google-maps-extractor
+description: >
+  AI-powered lead generation from Google Maps. Search businesses, enrich with
+  emails/phones/socials, score leads (0-100), and export to CSV. Free alternative
+  to Apollo.io and Hunter.io. No API keys required.
+icon: map-pin
+categories:
+  - data
+  - business
+  - lead-generation
+  - scraping
+tags:
+  - google-maps
+  - lead-generation
+  - email-finder
+  - business-search
+  - scraping
+  - enrichment
+  - contacts
+author:
+  name: dppalukuri
+  url: https://github.com/dppalukuri
+repository: https://github.com/dppalukuri/BlackHole
+license: MIT
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction: |-
+    (config) => ({
+      command: 'python',
+      args: ['server.py'],
+      cwd: 'mcp-servers/google-maps'
+    })

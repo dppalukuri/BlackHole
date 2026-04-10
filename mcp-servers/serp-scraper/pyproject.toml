@@ -1,0 +1,40 @@
+[project]
+name = "serp-scraper-mcp"
+version = "0.1.0"
+description = "SERP scraper MCP server -- Google & Bing search results, ads, featured snippets, PAA, keyword research"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [{name = "dppalukuri"}]
+keywords = [
+    "mcp", "serp", "google-search", "bing", "seo",
+    "keyword-research", "rank-checker", "scraping", "ai-agent",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "playwright>=1.40.0",
+    "playwright-stealth>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/dppalukuri/BlackHole/tree/main/mcp-servers/serp-scraper"
+Repository = "https://github.com/dppalukuri/BlackHole"
+Issues = "https://github.com/dppalukuri/BlackHole/issues"
+
+[project.scripts]
+serp-scraper-mcp = "server:mcp.run"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"

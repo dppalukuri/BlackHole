@@ -1,0 +1,5 @@
+.sessions/
+.cache/
+exports/
+__pycache__/
+*.pyc

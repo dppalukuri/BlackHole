@@ -8,6 +8,9 @@ Monorepo for MCP servers, autonomous agents, and AI-native data products.
 |---------|------|--------|
 | CAPTCHA Solver MCP | `mcp-servers/captcha-solver/` | Active (v2.0) |
 | UAE Real Estate MCP | `mcp-servers/uae-realestate/` | Active (v0.1) |
+| Google Maps Extractor MCP | `mcp-servers/google-maps/` | Active (v0.1) |
+| SERP Scraper MCP | `mcp-servers/serp-scraper/` | Active (v0.1) |
+| LinkedIn Scraper MCP | `mcp-servers/linkedin/` | Active (v0.1) |
 | Autonomous Agents | `autonomous-agents/` | Queued |
 | Data Products | `data-products/` | Queued |
 
@@ -24,6 +27,9 @@ Each active subproject has its own `CLAUDE.md` with architecture, key files, and
 ```bash
 cd mcp-servers/captcha-solver && claude
 cd mcp-servers/uae-realestate && claude
+cd mcp-servers/google-maps && claude
+cd mcp-servers/serp-scraper && claude
+cd mcp-servers/linkedin && claude
 ```
 
 ## Cross-Project Dependencies
@@ -37,3 +43,6 @@ cd mcp-servers/uae-realestate && claude
 Single repo, single branch (`main`). Commit messages should prefix with the subproject:
 - `captcha-solver: ...`
 - `uae-realestate: ...`
+- `google-maps: ...`
+- `serp-scraper: ...`
+- `linkedin: ...`

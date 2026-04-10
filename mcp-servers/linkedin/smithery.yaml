@@ -1,0 +1,36 @@
+name: linkedin-scraper
+description: >
+  Extract profiles, job postings, and company data from LinkedIn. Session-based
+  auth with persistent cookies. Job search works without login. Free alternative
+  to Proxycurl and PhantomBuster. No API keys required.
+icon: briefcase
+categories:
+  - data
+  - business
+  - scraping
+  - recruiting
+tags:
+  - linkedin
+  - profiles
+  - jobs
+  - companies
+  - recruiting
+  - sales
+  - scraping
+author:
+  name: dppalukuri
+  url: https://github.com/dppalukuri
+repository: https://github.com/dppalukuri/BlackHole
+license: MIT
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction: |-
+    (config) => ({
+      command: 'python',
+      args: ['server.py'],
+      cwd: 'mcp-servers/linkedin'
+    })

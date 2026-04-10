@@ -1,0 +1,36 @@
+name: serp-scraper
+description: >
+  Extract structured search results from Google and Bing. Organic results, ads,
+  featured snippets, People Also Ask, related searches. Keyword research and
+  rank checking. Free alternative to SerpApi and DataForSEO. No API keys required.
+icon: search
+categories:
+  - data
+  - seo
+  - scraping
+  - research
+tags:
+  - serp
+  - google-search
+  - bing
+  - seo
+  - keyword-research
+  - rank-checker
+  - scraping
+author:
+  name: dppalukuri
+  url: https://github.com/dppalukuri
+repository: https://github.com/dppalukuri/BlackHole
+license: MIT
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction: |-
+    (config) => ({
+      command: 'python',
+      args: ['server.py'],
+      cwd: 'mcp-servers/serp-scraper'
+    })
