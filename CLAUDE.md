@@ -11,7 +11,7 @@ Monorepo for MCP servers, autonomous agents, and AI-native data products.
 | Google Maps Extractor MCP | `mcp-servers/google-maps/` | Active (v0.1) |
 | SERP Scraper MCP | `mcp-servers/serp-scraper/` | Active (v0.1) |
 | LinkedIn Scraper MCP | `mcp-servers/linkedin/` | Active (v0.1) |
-| Autonomous Agents | `autonomous-agents/` | Queued |
+| Lead Gen Agent | `autonomous-agents/lead-gen-agent/` | Active (v0.1) |
 | Data Products | `data-products/` | Queued |
 
 ## Environment
@@ -35,8 +35,11 @@ cd mcp-servers/linkedin && claude
 ## Cross-Project Dependencies
 
 - `uae-realestate` imports from `captcha-solver` via `sys.path` (not pip install)
+- `lead-gen-agent` imports from `google-maps` via `sys.path` (scraper, enrichment, models, export)
 - Path: `../captcha-solver` relative to uae-realestate
+- Path: `../../mcp-servers/google-maps` relative to lead-gen-agent
 - Changes to captcha-solver's `solver.py`, `router.py`, or `vision/` affect uae-realestate
+- Changes to google-maps' `scraper.py`, `enrichment.py`, `models.py` affect lead-gen-agent
 
 ## Git
 
