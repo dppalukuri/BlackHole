@@ -176,9 +176,12 @@ class GoogleMapsScraper:
             await page.goto(url, wait_until="domcontentloaded", timeout=30000)
             await self._dismiss_consent(page)
 
-            # Wait for the details panel
-            await page.wait_for_selector('h1[class*="header"]', timeout=10000)
-            await asyncio.sleep(1)  # Let dynamic content load
+            # Wait for the details panel (h1 with class DUwDvf or any h1)
+            try:
+                await page.wait_for_selector('h1.DUwDvf', timeout=8000)
+            except Exception:
+                await page.wait_for_selector('h1', timeout=5000)
+            await asyncio.sleep(1.5)  # Let dynamic content load
 
             business = await self._extract_detail_page(page)
             await self._browser.save_session(context, "google_maps")
@@ -325,7 +328,11 @@ class GoogleMapsScraper:
         return businesses
 
     async def _extract_listing_card(self, item) -> Business | None:
-        """Extract business data from a search result card."""
+        """Extract business data from a search result card.
+
+        The <a> tag has the name in aria-label and the URL in href,
+        but rating/category/address are in the parent container's text.
+        """
         try:
             href = await item.get_attribute("href") or ""
             aria_label = await item.get_attribute("aria-label") or ""
@@ -340,13 +347,18 @@ class GoogleMapsScraper:
             if pid_match:
                 business.place_id = pid_match.group(1)
 
-            # Try to get rating and review count from the card
-            card = item
-            text_content = await card.inner_text()
+            # The card text is in the parent container, not the <a> tag
+            # Go up to the nearest container div that holds all card info
+            parent = item.locator("..").locator("..")
+            try:
+                text_content = await parent.inner_text()
+            except Exception:
+                text_content = ""
+
             lines = [l.strip() for l in text_content.split("\n") if l.strip()]
 
             for line in lines:
-                # Rating pattern: "4.5(123)"  or "4.5 (123)"
+                # Rating pattern: "4.5(123)" or "4.5 (123)" or "4.5(1,234)"
                 rating_match = re.match(r"^(\d+\.?\d*)\s*\((\d[\d,]*)\)", line)
                 if rating_match:
                     business.rating = float(rating_match.group(1))
@@ -355,9 +367,9 @@ class GoogleMapsScraper:
                     )
                     continue
 
-                # Price level: "$", "$$", etc.
-                if re.match(r"^[\$€£]{1,4}$", line):
-                    business.price_level = line
+                # Price level: "$", "$$", etc. (possibly with a separator)
+                if re.match(r"^[\$€£]{1,4}(\s*·)?$", line):
+                    business.price_level = line.rstrip(" ·")
                     continue
 
                 # Category: usually a short phrase without numbers
@@ -366,6 +378,7 @@ class GoogleMapsScraper:
                     and len(line) < 50
                     and not re.search(r"\d", line)
                     and line != business.name
+                    and line not in ("Directions", "Website", "Open", "Closed")
                 ):
                     business.category = line
 
@@ -413,23 +426,24 @@ class GoogleMapsScraper:
         if pid_match:
             business.place_id = pid_match.group(1)
 
-        # Rating
+        # Rating + review count from aria-label like "4.6 stars 8,799 Reviews"
         try:
-            rating_el = page.locator('div[role="img"][aria-label*="star"]').first
-            label = await rating_el.get_attribute("aria-label")
-            rm = re.search(r"([\d.]+)\s*star", label)
-            if rm:
-                business.rating = float(rm.group(1))
-        except Exception:
-            pass
-
-        # Review count
-        try:
-            review_btn = page.locator('button[aria-label*="review" i]').first
-            label = await review_btn.get_attribute("aria-label") or ""
-            rm = re.search(r"([\d,]+)\s*review", label)
-            if rm:
-                business.review_count = int(rm.group(1).replace(",", ""))
+            rating_els = page.locator(
+                'div[role="img"][aria-label*="star"], '
+                'span[role="img"][aria-label*="star"]'
+            )
+            count = await rating_els.count()
+            for i in range(count):
+                label = await rating_els.nth(i).get_attribute("aria-label") or ""
+                # Look for the one with both stars AND reviews
+                rm = re.search(r"([\d.]+)\s*star", label, re.I)
+                rev_m = re.search(r"([\d,]+)\s*review", label, re.I)
+                if rm:
+                    business.rating = float(rm.group(1))
+                if rev_m:
+                    business.review_count = int(rev_m.group(1).replace(",", ""))
+                if rm and rev_m:
+                    break  # Found the main one
         except Exception:
             pass
 
@@ -440,60 +454,42 @@ class GoogleMapsScraper:
         except Exception:
             pass
 
-        # Info items (address, phone, website, hours)
-        info_items = page.locator(
-            'div[class*="fontBodyMedium"] button[data-tooltip], '
-            'div[class*="fontBodyMedium"] a[data-tooltip]'
-        )
-        count = await info_items.count()
-        for i in range(count):
-            el = info_items.nth(i)
-            try:
-                aria = (await el.get_attribute("aria-label") or "").lower()
-                text = (await el.inner_text()).strip()
+        # Info items via data-item-id (most reliable selectors)
+        # Address
+        try:
+            addr_el = page.locator('button[data-item-id="address"]').first
+            text = (await addr_el.inner_text()).strip()
+            # Remove leading icon characters
+            business.address = re.sub(r'^[^\w\d]+', '', text).strip()
+        except Exception:
+            pass
 
-                if "address" in aria or "address" in text.lower():
-                    business.address = text
-                elif "phone" in aria:
-                    business.phone = text
-                elif "website" in aria or "site" in aria:
-                    href = await el.get_attribute("href")
-                    business.website = href or text
-                elif "price" in aria:
-                    business.price_level = text
-            except Exception:
-                continue
+        # Phone
+        try:
+            phone_el = page.locator('button[data-item-id^="phone:tel:"]').first
+            text = (await phone_el.inner_text()).strip()
+            business.phone = re.sub(r'^[^\d+]+', '', text).strip()
+        except Exception:
+            pass
 
-        # Fallback: extract from info section divs
-        if not business.address:
-            try:
-                addr_btn = page.locator(
-                    'button[data-item-id="address"], '
-                    'button[aria-label*="Address"]'
-                ).first
-                business.address = (await addr_btn.inner_text()).strip()
-            except Exception:
-                pass
-
-        if not business.phone:
-            try:
-                phone_btn = page.locator(
-                    'button[data-item-id*="phone"], '
-                    'button[aria-label*="Phone"]'
-                ).first
-                business.phone = (await phone_btn.inner_text()).strip()
-            except Exception:
-                pass
-
-        if not business.website:
-            try:
-                web_link = page.locator(
-                    'a[data-item-id="authority"], '
-                    'a[aria-label*="Website"]'
-                ).first
-                business.website = await web_link.get_attribute("href") or ""
-            except Exception:
-                pass
+        # Website
+        try:
+            web_el = page.locator(
+                'a[data-item-id="authority"], button[data-item-id="authority"]'
+            ).first
+            aria = await web_el.get_attribute("aria-label") or ""
+            # aria-label is like "Website: example.com"
+            web_match = re.search(r"Website:\s*(.+?)(?:\s|$)", aria)
+            if web_match:
+                business.website = web_match.group(1).strip()
+                if not business.website.startswith("http"):
+                    business.website = f"https://{business.website}"
+            else:
+                href = await web_el.get_attribute("href")
+                if href:
+                    business.website = href
+        except Exception:
+            pass
 
         # Coordinates from URL
         coord_match = re.search(r"@(-?\d+\.?\d*),(-?\d+\.?\d*)", page.url)

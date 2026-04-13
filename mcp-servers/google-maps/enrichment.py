@@ -31,9 +31,9 @@ EMAIL_PATTERN = re.compile(
 )
 
 PHONE_PATTERN = re.compile(
-    r"(?:\+?\d{1,3}[\s\-.]?)?"  # country code
-    r"(?:\(?\d{2,4}\)?[\s\-.]?)"  # area code
-    r"(?:\d[\d\s\-.]{5,12}\d)",  # number
+    r"(?:\+\d{1,3}[\s\-.]?)"  # country code (require + for intl)
+    r"(?:\(?\d{1,4}\)?[\s\-.]?)"  # area code
+    r"(?:\d[\d\s\-.]{4,10}\d)",  # number body
 )
 
 SOCIAL_PATTERNS = {

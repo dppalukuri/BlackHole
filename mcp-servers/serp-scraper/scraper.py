@@ -421,7 +421,22 @@ class SerpScraper:
                 organic.title = (await link.inner_text()).strip()
                 organic.url = await link.get_attribute("href") or ""
 
-                if organic.url:
+                # Bing wraps URLs in redirects — extract real URL
+                if "bing.com" in organic.url:
+                    # Try cite element for real domain
+                    try:
+                        cite_el = item.locator("cite, .b_attribution cite, .tptt").first
+                        cite_text = (await cite_el.inner_text()).strip()
+                        if cite_text and "." in cite_text:
+                            # cite shows "https://example.com/page" or "example.com › page"
+                            clean = cite_text.split("›")[0].strip().rstrip("/")
+                            if not clean.startswith("http"):
+                                clean = f"https://{clean}"
+                            organic.domain = urlparse(clean).netloc or clean
+                    except Exception:
+                        pass
+
+                if not organic.domain and organic.url:
                     organic.domain = urlparse(organic.url).netloc
 
                 try:

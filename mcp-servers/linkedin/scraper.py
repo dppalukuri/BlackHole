@@ -291,6 +291,15 @@ class LinkedInScraper:
             await page.goto(url, wait_until="domcontentloaded", timeout=30000)
             await asyncio.sleep(2)
 
+            if await self._is_auth_wall(page):
+                logger.warning("Auth wall on company page — trying public view")
+                company = await self._extract_public_company(page)
+                if not company.name:
+                    # LinkedIn fully blocks company pages without login
+                    company.name = "(login required)"
+                    company.company_url = url
+                return company
+
             company = await self._extract_company(page)
             await self._browser.save_session(context, "linkedin")
             return company
@@ -307,18 +316,23 @@ class LinkedInScraper:
     async def _is_auth_wall(self, page) -> bool:
         """Check if LinkedIn is showing an auth wall."""
         try:
+            # Check page title / h1 for "Join LinkedIn" or "Sign in"
+            try:
+                h1 = page.locator("h1").first
+                h1_text = (await h1.inner_text(timeout=3000)).strip().lower()
+                if "join linkedin" in h1_text or "sign in" in h1_text:
+                    return True
+            except Exception:
+                pass
+
             indicators = [
-                'a[href*="/login"]',
-                'button:has-text("Sign in")',
                 'div.authwall-join-form',
                 'section.auth-wall',
+                'form.join-form',
             ]
             for selector in indicators:
                 if await page.locator(selector).count() > 0:
-                    # Might be a CTA on a public page, check if content is visible
-                    main_content = page.locator("main, section.profile, .scaffold-layout")
-                    if await main_content.count() == 0:
-                        return True
+                    return True
         except Exception:
             pass
         return False
@@ -412,25 +426,64 @@ class LinkedInScraper:
         profile = Profile()
         profile.profile_url = page.url
 
+        # Try JSON-LD structured data first
         try:
-            name_el = page.locator("h1").first
-            profile.name = (await name_el.inner_text()).strip()
+            ld_json = await page.eval_on_selector(
+                'script[type="application/ld+json"]',
+                "el => el.textContent",
+            )
+            if ld_json:
+                import json
+                data = json.loads(ld_json)
+                if isinstance(data, list):
+                    data = data[0]
+                profile.name = data.get("name", "")
+                profile.headline = data.get("jobTitle", "") or data.get("description", "")
+                loc = data.get("address", {})
+                if isinstance(loc, dict):
+                    profile.location = loc.get("addressLocality", "")
+                elif isinstance(loc, str):
+                    profile.location = loc
+                # Company from worksFor
+                works_for = data.get("worksFor", [])
+                if isinstance(works_for, list) and works_for:
+                    profile.current_company = works_for[0].get("name", "")
+                elif isinstance(works_for, dict):
+                    profile.current_company = works_for.get("name", "")
         except Exception:
             pass
 
-        try:
-            headline_el = page.locator("h2, div.top-card-layout__headline").first
-            profile.headline = (await headline_el.inner_text()).strip()
-        except Exception:
-            pass
+        # Fallback to DOM extraction
+        if not profile.name or profile.name.lower() in ("join linkedin", "sign in"):
+            profile.name = ""
+            try:
+                name_el = page.locator(
+                    'h1.top-card-layout__title, h1[class*="top-card"]'
+                ).first
+                name = (await name_el.inner_text()).strip()
+                if name.lower() not in ("join linkedin", "sign in"):
+                    profile.name = name
+            except Exception:
+                pass
 
-        try:
-            loc_el = page.locator(
-                'span.top-card__subline-item, div.top-card-layout__first-subline span'
-            ).first
-            profile.location = (await loc_el.inner_text()).strip()
-        except Exception:
-            pass
+        if not profile.headline:
+            try:
+                headline_el = page.locator(
+                    'h2.top-card-layout__headline, div.top-card-layout__headline'
+                ).first
+                profile.headline = (await headline_el.inner_text()).strip()
+            except Exception:
+                pass
+
+        if not profile.location:
+            try:
+                loc_el = page.locator(
+                    'span.top-card__subline-item, '
+                    'div.top-card-layout__first-subline span'
+                ).first
+                profile.location = (await loc_el.inner_text()).strip()
+            except Exception:
+                pass
 
         return profile
 
@@ -557,6 +610,75 @@ class LinkedInScraper:
                 continue
 
         return result
+
+    async def _extract_public_company(self, page) -> Company:
+        """Extract company data from a public (non-logged-in) view.
+
+        LinkedIn shows limited data without login but some pages
+        have structured data in the page source.
+        """
+        company = Company()
+        company.company_url = page.url
+
+        # Try to extract from structured data (JSON-LD)
+        try:
+            ld_json = await page.eval_on_selector(
+                'script[type="application/ld+json"]',
+                "el => el.textContent",
+            )
+            if ld_json:
+                import json
+                data = json.loads(ld_json)
+                if isinstance(data, list):
+                    data = data[0]
+                company.name = data.get("name", "")
+                company.about = data.get("description", "")
+                company.website = data.get("url", "")
+                company.employee_count = str(data.get("numberOfEmployees", {}).get("value", ""))
+        except Exception:
+            pass
+
+        # Try top card elements (sometimes visible without login)
+        if not company.name:
+            try:
+                name_el = page.locator(
+                    'h1.top-card-layout__title, h1[class*="org-top-card"]'
+                ).first
+                company.name = (await name_el.inner_text()).strip()
+            except Exception:
+                pass
+
+        try:
+            tagline_el = page.locator(
+                'h2.top-card-layout__headline, p.top-card-layout__headline'
+            ).first
+            company.tagline = (await tagline_el.inner_text()).strip()
+        except Exception:
+            pass
+
+        # Industry, size from top card details
+        try:
+            details = page.locator(
+                'div.top-card-layout__first-subline span, '
+                'div.org-top-card-summary-info-list span'
+            )
+            count = await details.count()
+            texts = []
+            for i in range(count):
+                t = (await details.nth(i).inner_text()).strip()
+                if t:
+                    texts.append(t)
+            # Usually: [Industry, Location, Employee count]
+            if len(texts) >= 1:
+                company.industry = texts[0]
+            if len(texts) >= 2:
+                company.headquarters = texts[1]
+            if len(texts) >= 3:
+                company.company_size = texts[2]
+        except Exception:
+            pass
+
+        return company
 
     async def _extract_company(self, page) -> Company:
         """Extract company page data."""
