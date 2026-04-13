@@ -1,0 +1,27 @@
+{
+  "jobs": [
+    {
+      "niche": "real estate agencies",
+      "cities": ["Dubai Marina", "Downtown Dubai", "JBR", "Business Bay"],
+      "max_results": 20,
+      "min_rating": 3.5,
+      "enrich": true
+    },
+    {
+      "niche": "dental clinics",
+      "cities": ["Dubai", "Abu Dhabi", "Sharjah"],
+      "max_results": 15,
+      "min_rating": 4.0,
+      "enrich": true
+    },
+    {
+      "niche": "restaurants",
+      "cities": ["Dubai Marina", "DIFC", "JLT"],
+      "max_results": 20,
+      "min_rating": 4.0,
+      "enrich": true
+    }
+  ],
+  "schedule": "daily",
+  "output_format": "csv"
+}
