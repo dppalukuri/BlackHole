@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "serp-scraper",
+    "version": "1.0",
+    "title": "SERP Scraper - Google & Bing Search Results Extractor",
+    "buildTag": "latest",
+    "dockerfile": "./Dockerfile",
+    "dockerContextDir": "../..",
+    "readme": "./README.md",
+    "input": "./input_schema.json",
+    "minMemoryMbytes": 512,
+    "maxMemoryMbytes": 4096
+}

@@ -1,0 +1,47 @@
+{
+    "title": "SERP Scraper",
+    "description": "Extract structured search results from Google and Bing — organic results, ads, featured snippets, PAA, related searches.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search Queries",
+            "type": "array",
+            "description": "List of search queries to scrape (max 20)",
+            "editor": "stringList",
+            "sectionCaption": "Search",
+            "sectionDescription": "What to search for"
+        },
+        "engine": {
+            "title": "Search Engine",
+            "type": "string",
+            "description": "Which search engine to use",
+            "default": "google",
+            "enum": ["google", "bing", "both"],
+            "editor": "select"
+        },
+        "numResults": {
+            "title": "Results Per Query",
+            "type": "integer",
+            "description": "Number of results to extract per query",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Country code for Google localization (e.g. 'us', 'ae', 'uk')",
+            "editor": "textfield",
+            "sectionCaption": "Localization"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Language code (e.g. 'en', 'ar', 'fr')",
+            "default": "en",
+            "editor": "textfield"
+        }
+    },
+    "required": ["queries"]
+}

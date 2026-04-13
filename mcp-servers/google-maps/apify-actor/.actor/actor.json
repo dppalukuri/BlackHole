@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "google-maps-lead-extractor",
+    "version": "1.0",
+    "title": "Google Maps Lead Extractor - Emails, Phones, Socials, Lead Scoring",
+    "buildTag": "latest",
+    "dockerfile": "./Dockerfile",
+    "dockerContextDir": "../..",
+    "readme": "./README.md",
+    "input": "./input_schema.json",
+    "minMemoryMbytes": 512,
+    "maxMemoryMbytes": 4096
+}

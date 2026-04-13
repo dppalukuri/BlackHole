@@ -1,0 +1,47 @@
+{
+    "title": "Google Maps Lead Extractor",
+    "description": "Search Google Maps for businesses, enrich with emails/phones/socials, score leads, and export structured data.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "query": {
+            "title": "Search Query",
+            "type": "string",
+            "description": "Business type to search for (e.g. 'restaurants', 'plumbers', 'dental clinics')",
+            "editor": "textfield",
+            "sectionCaption": "Search",
+            "sectionDescription": "What to search for on Google Maps"
+        },
+        "location": {
+            "title": "Location",
+            "type": "string",
+            "description": "Location to search in (e.g. 'Dubai Marina', 'Miami', 'London')",
+            "editor": "textfield"
+        },
+        "maxResults": {
+            "title": "Maximum Results",
+            "type": "integer",
+            "description": "Maximum number of businesses to extract",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 60
+        },
+        "enrichWebsites": {
+            "title": "Enrich Websites",
+            "type": "boolean",
+            "description": "Visit each business website to extract emails, phone numbers, social links, and tech stack",
+            "default": true,
+            "sectionCaption": "Enrichment",
+            "sectionDescription": "Extract additional contact info from business websites"
+        },
+        "minRating": {
+            "title": "Minimum Rating",
+            "type": "number",
+            "description": "Filter businesses by minimum Google rating (0 = no filter)",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 5
+        }
+    },
+    "required": ["query", "location"]
+}
