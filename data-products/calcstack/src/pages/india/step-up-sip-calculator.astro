@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StepUpSIPCalculator from '../../components/calculators/engines/StepUpSIPCalculator';
+---
+
+<BaseLayout
+  title="Step-Up SIP Calculator — See How Annual Increases Multiply Your Wealth | CalcStack"
+  description="Free step-up SIP calculator. See how increasing your SIP by 10-15% every year can create 2-3x more wealth than a regular SIP. Year-by-year breakdown included."
+>
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Step-Up SIP Calculator</nav>
+
+  <h1>Step-Up SIP Calculator</h1>
+  <p class="page-subtitle">Increase your SIP every year and see how much extra wealth it creates</p>
+  <p class="page-intro">A step-up SIP (also called a top-up SIP) automatically increases your monthly investment by a fixed percentage each year. This matches your growing income and dramatically accelerates wealth creation through compounding.</p>
+
+  <StepUpSIPCalculator client:visible />
+
+  <section class="content-section">
+    <h2>Why Step-Up SIP Beats Regular SIP</h2>
+    <p>Most people get salary hikes of 8-15% every year but keep their SIP amount fixed. A step-up SIP aligns your investments with your income growth. The difference is dramatic — a 10% annual step-up on a ₹10,000 SIP for 15 years can create <strong>50-70% more wealth</strong> than a fixed SIP.</p>
+    <p>The math works because your increased investments get the full benefit of compounding for the remaining years. An extra ₹1,000/month added in year 3 compounds for 12 more years.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Set Up a Step-Up SIP</h2>
+    <ol class="how-to-steps">
+      <li>Start with an amount you're comfortable with today (even ₹1,000/month is fine)</li>
+      <li>Set your annual step-up to match your expected salary growth (10% is a good default)</li>
+      <li>Most AMCs (Groww, Zerodha Coin, Kuvera) offer automatic step-up SIP — set it once and forget</li>
+      <li>Review annually: if you got a bigger raise, increase the step-up percentage</li>
+    </ol>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item"><summary>What is a good step-up percentage?</summary><div class="faq-answer">10% is the most common and matches average Indian salary growth. If you're early in your career with faster growth, 15-20% is better. Conservative option: 5-7%. The key is to set it at or below your expected salary hike so it doesn't strain your budget.</div></details>
+    <details class="faq-item"><summary>Can I do step-up SIP on Groww or Zerodha?</summary><div class="faq-answer">Groww supports step-up SIP directly in the app — you can set annual increase amount or percentage. Zerodha Coin and Kuvera also support this feature. Check your platform's SIP modification settings.</div></details>
+    <details class="faq-item"><summary>Step-up SIP vs Lump Sum top-up — which is better?</summary><div class="faq-answer">Step-up SIP is automated and disciplined — you set it once. Lump sum top-ups (investing bonus or windfall) are great but depend on you remembering to do it. Ideally, do both: automated step-up SIP + invest any bonuses as lump sums.</div></details>
+  </section>
+
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/india/sip-calculator" class="related-card"><h3>Regular SIP Calculator</h3><p>Compare with a fixed monthly SIP.</p></a>
+      <a href="/india/fire-calculator" class="related-card"><h3>FIRE Calculator</h3><p>Plan your financial independence journey.</p></a>
+      <a href="/india/lumpsum-calculator" class="related-card"><h3>Lump Sum Calculator</h3><p>Calculate one-time investment returns.</p></a>
+    </div>
+  </section>
+</BaseLayout>

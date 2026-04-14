@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TaxRegimeComparator from '../../components/calculators/engines/TaxRegimeComparator';
+---
+
+<BaseLayout
+  title="Old vs New Tax Regime Calculator 2026-27 — Which Saves More? | CalcStack"
+  description="Compare old and new income tax regimes for FY 2025-26 (AY 2026-27). Enter your deductions to find which regime saves you more tax. Updated for Budget 2025 changes."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org", "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Which tax regime is better for salary of 15 lakh?", "acceptedAnswer": { "@type": "Answer", "text": "For a salary of ₹15 lakh, the new regime is better if your total deductions (80C + 80D + HRA + home loan) are less than approximately ₹3.75 lakh. If you claim higher deductions, the old regime saves more. Use the calculator above to check with your exact numbers." }},
+        { "@type": "Question", "name": "Can I switch between old and new regime every year?", "acceptedAnswer": { "@type": "Answer", "text": "Salaried employees can switch between old and new regime every financial year. Business owners who switch to old regime cannot switch back. The new regime is the default from FY 2023-24 onwards — you must explicitly opt for old regime." }},
+        { "@type": "Question", "name": "What deductions are allowed in new regime?", "acceptedAnswer": { "@type": "Answer", "text": "The new regime only allows: Standard deduction of ₹75,000, NPS employer contribution under 80CCD(2) up to 14% of salary, and deduction for family pension. All other deductions (80C, 80D, HRA, home loan interest Sec 24) are NOT available in the new regime." }},
+        { "@type": "Question", "name": "At what salary is old regime better than new regime?", "acceptedAnswer": { "@type": "Answer", "text": "There's no single salary threshold — it depends on your deductions. Generally, if your total deductions under the old regime exceed ₹3.75 lakh (for income around 15L) or ₹5 lakh+ (for income around 25L), the old regime becomes more beneficial. The breakeven point varies by income level." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Old vs New Tax Regime</nav>
+
+  <h1>Old vs New Tax Regime Calculator 2026-27</h1>
+  <p class="page-subtitle">Find out which income tax regime saves you more money</p>
+  <p class="page-intro">Enter your income and deductions below. This tool compares both regimes side-by-side with the latest FY 2025-26 slabs (Budget 2025 changes) and shows you exactly how much you save — and which regime to choose.</p>
+
+  <TaxRegimeComparator client:visible />
+
+  <section class="content-section">
+    <h2>How This Comparator Works</h2>
+    <p>The new tax regime (default from FY 2023-24) offers lower tax rates but strips away most deductions. The old regime keeps higher rates but lets you claim 80C, 80D, HRA, home loan interest, and more. The right choice depends entirely on <strong>your specific deduction profile</strong>.</p>
+    <p>This tool calculates tax under both regimes simultaneously, factoring in all your deductions, and shows the exact rupee difference. No more guessing.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>Key Budget 2025 Changes</h2>
+    <ul>
+      <li><strong>No tax up to ₹12.75 lakh</strong> for salaried individuals under new regime (₹12L taxable income + ₹75K standard deduction)</li>
+      <li><strong>Standard deduction raised to ₹75,000</strong> in new regime (was ₹50,000)</li>
+      <li><strong>New regime is default</strong> — you must explicitly choose old regime each year</li>
+      <li><strong>Revised slabs</strong> — wider brackets with lower rates in new regime</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>When is Old Regime Better?</h2>
+    <p>The old regime wins when your total deductions are high. Typical scenarios:</p>
+    <ul>
+      <li><strong>Salaried with HRA + home loan:</strong> If you claim HRA exemption AND Section 24 home loan interest (up to ₹2L), old regime often wins</li>
+      <li><strong>Max 80C + 80D + NPS:</strong> ₹1.5L (80C) + ₹75K (80D family) + ₹50K (NPS) = ₹2.75L in deductions alone</li>
+      <li><strong>High rent metro cities:</strong> HRA exemption can be ₹2-4L in Mumbai/Delhi/Bangalore</li>
+    </ul>
+    <p>Rule of thumb: if your total deductions exceed <strong>~₹3.75 lakh</strong>, run the numbers. Below that, new regime almost always wins.</p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item"><summary>Which tax regime is better for salary of 15 lakh?</summary><div class="faq-answer">For ₹15 lakh, the new regime is better if your total deductions are less than ~₹3.75 lakh. If you have HRA + 80C + 80D + home loan interest totaling more than that, old regime saves more. Enter your exact numbers above to check.</div></details>
+    <details class="faq-item"><summary>Can I switch between old and new regime every year?</summary><div class="faq-answer">Salaried employees: yes, you can switch every year. Self-employed/business owners: once you opt out of new regime back to old, you cannot switch to new regime again (one-time switch allowed). Make your choice at the time of filing your ITR.</div></details>
+    <details class="faq-item"><summary>What deductions are allowed in the new regime?</summary><div class="faq-answer">Very few: Standard deduction (₹75,000), NPS employer contribution under 80CCD(2) up to 14% of salary, and family pension deduction. No 80C, 80D, HRA, home loan interest, or other common deductions.</div></details>
+    <details class="faq-item"><summary>Is NPS beneficial under new regime?</summary><div class="faq-answer">Your own contribution to NPS under 80CCD(1B) is NOT deductible in new regime. However, your employer's NPS contribution under 80CCD(2) up to 14% of basic salary IS deductible in both regimes. So employer NPS contribution helps regardless of regime choice.</div></details>
+  </section>
+
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>Detailed slab-wise tax calculation under new regime.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Invest your tax savings — see how SIP grows.</p></a>
+      <a href="/india/fire-calculator" class="related-card"><h3>FIRE Calculator</h3><p>Plan for financial independence and early retirement.</p></a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FIRECalculator from '../../components/calculators/engines/FIRECalculator';
+---
+
+<BaseLayout
+  title="FIRE Calculator India — When Can You Retire Early? | CalcStack"
+  description="Free FIRE calculator for India. Calculate your Financial Independence number, years to retire early, and see a year-by-year progress tracker. Adjusted for Indian inflation and returns."
+>
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> FIRE Calculator</nav>
+
+  <h1>FIRE Calculator India</h1>
+  <p class="page-subtitle">Find out when you can achieve Financial Independence and Retire Early</p>
+  <p class="page-intro">Enter your current finances, monthly expenses, and savings rate. This calculator computes your FIRE number (the corpus you need), adjusts for Indian inflation, and shows you exactly when you can stop working — with a year-by-year progress tracker.</p>
+
+  <FIRECalculator client:visible />
+
+  <section class="content-section">
+    <h2>What is FIRE?</h2>
+    <p><strong>FIRE (Financial Independence, Retire Early)</strong> is a movement focused on extreme savings and investment to build a portfolio large enough that passive income (dividends, SWP, rental income) covers all living expenses — permanently.</p>
+    <p>Your <strong>FIRE number</strong> = Annual expenses / Safe withdrawal rate. If you spend ₹50,000/month (₹6L/year) and use a 3% withdrawal rate, your FIRE number is ₹2 crore. Once your portfolio hits ₹2 crore, you're financially independent.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>FIRE in India: Key Considerations</h2>
+    <ul>
+      <li><strong>Higher inflation (6-7%):</strong> India's inflation is higher than the US (2-3%), so the original "4% rule" from the Trinity Study doesn't apply directly. Most Indian FIRE practitioners use <strong>3-3.5%</strong> withdrawal rate.</li>
+      <li><strong>Healthcare costs:</strong> Unlike countries with public healthcare, Indian FIRE aspirants must factor in private health insurance (₹30-50K/year for a family) growing at 10-15% annually.</li>
+      <li><strong>Higher equity returns:</strong> Indian equity markets have historically delivered 12-15% CAGR, higher than US markets (8-10%). This works in your favor.</li>
+      <li><strong>No social security net:</strong> There's no equivalent of US Social Security. Your corpus must last your entire life.</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>Strategies to Reach FIRE Faster</h2>
+    <ul>
+      <li><strong>Increase savings rate:</strong> The single most impactful lever. Going from 30% to 50% savings rate can cut your FIRE timeline by 10+ years.</li>
+      <li><strong>Reduce expenses:</strong> Every ₹10,000/month reduction in expenses reduces your FIRE number by ₹40 lakh (at 3% withdrawal rate).</li>
+      <li><strong>Step-up SIP:</strong> Increase your SIP by 10-15% annually to match salary growth. Use our <a href="/india/step-up-sip-calculator">Step-Up SIP Calculator</a> to see the impact.</li>
+      <li><strong>Coast FIRE:</strong> A middle ground — accumulate enough that compound interest alone will grow it to your FIRE number by traditional retirement age, then work a lower-stress job.</li>
+    </ul>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item"><summary>Is 3% withdrawal rate safe for India?</summary><div class="faq-answer">Most Indian FIRE practitioners recommend 2.5-3.5%. The original 4% rule was designed for US markets with 2% inflation. With India's 6-7% inflation, a lower withdrawal rate provides more safety. Some use a "bucket strategy" — 2-3 years in liquid funds, rest in equity — to manage sequence-of-returns risk.</div></details>
+    <details class="faq-item"><summary>How much do I need to FIRE in India?</summary><div class="faq-answer">It depends on your monthly expenses. At 3% withdrawal rate: ₹50K/month expenses = ₹2 crore FIRE number. ₹1L/month = ₹4 crore. ₹2L/month = ₹8 crore. Remember to account for inflation — your actual expenses will be higher when you retire.</div></details>
+    <details class="faq-item"><summary>Should I include my house in FIRE corpus?</summary><div class="faq-answer">No. Your primary residence is not an income-generating asset (unless you plan to sell/downsize). Only count investments that produce passive income: equity mutual funds, debt instruments, rental properties (not your own home), PPF, NPS.</div></details>
+  </section>
+
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/india/step-up-sip-calculator" class="related-card"><h3>Step-Up SIP Calculator</h3><p>See how annual SIP increases accelerate FIRE.</p></a>
+      <a href="/india/old-vs-new-tax-regime" class="related-card"><h3>Tax Regime Comparator</h3><p>Save more tax = invest more toward FIRE.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Calculate regular SIP returns.</p></a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MultiLoanComparator from '../../components/calculators/engines/MultiLoanComparator';
+---
+
+<BaseLayout
+  title="Home Loan Comparison Calculator — Compare 3 Bank Offers Side-by-Side | CalcStack"
+  description="Compare home loan offers from 3 banks side-by-side. See EMI, total interest, and total payment differences instantly. Find the cheapest loan deal."
+>
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Loan Comparison</nav>
+
+  <h1>Loan Comparison Calculator</h1>
+  <p class="page-subtitle">Compare 3 bank loan offers side-by-side — find the cheapest deal</p>
+  <p class="page-intro">Got multiple loan offers? Enter each bank's terms below and instantly see which one costs you the least in total interest. A 0.25% rate difference on a ₹50L loan can mean ₹3-5 lakh in extra interest.</p>
+
+  <MultiLoanComparator client:visible />
+
+  <section class="content-section">
+    <h2>Why Small Rate Differences Matter</h2>
+    <p>Banks compete on basis points (0.01%). It seems trivial, but on a 20-year home loan, these differences compound massively:</p>
+    <ul>
+      <li>₹50L at <strong>8.50%</strong> for 20 years: Total interest = ₹54.1 lakh</li>
+      <li>₹50L at <strong>8.75%</strong> for 20 years: Total interest = ₹56.3 lakh</li>
+      <li>₹50L at <strong>9.00%</strong> for 20 years: Total interest = ₹58.5 lakh</li>
+      <li><strong>Difference between 8.5% and 9%: ₹4.4 lakh</strong> — just for a 0.5% rate change</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>Tips for Getting the Best Rate</h2>
+    <ol class="how-to-steps">
+      <li><strong>Compare at least 3 banks</strong> — use this tool to see the actual difference</li>
+      <li><strong>Check processing fees</strong> — a lower rate with ₹30K processing fee vs higher rate with zero fee may net out differently</li>
+      <li><strong>Negotiate</strong> — show Bank B's offer to Bank A and ask them to match</li>
+      <li><strong>Consider tenure trade-offs</strong> — a shorter tenure at a slightly higher rate may cost less total interest</li>
+      <li><strong>Check for rate resets</strong> — floating rate loans reset periodically; ask about the base rate methodology (MCLR vs EBLR)</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card"><h3>EMI Calculator</h3><p>Detailed EMI calculation with amortization schedule.</p></a>
+      <a href="/india/old-vs-new-tax-regime" class="related-card"><h3>Tax Regime Comparator</h3><p>Home loan interest is deductible under old regime.</p></a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RentalYieldCalculator from '../../components/calculators/engines/RentalYieldCalculator';
+---
+
+<BaseLayout
+  title="Dubai Rental Yield Calculator 2026 — ROI with DLD Fees & Service Charges | CalcStack"
+  description="Calculate net rental yield on Dubai property. Includes DLD fee (4%), agent commission, service charges, vacancy, and maintenance. Compare your ROI against Dubai benchmarks."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org", "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is a good rental yield in Dubai?", "acceptedAnswer": { "@type": "Answer", "text": "Dubai's average gross rental yield is 5-7%, among the highest globally. Net yields of 5%+ are considered good. Areas like JVC, Discovery Gardens, and International City can yield 7-9%. Premium areas like Downtown and Palm Jumeirah typically yield 3-5% but offer better capital appreciation." }},
+        { "@type": "Question", "name": "How much is DLD fee when buying property in Dubai?", "acceptedAnswer": { "@type": "Answer", "text": "The Dubai Land Department (DLD) registration fee is 4% of the property purchase price plus AED 580 admin fee. This is a one-time cost paid at the time of purchase. Some developers cover 50% of the DLD fee as a promotional offer." }},
+        { "@type": "Question", "name": "Are rental yields in Dubai tax-free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The UAE has no personal income tax and no capital gains tax on property. Your rental income and any profit from selling the property are completely tax-free. However, there is a 5% municipality fee (housing fee) on annual rent charged to tenants." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Rental Yield Calculator</nav>
+
+  <h1>Dubai Rental Yield Calculator</h1>
+  <p class="page-subtitle">Calculate your real ROI including all acquisition costs and expenses</p>
+  <p class="page-intro">Most "rental yield" numbers you see online show only gross yield. This calculator gives you the <strong>net yield</strong> — after DLD fee (4%), agent commission, service charges, vacancy, and maintenance. This is your actual return on investment.</p>
+
+  <RentalYieldCalculator client:visible />
+
+  <section class="content-section">
+    <h2>Understanding Dubai Rental Yields</h2>
+    <p>Dubai offers some of the highest rental yields globally (5-7% gross), primarily because:</p>
+    <ul>
+      <li><strong>No income tax:</strong> 100% of rental income is yours</li>
+      <li><strong>No capital gains tax:</strong> Property appreciation is tax-free</li>
+      <li><strong>High demand:</strong> Growing expatriate population (90%+ of residents are expats)</li>
+      <li><strong>Transparent market:</strong> DLD publishes all transaction data</li>
+    </ul>
+    <p>However, <strong>gross yield ≠ net yield</strong>. Acquisition costs (DLD 4% + agent 2%) reduce your first-year return significantly. Service charges in some buildings can be AED 15-25 per sqft, eating into rental income.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>Rental Yields by Area (2026 Estimates)</h2>
+    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+      <thead><tr style="border-bottom: 2px solid #e2e8f0;"><th style="padding: 0.75rem; text-align: left;">Area</th><th style="padding: 0.75rem;">Gross Yield</th><th style="padding: 0.75rem;">Typical Price/sqft</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.75rem;">JVC (Jumeirah Village Circle)</td><td style="padding: 0.75rem; text-align: center; color: #16a34a; font-weight: 600;">7-9%</td><td style="padding: 0.75rem; text-align: center;">AED 800-1,200</td></tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.75rem;">Discovery Gardens</td><td style="padding: 0.75rem; text-align: center; color: #16a34a; font-weight: 600;">7-8%</td><td style="padding: 0.75rem; text-align: center;">AED 500-700</td></tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.75rem;">Dubai Marina</td><td style="padding: 0.75rem; text-align: center; color: #d97706; font-weight: 600;">5-6%</td><td style="padding: 0.75rem; text-align: center;">AED 1,500-2,500</td></tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.75rem;">Downtown Dubai</td><td style="padding: 0.75rem; text-align: center; color: #d97706; font-weight: 600;">4-5%</td><td style="padding: 0.75rem; text-align: center;">AED 2,000-3,500</td></tr>
+        <tr><td style="padding: 0.75rem;">Palm Jumeirah</td><td style="padding: 0.75rem; text-align: center; color: #dc2626; font-weight: 600;">3-4%</td><td style="padding: 0.75rem; text-align: center;">AED 2,500-5,000+</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.85rem; color: #64748b;">Source: Dubai Land Department transaction data, Q1 2026 estimates. Actual yields vary by building, unit type, and furnishing.</p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item"><summary>What is a good rental yield in Dubai?</summary><div class="faq-answer">Net yields of 5%+ are considered good. High-yield areas (JVC, Discovery Gardens, International City) can deliver 6-8% net. Premium areas (Downtown, Marina, Palm) typically yield 3-5% net but offer stronger capital appreciation potential.</div></details>
+    <details class="faq-item"><summary>How much is DLD fee when buying property?</summary><div class="faq-answer">4% of property value + AED 580 admin fee. This is the single largest transaction cost and must be factored into your yield calculation. Some developers offer to cover 50% as a promotional incentive.</div></details>
+    <details class="faq-item"><summary>Are rental yields in Dubai tax-free?</summary><div class="faq-answer">Yes. No income tax, no capital gains tax. There's a 5% municipality housing fee charged to tenants (not landlords) and a one-time 4% DLD fee at purchase.</div></details>
+  </section>
+
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/uae/gratuity-calculator" class="related-card"><h3>UAE Gratuity Calculator</h3><p>Calculate your end-of-service benefits to invest in property.</p></a>
+      <a href="/uae/vat-calculator" class="related-card"><h3>UAE VAT Calculator</h3><p>Calculate VAT on property-related expenses.</p></a>
+    </div>
+  </section>
+</BaseLayout>
