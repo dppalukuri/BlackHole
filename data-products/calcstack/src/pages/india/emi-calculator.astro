@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+---
+
+<BaseLayout
+  title="EMI Calculator - Calculate Loan EMI Online | CalcStack"
+  description="Free EMI calculator for home loan, car loan, and personal loan. Calculate your monthly EMI, total interest payable, and view the complete amortization schedule."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "EMI Calculator",
+      "url": "https://calcstack.com/india/emi-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How is EMI calculated?", "acceptedAnswer": { "@type": "Answer", "text": "EMI is calculated using the formula: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is the principal loan amount, r is the monthly interest rate, and n is the total number of monthly installments." }},
+        { "@type": "Question", "name": "Does prepayment reduce EMI or tenure?", "acceptedAnswer": { "@type": "Answer", "text": "When you make a prepayment, you can choose to either reduce your EMI amount (keeping the same tenure) or reduce your loan tenure (keeping the same EMI). Reducing tenure saves more on total interest." }},
+        { "@type": "Question", "name": "What is a good EMI to salary ratio?", "acceptedAnswer": { "@type": "Answer", "text": "Financial experts recommend keeping your total EMI payments below 40-50% of your monthly take-home salary. For home loans specifically, the EMI should ideally be under 30% of your gross income." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/india/">India</a> <span>/</span>
+    EMI Calculator
+  </nav>
+
+  <h1>EMI Calculator</h1>
+  <p class="page-subtitle">Calculate your Equated Monthly Installment for any loan</p>
+  <p class="page-intro">
+    Find out your monthly EMI for home loans, car loans, or personal loans. Adjust the loan amount, interest rate, and tenure to plan your repayment.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    defaults={{ loanAmount: 3000000, interestRate: 8.5, loanTenure: 20 }}
+  />
+
+  <section class="content-section">
+    <h2>What is EMI?</h2>
+    <p>
+      EMI (Equated Monthly Installment) is a fixed payment amount made by a borrower to a lender at a specified date each month. Each EMI payment consists of two parts: <strong>principal repayment</strong> and <strong>interest payment</strong>. In the early years of a loan, a larger portion of your EMI goes toward interest. As the loan matures, more of your EMI goes toward repaying the principal.
+    </p>
+    <p>
+      Understanding your EMI helps you plan your monthly budget, compare loan offers from different banks, and decide on the optimal loan tenure that balances affordable monthly payments with total interest paid.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This EMI Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>loan amount</strong> — the total amount you plan to borrow</li>
+      <li>Set the <strong>annual interest rate</strong> offered by your bank (current home loan rates range from 8.25-9.5%)</li>
+      <li>Choose your <strong>loan tenure</strong> in years (home loans up to 30 years, car loans 1-7 years)</li>
+      <li>View your <strong>monthly EMI</strong>, total interest payable, and total payment amount</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>EMI Formula</h2>
+    <div class="formula-box">
+      EMI = P &times; r &times; (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> - 1)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>P</strong> = Principal loan amount</li>
+      <li><strong>r</strong> = Monthly interest rate (annual rate / 12 / 100)</li>
+      <li><strong>n</strong> = Total number of monthly installments</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> For a ₹30 lakh home loan at 8.5% for 20 years:
+      P = 30,00,000, r = 0.00708, n = 240. EMI = approximately ₹26,035/month. Total interest paid = ₹32,48,445.
+    </p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>How is EMI calculated?</summary>
+      <div class="faq-answer">EMI is calculated using the reducing balance method: EMI = P x r x (1+r)^n / ((1+r)^n - 1). Each month, the interest is calculated on the remaining principal, so as you pay down the loan, a larger portion of your EMI goes toward principal repayment.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does prepayment reduce EMI or tenure?</summary>
+      <div class="faq-answer">When you make a prepayment, you can typically choose either option. Reducing tenure keeps your EMI the same but finishes the loan sooner — this saves more on total interest. Reducing EMI keeps the same tenure but lowers your monthly burden. Most financial advisors recommend reducing tenure for maximum savings.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What is a good EMI to salary ratio?</summary>
+      <div class="faq-answer">Financial experts recommend keeping your total EMI payments below 40-50% of your monthly take-home salary. Banks typically approve home loans where the EMI is up to 50-60% of net income, but a lower ratio gives you more financial flexibility. For home loans specifically, the EMI should ideally be under 30% of gross income.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/sip-calculator" class="related-card">
+        <h3>SIP Calculator</h3>
+        <p>Calculate your mutual fund SIP returns over time.</p>
+      </a>
+      <a href="/india/lumpsum-calculator" class="related-card">
+        <h3>Lump Sum Calculator</h3>
+        <p>Calculate returns on a one-time mutual fund investment.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

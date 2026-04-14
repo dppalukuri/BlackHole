@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const countries = [
+  {
+    slug: 'india',
+    name: 'India',
+    calculators: [
+      { slug: 'sip-calculator', name: 'SIP Calculator' },
+      { slug: 'emi-calculator', name: 'EMI Calculator' },
+      { slug: 'income-tax-calculator', name: 'Income Tax Calculator' },
+      { slug: 'fd-calculator', name: 'FD Calculator' },
+      { slug: 'ppf-calculator', name: 'PPF Calculator' },
+      { slug: 'lumpsum-calculator', name: 'Lump Sum Calculator' },
+    ],
+  },
+  {
+    slug: 'uae',
+    name: 'UAE',
+    calculators: [
+      { slug: 'gratuity-calculator', name: 'Gratuity Calculator' },
+      { slug: 'vat-calculator', name: 'VAT Calculator' },
+    ],
+  },
+  {
+    slug: 'us',
+    name: 'United States',
+    calculators: [
+      { slug: 'compound-interest-calculator', name: 'Compound Interest Calculator' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="CalcStack - Free Financial Calculators for India, UAE & US"
+  description="Free online financial calculators. SIP calculator, EMI calculator, gratuity calculator, income tax calculator, and 50+ more tools for India, UAE, and US."
+>
+  <div class="hero">
+    <h1>Free Financial Calculators</h1>
+    <p class="page-subtitle">Instant, accurate calculators for India, UAE, and US. No signup. No ads blocking your results.</p>
+  </div>
+
+  {countries.map((country) => (
+    <section class="country-section">
+      <h2>
+        <a href={`/${country.slug}/`}>{country.name} Calculators</a>
+      </h2>
+      <div class="calc-grid">
+        {country.calculators.map((calc) => (
+          <a href={`/${country.slug}/${calc.slug}`} class="calc-card">
+            <h3>{calc.name}</h3>
+          </a>
+        ))}
+        <a href={`/${country.slug}/`} class="calc-card calc-card--more">
+          <h3>View All &rarr;</h3>
+        </a>
+      </div>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+  .hero h1 { font-size: 2.5rem; }
+  .country-section { margin-bottom: 2.5rem; }
+  .country-section h2 { font-size: 1.35rem; }
+  .country-section h2 a { color: var(--color-text); }
+  .calc-card--more {
+    background: var(--color-input-bg);
+    border-style: dashed;
+  }
+  .calc-card h3 { font-size: 1rem; margin: 0; }
+</style>

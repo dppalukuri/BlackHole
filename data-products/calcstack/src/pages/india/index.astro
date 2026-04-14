@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const calculators = [
+  { slug: 'sip-calculator', name: 'SIP Calculator', desc: 'Calculate your Systematic Investment Plan returns over time.' },
+  { slug: 'emi-calculator', name: 'EMI Calculator', desc: 'Calculate loan EMI for home, car, or personal loans.' },
+  { slug: 'lumpsum-calculator', name: 'Lump Sum Calculator', desc: 'Calculate returns on a one-time mutual fund investment.' },
+  { slug: 'fd-calculator', name: 'FD Calculator', desc: 'Calculate Fixed Deposit maturity amount and interest earned.' },
+  { slug: 'ppf-calculator', name: 'PPF Calculator', desc: 'Calculate PPF maturity value at current 7.1% rate over 15+ years.' },
+  { slug: 'income-tax-calculator', name: 'Income Tax Calculator', desc: 'Calculate income tax under new regime FY 2025-26 with updated slabs.' },
+];
+---
+
+<BaseLayout
+  title="India Financial Calculators - SIP, EMI, Tax & More | CalcStack"
+  description="Free financial calculators for India. SIP calculator, EMI calculator, income tax calculator, PPF, FD, gratuity, and more. All tools are free and instant."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> India
+  </nav>
+
+  <h1>India Financial Calculators</h1>
+  <p class="page-intro">
+    Free online financial calculators for Indian investors and borrowers. Calculate your SIP returns, loan EMI, income tax, and more — all instant, no signup required.
+  </p>
+
+  <div class="calc-grid">
+    {calculators.map((calc) => (
+      <a href={`/india/${calc.slug}`} class="calc-card">
+        <h2>{calc.name}</h2>
+        <p>{calc.desc}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

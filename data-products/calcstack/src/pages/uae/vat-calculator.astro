@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VATCalculator from '../../components/calculators/engines/VATCalculator';
+---
+
+<BaseLayout
+  title="UAE VAT Calculator - Add or Remove 5% VAT | CalcStack"
+  description="Free UAE VAT calculator. Add 5% VAT to any amount or extract VAT from a VAT-inclusive price. Instant, accurate calculation for UAE businesses and consumers."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> VAT Calculator
+  </nav>
+
+  <h1>UAE VAT Calculator</h1>
+  <p class="page-subtitle">Add or extract 5% VAT instantly</p>
+  <p class="page-intro">Calculate UAE Value Added Tax on any amount. Switch between adding VAT to a net amount or extracting VAT from an inclusive price.</p>
+
+  <VATCalculator client:visible />
+
+  <section class="content-section">
+    <h2>UAE VAT Overview</h2>
+    <p>The UAE introduced Value Added Tax (VAT) at a <strong>standard rate of 5%</strong> on January 1, 2018. It applies to most goods and services, with some exemptions (healthcare, education, certain financial services, residential property).</p>
+    <p>Businesses with taxable supplies exceeding <strong>AED 375,000</strong> must register for VAT. Voluntary registration is available for businesses exceeding AED 187,500.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>VAT-Exempt and Zero-Rated Supplies</h2>
+    <ul>
+      <li><strong>Zero-rated (0%):</strong> Exports, international transport, certain precious metals, first sale of residential property (within 3 years)</li>
+      <li><strong>Exempt:</strong> Certain financial services, residential property (rent and resale), bare land, local passenger transport</li>
+      <li><strong>Standard (5%):</strong> Everything else — restaurants, electronics, clothing, services, commercial property</li>
+    </ul>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item">
+      <summary>How do I calculate VAT from a total price?</summary>
+      <div class="faq-answer">To extract VAT from an inclusive price: divide the total by 1.05 to get the net amount, then subtract. For example: AED 1,050 / 1.05 = AED 1,000 (net) and AED 50 (VAT). Use the "Extract VAT" mode above for instant calculation.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Do tourists get VAT refunds in UAE?</summary>
+      <div class="faq-answer">Yes. Tourists can claim VAT refunds on eligible purchases of AED 250+ per transaction through the Tax Refund for Tourists Scheme operated by Planet. Refunds are processed at designated points in airports.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Is rent subject to VAT in UAE?</summary>
+      <div class="faq-answer">Residential property rent is exempt from VAT. Commercial property rent is subject to 5% VAT. Hotel accommodation is taxable at 5% VAT plus tourism fees.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/gratuity-calculator" class="related-card"><h3>UAE Gratuity Calculator</h3><p>Calculate your end-of-service benefits.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Invest your savings — calculate mutual fund returns.</p></a>
+    </div>
+  </section>
+</BaseLayout>

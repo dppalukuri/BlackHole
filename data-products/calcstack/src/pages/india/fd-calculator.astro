@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FDCalculator from '../../components/calculators/engines/FDCalculator';
+---
+
+<BaseLayout
+  title="FD Calculator - Fixed Deposit Maturity Calculator | CalcStack"
+  description="Free FD calculator. Calculate your Fixed Deposit maturity amount and interest earned. Compare FD rates across SBI, HDFC, ICICI, and other banks."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> FD Calculator
+  </nav>
+
+  <h1>FD Calculator</h1>
+  <p class="page-subtitle">Calculate your Fixed Deposit maturity amount</p>
+  <p class="page-intro">Estimate how much your FD will grow at maturity. Interest is compounded quarterly as per Indian banking standards.</p>
+
+  <FDCalculator client:visible currency={{ code: 'INR', symbol: '₹' }} />
+
+  <section class="content-section">
+    <h2>What is a Fixed Deposit?</h2>
+    <p>A Fixed Deposit (FD) is a financial instrument offered by banks and NBFCs where you deposit a lump sum for a fixed tenure at a predetermined interest rate. FDs are one of the safest investment options in India, offering guaranteed returns regardless of market conditions.</p>
+    <p>FD interest rates in India currently range from <strong>6.5% to 7.5%</strong> for regular citizens and <strong>7.0% to 8.0%</strong> for senior citizens (65+), depending on the bank and tenure.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>FD Interest Compounding</h2>
+    <p>Most Indian banks compound FD interest <strong>quarterly</strong>. This means your interest earns interest every 3 months, resulting in a slightly higher effective yield than the stated annual rate. For example, a 7% FD with quarterly compounding yields an effective annual rate of approximately 7.19%.</p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item">
+      <summary>Is FD interest taxable?</summary>
+      <div class="faq-answer">Yes. FD interest is fully taxable at your income tax slab rate. Banks deduct TDS at 10% if your annual interest exceeds ₹40,000 (₹50,000 for senior citizens). You can submit Form 15G/15H to avoid TDS if your total income is below the taxable limit.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Can I break my FD before maturity?</summary>
+      <div class="faq-answer">Yes, but most banks charge a penalty of 0.5-1% on the applicable interest rate for premature withdrawal. Some banks offer no-penalty FDs at slightly lower rates.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Which bank gives the highest FD rate?</summary>
+      <div class="faq-answer">Small finance banks and NBFCs typically offer 0.5-1.5% higher rates than large banks. However, ensure the institution is covered by DICGC insurance (up to ₹5 lakh per depositor per bank).</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Compare SIP returns against FD returns.</p></a>
+      <a href="/india/ppf-calculator" class="related-card"><h3>PPF Calculator</h3><p>Tax-free alternative to FD with 7.1% guaranteed return.</p></a>
+      <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>Calculate tax on your FD interest income.</p></a>
+    </div>
+  </section>
+</BaseLayout>

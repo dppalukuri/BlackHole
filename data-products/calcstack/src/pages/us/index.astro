@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const calculators = [
+  { slug: 'compound-interest-calculator', name: 'Compound Interest Calculator', desc: 'See how your money grows with different compounding frequencies.' },
+];
+---
+
+<BaseLayout
+  title="US Financial Calculators - Compound Interest, 401k & More | CalcStack"
+  description="Free financial calculators for the US. Compound interest calculator, 401k calculator, mortgage calculator, and more."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> US
+  </nav>
+
+  <h1>US Financial Calculators</h1>
+  <p class="page-intro">
+    Free online financial calculators for US investors and borrowers. Calculate compound interest, plan retirement, and more.
+  </p>
+
+  <div class="calc-grid">
+    {calculators.map((calc) => (
+      <a href={`/us/${calc.slug}`} class="calc-card">
+        <h2>{calc.name}</h2>
+        <p>{calc.desc}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

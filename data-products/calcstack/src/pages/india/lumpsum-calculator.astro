@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LumpSumCalculator from '../../components/calculators/engines/LumpSumCalculator';
+---
+
+<BaseLayout
+  title="Lump Sum Calculator - Mutual Fund Returns Calculator | CalcStack"
+  description="Free lump sum investment calculator. Calculate how much your one-time investment in mutual funds can grow over time with the power of compounding."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/india/">India</a> <span>/</span>
+    Lump Sum Calculator
+  </nav>
+
+  <h1>Lump Sum Calculator</h1>
+  <p class="page-subtitle">Calculate returns on a one-time mutual fund investment</p>
+  <p class="page-intro">
+    Find out how much your one-time investment can grow over time. See the power of compounding on a lump sum investment in mutual funds.
+  </p>
+
+  <LumpSumCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    defaults={{ principal: 100000, expectedReturn: 12, timePeriod: 10 }}
+  />
+
+  <section class="content-section">
+    <h2>What is Lump Sum Investment?</h2>
+    <p>
+      A lump sum investment is when you invest a large amount of money at once in a mutual fund or other investment vehicle, as opposed to investing smaller amounts periodically (like SIP). This approach works well when you have a windfall — such as a bonus, inheritance, or matured FD — and want to put it to work immediately.
+    </p>
+    <p>
+      The advantage of lump sum investing is that your entire capital starts compounding from day one. However, it carries more timing risk — if markets drop right after your investment, your entire amount is affected.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Lump Sum vs SIP</h2>
+    <p>
+      <strong>Lump sum</strong> tends to outperform SIP in rising markets because your full capital is invested from the start. <strong>SIP</strong> performs better in volatile or declining markets because it averages your purchase cost. For most investors, a combination of both works best — invest lump sums when you have them, and maintain regular SIPs for disciplined investing.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Compound Interest Formula</h2>
+    <div class="formula-box">
+      FV = P &times; (1 + r/n)<sup>n&times;t</sup>
+    </div>
+    <p>Where: <strong>P</strong> = Principal, <strong>r</strong> = Annual rate, <strong>n</strong> = Compounding frequency per year, <strong>t</strong> = Time in years</p>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/sip-calculator" class="related-card">
+        <h3>SIP Calculator</h3>
+        <p>Calculate monthly SIP returns over time.</p>
+      </a>
+      <a href="/india/emi-calculator" class="related-card">
+        <h3>EMI Calculator</h3>
+        <p>Calculate your loan EMI and total interest payable.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

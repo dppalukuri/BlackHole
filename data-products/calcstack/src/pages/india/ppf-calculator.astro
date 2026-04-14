@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PPFCalculator from '../../components/calculators/engines/PPFCalculator';
+---
+
+<BaseLayout
+  title="PPF Calculator - Public Provident Fund Calculator 2026 | CalcStack"
+  description="Free PPF calculator. Calculate your Public Provident Fund maturity value at current 7.1% interest rate. See how ₹1.5 lakh yearly investment grows over 15-50 years."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> PPF Calculator
+  </nav>
+
+  <h1>PPF Calculator</h1>
+  <p class="page-subtitle">Calculate your Public Provident Fund maturity value</p>
+  <p class="page-intro">PPF is a government-backed savings scheme offering tax-free returns at 7.1% p.a. with a 15-year lock-in. One of the safest long-term investments in India.</p>
+
+  <PPFCalculator client:visible />
+
+  <section class="content-section">
+    <h2>What is PPF?</h2>
+    <p>The Public Provident Fund (PPF) is a long-term savings scheme backed by the Government of India. It offers a combination of safety, tax benefits, and decent returns that few other instruments can match.</p>
+    <p>Key features: <strong>7.1% interest</strong> (reviewed quarterly), <strong>15-year lock-in</strong> (extendable in 5-year blocks), <strong>tax-free returns</strong> (EEE status — exempt at investment, accumulation, and withdrawal), and <strong>maximum ₹1.5 lakh/year</strong> deposit limit.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>PPF Tax Benefits</h2>
+    <p>PPF enjoys <strong>EEE (Exempt-Exempt-Exempt)</strong> tax status — one of the very few instruments in India with this triple exemption:</p>
+    <ul>
+      <li><strong>Investment:</strong> Deduction up to ₹1.5 lakh under Section 80C</li>
+      <li><strong>Interest:</strong> Interest earned is completely tax-free</li>
+      <li><strong>Maturity:</strong> The entire maturity amount is tax-free</li>
+    </ul>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <details class="faq-item">
+      <summary>Can I withdraw from PPF before 15 years?</summary>
+      <div class="faq-answer">Partial withdrawals are allowed from the 7th year onwards (up to 50% of the balance at the end of the 4th year). Premature closure is only permitted after 5 years for specific reasons like medical emergencies or higher education.</div>
+    </details>
+    <details class="faq-item">
+      <summary>What happens after 15 years?</summary>
+      <div class="faq-answer">You can withdraw the full amount tax-free, or extend in blocks of 5 years. You can extend with or without fresh contributions. Many investors extend to maximize the compounding benefit.</div>
+    </details>
+    <details class="faq-item">
+      <summary>PPF vs FD — which is better?</summary>
+      <div class="faq-answer">PPF offers tax-free returns at 7.1%, while FD interest is fully taxable. For someone in the 30% tax bracket, a 7% FD effectively yields only ~4.9% after tax. PPF wins for long-term savings, but FDs offer more liquidity.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Compare PPF returns with equity SIP returns.</p></a>
+      <a href="/india/fd-calculator" class="related-card"><h3>FD Calculator</h3><p>Calculate Fixed Deposit maturity for comparison.</p></a>
+    </div>
+  </section>
+</BaseLayout>

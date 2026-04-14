@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
+---
+
+<BaseLayout
+  title="SIP Calculator - Calculate Mutual Fund Returns Online | CalcStack"
+  description="Free SIP calculator to estimate your mutual fund returns. Calculate how much wealth your monthly SIP of ₹500 to ₹10 lakh can create over 1-30 years."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SIP Calculator",
+      "description": "Calculate your Systematic Investment Plan returns with this free online SIP calculator",
+      "url": "https://calcstack.com/india/sip-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a good SIP amount to start with?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You can start a SIP with as little as ₹500 per month. Financial advisors recommend investing at least 20% of your monthly income in SIPs for long-term wealth creation." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the average return on SIP in India?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Historically, equity mutual fund SIPs in India have delivered 12-15% annual returns over 10+ year periods. Debt fund SIPs typically return 6-8%. Past performance does not guarantee future results." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SIP better than Fixed Deposit?",
+          "acceptedAnswer": { "@type": "Answer", "text": "SIP in equity mutual funds has historically offered higher returns (12-15%) compared to FDs (6-7%). However, SIPs carry market risk while FDs offer guaranteed returns. SIPs are better for long-term goals (5+ years) while FDs suit short-term, low-risk needs." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I stop or pause my SIP?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can stop or pause your SIP at any time without penalty. Your existing investments remain invested and continue to grow. You can restart whenever you want." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SIP tax-free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "SIP investments in ELSS (Equity Linked Savings Scheme) funds qualify for tax deduction up to ₹1.5 lakh under Section 80C. Long-term capital gains above ₹1.25 lakh from equity funds are taxed at 12.5%." }
+        }
+      ]
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcstack.com/" },
+        { "@type": "ListItem", "position": 2, "name": "India", "item": "https://calcstack.com/india/" },
+        { "@type": "ListItem", "position": 3, "name": "SIP Calculator", "item": "https://calcstack.com/india/sip-calculator" }
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/india/">India</a> <span>/</span>
+    SIP Calculator
+  </nav>
+
+  <h1>SIP Calculator</h1>
+  <p class="page-subtitle">Calculate your Systematic Investment Plan returns</p>
+  <p class="page-intro">
+    Estimate how much wealth your monthly SIP can create over time. Adjust the amount, expected return rate, and time period to see your projected corpus.
+  </p>
+
+  <SIPCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    defaults={{ monthlyInvestment: 5000, expectedReturn: 12, timePeriod: 10 }}
+  />
+
+  <section class="content-section">
+    <h2>What is a SIP?</h2>
+    <p>
+      A Systematic Investment Plan (SIP) is a method of investing a fixed amount regularly (usually monthly) in mutual funds. Instead of investing a large lump sum at once, SIP lets you invest small amounts periodically, which averages out the cost of your investments over time — a concept known as <strong>rupee cost averaging</strong>.
+    </p>
+    <p>
+      SIPs are one of the most popular investment methods in India, with over 9.7 crore SIP accounts as of 2026. They combine the power of compounding with the discipline of regular investing, making them ideal for long-term wealth creation.
+    </p>
+    <p>
+      The key advantage of SIP is that you don't need to time the market. When markets are down, your fixed amount buys more units. When markets are up, your existing units appreciate. Over time, this averaging effect can significantly boost your returns.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This SIP Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>monthly SIP amount</strong> — the fixed amount you plan to invest each month (minimum ₹500)</li>
+      <li>Set your <strong>expected annual return rate</strong> — equity mutual funds in India have historically delivered 12-15% over 10+ years</li>
+      <li>Choose your <strong>investment time period</strong> — longer periods benefit more from compounding (10+ years recommended)</li>
+      <li>View your projected <strong>total value</strong>, broken down into invested amount and estimated returns</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>SIP Formula</h2>
+    <div class="formula-box">
+      FV = P &times; ({'{'}[1 + r]<sup>n</sup> - 1{'}'} / r) &times; (1 + r)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>FV</strong> = Future value of your SIP</li>
+      <li><strong>P</strong> = Monthly SIP amount</li>
+      <li><strong>r</strong> = Monthly rate of return (annual rate / 12 / 100)</li>
+      <li><strong>n</strong> = Total number of months</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> If you invest ₹5,000/month at 12% annual return for 10 years:
+      r = 0.01, n = 120. Your invested amount would be ₹6,00,000 and the estimated corpus would be approximately ₹11,61,695.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>SIP Investment Tips</h2>
+    <ul>
+      <li><strong>Start early:</strong> Even small SIPs started in your 20s can grow into crores by retirement, thanks to compounding</li>
+      <li><strong>Increase annually:</strong> Use a step-up SIP — increase your SIP by 10-15% every year to match your income growth</li>
+      <li><strong>Stay invested during crashes:</strong> Market dips are your friend in SIP — you buy more units at lower prices</li>
+      <li><strong>Choose direct plans:</strong> Direct mutual fund plans have lower expense ratios (0.5-1% less), which compounds into significantly higher returns</li>
+      <li><strong>Use ELSS for tax saving:</strong> ELSS funds qualify for ₹1.5 lakh deduction under Section 80C, making your SIP a tax-saving tool too</li>
+    </ul>
+  </section>
+
+  <div class="affiliate-cta">
+    <h3>Start your SIP today</h3>
+    <p>Open a free demat account and invest in direct mutual funds with zero commission.</p>
+    <a href="#" rel="nofollow sponsored" class="cta-btn">Open Free Account</a>
+    <span class="cta-disclosure">We may earn a commission if you sign up through our links.</span>
+  </div>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>What is a good SIP amount to start with?</summary>
+      <div class="faq-answer">You can start a SIP with as little as ₹500 per month. Financial advisors recommend investing at least 20% of your monthly income. If you're just starting out, begin with what's comfortable and increase by 10-15% annually.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What is the average return on SIP in India?</summary>
+      <div class="faq-answer">Historically, equity mutual fund SIPs in India have delivered 12-15% annual returns over 10+ year periods. Large-cap funds tend to return 10-12%, while mid and small-cap funds can deliver 14-18% but with higher volatility. Debt fund SIPs typically return 6-8%. Past performance does not guarantee future results.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is SIP better than Fixed Deposit?</summary>
+      <div class="faq-answer">SIP in equity mutual funds has historically offered higher returns (12-15%) compared to FDs (6-7%). However, SIPs carry market risk while FDs offer guaranteed returns. SIPs are better for long-term goals (5+ years), while FDs suit short-term needs or emergency funds where capital preservation is priority.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I stop or pause my SIP?</summary>
+      <div class="faq-answer">Yes, you can stop or pause your SIP at any time without any penalty or exit charges (for most funds). Your existing investments remain invested and continue to grow. You can restart your SIP whenever you want, or even change the amount.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is SIP tax-free?</summary>
+      <div class="faq-answer">SIP investments in ELSS (Equity Linked Savings Scheme) funds qualify for tax deduction up to ₹1.5 lakh under Section 80C. However, long-term capital gains (LTCG) above ₹1.25 lakh from equity funds are taxed at 12.5%. Short-term gains (held less than 1 year) are taxed at 20%.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card">
+        <h3>EMI Calculator</h3>
+        <p>Calculate your loan EMI, total interest, and get a full amortization schedule.</p>
+      </a>
+      <a href="/india/lumpsum-calculator" class="related-card">
+        <h3>Lump Sum Calculator</h3>
+        <p>Calculate returns on a one-time investment in mutual funds.</p>
+      </a>
+      <a href="/india/fd-calculator" class="related-card">
+        <h3>FD Calculator</h3>
+        <p>Calculate your Fixed Deposit maturity amount and interest earned.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const calculators = [
+  { slug: 'gratuity-calculator', name: 'Gratuity Calculator', desc: 'Calculate your end-of-service benefits under UAE Labour Law.' },
+  { slug: 'vat-calculator', name: 'VAT Calculator', desc: 'Add or extract 5% UAE VAT from any amount.' },
+];
+---
+
+<BaseLayout
+  title="UAE Financial Calculators - Gratuity, VAT & More | CalcStack"
+  description="Free financial calculators for UAE residents and expats. End-of-service gratuity calculator, VAT calculator, golden visa cost calculator, and more."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> UAE
+  </nav>
+
+  <h1>UAE Financial Calculators</h1>
+  <p class="page-intro">
+    Free online financial calculators for UAE residents and expats. Calculate your gratuity, VAT, and more — all instant, no signup required.
+  </p>
+
+  <div class="calc-grid">
+    {calculators.map((calc) => (
+      <a href={`/uae/${calc.slug}`} class="calc-card">
+        <h2>{calc.name}</h2>
+        <p>{calc.desc}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
