@@ -1,0 +1,10 @@
+{{ define "main" }}
+<article>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> / <a href="/{{ .Section }}/">{{ .Section | title }}</a> / {{ .Title }}
+  </nav>
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p class="subtitle">{{ . }}</p>{{ end }}
+  {{ .Content }}
+</article>
+{{ end }}

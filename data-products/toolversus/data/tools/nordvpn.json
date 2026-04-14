@@ -1,0 +1,61 @@
+{
+  "slug": "nordvpn",
+  "name": "NordVPN",
+  "tagline": "Fast, secure VPN with 6,400+ servers in 111 countries",
+  "category": ["vpn"],
+  "website": "https://nordvpn.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 3.39,
+    "currency": "USD",
+    "billing_cycle": "monthly (2-year plan)",
+    "tiers": [
+      {"name": "Basic", "price_monthly": 12.99, "price_2yr": 3.39},
+      {"name": "Plus", "price_monthly": 13.99, "price_2yr": 4.39},
+      {"name": "Complete", "price_monthly": 14.99, "price_2yr": 5.39}
+    ]
+  },
+  "features": {
+    "servers": 6400,
+    "countries": 111,
+    "simultaneous_connections": 10,
+    "mobile_app": true,
+    "api_available": false,
+    "sso": false,
+    "kill_switch": true,
+    "split_tunneling": true,
+    "no_logs_audited": true,
+    "wireguard_support": true,
+    "protocol": "NordLynx (WireGuard-based)",
+    "ad_blocker": true,
+    "streaming_unblock": true,
+    "p2p_support": true,
+    "dedicated_ip": true
+  },
+  "ratings": {
+    "g2_score": 4.3,
+    "g2_reviews": 1200,
+    "trustpilot_score": 4.5,
+    "trustpilot_reviews": 28000
+  },
+  "pros": [
+    "Fastest VPN in independent speed tests (NordLynx protocol)",
+    "6,400+ servers across 111 countries — largest network",
+    "Independently audited no-logs policy (by Deloitte)",
+    "Built-in ad blocker and malware protection (Threat Protection)",
+    "Works with Netflix, Disney+, BBC iPlayer, and most streaming services",
+    "10 simultaneous device connections"
+  ],
+  "cons": [
+    "No free plan or free trial (30-day money-back guarantee only)",
+    "Monthly plan is expensive ($12.99/mo) — value only on 2-year plans",
+    "Some specialty servers (Double VPN, Onion) can be slower",
+    "Owned by Nord Security (Lithuania) — some privacy purists prefer Swiss/Panamanian jurisdiction"
+  ],
+  "best_for": ["Streaming", "Privacy-conscious users", "Torrenting", "General daily use"],
+  "affiliate": {
+    "commission_rate": "40% on annual, 100% on monthly",
+    "cookie_days": 30,
+    "tracking_link": ""
+  }
+}

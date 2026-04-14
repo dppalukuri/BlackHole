@@ -1,0 +1,91 @@
+{{ define "head" }}
+{{ with .Params.schema }}
+<script type="application/ld+json">{{ . | safeJS }}</script>
+{{ end }}
+{{ end }}
+
+{{ define "main" }}
+<article>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> / <a href="/compare/">Comparisons</a> / {{ .Title }}
+  </nav>
+
+  <h1>{{ .Title }}</h1>
+  <p class="subtitle">{{ .Description }}</p>
+  <span class="freshness">Pricing verified {{ .Params.last_verified }}</span>
+
+  {{ with .Params.verdict }}
+  <div class="verdict">
+    <div class="winner">{{ .winner }}</div>
+    <p>{{ .summary }}</p>
+  </div>
+  {{ end }}
+
+  {{ $toolA := index hugo.Data.tools .Params.tool_a }}
+  {{ $toolB := index hugo.Data.tools .Params.tool_b }}
+
+  {{ if and $toolA $toolB }}
+  <div class="compare-grid">
+    <div class="compare-card {{ if eq .Params.verdict.winner_slug .Params.tool_a }}winner{{ end }}">
+      <h3>{{ $toolA.name }}</h3>
+      <p>{{ $toolA.tagline }}</p>
+      <div class="price">{{ if $toolA.pricing.has_free_plan }}Free plan available{{ else }}From ${{ $toolA.pricing.starting_price }}/mo{{ end }}</div>
+      <p class="price-note">{{ if $toolA.pricing.has_free_plan }}Paid from ${{ $toolA.pricing.starting_price }}/mo{{ end }}</p>
+      {{ with $toolA.ratings }}
+      <p style="margin-top: 0.75rem; font-size: 0.85rem;">G2: <strong>{{ .g2_score }}/5</strong> ({{ .g2_reviews }} reviews)</p>
+      {{ end }}
+      {{ with $toolA.affiliate }}
+      {{ if .tracking_link }}
+      <a href="{{ .tracking_link }}" rel="nofollow sponsored" target="_blank" class="cta-btn" style="margin-top: 1rem;">Visit {{ $toolA.name }}</a>
+      {{ end }}
+      {{ end }}
+    </div>
+    <div class="compare-card {{ if eq .Params.verdict.winner_slug .Params.tool_b }}winner{{ end }}">
+      <h3>{{ $toolB.name }}</h3>
+      <p>{{ $toolB.tagline }}</p>
+      <div class="price">{{ if $toolB.pricing.has_free_plan }}Free plan available{{ else }}From ${{ $toolB.pricing.starting_price }}/mo{{ end }}</div>
+      <p class="price-note">{{ if $toolB.pricing.has_free_plan }}Paid from ${{ $toolB.pricing.starting_price }}/mo{{ end }}</p>
+      {{ with $toolB.ratings }}
+      <p style="margin-top: 0.75rem; font-size: 0.85rem;">G2: <strong>{{ .g2_score }}/5</strong> ({{ .g2_reviews }} reviews)</p>
+      {{ end }}
+      {{ with $toolB.affiliate }}
+      {{ if .tracking_link }}
+      <a href="{{ .tracking_link }}" rel="nofollow sponsored" target="_blank" class="cta-btn" style="margin-top: 1rem;">Visit {{ $toolB.name }}</a>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+
+  <h2>Feature Comparison</h2>
+  <table class="feature-table">
+    <thead><tr><th>Feature</th><th>{{ $toolA.name }}</th><th>{{ $toolB.name }}</th></tr></thead>
+    <tbody>
+      <tr><td>Free Plan</td><td>{{ if $toolA.pricing.has_free_plan }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td><td>{{ if $toolB.pricing.has_free_plan }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td></tr>
+      <tr><td>Starting Price</td><td>${{ $toolA.pricing.starting_price }}/mo</td><td>${{ $toolB.pricing.starting_price }}/mo</td></tr>
+      <tr><td>Mobile App</td><td>{{ if $toolA.features.mobile_app }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td><td>{{ if $toolB.features.mobile_app }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td></tr>
+      <tr><td>API Available</td><td>{{ if $toolA.features.api_available }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td><td>{{ if $toolB.features.api_available }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td></tr>
+      <tr><td>SSO</td><td>{{ if $toolA.features.sso }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td><td>{{ if $toolB.features.sso }}<span class="check">Yes</span>{{ else }}<span class="cross">No</span>{{ end }}</td></tr>
+      <tr><td>G2 Rating</td><td>{{ $toolA.ratings.g2_score }}/5</td><td>{{ $toolB.ratings.g2_score }}/5</td></tr>
+      <tr><td>G2 Reviews</td><td>{{ $toolA.ratings.g2_reviews }}</td><td>{{ $toolB.ratings.g2_reviews }}</td></tr>
+    </tbody>
+  </table>
+  {{ end }}
+
+  {{ .Content }}
+
+  <div style="margin-top: 2rem;">
+    <h2>More Comparisons</h2>
+    <div class="cards-grid">
+      {{ range first 4 (where .Site.RegularPages "Section" "compare") }}
+      {{ if ne .Permalink $.Permalink }}
+      <a href="{{ .Permalink }}" class="card">
+        <span class="tag">Compare</span>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Description }}</p>
+      </a>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</article>
+{{ end }}

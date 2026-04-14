@@ -1,0 +1,26 @@
+baseURL = 'https://toolversus.techtools365.com/'
+languageCode = 'en-us'
+title = 'ToolVersus — Honest SaaS & AI Tool Comparisons'
+
+[params]
+  description = 'Compare SaaS and AI tools side-by-side. Honest pricing, features, and verdicts.'
+  author = 'TechTools365'
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
+  filename = 'sitemap.xml'
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[build]
+  writeStats = true

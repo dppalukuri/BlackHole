@@ -1,0 +1,62 @@
+{
+  "slug": "expressvpn",
+  "name": "ExpressVPN",
+  "tagline": "Premium VPN with best-in-class privacy and ease of use",
+  "category": ["vpn"],
+  "website": "https://expressvpn.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 6.67,
+    "currency": "USD",
+    "billing_cycle": "monthly (1-year plan)",
+    "tiers": [
+      {"name": "1 Month", "price_monthly": 12.95, "price_2yr": 12.95},
+      {"name": "6 Months", "price_monthly": 9.99, "price_2yr": 9.99},
+      {"name": "12 Months", "price_monthly": 6.67, "price_2yr": 6.67}
+    ]
+  },
+  "features": {
+    "servers": 3000,
+    "countries": 105,
+    "simultaneous_connections": 8,
+    "mobile_app": true,
+    "api_available": false,
+    "sso": false,
+    "kill_switch": true,
+    "split_tunneling": true,
+    "no_logs_audited": true,
+    "wireguard_support": true,
+    "protocol": "Lightway (proprietary)",
+    "ad_blocker": false,
+    "streaming_unblock": true,
+    "p2p_support": true,
+    "dedicated_ip": false
+  },
+  "ratings": {
+    "g2_score": 4.2,
+    "g2_reviews": 500,
+    "trustpilot_score": 4.6,
+    "trustpilot_reviews": 24000
+  },
+  "pros": [
+    "Extremely easy to use — best UI of any VPN app",
+    "Owned by Kape Technologies (publicly traded) — accountability",
+    "BVI jurisdiction — strong privacy laws, no data retention requirements",
+    "Lightway protocol is fast and lightweight",
+    "Works reliably in China and other restricted countries",
+    "TrustedServer technology — RAM-only servers (no hard drives)"
+  ],
+  "cons": [
+    "Most expensive mainstream VPN ($6.67/mo even on annual plan)",
+    "Only 8 simultaneous connections (NordVPN offers 10)",
+    "Fewer servers (3,000 vs NordVPN's 6,400)",
+    "No built-in ad blocker",
+    "No dedicated IP option"
+  ],
+  "best_for": ["Beginners", "Users in China/restricted countries", "Privacy maximalists", "Apple ecosystem users"],
+  "affiliate": {
+    "commission_rate": "$13-$36 per sale depending on plan",
+    "cookie_days": 30,
+    "tracking_link": ""
+  }
+}

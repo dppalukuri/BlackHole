@@ -1,0 +1,31 @@
+{{ define "main" }}
+<div style="text-align: center; padding: 3rem 0 1.5rem;">
+  <h1 style="font-size: 2.5rem;">Honest Tool Comparisons</h1>
+  <p class="subtitle">Side-by-side pricing, features, and verdicts. No sponsored rankings.</p>
+</div>
+
+<h2>Latest Comparisons</h2>
+<div class="cards-grid">
+  {{ range first 6 (where .Site.RegularPages "Section" "compare") }}
+  <a href="{{ .Permalink }}" class="card">
+    <span class="tag">{{ .Params.category }}</span>
+    <h3>{{ .Title }}</h3>
+    <p>{{ .Description }}</p>
+    <span class="freshness">Verified {{ .Params.last_verified }}</span>
+  </a>
+  {{ end }}
+</div>
+
+{{ with (where .Site.RegularPages "Section" "review") }}
+<h2>Tool Reviews</h2>
+<div class="cards-grid">
+  {{ range first 6 . }}
+  <a href="{{ .Permalink }}" class="card">
+    <span class="tag">Review</span>
+    <h3>{{ .Title }}</h3>
+    <p>{{ .Description }}</p>
+  </a>
+  {{ end }}
+</div>
+{{ end }}
+{{ end }}

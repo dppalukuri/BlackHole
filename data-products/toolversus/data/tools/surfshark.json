@@ -1,0 +1,62 @@
+{
+  "slug": "surfshark",
+  "name": "Surfshark",
+  "tagline": "Affordable VPN with unlimited device connections",
+  "category": ["vpn"],
+  "website": "https://surfshark.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 2.19,
+    "currency": "USD",
+    "billing_cycle": "monthly (2-year plan)",
+    "tiers": [
+      {"name": "Surfshark Starter", "price_monthly": 15.45, "price_2yr": 2.19},
+      {"name": "Surfshark One", "price_monthly": 17.95, "price_2yr": 2.99},
+      {"name": "Surfshark One+", "price_monthly": 20.65, "price_2yr": 4.49}
+    ]
+  },
+  "features": {
+    "servers": 3200,
+    "countries": 100,
+    "simultaneous_connections": -1,
+    "mobile_app": true,
+    "api_available": false,
+    "sso": false,
+    "kill_switch": true,
+    "split_tunneling": true,
+    "no_logs_audited": true,
+    "wireguard_support": true,
+    "protocol": "WireGuard",
+    "ad_blocker": true,
+    "streaming_unblock": true,
+    "p2p_support": true,
+    "dedicated_ip": true
+  },
+  "ratings": {
+    "g2_score": 4.3,
+    "g2_reviews": 800,
+    "trustpilot_score": 4.3,
+    "trustpilot_reviews": 19000
+  },
+  "pros": [
+    "Cheapest premium VPN — $2.19/mo on 2-year plan",
+    "Unlimited simultaneous connections — cover every device you own",
+    "CleanWeb ad blocker included in all plans",
+    "Nexus technology routes traffic through multiple servers",
+    "Based in the Netherlands — strong EU privacy laws",
+    "MultiHop (Double VPN) and rotating IP features"
+  ],
+  "cons": [
+    "Speeds slightly slower than NordVPN in some regions",
+    "Smaller server network than NordVPN (3,200 vs 6,400)",
+    "Kill switch can be unreliable on some platforms",
+    "Customer support response times can be slow",
+    "Monthly plan is expensive ($15.45/mo) — only worth it on long-term plans"
+  ],
+  "best_for": ["Budget-conscious users", "Large families/many devices", "Students", "Basic streaming"],
+  "affiliate": {
+    "commission_rate": "40% recurring",
+    "cookie_days": 30,
+    "tracking_link": ""
+  }
+}
