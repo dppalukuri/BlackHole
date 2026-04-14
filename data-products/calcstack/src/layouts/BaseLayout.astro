@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { title, description, canonicalUrl, ogImage } = Astro.props;
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://calcstack.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://calcstack.techtools365.com';
 const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).toString();
 const og = ogImage || `${siteUrl}/og-default.png`;
 ---

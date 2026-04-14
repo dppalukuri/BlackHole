@@ -4,7 +4,7 @@ import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://calcstack.com',
+  site: 'https://calcstack.techtools365.com',
   integrations: [
     preact(),
     sitemap({
