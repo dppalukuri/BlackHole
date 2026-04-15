@@ -113,7 +113,8 @@ residence_permits = {
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
             "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/"},
-            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Officer discretion."}
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Officer discretion."},
+            "Singapore": {"access": "vf", "days": 4, "source": "https://www.ica.gov.sg", "note": "96-hour VFTF for US permanent residents transiting by air with onward ticket."}
         }
     },
     "Valid US Visa (B1/B2)": {
@@ -131,7 +132,8 @@ residence_permits = {
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me", "note": "Valid US visa allows entry up to 30 days"},
             "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/", "note": "Multi-entry US visa. Stay up to 30 days."},
             "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports for holders of valid US/UK/Schengen visa. Not guaranteed — at immigration officer discretion."},
-            "Bahrain": {"access": "voa", "days": 14, "source": "https://www.evisa.gov.bh", "note": "VoA available for holders of valid US visa, or apply for eVisa at evisa.gov.bh"}
+            "Bahrain": {"access": "voa", "days": 14, "source": "https://www.evisa.gov.bh", "note": "VoA available for holders of valid US visa, or apply for eVisa at evisa.gov.bh"},
+            "Singapore": {"access": "vf", "days": 4, "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements", "note": "96-hour Visa-Free Transit Facility (VFTF). Must be transiting through Singapore by air with onward ticket within 96 hours. Not for stays without onward travel."}
         }
     },
     "Valid Schengen Visa": {
@@ -148,7 +150,8 @@ residence_permits = {
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
             "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/"},
-            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Not guaranteed — officer discretion."}
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Not guaranteed — officer discretion."},
+            "Singapore": {"access": "vf", "days": 4, "source": "https://www.ica.gov.sg", "note": "96-hour VFTF. Only Schengen visas issued by Germany or Switzerland qualify. Must be transiting by air with onward ticket."}
         }
     },
     "Schengen Residence Permit": {
@@ -179,7 +182,8 @@ residence_permits = {
             "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Multi-entry UK visa/BRP, used at least once"},
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
-            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Not guaranteed."}
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Not guaranteed."},
+            "Singapore": {"access": "vf", "days": 4, "source": "https://www.ica.gov.sg", "note": "96-hour VFTF for UK visa/BRP holders transiting by air with onward ticket."}
         }
     },
     "Canada Permanent Resident": {
@@ -190,7 +194,8 @@ residence_permits = {
             "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx"},
             "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
             "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
-            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"}
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
+            "Singapore": {"access": "vf", "days": 4, "source": "https://www.ica.gov.sg", "note": "96-hour VFTF for Canada permanent residents transiting by air with onward ticket."}
         }
     }
 }

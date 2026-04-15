@@ -101,6 +101,12 @@
         "days": 30,
         "source": "https://visa2egypt.gov.eg",
         "note": "Visa on arrival at select airports. Officer discretion."
+      },
+      "Singapore": {
+        "access": "vf",
+        "days": 4,
+        "source": "https://www.ica.gov.sg",
+        "note": "96-hour VFTF for US permanent residents transiting by air with onward ticket."
       }
     }
   },
@@ -179,6 +185,12 @@
         "days": 14,
         "source": "https://www.evisa.gov.bh",
         "note": "VoA available for holders of valid US visa, or apply for eVisa at evisa.gov.bh"
+      },
+      "Singapore": {
+        "access": "vf",
+        "days": 4,
+        "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+        "note": "96-hour Visa-Free Transit Facility (VFTF). Must be transiting through Singapore by air with onward ticket within 96 hours. Not for stays without onward travel."
       }
     }
   },
@@ -243,6 +255,12 @@
         "days": 30,
         "source": "https://visa2egypt.gov.eg",
         "note": "Visa on arrival at select airports. Not guaranteed \u2014 officer discretion."
+      },
+      "Singapore": {
+        "access": "vf",
+        "days": 4,
+        "source": "https://www.ica.gov.sg",
+        "note": "96-hour VFTF. Only Schengen visas issued by Germany or Switzerland qualify. Must be transiting by air with onward ticket."
       }
     }
   },
@@ -354,6 +372,12 @@
         "days": 30,
         "source": "https://visa2egypt.gov.eg",
         "note": "Visa on arrival at select airports. Not guaranteed."
+      },
+      "Singapore": {
+        "access": "vf",
+        "days": 4,
+        "source": "https://www.ica.gov.sg",
+        "note": "96-hour VFTF for UK visa/BRP holders transiting by air with onward ticket."
       }
     }
   },
@@ -385,6 +409,12 @@
         "access": "vf",
         "days": 90,
         "source": "https://punetejashtme.gov.al"
+      },
+      "Singapore": {
+        "access": "vf",
+        "days": 4,
+        "source": "https://www.ica.gov.sg",
+        "note": "96-hour VFTF for Canada permanent residents transiting by air with onward ticket."
       }
     }
   }
