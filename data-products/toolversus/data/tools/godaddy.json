@@ -1,0 +1,57 @@
+{
+  "slug": "godaddy",
+  "name": "GoDaddy",
+  "tagline": "The world's largest domain registrar — domains, hosting, email in one place",
+  "category": ["web-hosting"],
+  "website": "https://godaddy.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 5.99,
+    "currency": "USD",
+    "billing_cycle": "monthly (36-month term)",
+    "tiers": [
+      {"name": "Economy", "price_monthly": 5.99, "limits": "1 website, 25 GB storage"},
+      {"name": "Deluxe", "price_monthly": 7.99, "limits": "Unlimited websites, 50 GB"},
+      {"name": "Ultimate", "price_monthly": 12.99, "limits": "Unlimited, 75 GB, free SSL"},
+      {"name": "Maximum", "price_monthly": 19.99, "limits": "Unlimited, 100 GB, priority support"}
+    ]
+  },
+  "features": {
+    "mobile_app": true,
+    "api_available": true,
+    "sso": false,
+    "free_domain": true,
+    "free_ssl": false,
+    "free_cdn": false,
+    "daily_backups": true,
+    "litespeed": false,
+    "wordpress_optimized": true,
+    "email_hosting": true,
+    "staging": false,
+    "data_centers": 2
+  },
+  "ratings": {
+    "g2_score": 3.4,
+    "g2_reviews": 500,
+    "trustpilot_score": 4.6,
+    "trustpilot_reviews": 40000
+  },
+  "pros": [
+    "Massive brand recognition — the most well-known hosting brand globally",
+    "24/7 phone support on all plans",
+    "Seamless domain + hosting + email in one dashboard",
+    "Easy for non-technical users with drag-and-drop builder"
+  ],
+  "cons": [
+    "Higher pricing than most competitors for similar features",
+    "Aggressive upselling throughout the checkout and dashboard",
+    "Only 2 data center locations (US and India)",
+    "G2 rating of 3.4 is among the lowest for major hosts"
+  ],
+  "best_for": ["Non-technical users", "All-in-one domain + hosting", "Users who need phone support"],
+  "affiliate": {
+    "commission_rate": "10-15% per sale (up to $125)",
+    "cookie_days": 45,
+    "tracking_link": ""
+  }
+}

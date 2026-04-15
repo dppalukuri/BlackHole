@@ -1,0 +1,54 @@
+{
+  "slug": "convertkit",
+  "name": "Kit (ConvertKit)",
+  "tagline": "The creator marketing platform — built for writers, podcasters, and YouTubers",
+  "category": ["email-marketing"],
+  "website": "https://kit.com",
+  "pricing": {
+    "has_free_plan": true,
+    "starting_price": 25,
+    "currency": "USD",
+    "billing_cycle": "monthly",
+    "tiers": [
+      {"name": "Newsletter", "price_monthly": 0, "limits": "10,000 subscribers, limited features"},
+      {"name": "Creator", "price_monthly": 25, "limits": "1,000 subscribers, full automation"},
+      {"name": "Creator Pro", "price_monthly": 50, "limits": "1,000 subscribers, advanced features"}
+    ]
+  },
+  "features": {
+    "mobile_app": false,
+    "api_available": true,
+    "sso": false,
+    "free_plan_contacts": 10000,
+    "automation": true,
+    "landing_pages": true,
+    "ab_testing": true,
+    "integrations_count": 120,
+    "sms_marketing": false,
+    "ai_content": false,
+    "sell_digital_products": true,
+    "creator_network": true
+  },
+  "ratings": {
+    "g2_score": 4.4,
+    "g2_reviews": 200
+  },
+  "pros": [
+    "Purpose-built for creators — writers, podcasters, YouTubers, course sellers",
+    "Sell digital products and subscriptions directly without Shopify",
+    "Creator Network enables organic audience growth through cross-recommendations",
+    "Clean, simple interface — not bloated with features creators don't need"
+  ],
+  "cons": [
+    "Limited design flexibility — templates are minimal/text-focused",
+    "Reporting and analytics are basic compared to Mailchimp or Klaviyo",
+    "Expensive relative to features for non-creators",
+    "No mobile app"
+  ],
+  "best_for": ["Content creators", "Bloggers", "Podcasters", "Online course sellers"],
+  "affiliate": {
+    "commission_rate": "30% recurring for 24 months",
+    "cookie_days": 90,
+    "tracking_link": ""
+  }
+}

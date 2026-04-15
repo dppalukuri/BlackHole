@@ -1,0 +1,56 @@
+{
+  "slug": "hostinger",
+  "name": "Hostinger",
+  "tagline": "Web hosting for everyone — fastest growing host with 29M+ users",
+  "category": ["web-hosting"],
+  "website": "https://hostinger.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 1.99,
+    "currency": "USD",
+    "billing_cycle": "monthly (48-month term)",
+    "tiers": [
+      {"name": "Premium", "price_monthly": 1.99, "limits": "100 websites, 100 GB NVMe"},
+      {"name": "Business", "price_monthly": 2.99, "limits": "100 websites, 200 GB NVMe, daily backups"},
+      {"name": "Cloud Startup", "price_monthly": 7.99, "limits": "300 websites, 200 GB NVMe, dedicated resources"}
+    ]
+  },
+  "features": {
+    "mobile_app": true,
+    "api_available": true,
+    "sso": false,
+    "free_domain": true,
+    "free_ssl": true,
+    "free_cdn": true,
+    "daily_backups": true,
+    "litespeed": true,
+    "wordpress_optimized": true,
+    "email_hosting": true,
+    "staging": true,
+    "data_centers": 10
+  },
+  "ratings": {
+    "g2_score": 4.6,
+    "g2_reviews": 500,
+    "trustpilot_score": 4.7,
+    "trustpilot_reviews": 65000
+  },
+  "pros": [
+    "Lowest pricing in the industry — $1.99/mo with transparent renewals",
+    "Excellent page load speeds (~1.2s average) with LiteSpeed servers",
+    "AI-powered website builder for beginners",
+    "Global data centers across 10+ locations"
+  ],
+  "cons": [
+    "No phone support — live chat only",
+    "Cheapest prices require 48-month upfront commitment",
+    "Starter plan is very limited (1 website, 50 GB)",
+    "No dedicated hosting option"
+  ],
+  "best_for": ["Beginners", "Bloggers", "Small businesses", "Budget-conscious users"],
+  "affiliate": {
+    "commission_rate": "60% per sale (~$60-150 per referral)",
+    "cookie_days": 30,
+    "tracking_link": ""
+  }
+}

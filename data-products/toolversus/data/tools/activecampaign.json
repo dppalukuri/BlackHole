@@ -1,0 +1,55 @@
+{
+  "slug": "activecampaign",
+  "name": "ActiveCampaign",
+  "tagline": "The most powerful email automation for growing businesses",
+  "category": ["email-marketing"],
+  "website": "https://activecampaign.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 15,
+    "currency": "USD",
+    "billing_cycle": "monthly",
+    "tiers": [
+      {"name": "Starter", "price_monthly": 15, "limits": "1,000 contacts"},
+      {"name": "Plus", "price_monthly": 49, "limits": "1,000 contacts, CRM + automation"},
+      {"name": "Pro", "price_monthly": 79, "limits": "1,000 contacts, advanced features"},
+      {"name": "Enterprise", "price_monthly": 145, "limits": "1,000 contacts, custom solutions"}
+    ]
+  },
+  "features": {
+    "mobile_app": true,
+    "api_available": true,
+    "sso": true,
+    "free_plan_contacts": 0,
+    "automation": true,
+    "landing_pages": true,
+    "ab_testing": true,
+    "integrations_count": 900,
+    "sms_marketing": true,
+    "ai_content": true,
+    "crm_built_in": true,
+    "lead_scoring": true
+  },
+  "ratings": {
+    "g2_score": 4.5,
+    "g2_reviews": 13700
+  },
+  "pros": [
+    "Most powerful automation builder in the mid-market segment",
+    "Built-in CRM eliminates need for separate sales tool",
+    "Excellent deliverability — consistently ranks top-tier",
+    "900+ native integrations — largest ecosystem after Mailchimp"
+  ],
+  "cons": [
+    "No free plan — barrier for beginners",
+    "Interface feels complex for users wanting simple newsletters",
+    "Reporting on lower tiers is limited",
+    "CRM is functional but not as deep as dedicated CRMs"
+  ],
+  "best_for": ["SMBs needing advanced automation", "B2B companies", "Sales teams", "Marketing agencies"],
+  "affiliate": {
+    "commission_rate": "20-30% recurring (tiered by performance)",
+    "cookie_days": 90,
+    "tracking_link": ""
+  }
+}

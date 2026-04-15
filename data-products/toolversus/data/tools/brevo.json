@@ -1,0 +1,56 @@
+{
+  "slug": "brevo",
+  "name": "Brevo",
+  "tagline": "The most approachable CRM suite — email, SMS, WhatsApp, and chat in one place",
+  "category": ["email-marketing"],
+  "website": "https://brevo.com",
+  "pricing": {
+    "has_free_plan": true,
+    "starting_price": 9,
+    "currency": "USD",
+    "billing_cycle": "monthly",
+    "tiers": [
+      {"name": "Free", "price_monthly": 0, "limits": "300 emails/day, unlimited contacts"},
+      {"name": "Starter", "price_monthly": 9, "limits": "5,000 emails/month"},
+      {"name": "Business", "price_monthly": 18, "limits": "5,000 emails/month, advanced features"},
+      {"name": "Enterprise", "price_monthly": 0, "limits": "Custom pricing"}
+    ]
+  },
+  "features": {
+    "mobile_app": true,
+    "api_available": true,
+    "sso": true,
+    "free_plan_contacts": -1,
+    "automation": true,
+    "landing_pages": true,
+    "ab_testing": true,
+    "integrations_count": 150,
+    "sms_marketing": true,
+    "ai_content": true,
+    "whatsapp_campaigns": true,
+    "transactional_email": true,
+    "live_chat": true
+  },
+  "ratings": {
+    "g2_score": 4.5,
+    "g2_reviews": 2100
+  },
+  "pros": [
+    "Pricing based on emails sent, not contacts — huge savings for large lists",
+    "All-in-one: email, SMS, WhatsApp, chat, CRM in one platform",
+    "Unlimited contacts on every plan including free",
+    "Strong transactional email capabilities (SMTP relay)"
+  ],
+  "cons": [
+    "Free plan daily limit (300/day) is restrictive",
+    "Automation less sophisticated than ActiveCampaign",
+    "Template library is functional but not best-in-class",
+    "Brevo branding on free and Starter plans"
+  ],
+  "best_for": ["Budget-conscious businesses with large lists", "E-commerce needing transactional email", "Companies wanting email + SMS + WhatsApp"],
+  "affiliate": {
+    "commission_rate": "5 EUR per free signup + 100 EUR per paid customer",
+    "cookie_days": 90,
+    "tracking_link": ""
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "getresponse",
+  "name": "GetResponse",
+  "tagline": "All-in-one email marketing with built-in webinars and sales funnels",
+  "category": ["email-marketing"],
+  "website": "https://getresponse.com",
+  "pricing": {
+    "has_free_plan": true,
+    "starting_price": 19,
+    "currency": "USD",
+    "billing_cycle": "monthly",
+    "tiers": [
+      {"name": "Free", "price_monthly": 0, "limits": "500 contacts, 2,500 newsletters/month"},
+      {"name": "Email Marketing", "price_monthly": 19, "limits": "1,000 contacts"},
+      {"name": "Marketing Automation", "price_monthly": 59, "limits": "1,000 contacts, automation"},
+      {"name": "E-commerce Marketing", "price_monthly": 119, "limits": "1,000 contacts, e-commerce"}
+    ]
+  },
+  "features": {
+    "mobile_app": true,
+    "api_available": true,
+    "sso": true,
+    "free_plan_contacts": 500,
+    "automation": true,
+    "landing_pages": true,
+    "ab_testing": true,
+    "integrations_count": 170,
+    "sms_marketing": true,
+    "ai_content": true,
+    "webinars": true,
+    "conversion_funnels": true
+  },
+  "ratings": {
+    "g2_score": 4.2,
+    "g2_reviews": 800
+  },
+  "pros": [
+    "Built-in webinar hosting — unique feature not found in competitors",
+    "Conversion funnel builder for complete sales funnels",
+    "AI-powered email content and subject line generation",
+    "Good automation at a mid-range price point"
+  ],
+  "cons": [
+    "Interface feels cluttered due to feature density",
+    "Free plan limited to 500 contacts with GetResponse branding",
+    "Webinar quality is adequate but not Zoom-level",
+    "Deliverability has had some reported inconsistencies"
+  ],
+  "best_for": ["SMBs wanting webinars + email", "Online educators", "Marketers building funnels"],
+  "affiliate": {
+    "commission_rate": "$100 bounty or 33% recurring (choose one)",
+    "cookie_days": 120,
+    "tracking_link": ""
+  }
+}

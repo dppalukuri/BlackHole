@@ -1,0 +1,54 @@
+{
+  "slug": "mailerlite",
+  "name": "MailerLite",
+  "tagline": "Create email marketing your audience will love — best value in the industry",
+  "category": ["email-marketing"],
+  "website": "https://mailerlite.com",
+  "pricing": {
+    "has_free_plan": true,
+    "starting_price": 10,
+    "currency": "USD",
+    "billing_cycle": "monthly",
+    "tiers": [
+      {"name": "Free", "price_monthly": 0, "limits": "1,000 subscribers, 12,000 emails/month"},
+      {"name": "Growing Business", "price_monthly": 10, "limits": "500 subscribers, unlimited emails"},
+      {"name": "Advanced", "price_monthly": 20, "limits": "500 subscribers, advanced features"}
+    ]
+  },
+  "features": {
+    "mobile_app": true,
+    "api_available": true,
+    "sso": false,
+    "free_plan_contacts": 1000,
+    "automation": true,
+    "landing_pages": true,
+    "ab_testing": true,
+    "integrations_count": 140,
+    "sms_marketing": false,
+    "ai_content": true,
+    "website_builder": true,
+    "paid_newsletters": true
+  },
+  "ratings": {
+    "g2_score": 4.7,
+    "g2_reviews": 900
+  },
+  "pros": [
+    "Best value for money — generous free plan + lowest paid pricing",
+    "Intuitive, clean interface — easiest learning curve of all platforms",
+    "Built-in website builder, blog, and landing pages included",
+    "Paid newsletter/subscription feature for direct monetization"
+  ],
+  "cons": [
+    "Strict approval process for new accounts (anti-spam screening)",
+    "Automation not as deep as ActiveCampaign",
+    "Fewer integrations than Mailchimp (~140 vs 300+)",
+    "Limited advanced reporting on lower tiers"
+  ],
+  "best_for": ["Small businesses", "Freelancers", "Creators on a budget", "Newsletter operators"],
+  "affiliate": {
+    "commission_rate": "30% recurring lifetime",
+    "cookie_days": 30,
+    "tracking_link": ""
+  }
+}

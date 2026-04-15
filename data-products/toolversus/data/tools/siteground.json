@@ -1,0 +1,56 @@
+{
+  "slug": "siteground",
+  "name": "SiteGround",
+  "tagline": "Web hosting crafted with care — premium speed and support",
+  "category": ["web-hosting"],
+  "website": "https://siteground.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 1.99,
+    "currency": "USD",
+    "billing_cycle": "monthly (12-month term, renews at $17.99)",
+    "tiers": [
+      {"name": "StartUp", "price_monthly": 1.99, "limits": "1 website, 10 GB SSD"},
+      {"name": "GrowBig", "price_monthly": 4.99, "limits": "Unlimited websites, 20 GB SSD"},
+      {"name": "GoGeek", "price_monthly": 7.99, "limits": "Unlimited, 40 GB SSD, staging, Git"}
+    ]
+  },
+  "features": {
+    "mobile_app": false,
+    "api_available": false,
+    "sso": false,
+    "free_domain": false,
+    "free_ssl": true,
+    "free_cdn": true,
+    "daily_backups": true,
+    "litespeed": false,
+    "wordpress_optimized": true,
+    "email_hosting": true,
+    "staging": true,
+    "data_centers": 11
+  },
+  "ratings": {
+    "g2_score": 4.4,
+    "g2_reviews": 287,
+    "trustpilot_score": 4.7,
+    "trustpilot_reviews": 28000
+  },
+  "pros": [
+    "Best-in-class customer support with extensively trained team",
+    "Fastest page load times among shared hosts (SuperCacher + custom CDN)",
+    "WordPress.org officially recommended with deep WP optimization",
+    "Strong security: AI anti-bot system, WAF, account isolation"
+  ],
+  "cons": [
+    "Renewal prices are steep ($1.99 to $17.99 — 9x increase)",
+    "Storage limited (10 GB on StartUp)",
+    "No cPanel — uses custom Site Tools panel",
+    "Minimum 12-month commitment, no monthly billing"
+  ],
+  "best_for": ["WordPress users", "Agencies", "Users who prioritize support and speed"],
+  "affiliate": {
+    "commission_rate": "$50-$125 per sale (tiered by volume)",
+    "cookie_days": 60,
+    "tracking_link": ""
+  }
+}

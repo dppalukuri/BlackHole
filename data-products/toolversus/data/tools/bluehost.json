@@ -1,0 +1,57 @@
+{
+  "slug": "bluehost",
+  "name": "Bluehost",
+  "tagline": "Official WordPress.org recommended host since 2005",
+  "category": ["web-hosting"],
+  "website": "https://bluehost.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 1.99,
+    "currency": "USD",
+    "billing_cycle": "monthly (36-month term)",
+    "tiers": [
+      {"name": "Basic", "price_monthly": 1.99, "limits": "10 websites, 10 GB NVMe"},
+      {"name": "Choice Plus", "price_monthly": 4.99, "limits": "Unlimited websites, 40 GB NVMe"},
+      {"name": "Online Store", "price_monthly": 12.95, "limits": "Unlimited, e-commerce optimized"},
+      {"name": "Pro", "price_monthly": 19.95, "limits": "Unlimited, high performance"}
+    ]
+  },
+  "features": {
+    "mobile_app": false,
+    "api_available": false,
+    "sso": false,
+    "free_domain": true,
+    "free_ssl": true,
+    "free_cdn": true,
+    "daily_backups": false,
+    "litespeed": false,
+    "wordpress_optimized": true,
+    "email_hosting": true,
+    "staging": true,
+    "data_centers": 2
+  },
+  "ratings": {
+    "g2_score": 3.9,
+    "g2_reviews": 400,
+    "trustpilot_score": 4.6,
+    "trustpilot_reviews": 28700
+  },
+  "pros": [
+    "Official WordPress.org endorsement — deeply optimized for WP",
+    "Affordable entry pricing with solid included features",
+    "24/7 phone support available (not just chat)",
+    "Easy setup wizard for WordPress beginners"
+  ],
+  "cons": [
+    "Renewal prices jump significantly ($1.99 to $9.99+/mo)",
+    "Performance trails behind Hostinger and SiteGround",
+    "Storage limited on lower tiers (10 GB on Basic)",
+    "Only 2 data center locations"
+  ],
+  "best_for": ["WordPress beginners", "Bloggers", "Small business websites"],
+  "affiliate": {
+    "commission_rate": "$65 flat per referral",
+    "cookie_days": 60,
+    "tracking_link": ""
+  }
+}
