@@ -1,0 +1,23 @@
+---
+// AdScripts — reads from shared/ads.html (single source of truth)
+// DO NOT hardcode ad scripts in layouts. Always use this component.
+import fs from 'node:fs';
+import path from 'node:path';
+
+const adsPath = path.resolve('..', 'shared', 'ads.html');
+let adsHtml = '';
+try {
+  adsHtml = fs.readFileSync(adsPath, 'utf-8');
+} catch {
+  // Fallback: if shared file not found, use inline (shouldn't happen in normal builds)
+  adsHtml = `
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9446467058878539" crossorigin="anonymous"></script>
+    <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
+    <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+    <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+    <script>window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];</script>
+    <script src="//ezoicanalytics.com/analytics.js"></script>
+  `;
+}
+---
+<Fragment set:html={adsHtml} />

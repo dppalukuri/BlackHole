@@ -1,0 +1,25 @@
+<!--
+  SHARED AD SCRIPTS — TechTools365
+  ================================
+  This file is the single source of truth for all ad/monetization scripts.
+  All sites (CalcStack, ToolVersus, VisaPathway, future sites) must include these.
+
+  DO NOT remove or modify these scripts without checking revenue impact.
+  Last updated: 2026-04-15
+
+  Revenue partners:
+  1. Google AdSense (ca-pub-9446467058878539) — display ads
+  2. Ezoic — AI-optimized ad placement + analytics
+-->
+
+<!-- 1. Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9446467058878539" crossorigin="anonymous"></script>
+
+<!-- 2. Ezoic Privacy (must load before ad scripts) -->
+<script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
+<script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+
+<!-- 3. Ezoic Ad Scripts + Analytics -->
+<script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+<script>window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];</script>
+<script src="//ezoicanalytics.com/analytics.js"></script>
