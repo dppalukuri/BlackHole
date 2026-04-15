@@ -1,5 +1,5 @@
-# build output
-dist/
+# build output — committed to git for Cloudflare Pages direct serving
+# dist/
 # generated types
 .astro/
 

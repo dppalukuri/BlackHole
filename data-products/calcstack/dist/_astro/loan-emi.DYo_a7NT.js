@@ -1,0 +1,1 @@
+function h(e,r,t){const o=r/12/100;let a;o===0?a=e/t:a=e*o*Math.pow(1+o,t)/(Math.pow(1+o,t)-1);const n=a*t,f=n-e,s=[];let c=e;for(let l=1;l<=t;l++){const m=c*o,i=a-m;c=c-i,s.push({month:l,principal:i,interest:m,balance:Math.max(0,c)})}return{emi:a,totalPayment:n,totalInterest:f,schedule:s}}export{h as c};

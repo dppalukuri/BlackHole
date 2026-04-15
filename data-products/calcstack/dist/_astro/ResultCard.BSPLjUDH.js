@@ -1,0 +1,1 @@
+import{u as l,f as a}from"./formatters.CEplzYBc.js";function i({results:s,currencyCode:r}){return l("div",{class:"result-card",children:s.map(e=>l("div",{class:`result-item ${e.highlight?"result-highlight":""}`,children:[l("span",{class:"result-label",children:e.label}),l("span",{class:"result-value",children:a(e.value,r)})]}))})}export{i as R};

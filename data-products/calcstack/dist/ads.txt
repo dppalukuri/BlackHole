@@ -1,0 +1,2 @@
+# Ezoic ads.txt - replace with actual content from Ezoic dashboard
+# Go to Ezoic > Integration > Ads.txt and paste the content here
