@@ -6,3 +6,4 @@ data/invoices/
 .env
 .claude/
 .sessions/
+data-products/passport-index-data/
