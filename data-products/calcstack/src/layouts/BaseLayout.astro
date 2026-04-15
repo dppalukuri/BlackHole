@@ -35,6 +35,14 @@ const og = ogImage || `${siteUrl}/og-default.png`;
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={og} />
 
+  <!-- Ezoic Privacy (must load first) -->
+  <script is:inline data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
+  <script is:inline data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+  <!-- Ezoic Ad Scripts -->
+  <script is:inline async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script is:inline>window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];</script>
+  <script is:inline src="//ezoicanalytics.com/analytics.js"></script>
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
