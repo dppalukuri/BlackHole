@@ -246,6 +246,28 @@ export default function VisaChecker() {
             </div>
           )}
 
+          {/* Report incorrect info */}
+          <div style={{
+            background: 'white', border: '1px solid #e2e8f0', borderRadius: '16px',
+            padding: '1.25rem', marginBottom: '1rem', display: 'flex', alignItems: 'center',
+            justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap',
+          }}>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>Is this information incorrect?</div>
+              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Help us improve — report wrong visa info and we'll verify and fix it.</div>
+            </div>
+            <a
+              href={`mailto:contact@techtools365.com?subject=${encodeURIComponent(`[VisaPathway] Incorrect visa info: ${passports.join(', ')} → ${destination}`)}&body=${encodeURIComponent(`Hi,\n\nThe visa information shown for the following combination appears to be incorrect:\n\nPassports: ${passports.join(', ')}\nAdditional documents: ${selectedPermits.join(', ') || 'None'}\nDestination: ${destination}\nResult shown: ${best?.info.text} (via ${best?.document})\n\nWhat is the correct information:\n[Please describe the correct visa requirement and how you know — e.g., personal experience, embassy website, etc.]\n\nThank you!`)}`}
+              style={{
+                display: 'inline-block', padding: '0.5rem 1.25rem', background: '#fef2f2',
+                color: '#dc2626', border: '1px solid #fecaca', borderRadius: '8px',
+                fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap',
+              }}
+            >
+              Report incorrect info
+            </a>
+          </div>
+
           <div class="disclaimer">
             <strong>Important:</strong> Visa requirements change frequently. This tool provides general guidance based on publicly available data.
             <strong> Always verify with the relevant embassy or consulate before traveling.</strong>
