@@ -1,8 +1,5 @@
 {
   "name": "techtools365-toolversus",
   "compatibility_date": "2026-04-15",
-  "pages_build_output_dir": "./public",
-  "assets": {
-    "directory": "./public"
-  }
+  "pages_build_output_dir": "./public"
 }
