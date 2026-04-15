@@ -1,34 +1,34 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
 
 interface VisaMatrix { [passport: string]: { [destination: string]: string | number } }
+interface PermitExemption { access: string; days?: number; source: string; note?: string; }
 interface ResidencePermitData {
   [permit: string]: {
-    source: string;
-    last_verified: string;
-    exemptions: { [country: string]: { access: string; days?: number; source: string; note?: string } };
+    source: string; last_verified: string;
+    exemptions: { [country: string]: PermitExemption };
   };
 }
 
-function statusLabel(code: string | number): { text: string; class: string; priority: number } {
-  if (typeof code === 'number') return { text: `Visa-free (${code} days)`, class: 'visa-free', priority: 1 };
-  switch (code) {
-    case 'vf': return { text: 'Visa-free', class: 'visa-free', priority: 1 };
-    case 'voa': return { text: 'Visa on arrival', class: 'visa-on-arrival', priority: 2 };
-    case 'eta': return { text: 'ETA (Electronic Travel Authorization)', class: 'e-visa', priority: 3 };
-    case 'ev': return { text: 'e-Visa available', class: 'e-visa', priority: 4 };
-    case 'vr': return { text: 'Visa required', class: 'visa-required', priority: 5 };
-    case 'na': return { text: 'No admission', class: 'visa-required', priority: 6 };
-    default: return { text: String(code), class: 'visa-free', priority: 1 };
-  }
+function statusInfo(code: string | number) {
+  if (typeof code === 'number') return { text: `Visa-free (${code} days)`, color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 };
+  const map: Record<string, any> = {
+    'vf':  { text: 'Visa-free', color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 },
+    'voa': { text: 'Visa on arrival', color: '#d97706', bg: '#fffbeb', border: '#f59e0b', icon: '⬇', priority: 2 },
+    'eta': { text: 'ETA required', color: '#2563eb', bg: '#eff6ff', border: '#3b82f6', icon: '⚡', priority: 3 },
+    'ev':  { text: 'e-Visa available', color: '#2563eb', bg: '#eff6ff', border: '#3b82f6', icon: '📋', priority: 4 },
+    'vr':  { text: 'Visa required', color: '#dc2626', bg: '#fef2f2', border: '#ef4444', icon: '✗', priority: 5 },
+    'na':  { text: 'No admission', color: '#6b7280', bg: '#f3f4f6', border: '#9ca3af', icon: '⊘', priority: 6 },
+  };
+  return map[code] || { text: String(code), color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 };
 }
 
-function CountryAutocomplete({ countries, value, onChange, placeholder, id }: {
-  countries: string[]; value: string; onChange: (v: string) => void; placeholder: string; id: string;
+function Autocomplete({ items, placeholder, onSelect, id }: {
+  items: string[]; placeholder: string; onSelect: (v: string) => void; id: string;
 }) {
-  const [query, setQuery] = useState(value);
+  const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const filtered = query ? countries.filter(c => c.toLowerCase().includes(query.toLowerCase())).slice(0, 8) : [];
+  const filtered = query.length >= 1 ? items.filter(c => c.toLowerCase().includes(query.toLowerCase())).slice(0, 6) : [];
 
   useEffect(() => {
     const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
@@ -36,28 +36,28 @@ function CountryAutocomplete({ countries, value, onChange, placeholder, id }: {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  const select = (item: string) => { onSelect(item); setQuery(''); setOpen(false); };
+
   return (
     <div ref={ref} style={{ position: 'relative' }}>
-      <input
-        id={id} type="text" value={query} placeholder={placeholder}
-        onInput={(e) => { setQuery((e.target as HTMLInputElement).value); setOpen(true); onChange(''); }}
-        onFocus={() => setOpen(true)}
+      <input id={id} type="text" value={query} placeholder={placeholder}
+        onInput={(e) => { setQuery((e.target as HTMLInputElement).value); setOpen(true); }}
+        onFocus={() => query.length >= 1 && setOpen(true)}
         autocomplete="off"
+        style={{ width: '100%', padding: '0.7rem 1rem', border: '2px solid #e2e8f0', borderRadius: '10px', fontSize: '1rem', fontFamily: 'inherit', background: '#f9fafb' }}
       />
       {open && filtered.length > 0 && (
         <div style={{
-          position: 'absolute', top: '100%', left: 0, right: 0, background: 'white', border: '1px solid #e2e8f0',
-          borderRadius: '0 0 8px 8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, maxHeight: '200px', overflowY: 'auto',
+          position: 'absolute', top: '100%', left: 0, right: 0, background: 'white',
+          border: '1px solid #e2e8f0', borderRadius: '0 0 10px 10px', boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+          zIndex: 50, maxHeight: '240px', overflowY: 'auto',
         }}>
-          {filtered.map(c => (
-            <div
-              key={c}
-              onClick={() => { setQuery(c); onChange(c); setOpen(false); }}
-              style={{ padding: '0.5rem 0.75rem', cursor: 'pointer', fontSize: '0.9rem' }}
-              onMouseEnter={(e) => (e.target as HTMLDivElement).style.background = '#f1f5f9'}
-              onMouseLeave={(e) => (e.target as HTMLDivElement).style.background = 'white'}
-            >
-              {c}
+          {filtered.map(item => (
+            <div key={item} onClick={() => select(item)}
+              style={{ padding: '0.65rem 1rem', cursor: 'pointer', fontSize: '0.95rem', borderBottom: '1px solid #f1f5f9' }}
+              onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.background = '#f0f0ff'}
+              onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.background = 'white'}>
+              {item}
             </div>
           ))}
         </div>
@@ -66,15 +66,22 @@ function CountryAutocomplete({ countries, value, onChange, placeholder, id }: {
   );
 }
 
+const PRESETS = [
+  { label: 'Indian + UAE Resident', passports: ['India'], permits: ['UAE Residence Permit'] },
+  { label: 'Indian + US Visa', passports: ['India'], permits: ['Valid US Visa (B1/B2)'] },
+  { label: 'Indian + Schengen Visa', passports: ['India'], permits: ['Valid Schengen Visa'] },
+  { label: 'Pakistani + UAE Resident', passports: ['Pakistan'], permits: ['UAE Residence Permit'] },
+  { label: 'Nigerian + US Green Card', passports: ['Nigeria'], permits: ['US Green Card (Permanent Resident)'] },
+  { label: 'Filipino + UAE Resident', passports: ['Philippines'], permits: ['UAE Residence Permit'] },
+];
+
 export default function VisaChecker() {
   const [matrix, setMatrix] = useState<VisaMatrix | null>(null);
   const [countries, setCountries] = useState<string[]>([]);
   const [permits, setPermits] = useState<ResidencePermitData | null>(null);
   const [passports, setPassports] = useState<string[]>([]);
-  const [residencePermits, setResidencePermits] = useState<string[]>([]);
+  const [selectedPermits, setSelectedPermits] = useState<string[]>([]);
   const [destination, setDestination] = useState('');
-  const [newPassport, setNewPassport] = useState('');
-  const [newPermit, setNewPermit] = useState('');
 
   useEffect(() => {
     Promise.all([
@@ -84,178 +91,173 @@ export default function VisaChecker() {
     ]).then(([m, c, p]) => { setMatrix(m); setCountries(c); setPermits(p); });
   }, []);
 
-  const addPassport = () => {
-    if (newPassport && countries.includes(newPassport) && !passports.includes(newPassport)) {
-      setPassports([...passports, newPassport]);
-      setNewPassport('');
-    }
+  const addPassport = (p: string) => {
+    if (p && countries.includes(p) && !passports.includes(p)) setPassports([...passports, p]);
   };
-
-  const addPermit = () => {
-    if (newPermit && permits && newPermit in permits && !residencePermits.includes(newPermit)) {
-      setResidencePermits([...residencePermits, newPermit]);
-      setNewPermit('');
-    }
-  };
-
   const removePassport = (p: string) => setPassports(passports.filter(x => x !== p));
-  const removePermit = (p: string) => setResidencePermits(residencePermits.filter(x => x !== p));
 
-  // Calculate best result across all passports + residence permits
+  const togglePermit = (p: string) => {
+    if (selectedPermits.includes(p)) setSelectedPermits(selectedPermits.filter(x => x !== p));
+    else setSelectedPermits([...selectedPermits, p]);
+  };
+
+  const applyPreset = (preset: typeof PRESETS[0]) => {
+    setPassports(preset.passports);
+    setSelectedPermits(preset.permits);
+  };
+
+  const setDest = (d: string) => { if (countries.includes(d)) setDestination(d); };
+
   const getResults = () => {
     if (!matrix || !destination || passports.length === 0) return null;
-
     const results: Array<{
-      document: string; type: string; requirement: string | number;
-      label: ReturnType<typeof statusLabel>; source?: string; note?: string;
+      document: string; requirement: string | number;
+      info: ReturnType<typeof statusInfo>; source?: string; note?: string;
     }> = [];
 
-    // Check each passport
     for (const passport of passports) {
       const req = matrix[passport]?.[destination];
-      if (req !== undefined) {
-        results.push({
-          document: `${passport} passport`,
-          type: 'passport',
-          requirement: req,
-          label: statusLabel(req),
-        });
-      }
+      if (req !== undefined) results.push({ document: `${passport} passport`, requirement: req, info: statusInfo(req) });
     }
-
-    // Check residence permits
     if (permits) {
-      for (const permit of residencePermits) {
-        const permitData = permits[permit];
-        if (permitData?.exemptions?.[destination]) {
-          const ex = permitData.exemptions[destination];
-          results.push({
-            document: permit,
-            type: 'residence-permit',
-            requirement: ex.access,
-            label: statusLabel(ex.days ? ex.days : ex.access),
-            source: ex.source,
-            note: ex.note,
-          });
+      for (const permit of selectedPermits) {
+        const data = permits[permit];
+        if (data?.exemptions?.[destination]) {
+          const ex = data.exemptions[destination];
+          results.push({ document: permit, requirement: ex.access, info: statusInfo(ex.days || ex.access), source: ex.source, note: ex.note });
         }
       }
     }
-
-    results.sort((a, b) => a.label.priority - b.label.priority);
+    results.sort((a, b) => a.info.priority - b.info.priority);
     return results;
   };
 
   const results = getResults();
-  const bestResult = results?.[0];
+  const best = results?.[0];
 
-  if (!matrix) {
-    return <div class="checker-tool"><p>Loading visa data (199 countries)...</p></div>;
-  }
+  if (!matrix) return <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>Loading visa data for 199 countries...</div>;
 
   return (
-    <div class="checker-tool">
-      {/* Passports */}
-      <div class="input-group">
-        <label>Your Passports / Citizenships</label>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <div style={{ flex: 1 }}>
-            <CountryAutocomplete
-              id="passport-input"
-              countries={countries}
-              value={newPassport}
-              onChange={setNewPassport}
-              placeholder="Type country name..."
-            />
+    <div>
+      {/* Step 1 */}
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '1.75rem', marginBottom: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+          <span style={{ background: '#7c3aed', color: 'white', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 700, flexShrink: 0 }}>1</span>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: '1rem' }}>What passports do you hold?</div>
+            <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Add all your citizenships. We'll check each one.</div>
           </div>
-          <button class="add-btn" onClick={addPassport} style={{ marginTop: 0 }}>Add</button>
         </div>
-        <div class="tag-list">
-          {passports.map(p => (
-            <span class="tag" key={p}>{p} <button onClick={() => removePassport(p)}>&times;</button></span>
-          ))}
-        </div>
-      </div>
-
-      {/* Residence Permits */}
-      <div class="input-group">
-        <label>Residence Permits (optional)</label>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <select
-            value={newPermit}
-            onChange={(e) => setNewPermit((e.target as HTMLSelectElement).value)}
-            style={{ flex: 1 }}
-          >
-            <option value="">Select a residence permit...</option>
-            {permits && Object.keys(permits).map(p => (
-              <option key={p} value={p}>{p}</option>
+        <Autocomplete id="passport-search" items={countries.filter(c => !passports.includes(c))} placeholder="Start typing a country name..." onSelect={addPassport} />
+        {passports.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
+            {passports.map(p => (
+              <span key={p} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#ede9fe', color: '#7c3aed', padding: '0.35rem 0.85rem', borderRadius: '999px', fontSize: '0.85rem', fontWeight: 600 }}>
+                {p} <button onClick={() => removePassport(p)} style={{ background: 'none', border: 'none', color: '#7c3aed', cursor: 'pointer', fontSize: '1.1rem', lineHeight: 1, padding: 0 }}>&times;</button>
+              </span>
             ))}
-          </select>
-          <button class="add-btn" onClick={addPermit} style={{ marginTop: 0 }}>Add</button>
+          </div>
+        )}
+        {passports.length === 0 && (
+          <div style={{ marginTop: '1rem' }}>
+            <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem', fontWeight: 600 }}>Quick start — pick your profile:</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+              {PRESETS.map(p => (
+                <button key={p.label} onClick={() => applyPreset(p)}
+                  style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '0.4rem 0.8rem', fontSize: '0.8rem', cursor: 'pointer', color: '#475569', fontFamily: 'inherit' }}>
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Step 2 */}
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '1.75rem', marginBottom: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+          <span style={{ background: '#7c3aed', color: 'white', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 700, flexShrink: 0 }}>2</span>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: '1rem' }}>Any additional visas or permits?</div>
+            <div style={{ fontSize: '0.8rem', color: '#64748b' }}>These can unlock extra countries. Tap all that apply.</div>
+          </div>
         </div>
-        <div class="tag-list">
-          {residencePermits.map(p => (
-            <span class="tag" key={p}>{p} <button onClick={() => removePermit(p)}>&times;</button></span>
-          ))}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.5rem' }}>
+          {permits && Object.keys(permits).map(p => {
+            const on = selectedPermits.includes(p);
+            return (
+              <button key={p} onClick={() => togglePermit(p)}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.65rem 0.9rem', border: `2px solid ${on ? '#7c3aed' : '#e2e8f0'}`, background: on ? '#f5f3ff' : 'white', borderRadius: '10px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: on ? 700 : 500, color: on ? '#7c3aed' : '#475569', fontFamily: 'inherit', textAlign: 'left' }}>
+                <span style={{ width: '20px', height: '20px', borderRadius: '4px', flexShrink: 0, border: `2px solid ${on ? '#7c3aed' : '#cbd5e1'}`, background: on ? '#7c3aed' : 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.7rem', fontWeight: 700 }}>{on ? '✓' : ''}</span>
+                {p}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Destination */}
-      <div class="input-group">
-        <label htmlFor="destination-input">Where do you want to go?</label>
-        <CountryAutocomplete
-          id="destination-input"
-          countries={countries}
-          value={destination}
-          onChange={setDestination}
-          placeholder="Type destination country..."
-        />
+      {/* Step 3 */}
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '1.75rem', marginBottom: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+          <span style={{ background: passports.length > 0 ? '#7c3aed' : '#cbd5e1', color: 'white', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 700, flexShrink: 0 }}>3</span>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: '1rem' }}>Where do you want to go?</div>
+            <div style={{ fontSize: '0.8rem', color: '#64748b' }}>We'll find the best document to use for entry.</div>
+          </div>
+        </div>
+        <Autocomplete id="dest-search" items={countries} placeholder="Start typing a destination..." onSelect={setDest} />
+        {destination && (
+          <div style={{ marginTop: '0.5rem' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#dbeafe', color: '#1d4ed8', padding: '0.35rem 0.85rem', borderRadius: '999px', fontSize: '0.85rem', fontWeight: 600 }}>
+              {destination} <button onClick={() => setDestination('')} style={{ background: 'none', border: 'none', color: '#1d4ed8', cursor: 'pointer', fontSize: '1.1rem', lineHeight: 1, padding: 0 }}>&times;</button>
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Results */}
-      {bestResult && destination && (
+      {best && destination && (
         <>
-          <div class={`result-banner ${bestResult.label.class}`}>
-            <div class="result-status">{bestResult.label.text}</div>
-            <div class="result-details">
-              Best option: <strong>{bestResult.document}</strong> to enter <strong>{destination}</strong>
-              {bestResult.note && <><br />{bestResult.note}</>}
+          <div style={{ background: best.info.bg, border: `2px solid ${best.info.border}`, borderRadius: '16px', padding: '2rem', textAlign: 'center', marginBottom: '1rem' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>{best.info.icon}</div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: best.info.color }}>{best.info.text}</div>
+            <div style={{ color: '#475569', marginTop: '0.5rem', fontSize: '1rem' }}>
+              Use your <strong>{best.document}</strong> to enter <strong>{destination}</strong>
             </div>
+            {best.note && <div style={{ color: '#64748b', marginTop: '0.25rem', fontSize: '0.85rem', fontStyle: 'italic' }}>{best.note}</div>}
+            {best.source && <div style={{ marginTop: '0.5rem' }}><a href={best.source} target="_blank" rel="noopener" style={{ fontSize: '0.8rem' }}>View official source</a></div>}
           </div>
 
           {results!.length > 1 && (
-            <>
-              <h3 style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>All Your Options</h3>
-              <p style={{ fontSize: '0.85rem', color: '#64748b' }}>We checked all your documents and ranked them from best to worst access:</p>
+            <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '1.5rem', marginBottom: '1rem' }}>
+              <h3 style={{ margin: '0 0 0.75rem', fontSize: '1rem' }}>All your options for {destination}</h3>
               <table class="results-table">
-                <thead>
-                  <tr><th>Document</th><th>Access to {destination}</th><th>Source</th></tr>
-                </thead>
+                <thead><tr><th>Document</th><th>Access</th><th>Source</th></tr></thead>
                 <tbody>
                   {results!.map((r, i) => (
-                    <tr class={i === 0 ? 'best-option' : ''}>
-                      <td><strong>{r.document}</strong>{i === 0 && ' (best)'}</td>
-                      <td><span class={`status status-${typeof r.requirement === 'number' ? 'vf' : r.requirement}`}>{r.label.text}</span></td>
-                      <td>{r.source ? <a href={r.source} target="_blank" rel="noopener" style={{ fontSize: '0.8rem' }}>Official source</a> : <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Passport Index Dataset</span>}</td>
+                    <tr key={i} style={{ background: i === 0 ? '#f0fdf4' : 'transparent' }}>
+                      <td style={{ fontWeight: i === 0 ? 700 : 400 }}>{r.document} {i === 0 && <span style={{ color: '#16a34a', fontSize: '0.75rem' }}>BEST</span>}</td>
+                      <td><span style={{ color: r.info.color, fontWeight: 600 }}>{r.info.text}</span></td>
+                      <td>{r.source ? <a href={r.source} target="_blank" rel="noopener" style={{ fontSize: '0.8rem' }}>Official</a> : <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Passport Index</span>}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            </>
+            </div>
           )}
 
           <div class="disclaimer">
-            <strong>Important:</strong> Visa requirements can change without notice. This tool provides general guidance based on publicly available data.
+            <strong>Important:</strong> Visa requirements change frequently. This tool provides general guidance based on publicly available data.
             <strong> Always verify with the relevant embassy or consulate before traveling.</strong>
-            Data sources: <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> + official government immigration websites.
-            Last updated: April 2026.
+            <br />Sources: <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> + official government immigration websites. Last updated: April 2026.
           </div>
         </>
       )}
 
-      {passports.length > 0 && destination && !bestResult && (
-        <div class="result-banner visa-required">
-          <div class="result-status">No data available</div>
-          <div class="result-details">We don't have visa data for this combination. Check with the embassy of {destination}.</div>
+      {passports.length > 0 && destination && !best && (
+        <div style={{ background: '#fef2f2', border: '2px solid #ef4444', borderRadius: '16px', padding: '1.5rem', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#dc2626' }}>No data available</div>
+          <div style={{ color: '#64748b', marginTop: '0.5rem' }}>We don't have visa data for this combination. Please check with the embassy of {destination}.</div>
         </div>
       )}
     </div>

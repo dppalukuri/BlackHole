@@ -143,6 +143,45 @@ residence_permits = {
             "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
             "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"}
         }
+    },
+    "Valid US Visa (B1/B2)": {
+        "source": "Individual country immigration authorities",
+        "last_verified": "April 2026",
+        "exemptions": {
+            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "Valid US visa holders can enter Mexico without a Mexican visa"},
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Valid US visa (used or unused) allows entry"},
+            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
+            "Colombia": {"access": "vf", "days": 90, "source": "https://www.cancilleria.gov.co", "note": "Valid US visa allows visa-free entry for up to 90 days"},
+            "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
+            "North Macedonia": {"access": "vf", "days": 15, "source": "https://www.mfa.gov.mk"},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://www.mvp.gov.ba"},
+            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa simplified for valid US visa holders"},
+            "Philippines": {"access": "vf", "days": 7, "source": "https://www.dfa.gov.ph", "note": "7-day transit visa exemption with valid US visa"},
+            "Dominican Republic": {"access": "vf", "days": 30, "source": "https://www.dgm.gob.do"},
+            "Belize": {"access": "vf", "days": 30, "source": "https://www.immigration.gov.bz"}
+        }
+    },
+    "Valid Schengen Visa": {
+        "source": "Individual country immigration authorities and EU bilateral agreements",
+        "last_verified": "April 2026",
+        "exemptions": {
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Valid multi-entry Schengen visa allows entry without Albanian visa"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://www.mvp.gov.ba"},
+            "Colombia": {"access": "vf", "days": 90, "source": "https://www.cancilleria.gov.co"},
+            "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
+            "Kosovo": {"access": "vf", "days": 15, "source": "https://www.mfa-ks.net"},
+            "Moldova": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.md"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
+            "North Macedonia": {"access": "vf", "days": 15, "source": "https://www.mfa.gov.mk"},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs"},
+            "Turkey": {"access": "ev", "days": 90, "source": "https://www.evisa.gov.tr", "note": "e-visa simplified for valid Schengen visa holders"},
+            "Romania": {"access": "vf", "days": 90, "source": "https://www.mae.ro", "note": "Valid Schengen visa allows entry (Romania is not yet in Schengen air borders)"},
+            "Bulgaria": {"access": "vf", "days": 90, "source": "https://www.mfa.bg", "note": "Valid Schengen visa allows entry (Bulgaria joined Schengen air/sea March 2024)"},
+            "Croatia": {"access": "vf", "days": 90, "source": "https://mvep.gov.hr", "note": "Croatia joined Schengen January 2023 — Schengen visa is valid"}
+        }
     }
 }
 
