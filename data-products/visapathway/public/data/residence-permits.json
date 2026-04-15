@@ -1,8 +1,21 @@
 {
   "UAE Residence Permit": {
-    "source": "Multiple embassy websites",
+    "source": "Official Georgian, Armenian government sources and GCC bilateral agreements",
     "last_verified": "April 2026",
-    "exemptions": {}
+    "exemptions": {
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://uae.mfa.gov.ge/en/visa-information",
+        "note": "UAE residence permit must be valid for 1+ year on arrival. 17 nationalities (incl. Pakistan, Afghanistan, Bangladesh, Nigeria) face stricter rules \u2014 verify at geoconsul.gov.ge"
+      },
+      "Armenia": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.mfa.am",
+        "note": "GCC (incl. UAE) residence permit holders get 180 days visa-free"
+      }
+    }
   },
   "US Green Card (Permanent Resident)": {
     "source": "Official immigration authorities of each country",

@@ -84,13 +84,18 @@ with open(os.path.join(OUTPUT_DIR, 'countries.json'), 'w', encoding='utf-8') as 
 # UAE Residence Permit has NO verified universal exemptions for any country.
 residence_permits = {
     "UAE Residence Permit": {
-        "source": "Multiple embassy websites",
+        "source": "Official Georgian, Armenian government sources and GCC bilateral agreements",
         "last_verified": "April 2026",
-        "exemptions": {}
-        # NOTE: UAE residence permit does NOT unlock visa-free access to any
-        # destination we've researched (Turkey, Georgia, Mexico, Colombia,
-        # Panama, Costa Rica all confirmed NO). Keep empty until we find
-        # verified universal exemptions.
+        "exemptions": {
+            "Georgia": {"access": "vf", "days": 90, "source": "https://uae.mfa.gov.ge/en/visa-information", "note": "UAE residence permit must be valid for 1+ year on arrival. 17 nationalities (incl. Pakistan, Afghanistan, Bangladesh, Nigeria) face stricter rules — verify at geoconsul.gov.ge"},
+            "Armenia": {"access": "vf", "days": 180, "source": "https://www.mfa.am", "note": "GCC (incl. UAE) residence permit holders get 180 days visa-free"}
+        }
+        # NOTE: Most "visa-free for UAE residents" claims online are actually
+        # the passport's own visa-free deal (e.g., India-Thailand 60 days).
+        # We only list countries where UAE residence ADDS access beyond
+        # what the passport alone provides.
+        # Turkey: UAE residence does NOT qualify for e-visa.
+        # Mexico/Colombia/Panama/Costa Rica: UAE residence does NOT help.
     },
     "US Green Card (Permanent Resident)": {
         "source": "Official immigration authorities of each country",
