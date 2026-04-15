@@ -20,6 +20,18 @@
         "days": 30,
         "source": "https://evisa.gov.az",
         "note": "Visa on arrival at Baku airport for UAE residence permit holders. Permit must have 6+ months validity. e-Visa also available."
+      },
+      "Oman": {
+        "access": "ev",
+        "days": 30,
+        "source": "https://evisa.rop.gov.om",
+        "note": "GCC residents get eVisa (~5 OMR / $13). Apply at evisa.rop.gov.om as 'GCC Resident'. UAE residence must have 3+ months validity."
+      },
+      "Bahrain": {
+        "access": "voa",
+        "days": 14,
+        "source": "https://www.evisa.gov.bh",
+        "note": "GCC residence holders can get VoA (14 days). Laborer occupations excluded. Alternatively apply for eVisa at evisa.gov.bh."
       }
     }
   },
@@ -161,6 +173,12 @@
         "days": 30,
         "source": "https://visa2egypt.gov.eg",
         "note": "Visa on arrival at select airports for holders of valid US/UK/Schengen visa. Not guaranteed \u2014 at immigration officer discretion."
+      },
+      "Bahrain": {
+        "access": "voa",
+        "days": 14,
+        "source": "https://www.evisa.gov.bh",
+        "note": "VoA available for holders of valid US visa, or apply for eVisa at evisa.gov.bh"
       }
     }
   },

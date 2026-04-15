@@ -89,7 +89,9 @@ residence_permits = {
         "exemptions": {
             "Georgia": {"access": "vf", "days": 90, "source": "https://uae.mfa.gov.ge/en/visa-information", "note": "Permit must be valid 1+ year on arrival. 17 nationalities (Pakistan, Afghanistan, Bangladesh, Nigeria, etc.) face stricter screening — verify at geoconsul.gov.ge"},
             "Armenia": {"access": "vf", "days": 180, "source": "https://www.mfa.am", "note": "All GCC residence permit holders get 180 days visa-free"},
-            "Azerbaijan": {"access": "voa", "days": 30, "source": "https://evisa.gov.az", "note": "Visa on arrival at Baku airport for UAE residence permit holders. Permit must have 6+ months validity. e-Visa also available."}
+            "Azerbaijan": {"access": "voa", "days": 30, "source": "https://evisa.gov.az", "note": "Visa on arrival at Baku airport for UAE residence permit holders. Permit must have 6+ months validity. e-Visa also available."},
+            "Oman": {"access": "ev", "days": 30, "source": "https://evisa.rop.gov.om", "note": "GCC residents get eVisa (~5 OMR / $13). Apply at evisa.rop.gov.om as 'GCC Resident'. UAE residence must have 3+ months validity."},
+            "Bahrain": {"access": "voa", "days": 14, "source": "https://www.evisa.gov.bh", "note": "GCC residence holders can get VoA (14 days). Laborer occupations excluded. Alternatively apply for eVisa at evisa.gov.bh."}
         }
         # Turkey: UAE residence does NOT qualify for e-visa (confirmed evisa.gov.tr)
         # Serbia: UAE residence does NOT help (nationality-dependent)
@@ -128,7 +130,8 @@ residence_permits = {
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements", "note": "Valid US visa or residence permit. 90 days in 6-month period."},
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me", "note": "Valid US visa allows entry up to 30 days"},
             "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/", "note": "Multi-entry US visa. Stay up to 30 days."},
-            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports for holders of valid US/UK/Schengen visa. Not guaranteed — at immigration officer discretion."}
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports for holders of valid US/UK/Schengen visa. Not guaranteed — at immigration officer discretion."},
+            "Bahrain": {"access": "voa", "days": 14, "source": "https://www.evisa.gov.bh", "note": "VoA available for holders of valid US visa, or apply for eVisa at evisa.gov.bh"}
         }
     },
     "Valid Schengen Visa": {
