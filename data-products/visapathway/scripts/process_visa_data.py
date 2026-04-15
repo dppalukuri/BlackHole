@@ -84,42 +84,51 @@ with open(os.path.join(OUTPUT_DIR, 'countries.json'), 'w', encoding='utf-8') as 
 # UAE Residence Permit has NO verified universal exemptions for any country.
 residence_permits = {
     "UAE Residence Permit": {
-        "source": "Official Georgian, Armenian government sources and GCC bilateral agreements",
+        "source": "Official government sources — geoconsul.gov.ge, mfa.am, evisa.gov.az",
         "last_verified": "April 2026",
         "exemptions": {
-            "Georgia": {"access": "vf", "days": 90, "source": "https://uae.mfa.gov.ge/en/visa-information", "note": "UAE residence permit must be valid for 1+ year on arrival. 17 nationalities (incl. Pakistan, Afghanistan, Bangladesh, Nigeria) face stricter rules — verify at geoconsul.gov.ge"},
-            "Armenia": {"access": "vf", "days": 180, "source": "https://www.mfa.am", "note": "GCC (incl. UAE) residence permit holders get 180 days visa-free"}
+            "Georgia": {"access": "vf", "days": 90, "source": "https://uae.mfa.gov.ge/en/visa-information", "note": "Permit must be valid 1+ year on arrival. 17 nationalities (Pakistan, Afghanistan, Bangladesh, Nigeria, etc.) face stricter screening — verify at geoconsul.gov.ge"},
+            "Armenia": {"access": "vf", "days": 180, "source": "https://www.mfa.am", "note": "All GCC residence permit holders get 180 days visa-free"},
+            "Azerbaijan": {"access": "voa", "days": 30, "source": "https://evisa.gov.az", "note": "Visa on arrival at Baku airport for UAE residence permit holders. Permit must have 6+ months validity. e-Visa also available."}
         }
-        # NOTE: Most "visa-free for UAE residents" claims online are actually
-        # the passport's own visa-free deal (e.g., India-Thailand 60 days).
-        # We only list countries where UAE residence ADDS access beyond
-        # what the passport alone provides.
-        # Turkey: UAE residence does NOT qualify for e-visa.
-        # Mexico/Colombia/Panama/Costa Rica: UAE residence does NOT help.
+        # Turkey: UAE residence does NOT qualify for e-visa (confirmed evisa.gov.tr)
+        # Serbia: UAE residence does NOT help (nationality-dependent)
+        # Mexico/Colombia/Panama/Costa Rica: UAE residence does NOT help
+        # Albania: requires 10-year UAE RP valid 1+ year — too restrictive, excluded
     },
     "US Green Card (Permanent Resident)": {
         "source": "Official immigration authorities of each country",
         "last_verified": "April 2026",
         "exemptions": {
             "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa via evisa.gov.tr (single entry, 30 days)"},
-            "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge", "note": "Visa-free for all valid US/Schengen/UK/Canada/Japan/AU/NZ/KR/IL visa/permit holders"},
-            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "No Mexican visa needed with valid Green Card"},
+            "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge"},
+            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx"},
             "Canada": {"access": "vf", "days": 180, "source": "https://www.canada.ca/en/immigration-refugees-citizenship.html", "note": "No visa required for US permanent residents"},
-            "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co", "note": "90 days, extendable to 180 per year"},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Stamped tourist card at entry, ~$20"},
-            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"}
+            "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co"},
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
+            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/"},
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Officer discretion."}
         }
     },
     "Valid US Visa (B1/B2)": {
         "source": "Official immigration authorities of each country",
         "last_verified": "April 2026",
         "exemptions": {
-            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa via evisa.gov.tr (single entry, 30 days). Must have valid US/Schengen/UK/Ireland visa."},
-            "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge", "note": "Visa-free entry with any valid US visa"},
-            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "No Mexican visa needed. Valid US visa of any type qualifies."},
-            "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co", "note": "Must be currently valid. 90 days, extendable to 180 per year."},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Stamped tourist card at entry (~$20). Some reports say US visa must have been used at least once."},
-            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr", "note": "Valid US visa allows entry for up to 30 days"}
+            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "Single-entry e-visa via evisa.gov.tr. Must have valid US/Schengen/UK/Ireland visa."},
+            "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge", "note": "Visa-free entry with any valid US visa — all nationalities"},
+            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "No Mexican visa needed. Any valid US visa type qualifies — all nationalities."},
+            "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co", "note": "Must be currently valid. 90 days, extendable to 180/year."},
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Tourist card at entry (~$20). US visa should have been used at least once."},
+            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr", "note": "Valid US visa allows entry up to 30 days"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Multi-entry US visa that has been used at least once. 90 days in 180-day period."},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements", "note": "Valid US visa or residence permit. 90 days in 6-month period."},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me", "note": "Valid US visa allows entry up to 30 days"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/", "note": "Multi-entry US visa. Stay up to 30 days."},
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports for holders of valid US/UK/Schengen visa. Not guaranteed — at immigration officer discretion."}
         }
     },
     "Valid Schengen Visa": {
@@ -127,23 +136,33 @@ residence_permits = {
         "last_verified": "April 2026",
         "exemptions": {
             "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa via evisa.gov.tr with valid Schengen visa"},
-            "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge", "note": "Visa-free entry with valid Schengen visa"},
-            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "No Mexican visa needed with valid Schengen visa"},
-            "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co", "note": "90 days, extendable to 180 per year"},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Stamped tourist card at entry (~$20)"},
-            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"}
+            "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge"},
+            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx"},
+            "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co"},
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
+            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Multi-entry Schengen visa, used at least once"},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/"},
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Not guaranteed — officer discretion."}
         }
     },
     "Schengen Residence Permit": {
         "source": "Official immigration authorities of each country",
         "last_verified": "April 2026",
         "exemptions": {
-            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa via evisa.gov.tr with valid Schengen residence permit"},
+            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr"},
             "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge"},
             "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx"},
             "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co"},
             "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
-            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"}
+            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://bhmc.ae/visa-information/"},
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Officer discretion."}
         }
     },
     "UK Residence Permit (BRP)": {
@@ -153,7 +172,11 @@ residence_permits = {
             "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa via evisa.gov.tr with valid UK visa/BRP"},
             "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge"},
             "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx"},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"}
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Multi-entry UK visa/BRP, used at least once"},
+            "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
+            "Egypt": {"access": "voa", "days": 30, "source": "https://visa2egypt.gov.eg", "note": "Visa on arrival at select airports. Not guaranteed."}
         }
     },
     "Canada Permanent Resident": {
@@ -163,7 +186,8 @@ residence_permits = {
             "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge"},
             "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx"},
             "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"}
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"}
         }
     }
 }
