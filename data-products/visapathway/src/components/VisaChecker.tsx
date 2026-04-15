@@ -10,16 +10,21 @@ interface ResidencePermitData {
 }
 
 function statusInfo(code: string | number) {
-  if (typeof code === 'number') return { text: `Visa-free (${code} days)`, color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 };
-  const map: Record<string, any> = {
-    'vf':  { text: 'Visa-free', color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 },
-    'voa': { text: 'Visa on arrival', color: '#d97706', bg: '#fffbeb', border: '#f59e0b', icon: '⬇', priority: 2 },
-    'eta': { text: 'ETA required', color: '#2563eb', bg: '#eff6ff', border: '#3b82f6', icon: '⚡', priority: 3 },
-    'ev':  { text: 'e-Visa available', color: '#2563eb', bg: '#eff6ff', border: '#3b82f6', icon: '📋', priority: 4 },
-    'vr':  { text: 'Visa required', color: '#dc2626', bg: '#fef2f2', border: '#ef4444', icon: '✗', priority: 5 },
-    'na':  { text: 'No admission', color: '#6b7280', bg: '#f3f4f6', border: '#9ca3af', icon: '⊘', priority: 6 },
+  if (typeof code === 'number') return {
+    text: `Visa-free entry`,
+    detail: `You can enter and stay for up to ${code} days. No visa application needed — just show your passport at immigration.`,
+    action: 'No action needed before travel.',
+    color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1,
   };
-  return map[code] || { text: String(code), color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 };
+  const map: Record<string, any> = {
+    'vf':  { text: 'Visa-free entry', detail: 'No visa needed. Present your passport at immigration on arrival.', action: 'No action needed before travel.', color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 },
+    'voa': { text: 'Visa on arrival', detail: 'You can get a visa stamp at the airport when you land. Bring cash (USD) for the visa fee, a passport photo, and proof of return ticket.', action: 'No pre-application needed. Get visa at the airport on arrival.', color: '#d97706', bg: '#fffbeb', border: '#f59e0b', icon: '⬇', priority: 2 },
+    'eta': { text: 'Electronic Travel Authorization (ETA)', detail: 'You must apply online before traveling. It is a quick digital approval — not a full visa application.', action: 'Apply online before your flight. Usually approved in 24-72 hours.', color: '#2563eb', bg: '#eff6ff', border: '#3b82f6', icon: '⚡', priority: 3 },
+    'ev':  { text: 'e-Visa required', detail: 'You must apply for an electronic visa online before traveling. Upload documents and pay the fee on the official portal.', action: 'Apply on the official e-Visa portal before your flight. Processing: 2-5 business days.', color: '#2563eb', bg: '#eff6ff', border: '#3b82f6', icon: '📋', priority: 4 },
+    'vr':  { text: 'Visa required (apply at embassy)', detail: 'You need to apply for a visa at the embassy or consulate before traveling. This usually requires an in-person visit or submission through a visa center.', action: 'Apply at the nearest embassy/consulate or authorized visa center. Allow 1-4 weeks for processing.', color: '#dc2626', bg: '#fef2f2', border: '#ef4444', icon: '✗', priority: 5 },
+    'na':  { text: 'Entry not permitted', detail: 'Entry is not allowed with this travel document.', action: 'Contact the embassy for exceptional circumstances.', color: '#6b7280', bg: '#f3f4f6', border: '#9ca3af', icon: '⊘', priority: 6 },
+  };
+  return map[code] || { text: `Visa-free (${code} days)`, detail: `You can enter and stay for up to ${code} days.`, action: 'No action needed before travel.', color: '#16a34a', bg: '#f0fdf4', border: '#22c55e', icon: '✓', priority: 1 };
 }
 
 function Autocomplete({ items, placeholder, onSelect, id }: {
@@ -218,14 +223,23 @@ export default function VisaChecker() {
       {/* Results */}
       {best && destination && (
         <>
-          <div style={{ background: best.info.bg, border: `2px solid ${best.info.border}`, borderRadius: '16px', padding: '2rem', textAlign: 'center', marginBottom: '1rem' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>{best.info.icon}</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: best.info.color }}>{best.info.text}</div>
-            <div style={{ color: '#475569', marginTop: '0.5rem', fontSize: '1rem' }}>
-              Use your <strong>{best.document}</strong> to enter <strong>{destination}</strong>
+          <div style={{ background: best.info.bg, border: `2px solid ${best.info.border}`, borderRadius: '16px', padding: '2rem', marginBottom: '1rem' }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>{best.info.icon}</div>
+              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: best.info.color }}>{best.info.text}</div>
+              <div style={{ color: '#475569', marginTop: '0.5rem', fontSize: '1.05rem' }}>
+                Use your <strong>{best.document}</strong> to enter <strong>{destination}</strong>
+              </div>
             </div>
-            {best.note && <div style={{ color: '#64748b', marginTop: '0.25rem', fontSize: '0.85rem', fontStyle: 'italic' }}>{best.note}</div>}
-            {best.source && <div style={{ marginTop: '0.5rem' }}><a href={best.source} target="_blank" rel="noopener" style={{ fontSize: '0.8rem' }}>View official source</a></div>}
+            <div style={{ marginTop: '1.25rem', padding: '1rem', background: 'rgba(255,255,255,0.7)', borderRadius: '10px' }}>
+              <div style={{ fontSize: '0.9rem', color: '#334155', lineHeight: 1.7 }}>{best.info.detail}</div>
+              {best.note && <div style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.5rem', fontStyle: 'italic', borderLeft: '3px solid #e2e8f0', paddingLeft: '0.75rem' }}>{best.note}</div>}
+              <div style={{ marginTop: '0.75rem', padding: '0.6rem 0.8rem', background: '#f8fafc', borderRadius: '8px', fontSize: '0.85rem' }}>
+                <strong style={{ color: '#334155' }}>What to do: </strong>
+                <span style={{ color: '#475569' }}>{best.info.action}</span>
+              </div>
+              {best.source && <div style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}><a href={best.source} target="_blank" rel="noopener">View official source</a></div>}
+            </div>
           </div>
 
           {results!.length > 1 && (
