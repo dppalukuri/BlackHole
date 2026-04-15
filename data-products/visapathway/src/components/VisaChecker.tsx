@@ -271,7 +271,6 @@ export default function VisaChecker() {
           <div class="disclaimer">
             <strong>Important:</strong> Visa requirements change frequently. This tool provides general guidance based on publicly available data.
             <strong> Always verify with the relevant embassy or consulate before traveling.</strong>
-            <br />Sources: <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> + official government immigration websites. Last updated: April 2026.
           </div>
         </>
       )}
