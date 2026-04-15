@@ -73,20 +73,14 @@ residence_permits = {
     "UAE Residence Permit": {
         "source": "Individual country embassy websites and UAE MOFA",
         "last_verified": "April 2026",
+        "note": "ONLY includes exemptions confirmed to apply regardless of passport nationality. Nationality-dependent exemptions are excluded to avoid inaccurate results.",
         "exemptions": {
-            "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
-            "Armenia": {"access": "vf", "days": 120, "source": "https://www.mfa.am"},
-            "Azerbaijan": {"access": "ev", "days": 30, "source": "https://evisa.gov.az"},
-            "Serbia": {"access": "vf", "days": 30, "source": "https://www.mfa.gov.rs"},
-            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://www.mvp.gov.ba"},
-            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
-            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
-            "North Macedonia": {"access": "vf", "days": 15, "source": "https://www.mfa.gov.mk"},
-            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa available for UAE residence permit holders regardless of nationality"},
-            "Kyrgyzstan": {"access": "vf", "days": 30, "source": "https://www.mfa.gov.kg"},
-            "Malaysia": {"access": "voa", "days": 30, "source": "https://www.imi.gov.my", "note": "Visa on arrival for UAE residents from select nationalities"},
-            "Maldives": {"access": "voa", "days": 30, "source": "https://immigration.gov.mv"},
-            "Thailand": {"access": "voa", "days": 15, "source": "https://www.thaiembassy.com", "note": "Visa on arrival for UAE residents from select nationalities"}
+            "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge", "note": "Valid UAE residence permit grants visa-free entry regardless of nationality"},
+            "Serbia": {"access": "vf", "days": 30, "source": "https://www.mfa.gov.rs", "note": "Valid UAE residence permit grants visa-free entry regardless of nationality"},
+            "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://www.mvp.gov.ba", "note": "Valid UAE residence permit grants visa-free entry regardless of nationality"},
+            "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me", "note": "Valid UAE residence permit grants visa-free entry regardless of nationality"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Valid UAE/US/Schengen/UK residence permit grants visa-free entry"},
+            "Kyrgyzstan": {"access": "vf", "days": 30, "source": "https://www.mfa.gov.kg", "note": "Valid UAE residence permit grants visa-free entry regardless of nationality"}
         }
     },
     "US Green Card (Permanent Resident)": {
@@ -124,8 +118,8 @@ residence_permits = {
     "UK Residence Permit (BRP)": {
         "source": "Individual country immigration authorities",
         "last_verified": "April 2026",
+        "note": "ONLY includes exemptions confirmed to apply regardless of passport nationality.",
         "exemptions": {
-            "Ireland": {"access": "vf", "days": 90, "source": "https://www.irishimmigration.ie", "note": "Short Stay Visa Waiver Programme for UK visa/permit holders from certain nationalities"},
             "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa"},
             "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
             "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
@@ -147,19 +141,17 @@ residence_permits = {
     "Valid US Visa (B1/B2)": {
         "source": "Individual country immigration authorities",
         "last_verified": "April 2026",
+        "note": "ONLY includes exemptions confirmed to apply regardless of passport nationality. Turkey and Philippines excluded as their US-visa exemptions are nationality-dependent.",
         "exemptions": {
-            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "Valid US visa holders can enter Mexico without a Mexican visa"},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Valid US visa (used or unused) allows entry"},
-            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr"},
-            "Colombia": {"access": "vf", "days": 90, "source": "https://www.cancilleria.gov.co", "note": "Valid US visa allows visa-free entry for up to 90 days"},
+            "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "Valid US visa holders can enter Mexico without a Mexican visa — confirmed for all nationalities"},
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Valid US visa (used or unused) allows entry for all nationalities"},
+            "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr", "note": "Valid US visa allows entry regardless of nationality"},
+            "Colombia": {"access": "vf", "days": 90, "source": "https://www.cancilleria.gov.co", "note": "Valid US visa allows visa-free entry for up to 90 days for all nationalities"},
             "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
             "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al"},
-            "North Macedonia": {"access": "vf", "days": 15, "source": "https://www.mfa.gov.mk"},
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs"},
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
             "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://www.mvp.gov.ba"},
-            "Turkey": {"access": "ev", "days": 30, "source": "https://www.evisa.gov.tr", "note": "e-visa simplified for valid US visa holders"},
-            "Philippines": {"access": "vf", "days": 7, "source": "https://www.dfa.gov.ph", "note": "7-day transit visa exemption with valid US visa"},
             "Dominican Republic": {"access": "vf", "days": 30, "source": "https://www.dgm.gob.do"},
             "Belize": {"access": "vf", "days": 30, "source": "https://www.immigration.gov.bz"}
         }
@@ -167,8 +159,9 @@ residence_permits = {
     "Valid Schengen Visa": {
         "source": "Individual country immigration authorities and EU bilateral agreements",
         "last_verified": "April 2026",
+        "note": "ONLY includes exemptions confirmed to apply regardless of passport nationality. Turkey excluded as its Schengen-visa e-visa is nationality-dependent.",
         "exemptions": {
-            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Valid multi-entry Schengen visa allows entry without Albanian visa"},
+            "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Valid multi-entry Schengen visa allows entry without Albanian visa — all nationalities"},
             "Bosnia and Herzegovina": {"access": "vf", "days": 30, "source": "https://www.mvp.gov.ba"},
             "Colombia": {"access": "vf", "days": 90, "source": "https://www.cancilleria.gov.co"},
             "Georgia": {"access": "vf", "days": 90, "source": "https://www.geoconsul.gov.ge"},
@@ -177,10 +170,8 @@ residence_permits = {
             "Montenegro": {"access": "vf", "days": 30, "source": "https://www.gov.me"},
             "North Macedonia": {"access": "vf", "days": 15, "source": "https://www.mfa.gov.mk"},
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs"},
-            "Turkey": {"access": "ev", "days": 90, "source": "https://www.evisa.gov.tr", "note": "e-visa simplified for valid Schengen visa holders"},
-            "Romania": {"access": "vf", "days": 90, "source": "https://www.mae.ro", "note": "Valid Schengen visa allows entry (Romania is not yet in Schengen air borders)"},
-            "Bulgaria": {"access": "vf", "days": 90, "source": "https://www.mfa.bg", "note": "Valid Schengen visa allows entry (Bulgaria joined Schengen air/sea March 2024)"},
-            "Croatia": {"access": "vf", "days": 90, "source": "https://mvep.gov.hr", "note": "Croatia joined Schengen January 2023 — Schengen visa is valid"}
+            "Romania": {"access": "vf", "days": 90, "source": "https://www.mae.ro", "note": "Valid Schengen visa allows entry — all nationalities"},
+            "Bulgaria": {"access": "vf", "days": 90, "source": "https://www.mfa.bg", "note": "Valid Schengen visa allows entry — all nationalities"}
         }
     }
 }
