@@ -1,37 +1,227 @@
 {
   "UAE Residence Permit": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
+    "source": "Multiple embassy websites",
+    "last_verified": "April 2026",
     "exemptions": {}
   },
   "US Green Card (Permanent Resident)": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
-    "exemptions": {}
-  },
-  "Schengen Residence Permit": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
-    "exemptions": {}
-  },
-  "UK Residence Permit (BRP)": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
-    "exemptions": {}
-  },
-  "Canada Permanent Resident": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
-    "exemptions": {}
+    "source": "Official immigration authorities of each country",
+    "last_verified": "April 2026",
+    "exemptions": {
+      "Turkey": {
+        "access": "ev",
+        "days": 30,
+        "source": "https://www.evisa.gov.tr",
+        "note": "e-visa via evisa.gov.tr (single entry, 30 days)"
+      },
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://geoconsul.gov.ge",
+        "note": "Visa-free for all valid US/Schengen/UK/Canada/Japan/AU/NZ/KR/IL visa/permit holders"
+      },
+      "Mexico": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.inm.gob.mx",
+        "note": "No Mexican visa needed with valid Green Card"
+      },
+      "Canada": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.canada.ca/en/immigration-refugees-citizenship.html",
+        "note": "No visa required for US permanent residents"
+      },
+      "Colombia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://www.migracioncolombia.gov.co",
+        "note": "90 days, extendable to 180 per year"
+      },
+      "Panama": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.gob.pa",
+        "note": "Stamped tourist card at entry, ~$20"
+      },
+      "Costa Rica": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.go.cr"
+      }
+    }
   },
   "Valid US Visa (B1/B2)": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
-    "exemptions": {}
+    "source": "Official immigration authorities of each country",
+    "last_verified": "April 2026",
+    "exemptions": {
+      "Turkey": {
+        "access": "ev",
+        "days": 30,
+        "source": "https://www.evisa.gov.tr",
+        "note": "e-visa via evisa.gov.tr (single entry, 30 days). Must have valid US/Schengen/UK/Ireland visa."
+      },
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://geoconsul.gov.ge",
+        "note": "Visa-free entry with any valid US visa"
+      },
+      "Mexico": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.inm.gob.mx",
+        "note": "No Mexican visa needed. Valid US visa of any type qualifies."
+      },
+      "Colombia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://www.migracioncolombia.gov.co",
+        "note": "Must be currently valid. 90 days, extendable to 180 per year."
+      },
+      "Panama": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.gob.pa",
+        "note": "Stamped tourist card at entry (~$20). Some reports say US visa must have been used at least once."
+      },
+      "Costa Rica": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.go.cr",
+        "note": "Valid US visa allows entry for up to 30 days"
+      }
+    }
   },
   "Valid Schengen Visa": {
-    "source": "Pending verification",
-    "last_verified": "Not yet verified",
-    "exemptions": {}
+    "source": "Official immigration authorities of each country",
+    "last_verified": "April 2026",
+    "exemptions": {
+      "Turkey": {
+        "access": "ev",
+        "days": 30,
+        "source": "https://www.evisa.gov.tr",
+        "note": "e-visa via evisa.gov.tr with valid Schengen visa"
+      },
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://geoconsul.gov.ge",
+        "note": "Visa-free entry with valid Schengen visa"
+      },
+      "Mexico": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.inm.gob.mx",
+        "note": "No Mexican visa needed with valid Schengen visa"
+      },
+      "Colombia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://www.migracioncolombia.gov.co",
+        "note": "90 days, extendable to 180 per year"
+      },
+      "Panama": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.gob.pa",
+        "note": "Stamped tourist card at entry (~$20)"
+      },
+      "Costa Rica": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.go.cr"
+      }
+    }
+  },
+  "Schengen Residence Permit": {
+    "source": "Official immigration authorities of each country",
+    "last_verified": "April 2026",
+    "exemptions": {
+      "Turkey": {
+        "access": "ev",
+        "days": 30,
+        "source": "https://www.evisa.gov.tr",
+        "note": "e-visa via evisa.gov.tr with valid Schengen residence permit"
+      },
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://geoconsul.gov.ge"
+      },
+      "Mexico": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.inm.gob.mx"
+      },
+      "Colombia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://www.migracioncolombia.gov.co"
+      },
+      "Panama": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.gob.pa"
+      },
+      "Costa Rica": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.go.cr"
+      }
+    }
+  },
+  "UK Residence Permit (BRP)": {
+    "source": "Official immigration authorities of each country",
+    "last_verified": "April 2026",
+    "exemptions": {
+      "Turkey": {
+        "access": "ev",
+        "days": 30,
+        "source": "https://www.evisa.gov.tr",
+        "note": "e-visa via evisa.gov.tr with valid UK visa/BRP"
+      },
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://geoconsul.gov.ge"
+      },
+      "Mexico": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.inm.gob.mx"
+      },
+      "Panama": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.gob.pa"
+      }
+    }
+  },
+  "Canada Permanent Resident": {
+    "source": "Official immigration authorities of each country",
+    "last_verified": "April 2026",
+    "exemptions": {
+      "Georgia": {
+        "access": "vf",
+        "days": 90,
+        "source": "https://geoconsul.gov.ge"
+      },
+      "Mexico": {
+        "access": "vf",
+        "days": 180,
+        "source": "https://www.inm.gob.mx"
+      },
+      "Costa Rica": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.go.cr"
+      },
+      "Panama": {
+        "access": "vf",
+        "days": 30,
+        "source": "https://www.migracion.gob.pa"
+      }
+    }
   }
 }
