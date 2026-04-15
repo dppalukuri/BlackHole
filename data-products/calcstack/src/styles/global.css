@@ -42,6 +42,14 @@ p { margin-bottom: 1rem; }
 
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
 
+/* Top Bar */
+.top-bar {
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+}
+
 /* Header */
 .site-header {
   background: var(--color-surface);
