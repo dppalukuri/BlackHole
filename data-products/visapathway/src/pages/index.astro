@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VisaChecker from '../components/VisaChecker';
+---
+
+<BaseLayout
+  title="VisaPathway — Multi-Passport Visa Checker for 199 Countries"
+  description="Check visa requirements with multiple passports and residence permits. Enter all your travel documents — we find the best way to enter any country. Covers UAE residence, US Green Card, Schengen permits."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "VisaPathway Visa Checker",
+      "description": "Multi-passport visa requirement checker covering 199 countries and residence permits",
+      "url": "https://visapathway.techtools365.com",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+  </Fragment>
+
+  <div style="text-align: center; padding: 2.5rem 0 1rem;">
+    <h1>Multi-Passport Visa Checker</h1>
+    <p class="subtitle">Hold multiple passports or a residence permit? Enter all your documents — we'll find the best way to enter any country.</p>
+  </div>
+
+  <VisaChecker client:load />
+
+  <section style="max-width: 750px; margin: 2rem auto;">
+    <h2>Why This Tool Exists</h2>
+    <p>
+      Existing visa checkers only handle one passport at a time. But millions of people hold <strong>multiple passports</strong> or <strong>residence permits</strong> that grant additional travel privileges. An Indian citizen with a UAE residence permit can enter Georgia, Serbia, Turkey, and several other countries that an Indian passport alone cannot access visa-free.
+    </p>
+    <p>
+      VisaPathway checks <strong>all your documents simultaneously</strong> and recommends the best one to use for each destination. No more checking multiple websites.
+    </p>
+
+    <h2>What We Cover</h2>
+    <ul>
+      <li><strong>199 passports</strong> — every recognized country</li>
+      <li><strong>5 residence permit types</strong> — UAE, US Green Card, Schengen, UK, Canada</li>
+      <li><strong>Visa-free, visa on arrival, e-visa, and visa required</strong> classifications</li>
+      <li><strong>Official sources linked</strong> for every residence permit exemption</li>
+    </ul>
+
+    <h2>How We Ensure Accuracy</h2>
+    <p>
+      Our passport-to-country visa matrix comes from the <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a>, an open-source project that cross-references multiple authoritative sources. Residence permit exemptions are manually compiled from <strong>official government immigration websites</strong> — every entry links to its source.
+    </p>
+    <p>
+      Despite our best efforts, visa requirements change frequently. <strong>Always verify with the relevant embassy or consulate before traveling.</strong> We display the last verification date on every data point.
+    </p>
+
+    <h2>Popular Searches</h2>
+    <div class="country-grid">
+      <a href="/indian-passport-uae-resident" class="country-card">
+        <strong>Indian Passport + UAE Residence</strong>
+        <div class="status status-vf">13 extra countries visa-free</div>
+      </a>
+      <a href="/us-green-card-holders" class="country-card">
+        <strong>US Green Card Holders</strong>
+        <div class="status status-vf">10+ extra countries visa-free</div>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

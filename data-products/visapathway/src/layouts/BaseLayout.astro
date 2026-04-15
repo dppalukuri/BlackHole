@@ -1,0 +1,51 @@
+---
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const siteUrl = 'https://visapathway.techtools365.com';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={new URL(Astro.url.pathname, siteUrl).toString()} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={new URL(Astro.url.pathname, siteUrl).toString()} />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%237c3aed'/><text x='16' y='22' font-family='Arial' font-size='14' font-weight='bold' fill='white' text-anchor='middle'>VP</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <slot name="head" />
+</head>
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <a href="https://techtools365.com">Tech<span style="color:#7c3aed;">Tools</span>365</a>
+      <a href="https://techtools365.com">Explore all tools &rarr;</a>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Visa<span>Pathway</span></a>
+      <nav class="site-nav">
+        <a href="/">Visa Checker</a>
+        <a href="/about">About</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container"><slot /></main>
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="/about" style="color:inherit;">About</a> &middot; <a href="/privacy" style="color:inherit;">Privacy</a> &middot; <a href="https://techtools365.com" style="color:inherit;">TechTools365</a></p>
+      <p>&copy; {new Date().getFullYear()} VisaPathway by TechTools365.</p>
+      <p style="font-size:0.75rem;">Visa requirements can change without notice. Always verify with the relevant embassy or consulate before traveling.</p>
+    </div>
+  </footer>
+</body>
+</html>
+<style is:global>
+  @import '../styles/global.css';
+</style>
