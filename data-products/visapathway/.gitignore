@@ -1,3 +1,3 @@
 node_modules/
-dist/
+# dist/ — committed to git for Cloudflare Pages direct serving
 .astro/
