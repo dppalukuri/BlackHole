@@ -7,75 +7,71 @@
   <meta name="description" content="A collection of free, no-signup tools for financial planning, SaaS comparison, visa checking, and productivity. Built for India, UAE, and US markets." />
   <link rel="canonical" href="https://techtools365.com/" />
   <meta property="og:title" content="TechTools365 — Free Tools for Finance, Business & Productivity" />
-  <meta property="og:description" content="Free financial calculators, SaaS comparison tools, multi-passport visa checker, and more. No signup, no ads blocking your results." />
+  <meta property="og:description" content="Free financial calculators, SaaS comparison tools, multi-passport visa checker, and more." />
   <meta property="og:url" content="https://techtools365.com/" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236366f1'/><text x='16' y='22' font-family='Arial' font-size='16' font-weight='bold' fill='white' text-anchor='middle'>T</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9446467058878539" crossorigin="anonymous"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #0f172a; color: #f8fafc; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
+    .container { max-width: 780px; margin: 0 auto; padding: 0 1rem; }
 
     /* Header */
-    .header { padding: 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .header { padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .header .container { display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-size: 1.3rem; font-weight: 800; }
+    .logo { font-size: 1.1rem; font-weight: 800; }
     .logo span { color: #818cf8; }
-    .header-links { display: flex; gap: 1.5rem; }
-    .header-links a { color: #94a3b8; font-size: 0.85rem; font-weight: 500; }
+    .header-links { display: flex; gap: 1rem; }
+    .header-links a { color: #94a3b8; font-size: 0.78rem; font-weight: 500; transition: color 0.15s; }
     .header-links a:hover { color: #818cf8; }
 
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; }
-
     /* Hero */
-    .hero { text-align: center; padding: 5rem 0 2rem; }
-    .hero-badge { display: inline-block; background: rgba(129,140,248,0.15); color: #818cf8; font-size: 0.8rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 1.25rem; border: 1px solid rgba(129,140,248,0.25); }
-    .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
-    .hero h1 span { background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero p { font-size: 1.15rem; color: #94a3b8; max-width: 600px; margin: 0 auto 2rem; }
+    .hero { text-align: center; padding: 2.5rem 0 1rem; }
+    .hero-badge { display: inline-block; background: rgba(129,140,248,0.12); color: #a5b4fc; font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.75rem; border-radius: 999px; margin-bottom: 0.75rem; border: 1px solid rgba(129,140,248,0.2); }
+    .hero h1 { font-size: 2rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.5rem; color: #f1f5f9; }
+    .hero h1 span { background: linear-gradient(135deg, #818cf8, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 0.93rem; color: #94a3b8; max-width: 500px; margin: 0 auto; }
 
     /* Stats */
-    .stats { display: flex; justify-content: center; gap: 3rem; padding: 1.5rem 0 3rem; }
+    .stats { display: flex; justify-content: center; gap: 2.5rem; padding: 1.25rem 0 1.5rem; }
     .stat { text-align: center; }
-    .stat-number { font-size: 1.75rem; font-weight: 800; color: #818cf8; }
-    .stat-label { font-size: 0.8rem; color: #64748b; font-weight: 500; margin-top: 0.15rem; }
+    .stat-number { font-size: 1.4rem; font-weight: 800; color: #818cf8; }
+    .stat-label { font-size: 0.7rem; color: #64748b; font-weight: 500; margin-top: 0.1rem; }
 
     /* Tools */
-    .section-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 1.5rem; }
-    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 4rem; }
+    .section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 0.75rem; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
 
     .tool-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px; padding: 1.75rem; transition: all 0.2s; position: relative;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 1.1rem; transition: all 0.15s; position: relative;
     }
-    .tool-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(129,140,248,0.4); transform: translateY(-2px); }
-    .tool-card .arrow { position: absolute; top: 1.75rem; right: 1.75rem; color: #475569; font-size: 1.1rem; transition: color 0.2s; }
+    .tool-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(129,140,248,0.35); transform: translateY(-1px); }
+    .tool-card .arrow { position: absolute; top: 1.1rem; right: 1.1rem; color: #475569; font-size: 0.95rem; transition: color 0.15s; }
     .tool-card:hover .arrow { color: #818cf8; }
 
-    .tool-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; color: white; margin-bottom: 1rem; }
-    .tool-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.15rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem; }
+    .tool-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; color: white; margin-bottom: 0.6rem; }
+    .tool-badge { display: inline-block; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.1rem 0.4rem; border-radius: 3px; margin-bottom: 0.3rem; }
     .badge-live { background: rgba(34,197,94,0.15); color: #4ade80; }
     .badge-coming { background: rgba(99,102,241,0.15); color: #818cf8; }
-    .tool-card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .tool-card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.6; }
-    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .tool-tags span { font-size: 0.7rem; background: rgba(255,255,255,0.06); color: #94a3b8; padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 500; }
-    .tool-card.coming { opacity: 0.5; pointer-events: none; }
+    .tool-card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; color: #f1f5f9; }
+    .tool-card p { color: #94a3b8; font-size: 0.82rem; margin-bottom: 0.6rem; line-height: 1.5; }
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+    .tool-tags span { font-size: 0.62rem; background: rgba(255,255,255,0.05); color: #94a3b8; padding: 0.12rem 0.45rem; border-radius: 3px; font-weight: 500; }
+    .tool-card.coming { opacity: 0.4; pointer-events: none; }
 
-    /* Footer */
-    footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 0; text-align: center; color: #475569; font-size: 0.85rem; }
-    footer a { color: #64748b; }
-    footer a:hover { color: #818cf8; }
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 1.25rem 0; text-align: center; color: #475569; font-size: 0.75rem; }
+    footer a { color: #64748b; } footer a:hover { color: #818cf8; }
 
     @media (max-width: 640px) {
-      .hero h1 { font-size: 2rem; }
+      .hero h1 { font-size: 1.5rem; }
       .stats { gap: 1.5rem; }
-      .stat-number { font-size: 1.3rem; }
+      .stat-number { font-size: 1.1rem; }
       .tools-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -100,18 +96,9 @@
     </div>
 
     <div class="stats">
-      <div class="stat">
-        <div class="stat-number">3</div>
-        <div class="stat-label">Live Products</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">45+</div>
-        <div class="stat-label">Tools & Pages</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">199</div>
-        <div class="stat-label">Countries Covered</div>
-      </div>
+      <div class="stat"><div class="stat-number">3</div><div class="stat-label">Live Products</div></div>
+      <div class="stat"><div class="stat-number">45+</div><div class="stat-label">Tools & Pages</div></div>
+      <div class="stat"><div class="stat-number">199</div><div class="stat-label">Countries Covered</div></div>
     </div>
 
     <div class="section-title">Our Tools</div>
@@ -119,77 +106,52 @@
     <div class="tools-grid">
       <a href="https://calcstack.techtools365.com" class="tool-card">
         <span class="arrow">&rarr;</span>
-        <div class="tool-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">CS</div>
+        <div class="tool-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">CS</div>
         <div class="tool-badge badge-live">Live</div>
         <h2>CalcStack</h2>
-        <p>Interactive financial calculators. SIP, EMI, FIRE planner, tax regime comparator, Dubai rental yield, loan comparator, and more.</p>
-        <div class="tool-tags">
-          <span>20 Calculators</span>
-          <span>India</span>
-          <span>UAE</span>
-          <span>US</span>
-          <span>Interactive Charts</span>
-        </div>
+        <p>Interactive financial calculators. SIP, EMI, FIRE planner, tax regime comparator, Dubai rental yield, loan comparator.</p>
+        <div class="tool-tags"><span>20 Calculators</span><span>India</span><span>UAE</span><span>US</span></div>
       </a>
 
       <a href="https://toolversus.techtools365.com" class="tool-card">
         <span class="arrow">&rarr;</span>
-        <div class="tool-icon" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4);">VS</div>
+        <div class="tool-icon" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);">VS</div>
         <div class="tool-badge badge-live">Live</div>
         <h2>ToolVersus</h2>
-        <p>Honest SaaS comparisons. Side-by-side pricing, features, and verdicts for VPN, web hosting, email marketing, and more.</p>
-        <div class="tool-tags">
-          <span>13 Comparisons</span>
-          <span>VPN</span>
-          <span>Hosting</span>
-          <span>Email Marketing</span>
-        </div>
+        <p>Honest SaaS comparisons. Side-by-side pricing, features, and verdicts for VPN, web hosting, email marketing.</p>
+        <div class="tool-tags"><span>13 Comparisons</span><span>VPN</span><span>Hosting</span><span>Email</span></div>
       </a>
 
       <a href="https://visapathway.techtools365.com" class="tool-card">
         <span class="arrow">&rarr;</span>
-        <div class="tool-icon" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">VP</div>
+        <div class="tool-icon" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">VP</div>
         <div class="tool-badge badge-live">Live</div>
         <h2>VisaPathway</h2>
-        <p>Multi-passport visa checker. Enter all your passports and residence permits — we find the best document to enter any country.</p>
-        <div class="tool-tags">
-          <span>199 Countries</span>
-          <span>Multi-Passport</span>
-          <span>7 Permit Types</span>
-          <span>75+ Exemptions</span>
-        </div>
+        <p>Multi-passport visa checker. Enter all your passports and residence permits — find the best way to enter any country.</p>
+        <div class="tool-tags"><span>199 Countries</span><span>Multi-Passport</span><span>7 Permit Types</span></div>
       </a>
 
       <div class="tool-card coming">
-        <div class="tool-icon" style="background: linear-gradient(135deg, #475569, #64748b);">SA</div>
+        <div class="tool-icon" style="background:linear-gradient(135deg,#475569,#64748b);">SA</div>
         <div class="tool-badge badge-coming">Coming Soon</div>
         <h2>SalaryAtlas</h2>
-        <p>Salary data and cost-of-living comparisons across 500+ cities. Know what you should be earning, anywhere in the world.</p>
-        <div class="tool-tags">
-          <span>Salary Data</span>
-          <span>Cost of Living</span>
-          <span>City vs City</span>
-        </div>
+        <p>Salary data and cost-of-living comparisons across 500+ cities worldwide.</p>
+        <div class="tool-tags"><span>Salary Data</span><span>Cost of Living</span><span>City vs City</span></div>
       </div>
 
       <div class="tool-card coming">
-        <div class="tool-icon" style="background: linear-gradient(135deg, #475569, #64748b);">IC</div>
+        <div class="tool-icon" style="background:linear-gradient(135deg,#475569,#64748b);">IC</div>
         <div class="tool-badge badge-coming">Coming Soon</div>
         <h2>InsureCompare</h2>
-        <p>Insurance and credit card comparisons for UAE and India. Find the best policy or card for your specific situation.</p>
-        <div class="tool-tags">
-          <span>Insurance</span>
-          <span>Credit Cards</span>
-          <span>UAE</span>
-          <span>India</span>
-        </div>
+        <p>Insurance and credit card comparisons for UAE and India.</p>
+        <div class="tool-tags"><span>Insurance</span><span>Credit Cards</span><span>UAE</span><span>India</span></div>
       </div>
     </div>
   </div>
 
   <footer>
     <div class="container">
-      <p style="margin-bottom: 0.5rem;"><strong style="color: #94a3b8;">TechTools365</strong> — Free tools, no tricks.</p>
+      <p><strong style="color:#94a3b8;">TechTools365</strong> — Free tools, no tricks.</p>
       <p>&copy; 2026 TechTools365 &middot; <a href="https://calcstack.techtools365.com/about">About</a> &middot; <a href="https://calcstack.techtools365.com/privacy">Privacy</a></p>
     </div>
   </footer>
