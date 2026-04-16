@@ -125,7 +125,7 @@ residence_permits = {
             "Georgia": {"access": "vf", "days": 90, "source": "https://geoconsul.gov.ge", "note": "Visa-free entry with any valid US visa — all nationalities"},
             "Mexico": {"access": "vf", "days": 180, "source": "https://www.inm.gob.mx", "note": "No Mexican visa needed. Any valid US visa type qualifies — all nationalities."},
             "Colombia": {"access": "vf", "days": 90, "source": "https://www.migracioncolombia.gov.co", "note": "Must be currently valid. 90 days, extendable to 180/year."},
-            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Tourist card at entry (~$20). US visa should have been used at least once."},
+            "Panama": {"access": "vf", "days": 30, "source": "https://www.migracion.gob.pa", "note": "Visa-free entry with valid US visa (must have been used at least once). Entry stamp at immigration, no fee."},
             "Costa Rica": {"access": "vf", "days": 30, "source": "https://www.migracion.go.cr", "note": "Valid US visa allows entry up to 30 days"},
             "Albania": {"access": "vf", "days": 90, "source": "https://punetejashtme.gov.al", "note": "Multi-entry US visa that has been used at least once. 90 days in 180-day period."},
             "Serbia": {"access": "vf", "days": 90, "source": "https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements", "note": "Valid US visa or residence permit. 90 days in 6-month period."},
