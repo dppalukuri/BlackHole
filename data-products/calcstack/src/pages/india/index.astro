@@ -2,16 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const calculators = [
-  { slug: 'old-vs-new-tax-regime', name: 'Old vs New Tax Regime Comparator', desc: 'Enter your deductions, see which regime saves more. Side-by-side comparison.' },
-  { slug: 'fire-calculator', name: 'FIRE Calculator India', desc: 'When can you retire early? Year-by-year progress tracker with Indian inflation adjustment.' },
-  { slug: 'step-up-sip-calculator', name: 'Step-Up SIP Calculator', desc: 'See how annual SIP increases create 2-3x more wealth than regular SIP.' },
-  { slug: 'loan-comparison', name: 'Loan Comparison Tool', desc: 'Compare 3 bank loan offers side-by-side. Find the cheapest deal instantly.' },
-  { slug: 'sip-calculator', name: 'SIP Calculator', desc: 'Calculate your Systematic Investment Plan returns over time.' },
-  { slug: 'emi-calculator', name: 'EMI Calculator', desc: 'Calculate loan EMI for home, car, or personal loans.' },
-  { slug: 'income-tax-calculator', name: 'Income Tax Calculator', desc: 'Slab-wise tax calculation under new regime FY 2025-26.' },
-  { slug: 'fd-calculator', name: 'FD Calculator', desc: 'Calculate Fixed Deposit maturity amount and interest earned.' },
-  { slug: 'ppf-calculator', name: 'PPF Calculator', desc: 'Calculate PPF maturity value at current 7.1% rate over 15+ years.' },
-  { slug: 'lumpsum-calculator', name: 'Lump Sum Calculator', desc: 'Calculate returns on a one-time mutual fund investment.' },
+  { slug: 'old-vs-new-tax-regime', name: 'Old vs New Tax Regime Comparator', desc: 'Enter your deductions, see which regime saves more. Side-by-side comparison.', tags: 'tax regime old new compare deductions 80c hra' },
+  { slug: 'fire-calculator', name: 'FIRE Calculator India', desc: 'When can you retire early? Year-by-year progress tracker with Indian inflation adjustment.', tags: 'fire retire early financial independence' },
+  { slug: 'step-up-sip-calculator', name: 'Step-Up SIP Calculator', desc: 'See how annual SIP increases create 2-3x more wealth than regular SIP.', tags: 'sip step up increase annual mutual fund' },
+  { slug: 'loan-comparison', name: 'Loan Comparison Tool', desc: 'Compare 3 bank loan offers side-by-side. Find the cheapest deal instantly.', tags: 'loan compare bank emi interest home car' },
+  { slug: 'sip-calculator', name: 'SIP Calculator', desc: 'Calculate your Systematic Investment Plan returns over time.', tags: 'sip mutual fund investment monthly' },
+  { slug: 'emi-calculator', name: 'EMI Calculator', desc: 'Calculate loan EMI for home, car, or personal loans.', tags: 'emi loan home car personal monthly installment' },
+  { slug: 'income-tax-calculator', name: 'Income Tax Calculator', desc: 'Slab-wise tax calculation under new regime FY 2025-26.', tags: 'income tax slab new regime 2025 2026' },
+  { slug: 'fd-calculator', name: 'FD Calculator', desc: 'Calculate Fixed Deposit maturity amount and interest earned.', tags: 'fd fixed deposit bank interest maturity' },
+  { slug: 'ppf-calculator', name: 'PPF Calculator', desc: 'Calculate PPF maturity value at current 7.1% rate over 15+ years.', tags: 'ppf public provident fund government savings' },
+  { slug: 'lumpsum-calculator', name: 'Lump Sum Calculator', desc: 'Calculate returns on a one-time mutual fund investment.', tags: 'lumpsum lump sum one time investment compound' },
 ];
 ---
 
@@ -25,15 +25,42 @@ const calculators = [
 
   <h1>India Financial Calculators</h1>
   <p class="page-intro">
-    Free online financial calculators for Indian investors and borrowers. Calculate your SIP returns, loan EMI, income tax, and more — all instant, no signup required.
+    Free online financial calculators for Indian investors and borrowers.
   </p>
 
-  <div class="calc-grid">
+  <input
+    type="text"
+    id="calc-search"
+    placeholder="Search calculators... (e.g. tax, SIP, EMI, FIRE, loan)"
+    style="width:100%;padding:0.55rem 0.85rem;border:2px solid #e5e7eb;border-radius:8px;font-size:0.9rem;font-family:inherit;margin-bottom:0.75rem;background:#f9fafb;outline:none;"
+    onfocus="this.style.borderColor='#6366f1'"
+    onblur="this.style.borderColor='#e5e7eb'"
+  />
+
+  <div class="calc-grid" id="calc-grid">
     {calculators.map((calc) => (
-      <a href={`/india/${calc.slug}`} class="calc-card">
+      <a href={`/india/${calc.slug}`} class="calc-card" data-search={`${calc.name} ${calc.desc} ${calc.tags}`.toLowerCase()}>
         <h2>{calc.name}</h2>
         <p>{calc.desc}</p>
       </a>
     ))}
   </div>
+
+  <div id="no-results" style="display:none;text-align:center;padding:1.5rem;color:#6b7280;font-size:0.9rem;">
+    No calculators match your search. Try a different term.
+  </div>
 </BaseLayout>
+
+<script is:inline>
+document.getElementById('calc-search').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  const cards = document.querySelectorAll('#calc-grid .calc-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const match = !q || card.dataset.search.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+});
+</script>
