@@ -6,7 +6,13 @@ import MidContentAd from '../components/MidContentAd.astro';
 import { priorityPassports } from '../data/priority-passports';
 import { priorityPermits } from '../data/priority-permits';
 import { priorityDestinations } from '../data/priority-destinations';
-import { summarizePassport } from '../lib/visa-data';
+import { summarizePassport, verifiedData, residencePermits } from '../lib/visa-data';
+
+// Verification-progress stats for the homepage trust signal
+const verifiedCount = Object.values(verifiedData.data ?? {})
+  .reduce((acc, v) => acc + Object.keys(v).length, 0);
+const permitExemptionsCount = Object.values(residencePermits)
+  .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
 
 /** Top 9 passports by priority, with live counts for the card display. */
 const topPassports = priorityPassports
@@ -45,7 +51,7 @@ const faq = [
   },
   {
     q: 'How accurate is the visa information?',
-    a: 'Our data comes from two sources of different confidence levels. <strong>Residence-permit exemptions</strong> (UAE, Green Card, Schengen, UK, Canada) are hand-compiled from official government pages and linked per entry — we consider these high-confidence. The <strong>bulk passport-to-country matrix</strong> starts from the open-source <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a>, which is community-maintained. High-traffic pairs are separately re-verified against embassy/ministry pages by our verification pipeline — re-verified entries show a ✓ badge and carry an official source link. Everything else is a starting point, not a guarantee. Always confirm with the destination embassy before booking.',
+    a: 'Our data comes from three tiers of different confidence levels. <strong>Tier 1: residence-permit exemptions</strong> — hand-compiled from embassy pages with source URLs per entry. <strong>Tier 2: high-traffic passport → destination pairs</strong> are re-verified by our automated pipeline against gov sources (marked with a ✓ badge, source linked). <strong>Tier 3: the bulk passport matrix</strong> starts from the community-maintained <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> — a reasonable starting point, not a verified fact. See our <a href="/methodology">full methodology</a> for how the verifier works. Always confirm with the destination embassy before booking.',
   },
   {
     q: 'Which passport is strongest for travel?',
@@ -97,6 +103,19 @@ const jsonLd = {
       and long-term visas at once. Enter every document you have — we'll show the easiest
       legal way into any of 199 countries, with official sources.
     </p>
+    <div class="trust-bar">
+      <div class="trust-stat">
+        <span class="trust-check">✓</span>
+        <strong>{permitExemptionsCount}</strong> residence-permit exemptions hand-sourced from embassy pages
+      </div>
+      <div class="trust-stat">
+        <span class="trust-check">✓</span>
+        <strong>{verifiedCount}</strong> high-traffic pairs re-verified against gov sources
+      </div>
+      <div class="trust-stat">
+        <a href="/methodology">See methodology →</a>
+      </div>
+    </div>
   </section>
 
   <VisaChecker client:load />
@@ -265,6 +284,23 @@ const jsonLd = {
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     }
     .home-hero .hero-sub { font-size: .95rem; color: #6b7280; max-width: 62ch; margin: 0 0 1rem; }
+
+    .trust-bar {
+      margin-top: 1rem; padding: .75rem 1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center;
+      font-size: .82rem;
+    }
+    .trust-stat { display: inline-flex; align-items: center; gap: .4rem; color: var(--muted); }
+    .trust-stat strong { color: var(--text); font-weight: 700; }
+    .trust-stat a { color: var(--primary); font-weight: 500; text-decoration: none; margin-left: auto; }
+    .trust-stat a:hover { text-decoration: underline; }
+    .trust-check {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px; background: #16a34a; color: #fff;
+      border-radius: 50%; font-size: .65rem; font-weight: 700;
+    }
 
     .popular-passports, .permit-guides, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }
     .dest-grid {

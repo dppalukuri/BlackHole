@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { verifiedData, visaMatrix, residencePermits } from '../lib/visa-data';
+
+const verifiedCount = Object.values(verifiedData.data ?? {})
+  .reduce((acc, v) => acc + Object.keys(v).length, 0);
+const verifiedPassports = Object.keys(verifiedData.data ?? {}).length;
+const totalPassports = Object.keys(visaMatrix).length;
+const totalPermits = Object.keys(residencePermits).length;
+const totalPermitExemptions = Object.values(residencePermits)
+  .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
+
+const faq = [
+  {
+    q: 'Why do some entries have a ✓ and some don\'t?',
+    a: 'A <strong>✓ badge</strong> means that specific passport → destination entry has been re-verified against an official government source (embassy page, ministry of foreign affairs, or official e-visa portal), and the source URL is linked. Entries without ✓ come from the community-maintained Passport Index Dataset — they\'re a reasonable starting point but not individually verified.',
+  },
+  {
+    q: 'How do you decide what counts as an "official" source?',
+    a: 'We have a hard-coded allowlist of domain patterns that correspond to government-run websites: <code>.gov</code>, <code>.gov.&lt;cc&gt;</code> (like .gov.uk, .gov.au), <code>.gob.&lt;cc&gt;</code> (Spanish-speaking), <code>.gouv.fr</code>, <code>.go.jp/kr/th/id</code>, embassy/consulate subdomains, MFA subdomains (<code>mfa.*</code>, <code>mofa.*</code>, <code>esteri.it</code>, etc.), official visa portals (<code>evisa.*</code>, <code>travel.state.gov</code>, <code>canada.ca</code>, <code>u.ae</code>), EU official (<code>europa.eu</code>). A source URL must match one of these patterns to qualify.',
+  },
+  {
+    q: 'What happens if the model finds an unofficial source?',
+    a: 'We downgrade the entry to "low" confidence and hide the ✓ badge. We never cite travel-blog or aggregator content (iVisa, PassportIndex.com, etc.) as if it were authoritative.',
+  },
+  {
+    q: 'How often do you re-verify?',
+    a: `The verifier runs on demand. We re-verify any entry older than 30 days when the agent is invoked. Entries are refreshed immediately after any change to the domain-trust pattern list. For now, about ${verifiedCount} high-traffic entries across ${verifiedPassports} passports have been verified. We\'re expanding coverage over time.`,
+  },
+  {
+    q: 'What are the limitations?',
+    a: 'Three things to know: (1) Visa rules change without notice — our data is a snapshot, not a live feed. (2) We focus on tourist / short-stay requirements only; work, student, and transit rules are different. (3) Even an official source can be out of date — always confirm with the destination embassy before booking travel.',
+  },
+  {
+    q: 'Is the code open source?',
+    a: 'The verification pipeline is open source — see <a href="https://github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier" target="_blank" rel="noopener">autonomous-agents/visa-verifier</a> on GitHub. Issue a PR if you spot an inaccurate entry or want to propose new trusted-source patterns.',
+  },
+  {
+    q: 'Why not just license a commercial API like Sherpa or IATA Timatic?',
+    a: 'Those are the gold standard and cost $500-2000/month. We\'re bootstrapped. Our pipeline gets us 80% of the accuracy for ~$0.15 per batch of 100 entries, and 100% transparency into how we arrived at each entry. That trade-off works for a free, ad-supported site.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How VisaPathway verifies visa data — full methodology',
+  description: 'Our three-tier data sourcing approach: hand-curated residence permit exemptions, automated verification against government sources, and a community-maintained bulk matrix as a starting point.',
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: 'https://visapathway.techtools365.com/methodology',
+};
+---
+
+<BaseLayout
+  title="How VisaPathway Verifies Visa Data — Our Methodology | VisaPathway"
+  description={`Transparent methodology: three-tier data sourcing with ${verifiedCount} entries re-verified against official government sources, ${totalPermitExemptions} hand-curated residence permit exemptions, and a community-maintained bulk matrix as a starting point.`}
+  keywords="visa checker methodology, visa data accuracy, how reliable is visa data, visa checker source, verification process, passport index dataset"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="meth-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <span>Methodology</span>
+    </nav>
+
+    <header class="mp-header">
+      <div class="eyebrow">How it works</div>
+      <h1>How we <em>verify visa data.</em></h1>
+      <p class="lede">
+        Visa data is messy. Rules change without notice, the same destination
+        can have three conflicting unofficial summaries online, and even
+        authoritative-looking aggregators lag behind embassy announcements.
+        Here's exactly where every piece of data on this site comes from.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{totalPermitExemptions}</strong><span>permit exemptions hand-sourced</span></div>
+        <div class="kpi"><strong>{verifiedCount}</strong><span>pairs re-verified</span></div>
+        <div class="kpi"><strong>{totalPassports}</strong><span>passports covered</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Three tiers of data</h2>
+      <p>We're transparent about where each entry comes from — not everything on this site carries equal weight, so we mark the entries that do.</p>
+
+      <div class="tier-grid">
+        <div class="tier tier-1">
+          <div class="tier-num">Tier 1</div>
+          <h3>Residence-permit exemptions — hand-sourced</h3>
+          <p class="tier-meta">{totalPermitExemptions} entries · {totalPermits} permit types</p>
+          <p>
+            UAE residence, US Green Card, valid US B1/B2 visa, Schengen residence,
+            Schengen C-visa, UK BRP, and Canadian PR exemptions are compiled
+            manually from official government sources, with the source URL linked
+            next to every country entry.
+          </p>
+          <p class="tier-trust">
+            <span class="badge badge-high">✓ high confidence</span>
+            Consider these entries the most reliable on the site.
+          </p>
+        </div>
+
+        <div class="tier tier-2">
+          <div class="tier-num">Tier 2</div>
+          <h3>Automated verification — re-checked against gov sources</h3>
+          <p class="tier-meta">{verifiedCount} entries · {verifiedPassports}/{totalPassports} passports so far</p>
+          <p>
+            High-traffic passport → destination pairs get re-verified by an
+            automated pipeline that uses WebSearch to pull the current rule
+            from embassy pages, ministries of foreign affairs, and official
+            e-visa portals. The source URL must match our
+            <a href="https://github.com/dppalukuri/BlackHole/blob/main/autonomous-agents/visa-verifier/verifier.py" target="_blank" rel="noopener">domain-trust allowlist</a>
+            (<code>.gov</code>, <code>.gob</code>, <code>.gouv</code>, <code>mfa.*</code>, etc.)
+            to be marked verified.
+          </p>
+          <p class="tier-trust">
+            <span class="badge badge-medium">✓ medium–high confidence</span>
+            Marked with a <span class="ui-check">✓</span> on passport and destination pages.
+          </p>
+        </div>
+
+        <div class="tier tier-3">
+          <div class="tier-num">Tier 3</div>
+          <h3>Bulk matrix — community-maintained starting point</h3>
+          <p class="tier-meta">~{totalPassports * totalPassports} entries · unverified</p>
+          <p>
+            The bulk 199×199 visa matrix comes from the open-source
+            <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> —
+            an excellent community project that cross-references multiple sources.
+            But: entries aren't individually sourced, so we treat this as a reasonable
+            default, not a verified fact.
+          </p>
+          <p class="tier-trust">
+            <span class="badge badge-low">reasonable default</span>
+            No ✓ badge. Always verify with the destination embassy before booking.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How the verifier works</h2>
+      <ol class="flow">
+        <li>
+          <strong>Query.</strong> For each passport → destination pair, we ask Claude
+          (via the <code>claude</code> CLI) to research the current tourist-visa
+          requirement using its WebSearch + WebFetch tools.
+        </li>
+        <li>
+          <strong>Constrain.</strong> The prompt explicitly limits the model to
+          official government sources and asks for a structured JSON with
+          status, day-limit, source URL, notes, and self-assessed confidence.
+        </li>
+        <li>
+          <strong>Gate.</strong> The returned source URL is matched against a
+          hard-coded allowlist of government-domain patterns. A legitimate
+          source passes (e.g. <code>mofa.go.jp</code>, <code>travel.state.gov</code>,
+          <code>canada.ca</code>). An unofficial one (blog, aggregator) is
+          downgraded to "low" confidence and the ✓ badge is withheld.
+        </li>
+        <li>
+          <strong>Persist.</strong> Each entry is written immediately to
+          <code>verified-visas.json</code> — so partial runs are safe to resume.
+        </li>
+        <li>
+          <strong>Display.</strong> On every passport and destination page, we
+          check for a verified entry first. If present, we use the verified
+          status (re-bucketing the country into the right section) and show
+          the ✓ badge + source link.
+        </li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>What we don't do</h2>
+      <ul class="dont-list">
+        <li>We don't cite travel-blog posts, airline fare-sites, or commercial visa aggregators (iVisa, PassportIndex.com, etc.) as authoritative.</li>
+        <li>We don't guess. If the model can't find an official source, the entry is marked "unknown" and hidden from the site.</li>
+        <li>We don't inflate confidence. The model's self-assessed confidence can only be downgraded by our domain gate, never upgraded.</li>
+        <li>We don't claim to cover work/student/transit rules. Everything here is tourist / short-stay only.</li>
+        <li>We don't pretend our data is live. It's a snapshot — refreshed on-demand by running the verifier.</li>
+      </ul>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Use the data</h2>
+      <ul>
+        <li><a href="/">Interactive multi-passport checker</a></li>
+        <li><a href="/strongest-passports-2026">Strongest passports ranking (all 199)</a></li>
+        <li><a href="/indian-passport">Indian passport guide</a></li>
+        <li><a href="/us-green-card-holders">US Green Card benefits</a></li>
+        <li><a href="https://github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier" target="_blank" rel="noopener">Verifier source code ↗</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .meth-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+    .mp-header { margin-bottom: 2rem; }
+    .mp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .mp-header h1 {
+      font-size: clamp(1.65rem, 3.2vw, 2.2rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.1; margin-bottom: .6rem;
+    }
+    .mp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .mp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 110px;
+    }
+    .kpi strong { font-size: 1.3rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .66rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+
+    section h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p { font-size: .93rem; line-height: 1.6; max-width: 70ch; margin-bottom: .6rem; }
+    section code { font-family: 'SF Mono', Menlo, ui-monospace, monospace; font-size: .82rem; background: #f1f5f9; padding: 1px 5px; border-radius: 4px; color: #334155; }
+
+    .tier-grid { display: grid; gap: .75rem; margin: 1rem 0 1.5rem; }
+    .tier {
+      padding: 1.1rem 1.25rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .tier-1 { border-left: 4px solid #16a34a; }
+    .tier-2 { border-left: 4px solid var(--primary); }
+    .tier-3 { border-left: 4px solid #94a3b8; }
+    .tier-num { font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+    .tier h3 { font-size: 1rem; font-weight: 700; margin: .3rem 0 .25rem; letter-spacing: -.01em; }
+    .tier-meta { font-family: 'SF Mono', Menlo, monospace; font-size: .75rem; color: var(--muted); margin-bottom: .5rem; }
+    .tier p { font-size: .9rem; line-height: 1.55; }
+    .tier-trust { margin-top: .6rem; font-size: .85rem; color: var(--muted); }
+    .badge { display: inline-block; font-size: .68rem; font-weight: 700; padding: .1rem .55rem; border-radius: 4px; margin-right: .4rem; text-transform: uppercase; letter-spacing: .05em; }
+    .badge-high { background: #dcfce7; color: #166534; }
+    .badge-medium { background: rgba(124,58,237,.1); color: var(--primary); }
+    .badge-low { background: #f1f5f9; color: #475569; }
+    .ui-check { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; background: #16a34a; color: #fff; border-radius: 50%; font-size: .58rem; font-weight: 700; }
+
+    .flow { padding-left: 1.25rem; }
+    .flow li { margin-bottom: .65rem; font-size: .93rem; line-height: 1.55; }
+
+    .dont-list { padding-left: 1.25rem; }
+    .dont-list li { margin-bottom: .4rem; font-size: .92rem; line-height: 1.5; }
+
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>
