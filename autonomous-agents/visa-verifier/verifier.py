@@ -59,6 +59,8 @@ TRUSTED_PATTERNS = [
     r"gvcworld\.eu",            # Greek Visa Centre — official contractor
     r"u\.ae($|/)",              # UAE official government portal
     r"travel\.gc\.ca",          # Canada official travel advisories
+    r"vistoperitalia\.it",      # Italy official visa portal (MAE)
+    r"myswitzerland\.com",      # Switzerland Tourism — official marketing org
     # EU
     r"europa\.eu($|/)",         # EU official
     r"ec\.europa\.eu",
