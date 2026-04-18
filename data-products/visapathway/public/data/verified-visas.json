@@ -445,6 +445,28 @@
       }
     },
     "Germany": {
+      "Australia": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Australia",
+        "model": "claude-code:haiku",
+        "notes": "German passport holders require an eVisitor (Subclass 651) for tourism; allows 90-day stays, valid 12 months with multiple entries.",
+        "passport": "Germany",
+        "source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/evisitor-651",
+        "status": "eta",
+        "verified_at": "2026-04-18"
+      },
+      "Canada": {
+        "confidence": "high",
+        "days": 180,
+        "destination": "Canada",
+        "model": "claude-code:haiku",
+        "notes": "German citizens require an eTA (electronic travel authorization) to enter Canada by air; normally permits stays up to 6 months.",
+        "passport": "Germany",
+        "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html",
+        "status": "eta",
+        "verified_at": "2026-04-18"
+      },
       "France": {
         "confidence": "high",
         "days": 90,
@@ -467,6 +489,28 @@
         "status": "vf",
         "verified_at": "2026-04-18"
       },
+      "Greece": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Greece",
+        "model": "claude-code:haiku",
+        "notes": "German citizens can travel visa-free to Greece as EU/Schengen nationals with no visa requirement.",
+        "passport": "Germany",
+        "source": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Indonesia": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Indonesia",
+        "model": "claude-code:haiku",
+        "notes": "E-Visa on Arrival (eVOA) valid for single-entry, 30-day stay; apply online or at airport.",
+        "passport": "Germany",
+        "source": "https://evisa.imigrasi.go.id/front/info/evoa",
+        "status": "voa",
+        "verified_at": "2026-04-18"
+      },
       "Italy": {
         "confidence": "low",
         "days": null,
@@ -478,6 +522,72 @@
         "status": "vf",
         "verified_at": "2026-04-18"
       },
+      "Japan": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Japan",
+        "model": "claude-code:haiku",
+        "notes": "German passport holders can enter Japan visa-free for tourism and short-term stays up to 90 days without prior visa application.",
+        "passport": "Germany",
+        "source": "https://www.de.emb-japan.go.jp/itpr_de/konsular_Visa_EN.html",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Malaysia": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Malaysia",
+        "model": "claude-code:haiku",
+        "notes": "German citizens do not require a visa to enter Malaysia as tourists and can stay visa-free for up to 90 days.",
+        "passport": "Germany",
+        "source": "https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Mexico": {
+        "confidence": "high",
+        "days": 180,
+        "destination": "Mexico",
+        "model": "claude-code:haiku",
+        "notes": "German citizens do not require a visa for tourism; enter visa-free with a valid passport and tourist card (FMM).",
+        "passport": "Germany",
+        "source": "https://embamex.sre.gob.mx/alemania/index.php/de/konsularabteilung/visum/51-alemania/752-regular-requirements-for-non-mexican-persons-entering-mexico",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Netherlands": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Netherlands",
+        "model": "claude-code:haiku",
+        "notes": "German passport holders have visa-free access to the Netherlands as both countries are Schengen Area members; standard 90-day short-stay limit applies.",
+        "passport": "Germany",
+        "source": "https://www.eeas.europa.eu/sites/default/files/frequently_asked_questions_en.pdf",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Singapore": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Singapore",
+        "model": "claude-code:haiku",
+        "notes": "German nationals are not on Singapore's visa-required list and may enter visa-free; social visit pass typically granted for up to 90 days.",
+        "passport": "Germany",
+        "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "South Korea": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "South Korea",
+        "model": "claude-code:haiku",
+        "notes": "German citizens eligible for visa-free entry; K-ETA optional and exempted through December 31, 2026.",
+        "passport": "Germany",
+        "source": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140769",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
       "Spain": {
         "confidence": "high",
         "days": 90,
@@ -486,6 +596,50 @@
         "notes": "EU citizens (German passport holders) may enter Spain visa-free with valid passport or national ID card valid for 3+ months; 90-day maximum stay in Schengen area.",
         "passport": "Germany",
         "source": "https://www.exteriores.gob.es/Consulados/washington/en/ServiciosConsulares/Paginas/Consular/Condiciones-de-entrada-en-Espana.aspx",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Switzerland": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Switzerland",
+        "model": "claude-code:haiku",
+        "notes": "German (EU) citizens do not require a visa; visa-free entry for up to 90 days within any 180-day period.",
+        "passport": "Germany",
+        "source": "https://www.sem.admin.ch/sem/en/home/overview-einreise.html",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Thailand": {
+        "confidence": "high",
+        "days": 60,
+        "destination": "Thailand",
+        "model": "claude-code:haiku",
+        "notes": "German passport holders can enter Thailand visa-free for up to 60 days for tourism and business purposes.",
+        "passport": "Germany",
+        "source": "https://berlin.thaiembassy.org/de/page/allgemeine-informationen?menu=624afc370442b4457e30b123",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "Turkey": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Turkey",
+        "model": "claude-code:haiku",
+        "notes": "German citizens exempt from visa for tourism; maximum 90 days within any 180-day period.",
+        "passport": "Germany",
+        "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
+        "status": "vf",
+        "verified_at": "2026-04-18"
+      },
+      "United Arab Emirates": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "United Arab Emirates",
+        "model": "claude-code:haiku",
+        "notes": "German citizens may enter the UAE visa-free for up to 90 days within any 180-day period with a valid passport (6+ months validity).",
+        "passport": "Germany",
+        "source": "https://www.mofa.gov.ae/en/visa-exemptions-for-non-citizen",
         "status": "vf",
         "verified_at": "2026-04-18"
       },
@@ -668,7 +822,7 @@
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
-        "confidence": "low",
+        "confidence": "medium",
         "days": 90,
         "destination": "Switzerland",
         "model": "claude-code:haiku",
@@ -802,7 +956,7 @@
         "verified_at": "2026-04-18"
       },
       "Italy": {
-        "confidence": "low",
+        "confidence": "medium",
         "days": 90,
         "destination": "Italy",
         "model": "claude-code:haiku",
@@ -1624,10 +1778,10 @@
     }
   },
   "meta": {
-    "added_this_run": 46,
+    "added_this_run": 60,
     "generator": "autonomous-agents/visa-verifier v0.1",
-    "last_run": "2026-04-18T16:14:03+00:00",
+    "last_run": "2026-04-18T16:26:38+00:00",
     "model_default": "haiku",
-    "total_entries": 146
+    "total_entries": 160
   }
 }
