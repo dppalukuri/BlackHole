@@ -1,12 +1,13 @@
 {{ define "main" }}
-<div style="text-align: center; padding: 3rem 0 1.5rem;">
-  <h1 style="font-size: 2.5rem;">Honest Tool Comparisons</h1>
-  <p class="subtitle">Side-by-side pricing, features, and verdicts. No sponsored rankings.</p>
-</div>
+<section class="home-hero">
+  <div class="eyebrow">SaaS &amp; AI tool comparisons</div>
+  <h1>Honest comparisons, <em>no sponsored rankings.</em></h1>
+  <p class="hero-sub">Side-by-side pricing, features, and verdicts for VPN, web hosting, email marketing, and more — based on public pricing and our own testing.</p>
+</section>
 
-<h2>Latest Comparisons</h2>
+<h2>Latest comparisons</h2>
 <div class="cards-grid">
-  {{ range first 6 (where .Site.RegularPages "Section" "compare") }}
+  {{ range first 9 (where .Site.RegularPages "Section" "compare") }}
   <a href="{{ .Permalink }}" class="card">
     <span class="tag">{{ .Params.category }}</span>
     <h3>{{ .Title }}</h3>
@@ -17,7 +18,7 @@
 </div>
 
 {{ with (where .Site.RegularPages "Section" "review") }}
-<h2>Tool Reviews</h2>
+<h2>Tool reviews</h2>
 <div class="cards-grid">
   {{ range first 6 . }}
   <a href="{{ .Permalink }}" class="card">
@@ -28,4 +29,25 @@
   {{ end }}
 </div>
 {{ end }}
+
+<style>
+  .home-hero { padding: 1.25rem 0 .75rem; }
+  .home-hero .eyebrow {
+    display: inline-block; font-size: .7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: #0ea5e9; background: rgba(14,165,233,0.1);
+    padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+  }
+  .home-hero h1 {
+    font-size: clamp(1.55rem, 3vw, 2rem);
+    font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
+    margin-bottom: .35rem;
+  }
+  .home-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .home-hero .hero-sub { font-size: .92rem; color: #6b7280; max-width: 58ch; margin: 0; }
+</style>
 {{ end }}

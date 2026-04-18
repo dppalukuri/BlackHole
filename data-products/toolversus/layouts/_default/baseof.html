@@ -3,48 +3,161 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ .Title }} | ToolVersus</title>
-  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+  <meta name="theme-color" content="#ffffff" />
+
+  {{- $desc := "" -}}
+  {{- with .Description -}}{{- $desc = . -}}{{- else -}}{{- $desc = .Site.Params.description -}}{{- end -}}
+  {{- $title := .Title -}}
+  {{- $fullTitle := printf "%s | ToolVersus" $title -}}
+  {{- if .IsHome -}}{{- $fullTitle = "ToolVersus — Honest SaaS & AI Tool Comparisons | TechTools365" -}}{{- end -}}
+
+  <title>{{ $fullTitle }}</title>
+  <meta name="description" content="{{ $desc }}" />
+  {{ with .Params.keywords }}<meta name="keywords" content="{{ . }}" />{{ end }}
+  <meta name="author" content="TechTools365" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="google-adsense-account" content="ca-pub-9446467058878539" />
   <link rel="canonical" href="{{ .Permalink }}" />
-  <meta property="og:title" content="{{ .Title }}" />
-  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="{{ if or .IsPage (eq .Section `review`) }}article{{ else }}website{{ end }}" />
+  <meta property="og:site_name" content="ToolVersus — TechTools365" />
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $desc }}" />
   <meta property="og:url" content="{{ .Permalink }}" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="ToolVersus" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ $title }}" />
+  <meta name="twitter:description" content="{{ $desc }}" />
+
   <!-- Ad scripts — synced from shared/ads.html. DO NOT edit inline. -->
   {{ partial "ad-scripts.html" . }}
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230ea5e9'/><text x='16' y='22' font-family='Arial' font-size='14' font-weight='bold' fill='white' text-anchor='middle'>VS</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236366f1'/><text x='16' y='22' font-family='Arial' font-size='16' font-weight='bold' fill='white' text-anchor='middle'>T</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
+
+  {{- /* Structured data */ -}}
+  {{ if .IsHome }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{ .Site.BaseURL }}#website",
+        "url": "{{ .Site.BaseURL }}",
+        "name": "ToolVersus",
+        "description": "{{ .Site.Params.description }}",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://techtools365.com/#org" }
+      }
+    ]
+  }
+  </script>
+  {{ end }}
+  {{ if eq .Section "compare" }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ .Title }}",
+    "description": "{{ $desc }}",
+    "author": { "@type": "Organization", "name": "TechTools365" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "TechTools365",
+      "logo": { "@type": "ImageObject", "url": "https://techtools365.com/logo.png" }
+    },
+    "datePublished": "{{ .Date.Format `2006-01-02` }}",
+    "dateModified": "{{ .Lastmod.Format `2006-01-02` }}",
+    "mainEntityOfPage": "{{ .Permalink }}"
+  }
+  </script>
+  {{ end }}
+
   {{ block "head" . }}{{ end }}
 </head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <div style="display:flex;align-items:center;gap:0.75rem;">
-        <a href="https://techtools365.com" target="_blank" style="background:#0ea5e9;color:white;font-size:0.6rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:3px;text-decoration:none;letter-spacing:0.02em;">TT365</a>
-        <a href="/" class="site-logo">Tool<span>Versus</span></a>
-      </div>
-      <nav class="site-nav">
-        <a href="/compare/">Comparisons</a>
-        <a href="/review/">Reviews</a>
-        <a href="https://techtools365.com" target="_blank" style="color:#0ea5e9;font-weight:600;">All Tools</a>
+    <div class="header-inner">
+      <a href="https://techtools365.com/" target="_blank" rel="noopener" class="brand" aria-label="TechTools365 — home">
+        <span class="brand-mark">T</span>
+        <span class="brand-text">Tech<span class="brand-accent">Tools</span>365</span>
+      </a>
+      <nav class="hub-nav" aria-label="TechTools365 sites">
+        <a href="https://calcstack.techtools365.com/" target="_blank" rel="noopener" class="hub-link">CalcStack</a>
+        <a href="/" class="hub-link is-active" aria-current="page">ToolVersus</a>
+        <a href="https://visapathway.techtools365.com/" target="_blank" rel="noopener" class="hub-link">VisaPathway</a>
+        <a href="https://techtools365.com/" target="_blank" rel="noopener" class="hub-link home-link">Home <span class="ext">↗</span></a>
       </nav>
     </div>
+    <nav class="sub-nav" aria-label="ToolVersus sections">
+      <div class="sub-nav-inner">
+        <a href="/" class="sub-link{{ if .IsHome }} is-active{{ end }}">All</a>
+        <a href="/compare/" class="sub-link{{ if eq .Section `compare` }} is-active{{ end }}">Comparisons</a>
+        <a href="/review/" class="sub-link{{ if eq .Section `review` }} is-active{{ end }}">Reviews</a>
+        <a href="/categories/" class="sub-link{{ if eq .Section `categories` }} is-active{{ end }}">Categories</a>
+      </div>
+    </nav>
   </header>
 
-  <main class="container">
-    {{ block "main" . }}{{ end }}
-  </main>
+  <div class="frame">
+    <aside class="rail rail-left" aria-label="Advertisement">
+      <div class="rail-inner">
+        <div class="rail-label">Ad</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9446467058878539" data-ad-slot="REPLACE_LEFT_RAIL_SLOT_ID" data-ad-format="vertical" data-full-width-responsive="false"></ins>
+      </div>
+    </aside>
+
+    <main class="main">
+      {{ block "main" . }}{{ end }}
+      <aside class="ad-inline" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9446467058878539" data-ad-slot="REPLACE_INLINE_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </aside>
+    </main>
+
+    <aside class="rail rail-right" aria-label="Advertisement">
+      <div class="rail-inner">
+        <div class="rail-label">Ad</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9446467058878539" data-ad-slot="REPLACE_RIGHT_RAIL_SLOT_ID" data-ad-format="vertical" data-full-width-responsive="false"></ins>
+      </div>
+    </aside>
+  </div>
 
   <footer class="site-footer">
-    <div class="container">
-      <p>&copy; {{ now.Year }} ToolVersus by TechTools365. Honest comparisons, no BS.</p>
-      <p class="disclosure">We may earn affiliate commissions when you purchase through our links. This doesn't affect our editorial independence.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="https://techtools365.com/" target="_blank" rel="noopener" class="brand">
+          <span class="brand-mark">T</span>
+          <span class="brand-text">Tech<span class="brand-accent">Tools</span>365</span>
+        </a>
+        <p class="footer-tag">Honest comparisons. No sponsored rankings.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/compare/">Comparisons</a>
+        <a href="/review/">Reviews</a>
+        <a href="https://techtools365.com/" target="_blank" rel="noopener">All tools ↗</a>
+        <a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <p class="footer-fine">&copy; {{ now.Year }} ToolVersus by TechTools365. We may earn affiliate commissions when you purchase through our links. This does not affect our editorial independence — our rankings are based on publicly available pricing, features, and our testing.</p>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var ads = document.querySelectorAll('ins.adsbygoogle');
+      for (var i = 0; i < ads.length; i++) {
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+      }
+    })();
+  </script>
 </body>
 </html>
