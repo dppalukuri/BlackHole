@@ -129,7 +129,11 @@ export default function VisaChecker() {
         const data = permits[permit];
         if (data?.exemptions?.[destination]) {
           const ex = data.exemptions[destination];
-          results.push({ document: permit, requirement: ex.access, info: statusInfo(ex.days || ex.access), source: ex.source, note: ex.note });
+          // Use ex.days as the lookup key ONLY when access is actually visa-free.
+          // For voa / ev / eta / vr, ex.access is authoritative — ex.days is just
+          // the max-stay and must not be mistaken for "visa-free for N days".
+          const key = ex.access === 'vf' && typeof ex.days === 'number' ? ex.days : ex.access;
+          results.push({ document: permit, requirement: ex.access, info: statusInfo(key), source: ex.source, note: ex.note });
         }
       }
     }
