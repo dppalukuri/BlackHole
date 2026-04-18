@@ -37,6 +37,27 @@ python agent.py --ttl-days 7                   # re-verify anything older than a
 python agent.py --parallel 4 --sync            # 4 workers in parallel (~4x faster)
 ```
 
+## Second-opinion validation (Sonnet over Haiku)
+
+Haiku does the bulk verification (fast, cheap). For quality polish, run a
+second pass with Sonnet and flag disagreements:
+
+```bash
+python validate.py --parallel 4 --sync              # full sonnet re-check
+python validate.py --only-passport India            # subset
+python validate.py --model opus --limit 20          # paranoid-mode for top entries
+python validate.py --dry-run                        # preview, no API calls
+```
+
+Each entry gets inline validation metadata (`validated_by`, `validated_at`,
+`validation_result` ∈ `agree|differ-status|differ-days|error`). Disagreements
+are also aggregated into `output/validation-issues.json` for quick review.
+
+When Haiku re-verifies an entry (e.g. on the next scheduled run), it replaces
+the entry — which automatically clears stale validation metadata. Validation
+TTL defaults to 30 days, so you won't re-spend tokens on entries already
+checked recently.
+
 ## Parallel runs
 
 Each `claude -p` call is an independent subprocess, so `--parallel N` spawns

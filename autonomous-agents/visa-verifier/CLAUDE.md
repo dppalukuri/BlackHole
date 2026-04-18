@@ -15,11 +15,13 @@ Cost: Claude Max subscription covers it. Per query roughly ~2 web_search calls +
 ## Architecture
 
 ```
-config.json              — passports × destinations to verify (edit to expand scope)
-verifier.py              — one-pair `claude -p` subprocess call + JSON parsing + domain trust
-reclassify.py            — re-apply domain-trust gate against existing file (no API calls)
-agent.py                 — iterator: plans pending pairs, persists incrementally
-output/verified-visas.json  — the dataset (committed; sync --sync copies to site)
+config.json                      — passports × destinations to verify (edit to expand scope)
+verifier.py                      — one-pair `claude -p` subprocess call + JSON parsing + domain trust
+reclassify.py                    — re-apply domain-trust gate against existing file (no API calls)
+agent.py                         — iterator: plans pending pairs, persists incrementally (Haiku bulk pass)
+validate.py                      — second-opinion pass with Sonnet, flags disagreements
+output/verified-visas.json       — the dataset (committed; sync --sync copies to site)
+output/validation-issues.json    — disagreement report (written by validate.py)
 ```
 
 ## Confidence gating
@@ -66,7 +68,21 @@ python agent.py --dry-run
 
 # re-apply confidence gating to existing file (after updating TRUSTED_PATTERNS)
 python reclassify.py
+
+# second-opinion pass — validate Haiku's work with Sonnet
+python validate.py --parallel 4 --sync      # re-check every entry
+python validate.py --limit 20                # quick sanity check
+python validate.py --only-passport India     # subset
 ```
+
+## Two-model workflow (recommended)
+
+1. **Haiku (fast bulk)** — `python agent.py --parallel 4 --sync` covers the passports × destinations in `config.json`. Writes to `output/verified-visas.json`.
+2. **Sonnet (validation)** — `python validate.py --parallel 4 --sync` re-checks each entry with Sonnet and annotates it with `validation_result: agree | differ-status | differ-days`. Disagreements land in `output/validation-issues.json` for review.
+3. **Manual review of disagreements** — open `validation-issues.json`, look at the 5-20% of entries where models disagreed, pick the correct answer, and either (a) update `config.json` and re-run just those pairs, or (b) hand-edit `verified-visas.json` and bump `last_verified`.
+
+Validation metadata is automatically cleared when Haiku re-verifies an entry
+(on the next scheduled run). Validation TTL defaults to 30 days.
 
 ## Output schema
 

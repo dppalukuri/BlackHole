@@ -852,6 +852,10 @@
         "passport": "India",
         "source": "https://newdelhi-emb.mfa.gov.tr/Mission/ShowAnnouncement/361514",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: ev (30d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -1781,6 +1785,8 @@
     "added_this_run": 60,
     "generator": "autonomous-agents/visa-verifier v0.1",
     "last_run": "2026-04-18T16:26:38+00:00",
+    "last_validation": "2026-04-18T17:29:05+00:00",
+    "last_validation_model": "sonnet",
     "model_default": "haiku",
     "total_entries": 160
   }
