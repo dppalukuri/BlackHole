@@ -52,6 +52,9 @@ python agent.py --only-destination Japan
 # cheap smoke test
 python agent.py --limit 5
 
+# parallel workers (4x faster on big batches)
+python agent.py --parallel 4 --sync
+
 # with site sync (copies output into the Astro public/data dir)
 python agent.py --sync
 

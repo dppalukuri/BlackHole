@@ -34,7 +34,21 @@ python agent.py --only-destination Japan       # one destination, all passports
 python agent.py --limit 5                      # cheap smoke test
 python agent.py --watch 21600 --sync           # run every 6 hours
 python agent.py --ttl-days 7                   # re-verify anything older than a week
+python agent.py --parallel 4 --sync            # 4 workers in parallel (~4x faster)
 ```
+
+## Parallel runs
+
+Each `claude -p` call is an independent subprocess, so `--parallel N` spawns
+N workers concurrently. The main thread serializes all writes to
+`output/verified-visas.json`, so there's no race.
+
+- `--parallel 1` (default) — sequential, ~85s per pair
+- `--parallel 3` — conservative; ~30s per pair effective
+- `--parallel 4–6` — aggressive; watch for rate-limit retries in the output
+
+Subscription usage is bursty with N>3 — if you see many `rate-limited; sleeping 30s`
+lines, back off. The agent auto-retries rate-limited calls once after 30s.
 
 ## How to expand scope
 

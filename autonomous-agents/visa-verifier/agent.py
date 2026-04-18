@@ -23,9 +23,10 @@ import os
 import shutil
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Tuple
 
 # Make print() work on Windows cp1252 consoles with Unicode (arrows, symbols)
 try:
@@ -144,42 +145,97 @@ def run_once(args) -> int:
             sync_to_site(output_path, ROOT / cfg["site_sync_path"])
         return 0
 
-    added = 0
-    for idx, (p, d) in enumerate(pending, start=1):
-        try:
-            entry = verify_pair(p, d, model=model)
-        except ClaudeCLIError as e:
-            msg = str(e)
-            if "rate" in msg.lower() or "429" in msg:
-                print(f"  [{idx}/{len(pending)}] {p} → {d}: rate-limited; sleeping 30s and retrying")
-                time.sleep(30)
-                try:
-                    entry = verify_pair(p, d, model=model)
-                except Exception as e2:
-                    print(f"  [{idx}/{len(pending)}] {p} → {d}: RETRY-FAILED {e2!s}")
-                    continue
-            else:
-                print(f"  [{idx}/{len(pending)}] {p} → {d}: CLI ERROR {msg}")
-                continue
-        except Exception as e:
-            print(f"  [{idx}/{len(pending)}] {p} → {d}: ERROR {e!s}")
-            continue
-
-        merge_entry(existing, entry)
-        added += 1
-        label = entry.status.upper()
-        suffix = "" if entry.confidence == "unknown" else f"  src={entry.source or '-'}"
-        print(f"  [{idx}/{len(pending)}] {p} → {d}: {label} (conf={entry.confidence}){suffix}")
-
-        # Persist incrementally so an interrupted run isn't lost
-        total = sum(len(v) for v in existing.get("data", {}).values())
-        update_meta(existing, total, added, model)
-        save(output_path, existing)
+    parallel = max(1, int(getattr(args, "parallel", 1) or 1))
+    added = verify_batch(existing, pending, model, output_path, parallel)
 
     print(f"[done] wrote {added} entries → {output_path}")
     if args.sync:
         sync_to_site(output_path, ROOT / cfg["site_sync_path"])
     return 0
+
+
+def _verify_with_retry(p: str, d: str, model: str) -> Tuple[str, str, object]:
+    """Worker-safe wrapper. Returns (passport, destination, VerifiedEntry|Exception).
+
+    One auto-retry after 30s on rate-limit errors. Any other exception is
+    returned as-is so the main thread can log and continue.
+    """
+    try:
+        return p, d, verify_pair(p, d, model=model)
+    except ClaudeCLIError as e:
+        msg = str(e)
+        if "rate" in msg.lower() or "429" in msg:
+            time.sleep(30)
+            try:
+                return p, d, verify_pair(p, d, model=model)
+            except Exception as e2:
+                return p, d, e2
+        return p, d, e
+    except Exception as e:
+        return p, d, e
+
+
+def verify_batch(
+    existing: dict,
+    pending: list[tuple[str, str]],
+    model: str,
+    output_path: Path,
+    parallel: int,
+) -> int:
+    """Run the pending list — sequentially when parallel==1, else ThreadPoolExecutor.
+
+    The output JSON is only mutated by the main thread (as futures complete),
+    so there's no write race even with many workers.
+    """
+    added = 0
+    total_pairs = len(pending)
+
+    if parallel <= 1:
+        # Sequential path — keeps the old behavior exactly
+        for idx, (p, d) in enumerate(pending, start=1):
+            _, _, result = _verify_with_retry(p, d, model)
+            added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
+        return added
+
+    # Parallel path — N workers share the pool, main thread merges serially
+    print(f"[parallel] running {parallel} workers")
+    with ThreadPoolExecutor(max_workers=parallel) as pool:
+        futures = {pool.submit(_verify_with_retry, p, d, model): (p, d) for (p, d) in pending}
+        for idx, fut in enumerate(as_completed(futures), start=1):
+            try:
+                p, d, result = fut.result()
+            except Exception as e:
+                # Should never happen — _verify_with_retry catches — but defence in depth
+                p, d = futures[fut]
+                result = e
+            added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
+    return added
+
+
+def _handle_result(
+    existing: dict,
+    output_path: Path,
+    model: str,
+    idx: int,
+    total_pairs: int,
+    p: str,
+    d: str,
+    result: object,
+    added_so_far: int,
+) -> int:
+    """Log + persist one completed verification. Returns 1 if persisted, else 0."""
+    if isinstance(result, Exception):
+        print(f"  [{idx}/{total_pairs}] {p} → {d}: ERROR {result!s}")
+        return 0
+    entry = result
+    merge_entry(existing, entry)
+    label = entry.status.upper()
+    suffix = "" if entry.confidence == "unknown" else f"  src={entry.source or '-'}"
+    print(f"  [{idx}/{total_pairs}] {p} → {d}: {label} (conf={entry.confidence}){suffix}")
+    total = sum(len(v) for v in existing.get("data", {}).values())
+    update_meta(existing, total, added_so_far + 1, model)
+    save(output_path, existing)
+    return 1
 
 
 def main() -> int:
@@ -189,6 +245,7 @@ def main() -> int:
     ap.add_argument("--only-passport", help="Verify only this passport (e.g., 'India')")
     ap.add_argument("--only-destination", help="Verify only this destination (e.g., 'Japan')")
     ap.add_argument("--limit", type=int, help="Cap pairs per run (useful for test/budget)")
+    ap.add_argument("--parallel", type=int, default=1, metavar="N", help="Run N claude subprocesses in parallel (default 1 = sequential). Try 3–6 for big batches; higher values risk subscription rate limits.")
     ap.add_argument("--output", help="Override output file path")
     ap.add_argument("--sync", action="store_true", help="After run, copy output into the Astro public/data dir")
     ap.add_argument("--dry-run", action="store_true", help="List pending pairs without calling the API")
