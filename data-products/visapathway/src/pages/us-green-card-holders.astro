@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VisaCountryGrid from '../components/VisaCountryGrid.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { residencePermits, type VisaStatus } from '../lib/visa-data';
+
+const gc = residencePermits['US Green Card (Permanent Resident)'];
+const gcEntries = Object.entries(gc.exemptions).map(([country, info]) => ({
+  country,
+  status: info.access as VisaStatus,
+  days: info.days,
+  note: info.note,
+  source: info.source,
+  verified: true, // residence-permit entries are hand-sourced
+}));
+
+const faq = [
+  {
+    q: 'What countries can US Green Card holders visit visa-free?',
+    a: `US lawful permanent residents (Green Card holders) can enter several countries visa-free or with visa on arrival, regardless of their original passport. Top destinations include ${gcEntries.slice(0, 4).map((e) => e.country).join(', ')}. The full, sourced list is below.`,
+  },
+  {
+    q: 'Do I need my US passport too, or just the Green Card?',
+    a: 'Green Card travel exemptions apply to your <strong>original passport</strong> — you do not need a US passport. Carry your valid home-country passport plus your Green Card (I-551). Some countries additionally want your recent US I-94 or a specific visa stamp.',
+  },
+  {
+    q: 'Does a conditional Green Card (2-year) count?',
+    a: 'Yes, a conditional Green Card (CR1/CR2, IR1 for new spouses) is treated the same as a 10-year Permanent Resident Card for travel exemption purposes in most countries. Always verify with the destination embassy.',
+  },
+  {
+    q: 'Is this the same as a valid US tourist visa (B1/B2)?',
+    a: 'Similar but not identical. Several countries extend exemptions to holders of valid B1/B2 US visas, but the list is usually narrower than for Green Card holders. See our <a href="/valid-us-visa-benefits">Valid US Visa guide</a> for the visa-holder list.',
+  },
+  {
+    q: 'What about Mexico, Canada, and the Caribbean?',
+    a: 'Green Card holders can enter <strong>Mexico visa-free</strong> for up to 180 days. <strong>Canada</strong> requires only a valid eTA (electronic travel authorization — quick online process). Most <strong>Caribbean nations</strong> also exempt Green Card holders — see individual entries below.',
+  },
+  {
+    q: 'Will this list change if I naturalize to US citizenship?',
+    a: 'Yes — once you hold a US passport, the US passport\'s own visa-free list applies (roughly 180+ countries). Green Card-specific exemptions become irrelevant at that point.',
+  },
+  {
+    q: 'How current is this list?',
+    a: `All exemptions verified from official government sources, last updated <strong>${gc.last_verified}</strong>. Visa rules change without notice — always confirm at the destination embassy before booking travel.`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'US Green Card Holders: Visa-Free Countries & Travel Benefits',
+  description: 'Complete list of countries a US Green Card holder can enter visa-free or with visa-on-arrival, regardless of original passport. Sourced, day-limits, and requirements.',
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: 'https://visapathway.techtools365.com/us-green-card-holders',
+};
+---
+
+<BaseLayout
+  title="US Green Card Holders: Visa-Free Countries 2026 | VisaPathway"
+  description="Complete list of countries a US Green Card holder can enter visa-free or with visa on arrival. Official sources, day-limits, and travel requirements for permanent residents."
+  keywords="us green card visa free countries, green card holder travel, permanent resident visa free, I-551 travel benefits, green card mexico canada travel, us lpr visa exemptions"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="passport-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/">Visa Checker</a> <span>›</span>
+      <span>US Green Card Holders</span>
+    </nav>
+
+    <header class="pp-header">
+      <div class="eyebrow">Residence-permit guide</div>
+      <h1>US Green Card holders: <em>extra visa-free countries</em></h1>
+      <p class="lede">
+        A US Permanent Resident Card (Green Card, I-551) unlocks visa-free or
+        visa-on-arrival access to countries your home passport alone cannot reach.
+        Here's the complete, sourced list — verified {gc.last_verified}.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{gcEntries.length}</strong><span>destinations unlocked</span></div>
+        <div class="kpi"><strong>Official</strong><span>gov-sourced entries</span></div>
+        <div class="kpi"><strong>2026</strong><span>last verified</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Countries unlocked by your US Green Card</h2>
+      <p>
+        These destinations grant easier entry specifically because you hold US
+        permanent resident status. Carry both your home-country passport and your
+        Green Card (I-551) when you travel.
+      </p>
+      <VisaCountryGrid entries={gcEntries} />
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>How to travel confidently as a Green Card holder</h2>
+      <ol>
+        <li><strong>Carry both documents:</strong> Your valid home-country passport <em>and</em> your Green Card. Some immigration officers also ask for your most recent I-94 or US entry stamp.</li>
+        <li><strong>Check passport validity:</strong> Most destinations still require 6+ months passport validity beyond your entry date — the Green Card alone isn't enough.</li>
+        <li><strong>Use the right port of re-entry:</strong> If you're gone more than 6 months, prepare for secondary inspection on return. Trips longer than 12 months require a re-entry permit (Form I-131).</li>
+        <li><strong>Verify before booking:</strong> Click the "Official source" link next to each country to confirm current rules — exemptions change without notice.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>What about a valid US visa (B1/B2) — do I get the same benefits?</h2>
+      <p>
+        Similar, but not identical. Several countries extend exemptions to holders of
+        <strong>valid US visas</strong> (typically B1/B2 tourist/business visas), but
+        the list is usually shorter and day-limits stricter than for Green Card holders.
+        See our <a href="/valid-us-visa-benefits">Valid US visa guide</a> for the complete
+        visa-holder list.
+      </p>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/valid-us-visa-benefits">Valid US visa (B1/B2) — visa-free countries</a></li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit — travel privileges</a></li>
+        <li><a href="/indian-passport-uae-resident">Indian passport + UAE residence</a></li>
+        <li><a href="/">Try the interactive multi-passport checker</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .passport-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+    .pp-header { margin-bottom: 2rem; }
+    .pp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .pp-header h1 {
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.12; margin-bottom: .6rem;
+    }
+    .pp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .pp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1.5rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .65rem .95rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 110px;
+    }
+    .kpi strong { font-size: 1.2rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    section h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p, section ol li { font-size: .93rem; line-height: 1.6; }
+    section ol { padding-left: 1.25rem; margin: .5rem 0 1.25rem; }
+    section ol li { margin-bottom: .5rem; }
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>

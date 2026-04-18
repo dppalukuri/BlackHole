@@ -1,67 +1,347 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import VisaChecker from '../components/VisaChecker';
+import FAQBlock from '../components/FAQBlock.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import { priorityPassports } from '../data/priority-passports';
+import { priorityPermits } from '../data/priority-permits';
+import { priorityDestinations } from '../data/priority-destinations';
+import { summarizePassport } from '../lib/visa-data';
+
+/** Top 9 passports by priority, with live counts for the card display. */
+const topPassports = priorityPassports
+  .slice()
+  .sort((a, b) => b.priority - a.priority)
+  .slice(0, 9)
+  .map((p) => {
+    const s = summarizePassport(p.passport);
+    return { ...p, total: s.visaFree.length + s.voaEta.length };
+  });
+
+const topPermits = priorityPermits.slice(0, 4);
+
+/** Top 8 destinations by search volume for the "popular destinations" grid. */
+const topDestinations = priorityDestinations
+  .slice()
+  .sort((a, b) => b.searchVolume - a.searchVolume)
+  .slice(0, 8);
+
+const faq = [
+  {
+    q: 'What is a multi-passport visa checker?',
+    a: 'A multi-passport visa checker lets you enter <strong>all your travel documents at once</strong> — multiple passports, residence permits, and long-term visas — and shows the easiest way to enter any destination country. Unlike single-passport checkers, it finds exemptions you\'d otherwise miss.',
+  },
+  {
+    q: 'How does VisaPathway decide which document to use?',
+    a: 'Our algorithm ranks your documents by access strength per destination: visa-free > visa-on-arrival > e-visa > visa required. We always recommend the document that gives you the easiest legal entry, and we show you every option with official sources.',
+  },
+  {
+    q: 'Which residence permits does VisaPathway support?',
+    a: 'We support seven of the most travel-useful permits: UAE Residence Permit, US Green Card, valid US B1/B2 visa, Schengen Residence Permit, valid Schengen visa, UK Biometric Residence Permit, and Canadian Permanent Resident card.',
+  },
+  {
+    q: 'Is this tool free? Do I need to sign up?',
+    a: 'Yes, 100% free. No account, no email capture, no data collection. We monetize with display ads only — your travel documents and search history are never stored or shared.',
+  },
+  {
+    q: 'How accurate is the visa information?',
+    a: 'Our data comes from two sources of different confidence levels. <strong>Residence-permit exemptions</strong> (UAE, Green Card, Schengen, UK, Canada) are hand-compiled from official government pages and linked per entry — we consider these high-confidence. The <strong>bulk passport-to-country matrix</strong> starts from the open-source <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a>, which is community-maintained. High-traffic pairs are separately re-verified against embassy/ministry pages by our verification pipeline — re-verified entries show a ✓ badge and carry an official source link. Everything else is a starting point, not a guarantee. Always confirm with the destination embassy before booking.',
+  },
+  {
+    q: 'Which passport is strongest for travel?',
+    a: 'As of 2026, Singapore, Japan, and several European passports top global rankings with visa-free access to 115–130+ countries. Our <a href="/singapore-passport">Singapore passport</a>, <a href="/japanese-passport">Japanese passport</a>, and <a href="/german-passport">German passport</a> guides show the full lists.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://visapathway.techtools365.com/#website',
+      url: 'https://visapathway.techtools365.com/',
+      name: 'VisaPathway',
+      description: 'Multi-passport visa requirement checker covering 199 countries and residence permits.',
+      inLanguage: 'en',
+      publisher: { '@id': 'https://techtools365.com/#org' },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://visapathway.techtools365.com/?passport={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'WebApplication',
+      name: 'VisaPathway Visa Checker',
+      description: 'Check visa requirements for 199 countries using multiple passports and residence permits.',
+      url: 'https://visapathway.techtools365.com/',
+      applicationCategory: 'TravelApplication',
+      operatingSystem: 'Any',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="VisaPathway — Multi-Passport Visa Checker for 199 Countries"
-  description="Check visa requirements with multiple passports and residence permits. Enter all your travel documents — we find the best way to enter any country. Covers UAE residence, US Green Card, Schengen permits."
+  title="Multi-Passport Visa Checker — 199 Countries, 7 Residence Permits | VisaPathway"
+  description="The only visa checker that handles multiple passports and residence permits at once. Find visa-free countries for your Indian, UK, US, or UAE passport — plus the bonus destinations UAE residence, US Green Card, and Schengen permits unlock."
+  keywords="multi passport visa checker, visa free countries checker, residence permit travel, UAE residence visa free, US green card visa free, dual citizenship visa, Schengen residence permit travel, visa requirements by passport, 199 countries visa check"
+  jsonLd={jsonLd}
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "VisaPathway Visa Checker",
-      "description": "Multi-passport visa requirement checker covering 199 countries and residence permits",
-      "url": "https://visapathway.techtools365.com",
-      "applicationCategory": "TravelApplication",
-      "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-  </Fragment>
-
-  <div style="text-align: center; padding: 2.5rem 0 1rem;">
-    <h1>Multi-Passport Visa Checker</h1>
-    <p class="subtitle">Hold multiple passports or a residence permit? Enter all your documents — we'll find the best way to enter any country.</p>
-  </div>
+  <section class="home-hero">
+    <div class="eyebrow">Multi-passport · Residence permits · 199 countries</div>
+    <h1>Check visa-free countries <em>for every travel document you hold.</em></h1>
+    <p class="hero-sub">
+      Unlike other visa checkers, VisaPathway handles multiple passports, residence permits,
+      and long-term visas at once. Enter every document you have — we'll show the easiest
+      legal way into any of 199 countries, with official sources.
+    </p>
+  </section>
 
   <VisaChecker client:load />
 
-  <section style="max-width: 750px; margin: 2rem auto;">
-    <h2>Why This Tool Exists</h2>
-    <p>
-      Existing visa checkers only handle one passport at a time. But millions of people hold <strong>multiple passports</strong> or <strong>residence permits</strong> that grant additional travel privileges. An Indian citizen with a UAE residence permit can enter Georgia, Serbia, Turkey, and several other countries that an Indian passport alone cannot access visa-free.
-    </p>
-    <p>
-      VisaPathway checks <strong>all your documents simultaneously</strong> and recommends the best one to use for each destination. No more checking multiple websites.
-    </p>
-
-    <h2>What We Cover</h2>
-    <ul>
-      <li><strong>199 passports</strong> — every recognized country</li>
-      <li><strong>5 residence permit types</strong> — UAE, US Green Card, Schengen, UK, Canada</li>
-      <li><strong>Visa-free, visa on arrival, e-visa, and visa required</strong> classifications</li>
-      <li><strong>Official sources linked</strong> for every residence permit exemption</li>
-    </ul>
-
-    <h2>How We Ensure Accuracy</h2>
-    <p>
-      Our passport-to-country visa matrix comes from the <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a>, an open-source project that cross-references multiple authoritative sources. Residence permit exemptions are manually compiled from <strong>official government immigration websites</strong> — every entry links to its source.
-    </p>
-    <p>
-      Despite our best efforts, visa requirements change frequently. <strong>Always verify with the relevant embassy or consulate before traveling.</strong> We display the last verification date on every data point.
-    </p>
-
-    <h2>Popular Searches</h2>
-    <div class="country-grid">
-      <a href="/indian-passport-uae-resident" class="country-card">
-        <strong>Indian Passport + UAE Residence</strong>
-        <div class="status status-vf">13 extra countries visa-free</div>
-      </a>
-      <a href="/us-green-card-holders" class="country-card">
-        <strong>US Green Card Holders</strong>
-        <div class="status status-vf">10+ extra countries visa-free</div>
+  <section class="popular-passports">
+    <div class="section-head">
+      <div>
+        <h2>Popular passport guides</h2>
+        <p class="section-sub">Each guide lists every visa-free, visa-on-arrival, and e-visa destination for the passport — updated monthly.</p>
+      </div>
+      <a href="/strongest-passports-2026" class="section-cta">See full 2026 ranking →</a>
+    </div>
+    <div class="pp-grid">
+      {topPassports.map((p) => (
+        <a href={`/${p.slug}`} class="pp-card">
+          <div class="pp-name">{p.nationality} passport</div>
+          <div class="pp-count">{p.total}<span>easy destinations</span></div>
+        </a>
+      ))}
+      <a href="#all-passports" class="pp-card pp-more">
+        <div class="pp-name">+ 16 more →</div>
+        <div class="pp-sub">See all passport guides</div>
       </a>
     </div>
   </section>
+
+  <MidContentAd />
+
+  <section class="permit-guides">
+    <h2>Residence permits that unlock extra travel</h2>
+    <p class="section-sub">
+      If your passport has limited reach, a residence permit can dramatically expand where you
+      can travel without a visa. Each permit below unlocks 5–15 extra destinations.
+    </p>
+    <div class="permit-grid">
+      {topPermits.map((p) => (
+        <a href={`/${p.slug}`} class="permit-card">
+          <div class="permit-name">{p.fullName}</div>
+          <div class="permit-blurb">{p.blurb.split('.')[0]}.</div>
+          <div class="permit-cta">See unlocked countries →</div>
+        </a>
+      ))}
+    </div>
+    <p class="permit-footnote">
+      Also available: <a href="/valid-us-visa-benefits">valid US B1/B2 visa</a>,
+      <a href="/valid-schengen-visa-benefits"> valid Schengen C-visa</a>,
+      <a href="/us-green-card-holders"> US Green Card</a>.
+    </p>
+  </section>
+
+  <section class="popular-destinations">
+    <h2>Popular destinations — who needs a visa?</h2>
+    <p class="section-sub">
+      For each destination we list every passport that can enter visa-free, with visa
+      on arrival, or with e-visa. Useful if you're planning where to go, or hosting
+      someone and checking their paperwork.
+    </p>
+    <div class="dest-grid">
+      {topDestinations.map((d) => (
+        <a href={`/visa-free-to-${d.slug}`} class="dest-card">
+          <div class="dc-name">{d.country}</div>
+          <div class="dc-blurb">{d.blurb.split('—')[0].trim()}</div>
+        </a>
+      ))}
+    </div>
+    <p class="dest-see-all">
+      <a href="#all-destinations">See all {priorityDestinations.length} destinations ↓</a>
+    </p>
+  </section>
+
+  <MidContentAd />
+
+  <section class="home-content">
+    <h2>Why VisaPathway exists</h2>
+    <p>
+      Existing visa checkers only handle one passport at a time. But millions of people hold
+      <strong>multiple passports</strong> or <strong>residence permits</strong> that grant
+      additional travel privileges.
+    </p>
+    <p>
+      An Indian citizen with a UAE residence permit can enter Georgia, Serbia, Turkey, and
+      several other countries that an Indian passport alone cannot access visa-free. A US
+      Green Card holder can travel to Mexico visa-free and to Canada with just an eTA, no
+      matter what their original passport looks like. VisaPathway finds these overlaps
+      automatically so you don't miss the easiest path.
+    </p>
+
+    <h2>What we cover</h2>
+    <ul>
+      <li><strong>199 passports</strong> — every recognized country</li>
+      <li><strong>7 residence permit types</strong> — UAE, US Green Card, Schengen, UK, Canada, valid US visa, valid Schengen visa</li>
+      <li><strong>Visa-free, visa on arrival, e-visa, and visa required</strong> classifications</li>
+      <li><strong>Official sources linked</strong> for every residence-permit exemption and every re-verified visa pair</li>
+      <li><strong>Day-limits shown</strong> where they apply (e.g. 90-day visa-free, 30-day VoA)</li>
+    </ul>
+
+    <h2>How we source this data</h2>
+    <p>
+      We're transparent about where each entry comes from — not every fact on this site carries equal weight, so we mark the ones that do.
+    </p>
+    <p>
+      <strong>Residence-permit exemptions</strong> (UAE, Green Card, Schengen, UK, Canada)
+      are compiled manually from official government sources and linked per entry.
+      These are the entries you can rely on most.
+    </p>
+    <p>
+      The <strong>bulk passport-to-country visa matrix</strong> is seeded from the
+      open-source <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> —
+      an excellent starting corpus, but community-maintained and unsourced per entry.
+      We treat it as a reasonable default, not a verified fact.
+    </p>
+    <p>
+      <strong>High-traffic pairs are separately re-verified</strong> against embassy and
+      ministry websites by an automated verification pipeline. Re-verified entries carry
+      a <span style="display:inline-flex;width:14px;height:14px;font-size:.6rem;font-weight:700;color:#fff;background:#16a34a;border-radius:50%;align-items:center;justify-content:center;vertical-align:middle;margin:0 2px;">✓</span> badge and link to their official source.
+      Anything without the badge is a community-dataset best-guess.
+    </p>
+    <p>
+      Visa rules change frequently.
+      <strong>Always verify with the destination embassy or consulate before booking travel</strong> — no online tool replaces an official check.
+    </p>
+  </section>
+
+  <FAQBlock items={faq} />
+
+  <section class="all-passports" id="all-passports">
+    <h2>All passport guides</h2>
+    <div class="pp-list">
+      {priorityPassports
+        .slice()
+        .sort((a, b) => a.nationality.localeCompare(b.nationality))
+        .map((p) => (
+          <a href={`/${p.slug}`} class="pp-list-link">{p.nationality}</a>
+        ))}
+    </div>
+  </section>
+
+  <section class="all-passports" id="all-destinations">
+    <h2>All destination guides</h2>
+    <div class="pp-list">
+      {priorityDestinations
+        .slice()
+        .sort((a, b) => a.country.localeCompare(b.country))
+        .map((d) => (
+          <a href={`/visa-free-to-${d.slug}`} class="pp-list-link">{d.country}</a>
+        ))}
+    </div>
+  </section>
+
+  <style>
+    .home-hero { padding: 1.25rem 0 .75rem; }
+    .home-hero .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: #7c3aed; background: rgba(124,58,237,0.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .home-hero h1 {
+      font-size: clamp(1.55rem, 3vw, 2.05rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
+      margin-bottom: .35rem;
+    }
+    .home-hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .home-hero .hero-sub { font-size: .95rem; color: #6b7280; max-width: 62ch; margin: 0 0 1rem; }
+
+    .popular-passports, .permit-guides, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }
+    .dest-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .55rem; margin-top: .75rem;
+    }
+    .dest-card {
+      display: block; padding: .8rem .95rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      text-decoration: none; transition: all .15s;
+    }
+    .dest-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(124,58,237,.3); }
+    .dc-name { font-size: .95rem; font-weight: 600; color: var(--text); letter-spacing: -.01em; }
+    .dc-blurb { font-size: .8rem; color: var(--muted); margin-top: .25rem; line-height: 1.45; }
+    .dest-see-all { margin-top: .75rem; text-align: right; font-size: .85rem; }
+    .dest-see-all a { color: var(--primary); font-weight: 500; }
+    .popular-passports h2, .permit-guides h2, .home-content h2, .all-passports h2 {
+      font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; margin-bottom: .3rem;
+    }
+    .section-sub { color: var(--muted); font-size: .9rem; max-width: 60ch; margin: 0 0 1rem; }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .section-head .section-sub { margin-bottom: 0; }
+    .section-cta {
+      flex: none; font-size: .82rem; font-weight: 600; color: var(--primary);
+      padding: .4rem .8rem; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--surface); text-decoration: none;
+      transition: all .15s;
+    }
+    .section-cta:hover { border-color: var(--primary); background: rgba(124,58,237,.05); }
+
+    .pp-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: .5rem; margin-top: .75rem;
+    }
+    .pp-card {
+      display: block; padding: .8rem .95rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      text-decoration: none; transition: border-color .15s, box-shadow .15s, transform .15s;
+    }
+    .pp-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(124,58,237,.3); }
+    .pp-name { font-size: .88rem; font-weight: 600; color: var(--text); }
+    .pp-count { font-size: 1.45rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; margin-top: .25rem; line-height: 1; }
+    .pp-count span { display: block; font-size: .65rem; color: var(--muted); font-weight: 500; margin-top: .15rem; letter-spacing: .04em; text-transform: uppercase; }
+    .pp-card.pp-more { background: transparent; border-style: dashed; display: flex; flex-direction: column; justify-content: center; }
+    .pp-more .pp-name { color: var(--primary); }
+    .pp-sub { font-size: .7rem; color: var(--muted); margin-top: .2rem; }
+
+    .permit-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: .65rem;
+    }
+    .permit-card {
+      display: block; padding: 1rem 1.15rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      text-decoration: none; transition: all .15s;
+    }
+    .permit-card:hover { border-color: var(--primary); box-shadow: 0 6px 14px -8px rgba(124,58,237,.3); }
+    .permit-name { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -.01em; margin-bottom: .3rem; }
+    .permit-blurb { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: .6rem; }
+    .permit-cta { font-size: .78rem; color: var(--primary); font-weight: 600; }
+    .permit-footnote { margin-top: 1rem; font-size: .85rem; color: var(--muted); }
+    .permit-footnote a { color: var(--primary); font-weight: 500; }
+
+    .home-content { max-width: 750px; }
+    .home-content p { font-size: .93rem; line-height: 1.65; margin-bottom: .6rem; }
+    .home-content ul { padding-left: 1.1rem; }
+    .home-content li { margin-bottom: .35rem; line-height: 1.55; }
+
+    .all-passports { padding-top: 1rem; border-top: 1px solid var(--border); }
+    .pp-list {
+      display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .5rem;
+    }
+    .pp-list-link {
+      padding: .3rem .7rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; font-size: .78rem; color: var(--text); text-decoration: none;
+      transition: all .15s;
+    }
+    .pp-list-link:hover { border-color: var(--primary); color: var(--primary); }
+  </style>
 </BaseLayout>

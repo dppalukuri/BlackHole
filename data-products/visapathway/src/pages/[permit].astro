@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VisaCountryGrid from '../components/VisaCountryGrid.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { residencePermits, type VisaStatus } from '../lib/visa-data';
+import { priorityPermits } from '../data/priority-permits';
+
+export async function getStaticPaths() {
+  // Filter out permits without data
+  return priorityPermits
+    .filter((p) => residencePermits[p.permitKey])
+    .map((p) => ({ params: { permit: p.slug }, props: p }));
+}
+
+const { slug, permitKey, shortName, fullName, blurb, audience } = Astro.props;
+const permit = residencePermits[permitKey];
+const entries = Object.entries(permit.exemptions).map(([country, info]) => ({
+  country,
+  status: info.access as VisaStatus,
+  days: info.days,
+  note: info.note,
+  source: info.source,
+  verified: true, // residence-permit entries are hand-sourced
+}));
+
+const faq = [
+  {
+    q: `What countries can ${shortName} holders visit visa-free?`,
+    a: `A ${shortName} gives visa-free or visa-on-arrival access to ${entries.length} destinations outside its issuing region. Top entries include ${entries.slice(0, 4).map((e) => e.country).join(', ')}.`,
+  },
+  {
+    q: `Do I need my original passport too?`,
+    a: `Yes. A residence permit on its own is not a travel document. You must carry your valid home-country passport together with the ${fullName} at all times when travelling.`,
+  },
+  {
+    q: `How long must my ${shortName} be valid on arrival?`,
+    a: `Most countries require your ${shortName} to be valid for at least 6 months beyond your arrival date. Some destinations require 12+ months of remaining validity. Check the "Official source" link next to each country below.`,
+  },
+  {
+    q: `Does a visa (rather than a permanent permit) count?`,
+    a: `Not usually. These exemptions are typically granted only to holders of a full residence permit / PR card, not short-stay or visit visas. Exceptions exist — we note them on individual country entries.`,
+  },
+  {
+    q: `Can I combine this with my home-country passport's exemptions?`,
+    a: `Yes. The countries listed below are <em>additional</em> to whatever your passport already allows. Use the <a href="/">interactive multi-passport checker</a> to see the combined list for your specific situation.`,
+  },
+  {
+    q: `How current is this list?`,
+    a: `All entries verified from official sources, last updated <strong>${permit.last_verified}</strong>. Source: ${permit.source}. Rules change frequently — verify with the destination embassy before booking travel.`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${fullName}: visa-free countries & travel benefits`,
+  description: `Full list of countries a ${shortName} holder can enter visa-free or with visa on arrival. Sourced, day-limits, and requirements.`,
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: `https://visapathway.techtools365.com/${slug}`,
+};
+---
+
+<BaseLayout
+  title={`${fullName}: Visa-Free Countries 2026 | VisaPathway`}
+  description={`${entries.length} countries a ${shortName} holder can enter visa-free or with visa on arrival — full list with sources, day-limits, and travel requirements.`}
+  keywords={`${shortName} visa free, ${shortName} travel benefits, ${shortName} countries, ${shortName} visa exemptions, residence permit travel, ${permitKey.toLowerCase()} visa free countries`}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="permit-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/">Visa Checker</a> <span>›</span>
+      <span>{fullName}</span>
+    </nav>
+
+    <header class="pp-header">
+      <div class="eyebrow">Residence-permit guide</div>
+      <h1>{fullName}: <em>{entries.length} visa-free destinations</em></h1>
+      <p class="lede">{blurb}</p>
+      <p class="audience">For {audience}.</p>
+      <div class="kpis">
+        <div class="kpi"><strong>{entries.length}</strong><span>destinations</span></div>
+        <div class="kpi"><strong>Official</strong><span>gov-sourced entries</span></div>
+        <div class="kpi"><strong>{permit.last_verified}</strong><span>last verified</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Countries unlocked by your {shortName}</h2>
+      <p>
+        These destinations grant easier entry specifically because you hold a {fullName}.
+        Carry both your home-country passport and the permit itself; day-limits and screening
+        notes are drawn from official government sources.
+      </p>
+      <VisaCountryGrid entries={entries} />
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>Travel tips for {shortName} holders</h2>
+      <ol>
+        <li><strong>Always carry both:</strong> your valid home passport AND the permit itself (or digital equivalent). Immigration officers routinely ask for both.</li>
+        <li><strong>Check validity rules:</strong> Most destinations require the permit valid 6+ months beyond entry; some require 12+ months.</li>
+        <li><strong>Verify before booking:</strong> Use the "Official source" link next to each country to confirm current rules — exemptions change without notice.</li>
+        <li><strong>Book flexible tickets</strong> on your first trip under this permit type — edge cases happen at immigration, especially for newer permit categories.</li>
+      </ol>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/">Use the interactive multi-passport checker</a></li>
+        <li><a href="/indian-passport-uae-resident">Indian passport + UAE residence</a></li>
+        <li><a href="/us-green-card-holders">US Green Card visa-free countries</a></li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit</a></li>
+        <li><a href="/valid-us-visa-benefits">Valid US visa benefits</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .permit-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+    .pp-header { margin-bottom: 2rem; }
+    .pp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .pp-header h1 {
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.12; margin-bottom: .6rem;
+    }
+    .pp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .pp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; margin-bottom: .25rem; }
+    .pp-header .audience { font-size: .85rem; color: var(--muted); font-style: italic; max-width: 65ch; }
+    .kpis { display: flex; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 95px;
+    }
+    .kpi strong { font-size: 1.15rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    section h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p, section ol li, section ul li { font-size: .93rem; line-height: 1.6; }
+    section ol { padding-left: 1.25rem; margin: .5rem 0 1.25rem; }
+    section ol li { margin-bottom: .5rem; }
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>

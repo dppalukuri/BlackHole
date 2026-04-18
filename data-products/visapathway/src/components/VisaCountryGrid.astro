@@ -1,0 +1,84 @@
+---
+/**
+ * Displays a grid of destination countries with visa-status tags.
+ * Used on passport-specific and residence-permit-specific pages.
+ */
+import { statusLabel, statusClass, type VisaStatus } from '../lib/visa-data';
+
+interface Entry {
+  country: string;
+  status: VisaStatus;
+  days?: number | string;
+  note?: string;
+  source?: string;
+  /** true when the entry is backed by a verified gov-sourced record. */
+  verified?: boolean;
+}
+
+interface Props {
+  entries: Entry[];
+  title?: string;
+  emptyLabel?: string;
+}
+
+const { entries, title, emptyLabel = 'No entries in this category.' } = Astro.props;
+---
+{title && <h3 class="vcg-title">{title}</h3>}
+{entries.length === 0 ? (
+  <p class="vcg-empty">{emptyLabel}</p>
+) : (
+  <ul class="vcg-grid">
+    {entries.map((e) => (
+      <li class:list={['vcg-card', e.verified && 'is-verified']}>
+        <div class="vcg-country">
+          {e.country}
+          {e.verified && (
+            <span class="vcg-verified" title="Verified against an official government source">✓</span>
+          )}
+        </div>
+        <div class:list={['vcg-status', statusClass(e.status)]}>
+          {typeof e.status === 'number' ? `Visa-free · ${e.status} days` : statusLabel(e.status)}
+        </div>
+        {e.days && typeof e.status !== 'number' && (
+          <div class="vcg-days">{e.days} days</div>
+        )}
+        {e.note && <div class="vcg-note">{e.note}</div>}
+        {e.source && (
+          <a class="vcg-source" href={e.source} target="_blank" rel="noopener">Official source ↗</a>
+        )}
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .vcg-title { font-size: 1.05rem; font-weight: 700; margin: 1.25rem 0 .6rem; letter-spacing: -.01em; }
+  .vcg-empty { color: var(--muted, #6b7280); font-size: .88rem; }
+  .vcg-grid {
+    list-style: none; padding: 0; margin: .5rem 0 1.25rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: .4rem;
+  }
+  .vcg-card {
+    background: var(--surface, #fff); border: 1px solid var(--border, #e5e7eb);
+    border-radius: 6px; padding: .55rem .75rem;
+    transition: border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .vcg-card:hover {
+    border-color: var(--primary, #7c3aed);
+    box-shadow: 0 4px 12px -6px rgba(15,23,42,.12);
+    transform: translateY(-1px);
+  }
+  .vcg-country { font-size: .86rem; font-weight: 600; color: var(--text, #0b1220); display: inline-flex; align-items: center; gap: .35rem; }
+  .vcg-verified {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 14px; height: 14px; font-size: .6rem; font-weight: 700;
+    color: #fff; background: #16a34a; border-radius: 50%;
+  }
+  .vcg-card.is-verified { border-color: #bbf7d0; }
+  .vcg-card.is-verified:hover { border-color: #16a34a; }
+  .vcg-status { font-size: .72rem; font-weight: 600; margin-top: .15rem; }
+  .vcg-days { font-size: .7rem; color: var(--muted, #6b7280); margin-top: .1rem; }
+  .vcg-note { font-size: .72rem; color: var(--muted, #6b7280); margin-top: .25rem; line-height: 1.4; }
+  .vcg-source { font-size: .7rem; margin-top: .25rem; display: inline-block; }
+</style>

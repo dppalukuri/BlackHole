@@ -1,0 +1,63 @@
+---
+/**
+ * FAQ accordion with FAQPage schema.org JSON-LD auto-emitted.
+ * Drop into any page that can benefit from rich-result FAQ snippets.
+ */
+interface QA { q: string; a: string; }
+interface Props {
+  items: QA[];
+  title?: string;
+  emitSchema?: boolean;
+}
+const { items, title = 'Frequently asked questions', emitSchema = true } = Astro.props;
+
+const schema = emitSchema && items.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((qa) => ({
+    '@type': 'Question',
+    name: qa.q,
+    acceptedAnswer: { '@type': 'Answer', text: qa.a },
+  })),
+} : null;
+---
+
+<section class="faq-block" aria-labelledby="faq-title">
+  <h2 id="faq-title">{title}</h2>
+  {items.map((qa) => (
+    <details class="faq-item">
+      <summary>{qa.q}</summary>
+      <div class="faq-answer" set:html={qa.a} />
+    </details>
+  ))}
+</section>
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+
+<style>
+  .faq-block { margin: 2rem 0 1.5rem; }
+  .faq-block h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: .75rem; letter-spacing: -.015em; }
+  .faq-item {
+    border: 1px solid var(--border, #e5e7eb); border-radius: 8px;
+    margin-bottom: .4rem; overflow: hidden; background: var(--surface, #fff);
+    transition: box-shadow .15s;
+  }
+  .faq-item[open] { box-shadow: 0 2px 8px -4px rgba(15,23,42,.08); }
+  .faq-item summary {
+    padding: .7rem .95rem; font-weight: 600; font-size: .9rem; cursor: pointer;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+    color: var(--text, #0b1220);
+  }
+  .faq-item summary::after { content: '+'; font-size: 1.15rem; color: var(--muted, #6b7280); font-weight: 400; }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item[open] summary {
+    border-bottom: 1px solid var(--border, #e5e7eb);
+    background: var(--surface-2, #f7f8fa);
+  }
+  .faq-answer {
+    padding: .7rem .95rem; color: var(--muted, #6b7280);
+    line-height: 1.6; font-size: .88rem;
+  }
+  .faq-answer p { margin-bottom: .5rem; }
+  .faq-answer a { color: var(--primary, #7c3aed); }
+</style>

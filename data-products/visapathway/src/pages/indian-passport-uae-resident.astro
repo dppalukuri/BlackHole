@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VisaCountryGrid from '../components/VisaCountryGrid.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { summarizePassport, residencePermits, visaMatrix, type VisaStatus } from '../lib/visa-data';
+
+const indiaSummary = summarizePassport('India');
+const uae = residencePermits['UAE Residence Permit'];
+
+/** Build the table of countries an Indian with UAE residence can enter without a passport visa. */
+const uaeExemptions = Object.entries(uae.exemptions).map(([country, info]) => ({
+  country,
+  status: info.access as VisaStatus,
+  days: info.days,
+  note: info.note,
+  source: info.source,
+  verified: true, // residence-permit entries are hand-sourced
+}));
+
+/** Indian passport alone: visa-free + VoA countries (top tier) */
+const indiaFree = indiaSummary.visaFree.map((c) => ({
+  country: c,
+  status: (indiaSummary.daysByCountry[c] ?? 'vf') as VisaStatus,
+}));
+
+/** Extra countries unlocked ONLY by the UAE permit (not already visa-free on Indian passport) */
+const indiaVisaFreeSet = new Set(indiaSummary.visaFree);
+const indiaVoaSet = new Set(indiaSummary.voaEta);
+const uaeBonusCountries = uaeExemptions.filter(
+  (e) => !indiaVisaFreeSet.has(e.country) && !indiaVoaSet.has(e.country)
+);
+
+const faq = [
+  {
+    q: 'Which countries can Indians visit visa-free with a UAE residence visa?',
+    a: `A UAE residence permit unlocks visa-free or visa-on-arrival access to countries like ${uaeExemptions.slice(0, 3).map((e) => e.country).join(', ')}, and more — on top of what Indian passport holders can already visit. We list all of them below with official sources and day-limits.`,
+  },
+  {
+    q: 'Do I need to carry my UAE Emirates ID when travelling?',
+    a: 'Yes. Most countries that grant entry to UAE residents will ask to see your valid Emirates ID and/or residence visa stamp in your passport at immigration. Carry both, plus proof of return ticket and accommodation.',
+  },
+  {
+    q: 'Does a UAE visit visa count, or only a residence permit?',
+    a: 'Only a valid <strong>UAE residence permit</strong> (issued for work, investor, family, student, or golden-visa categories) counts for these bonus travel privileges. A short-stay UAE tourist visa does not unlock the same benefits.',
+  },
+  {
+    q: 'My UAE residence visa expires soon — will it still work for travel?',
+    a: 'Most countries require your UAE residence permit to be valid for at least 6 months beyond your planned entry date, and some (like Georgia) require 1+ year of remaining validity. Always verify with the destination embassy before booking.',
+  },
+  {
+    q: 'Does this also apply to other GCC residence permits (Saudi, Qatar, Kuwait)?',
+    a: 'Some exemptions — notably <strong>Armenia</strong> — apply to all GCC residence permit holders, not just UAE. But most countries on this list are specific to UAE residents. Always check the official source linked next to each country.',
+  },
+  {
+    q: 'How accurate is this list?',
+    a: `We compile these exemptions from official government sources (embassies, ministries of foreign affairs). Last verified: <strong>${uae.last_verified}</strong>. Visa rules change without notice — always verify with the destination embassy before booking travel.`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Indian Passport + UAE Residence: Extra Visa-Free Countries Guide',
+  description: 'Complete list of countries an Indian passport holder can enter visa-free or with visa-on-arrival using a UAE residence permit.',
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: 'https://visapathway.techtools365.com/indian-passport-uae-resident',
+};
+---
+
+<BaseLayout
+  title="Indian Passport + UAE Residence: Visa-Free Countries 2026 | VisaPathway"
+  description="Full list of countries an Indian passport holder with a UAE residence permit can enter visa-free or with visa on arrival. Sources, day-limits, and requirements."
+  keywords="indian passport uae resident visa free, UAE residence visa free countries, indian with UAE residence travel, dubai residence permit travel benefits, UAE residence visa countries"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="passport-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/">Visa Checker</a> <span>›</span>
+      <span>Indian Passport + UAE Residence</span>
+    </nav>
+
+    <header class="pp-header">
+      <div class="eyebrow">Passport combo guide</div>
+      <h1>Indian passport + UAE residence: <em>extra visa-free countries</em></h1>
+      <p class="lede">
+        If you hold an Indian passport and a valid UAE residence permit, you unlock
+        visa-free or visa-on-arrival access to destinations that the Indian passport
+        alone cannot reach. Here's the complete, sourced list — verified {uae.last_verified}.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{uaeBonusCountries.length}</strong><span>bonus destinations</span></div>
+        <div class="kpi"><strong>{indiaSummary.visaFree.length}</strong><span>visa-free on Indian passport</span></div>
+        <div class="kpi"><strong>{indiaSummary.voaEta.length}</strong><span>visa-on-arrival</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Countries unlocked by your UAE residence permit</h2>
+      <p>
+        These destinations grant easier entry specifically because you are a UAE resident.
+        Day-limits, restrictions, and screening notes are drawn from official government sources.
+      </p>
+      <VisaCountryGrid entries={uaeExemptions} />
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>How to use your UAE residence for travel</h2>
+      <ol>
+        <li><strong>Carry both documents:</strong> Your Indian passport and your valid UAE Emirates ID + residence visa stamp. Some immigration officers ask for both.</li>
+        <li><strong>Check validity rules:</strong> Most countries require your UAE residence to be valid 6+ months beyond entry; some (Georgia) require 12+ months.</li>
+        <li><strong>Verify before booking:</strong> Rules change frequently. Use the "Official source" link next to each country to check embassy-level details.</li>
+        <li><strong>Book flexible tickets</strong> on your first trip under this combo — edge cases happen at immigration, especially for newer residence permit types.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>What your Indian passport already gets you</h2>
+      <p>
+        Even without the UAE permit, an Indian passport currently provides visa-free or visa-on-arrival
+        access to <strong>{indiaSummary.visaFree.length + indiaSummary.voaEta.length}</strong> countries.
+        Here are the strongest entries:
+      </p>
+      <VisaCountryGrid entries={indiaFree.slice(0, 24)} />
+      <p>
+        <a href="/indian-passport">See the full Indian passport visa-free list →</a>
+      </p>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/indian-passport">Indian passport — all visa-free countries</a></li>
+        <li><a href="/us-green-card-holders">US Green Card holders — bonus travel privileges</a></li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit: visa-free countries</a></li>
+        <li><a href="/">Try the interactive multi-passport checker</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .passport-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+    .pp-header { margin-bottom: 2rem; }
+    .pp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .pp-header h1 {
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.12; margin-bottom: .6rem;
+    }
+    .pp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .pp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1.5rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .65rem .95rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 110px;
+    }
+    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    section h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p, section ol li { font-size: .93rem; line-height: 1.6; }
+    section ol { padding-left: 1.25rem; margin: .5rem 0 1.25rem; }
+    section ol li { margin-bottom: .5rem; }
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>

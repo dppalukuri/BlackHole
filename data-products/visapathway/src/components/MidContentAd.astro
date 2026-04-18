@@ -1,0 +1,39 @@
+---
+/**
+ * Inline responsive ad slot — drops between content sections on long pages.
+ * Matches the dashed-placeholder styling of the ad-inline class in global.css.
+ * Safe to use multiple times per page (each renders a fresh <ins>).
+ */
+interface Props {
+  slotId?: string; // optional override, otherwise uses REPLACE_MID_CONTENT_SLOT_ID
+}
+const { slotId = 'REPLACE_MID_CONTENT_SLOT_ID' } = Astro.props;
+---
+<aside class="mid-ad" aria-label="Advertisement">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9446467058878539"
+       data-ad-slot={slotId}
+       data-ad-format="fluid"
+       data-ad-layout="in-article"
+       data-full-width-responsive="true"></ins>
+</aside>
+
+<style>
+  .mid-ad {
+    margin: 2rem 0;
+    padding: .5rem;
+    border: 1px dashed var(--border-strong, #d1d5db);
+    border-radius: 10px;
+    background: var(--surface-2, #f7f8fa);
+    position: relative;
+    min-height: 120px;
+  }
+  .mid-ad::before {
+    content: "Advertisement";
+    position: absolute; top: 6px; left: 10px;
+    font-size: .6rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--dim, #9ca3af); font-weight: 600;
+  }
+  .mid-ad ins.adsbygoogle { display: block; min-height: 100px; }
+</style>

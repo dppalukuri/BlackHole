@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { visaMatrix } from '../lib/visa-data';
+import { priorityDestinations } from '../data/priority-destinations';
+import { priorityPassports } from '../data/priority-passports';
+
+export async function getStaticPaths() {
+  return priorityDestinations.map((d) => ({
+    params: { destination: d.slug },
+    props: d,
+  }));
+}
+
+const { slug, country, displayName, blurb } = Astro.props;
+
+// Build passport slug map so we can link passports to their own guide pages
+const passportSlug: Record<string, string> = {};
+for (const p of priorityPassports) passportSlug[p.passport] = p.slug;
+
+// Walk every passport in the matrix, classify its access to this destination
+type Row = { passport: string; status: 'vf' | 'voa' | 'ev' | 'eta' | 'vr' | 'na'; days?: number; slug?: string };
+const rows: Row[] = [];
+for (const [passport, destinations] of Object.entries(visaMatrix)) {
+  const st = destinations[country];
+  if (st === undefined) continue;
+  let row: Row;
+  if (typeof st === 'number') {
+    row = { passport, status: 'vf', days: st, slug: passportSlug[passport] };
+  } else if (st === 'vf' || st === 'voa' || st === 'ev' || st === 'eta' || st === 'vr' || st === 'na') {
+    row = { passport, status: st as Row['status'], slug: passportSlug[passport] };
+  } else {
+    continue;
+  }
+  rows.push(row);
+}
+rows.sort((a, b) => a.passport.localeCompare(b.passport));
+
+const bucket = {
+  visaFree: rows.filter((r) => r.status === 'vf'),
+  voa:      rows.filter((r) => r.status === 'voa'),
+  eVisa:    rows.filter((r) => r.status === 'ev'),
+  eta:      rows.filter((r) => r.status === 'eta'),
+  visaReq:  rows.filter((r) => r.status === 'vr'),
+};
+const totalEasy = bucket.visaFree.length + bucket.voa.length;
+const totalRows = rows.length;
+
+// Related destinations (top 6 excluding self, by search volume)
+const relatedDestinations = priorityDestinations
+  .filter((d) => d.slug !== slug)
+  .sort((a, b) => b.searchVolume - a.searchVolume)
+  .slice(0, 6);
+
+const faq = [
+  {
+    q: `Which passport holders can visit ${displayName} visa-free?`,
+    a: `${bucket.visaFree.length} passports get visa-free access to ${country}, plus ${bucket.voa.length} more can enter with visa on arrival. See the full grouped lists above. Another ${bucket.eVisa.length} nationalities can apply for an e-visa online before travel.`,
+  },
+  {
+    q: `Do I need a visa for ${displayName}?`,
+    a: `It depends on your passport. Use the lists above to find yours, or try our <a href="/">interactive multi-passport checker</a> if you also hold a residence permit (UAE, US Green Card, Schengen, UK, Canada) — those can unlock additional access.`,
+  },
+  {
+    q: `What's the difference between visa-free, visa on arrival, and e-visa?`,
+    a: `<strong>Visa-free</strong> = you walk through immigration with just your passport. <strong>Visa on arrival</strong> = you get the visa stamped at the airport / land border, usually for a small fee. <strong>e-Visa</strong> = you apply online before you travel, and receive an electronic authorization (usually within a few days). <strong>ETA</strong> = similar to e-visa but lighter-weight — a pre-registration that takes minutes.`,
+  },
+  {
+    q: `How long can I stay in ${country} visa-free?`,
+    a: `Day-limits vary by passport — common defaults are 30, 60, or 90 days. Where our data includes a specific day count, it's shown alongside the passport entry. Always double-check with the destination embassy, because day limits change more frequently than the visa-free status itself.`,
+  },
+  {
+    q: `Can a residence permit help me enter ${country}?`,
+    a: `Sometimes. Holders of UAE residence, US Green Card, Schengen residence, UK BRP, or Canadian PR can sometimes access additional countries regardless of their home passport. See our <a href="/us-green-card-holders">Green Card guide</a>, <a href="/indian-passport-uae-resident">Indian+UAE guide</a>, and <a href="/schengen-residence-permit-benefits">Schengen permit guide</a> for details.`,
+  },
+  {
+    q: `How accurate is this list?`,
+    a: `Entries come from the community-maintained open-source Passport Index Dataset. It's a reasonable starting point but not individually verified — rules change frequently. <strong>Always confirm with the embassy before booking travel.</strong> For high-traffic passport-destination pairs, we re-verify against official gov sources (marked with a ✓ on individual passport pages).`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `Visa-free countries to ${country} — every passport listed`,
+  description: `Complete list of which passport holders can enter ${country} visa-free, with visa on arrival, or with e-visa. Updated monthly.`,
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: `https://visapathway.techtools365.com/visa-free-to-${slug}`,
+};
+
+const renderPassportList = (list: Row[]) =>
+  list.map((r) => ({
+    passport: r.passport,
+    slug: r.slug,
+    days: r.days,
+  }));
+---
+
+<BaseLayout
+  title={`Who Can Visit ${country} Visa-Free? — ${totalEasy} Passports | VisaPathway`}
+  description={`${bucket.visaFree.length} passport holders can visit ${country} visa-free; ${bucket.voa.length} with visa on arrival; ${bucket.eVisa.length} via e-visa. Full list by nationality, updated monthly.`}
+  keywords={`visa free to ${country.toLowerCase()}, ${country.toLowerCase()} visa requirements, who needs visa ${country.toLowerCase()}, ${country.toLowerCase()} visa on arrival, ${country.toLowerCase()} e-visa, ${country.toLowerCase()} visa policy`}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="dest-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/">Visa Checker</a> <span>›</span>
+      <span>Visa-free to {country}</span>
+    </nav>
+
+    <header class="dp-header">
+      <div class="eyebrow">Destination guide · {country}</div>
+      <h1>Who can visit {country} <em>visa-free?</em></h1>
+      <p class="lede">{blurb}</p>
+      <p class="lede">
+        <strong>{bucket.visaFree.length}</strong> passports get visa-free entry,
+        <strong>{bucket.voa.length}</strong> can get a visa on arrival, and
+        <strong>{bucket.eVisa.length}</strong> can apply for an e-visa online.
+        The remaining <strong>{bucket.visaReq.length}</strong> nationalities need a full embassy visa.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{bucket.visaFree.length}</strong><span>visa-free</span></div>
+        <div class="kpi"><strong>{bucket.voa.length}</strong><span>visa on arrival</span></div>
+        <div class="kpi"><strong>{bucket.eVisa.length}</strong><span>e-visa</span></div>
+        <div class="kpi"><strong>{bucket.visaReq.length}</strong><span>visa required</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Visa-free to {country}</h2>
+      <p>Passport holders who can enter {country} without any prior visa application.</p>
+      {bucket.visaFree.length === 0 ? (
+        <p class="empty">No passports get unconditional visa-free entry to {country}.</p>
+      ) : (
+        <ul class="passport-pill-list">
+          {bucket.visaFree.map((r) => (
+            <li class="pill pill-vf">
+              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+              {r.days && <span class="days">{r.days}d</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <MidContentAd />
+
+    {bucket.voa.length > 0 && (
+      <section>
+        <h2>Visa on arrival for {country}</h2>
+        <p>These passport holders can get a visa issued at the border when they arrive.</p>
+        <ul class="passport-pill-list">
+          {bucket.voa.map((r) => (
+            <li class="pill pill-voa">
+              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {bucket.eVisa.length > 0 && (
+      <section>
+        <h2>e-Visa for {country}</h2>
+        <p>Apply online before travel. Usually fast and cheaper than embassy visas.</p>
+        <ul class="passport-pill-list">
+          {bucket.eVisa.map((r) => (
+            <li class="pill pill-ev">
+              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {bucket.eta.length > 0 && (
+      <section>
+        <h2>ETA required for {country}</h2>
+        <p>Electronic travel authorization — a lightweight pre-registration (usually minutes, cheaper than a visa).</p>
+        <ul class="passport-pill-list">
+          {bucket.eta.map((r) => (
+            <li class="pill pill-ev">
+              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <MidContentAd />
+
+    <section>
+      <h2>Full visa required for {country}</h2>
+      <p>Passport holders who need to apply for a visa at a {country} embassy before travel.</p>
+      <ul class="passport-pill-list passport-pill-list--dim">
+        {bucket.visaReq.map((r) => (
+          <li class="pill pill-vr">
+            {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Other popular destinations</h2>
+      <div class="related-grid">
+        {relatedDestinations.map((r) => (
+          <a href={`/visa-free-to-${r.slug}`} class="related-card">
+            <div class="rc-name">{r.country}</div>
+            <div class="rc-blurb">{r.blurb.split('—')[0].trim()}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </article>
+
+  <style>
+    .dest-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+    .dp-header { margin-bottom: 2rem; }
+    .dp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .dp-header h1 {
+      font-size: clamp(1.65rem, 3.2vw, 2.3rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.1; margin-bottom: .6rem;
+    }
+    .dp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .dp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; margin-bottom: .5rem; }
+    .kpis { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 100px;
+    }
+    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+
+    section h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p { font-size: .93rem; line-height: 1.6; max-width: 65ch; }
+    .empty { color: var(--muted); font-style: italic; }
+
+    .passport-pill-list {
+      list-style: none; padding: 0; margin: .75rem 0 1.25rem;
+      display: flex; flex-wrap: wrap; gap: .4rem;
+    }
+    .passport-pill-list--dim { opacity: .82; }
+    .passport-pill-list li.pill {
+      font-size: .82rem; padding: .3rem .75rem; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface);
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .passport-pill-list li.pill a { color: var(--text); font-weight: 500; }
+    .passport-pill-list li.pill a:hover { color: var(--primary); }
+    .passport-pill-list li.pill .days { font-size: .65rem; color: var(--muted); font-weight: 500; }
+    .pill.pill-vf { border-color: #bbf7d0; background: #f0fdf4; }
+    .pill.pill-voa { border-color: #fed7aa; background: #fff7ed; }
+    .pill.pill-ev { border-color: #bfdbfe; background: #eff6ff; }
+    .pill.pill-vr { border-color: #fecaca; background: #fef2f2; }
+
+    .related { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .related-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .6rem; margin-top: .75rem;
+    }
+    .related-card {
+      display: block; padding: .75rem .95rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      text-decoration: none; transition: all .15s;
+    }
+    .related-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px -6px rgba(124,58,237,.2); }
+    .rc-name { font-weight: 600; color: var(--text); font-size: .95rem; letter-spacing: -.01em; }
+    .rc-blurb { font-size: .8rem; color: var(--muted); margin-top: .25rem; line-height: 1.45; }
+  </style>
+</BaseLayout>

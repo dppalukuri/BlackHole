@@ -1,0 +1,317 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { summarizePassport, visaMatrix } from '../lib/visa-data';
+import { priorityPassports } from '../data/priority-passports';
+
+/**
+ * Rank every passport in the matrix by "easy access" = visa-free + VoA count.
+ * Produces a top-199 table; we render it with ties broken by passport name.
+ */
+interface Ranked {
+  rank: number;
+  passport: string;
+  visaFree: number;
+  voa: number;
+  eVisa: number;
+  visaRequired: number;
+  easyAccess: number;
+  slug?: string;
+}
+
+const slugBy: Record<string, string> = {};
+for (const p of priorityPassports) slugBy[p.passport] = p.slug;
+
+const summaries = Object.keys(visaMatrix).map((p) => {
+  const s = summarizePassport(p);
+  return {
+    passport: p,
+    visaFree: s.visaFree.length,
+    voa: s.voaEta.length,
+    eVisa: s.eVisa.length,
+    visaRequired: s.visaRequired.length,
+    easyAccess: s.visaFree.length + s.voaEta.length,
+  };
+});
+
+// Sort descending by easyAccess, then alphabetic for ties
+summaries.sort((a, b) => b.easyAccess - a.easyAccess || a.passport.localeCompare(b.passport));
+
+// Assign ranks (1-based; dense ranking — ties share a rank, next is +1)
+let lastScore = -1, lastRank = 0, offset = 0;
+const ranked: Ranked[] = summaries.map((s, i) => {
+  if (s.easyAccess !== lastScore) {
+    lastRank = i + 1 - offset;
+    lastScore = s.easyAccess;
+  } else {
+    offset++;
+  }
+  return { ...s, rank: lastRank, slug: slugBy[s.passport] };
+});
+
+const top10 = ranked.slice(0, 10);
+const bottom10 = ranked.slice(-10).reverse();
+const topScore = ranked[0].easyAccess;
+const avgScore = Math.round(ranked.reduce((a, r) => a + r.easyAccess, 0) / ranked.length);
+
+const faq = [
+  {
+    q: 'Which passport is the strongest in 2026?',
+    a: `The ${top10.map((r, i) => i < 3 ? r.passport : null).filter(Boolean).join(', ')} passports top the ranking with visa-free or visa-on-arrival access to ${topScore}+ destinations — see the full table above. Rankings tie frequently; we break ties alphabetically in this table.`,
+  },
+  {
+    q: 'How is this different from the Henley Passport Index?',
+    a: 'The Henley Passport Index uses IATA (airline) data and assigns a score; we use the open-source <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> which cross-references government sources and distinguishes visa-free, visa-on-arrival, and e-visa separately. Results are similar but not identical — we err on the side of strict definitions (e-visa is not "visa-free" here).',
+  },
+  {
+    q: 'What counts as "easy access"?',
+    a: 'We count <strong>visa-free (VF)</strong> plus <strong>visa on arrival (VoA)</strong> as "easy access" because both let you arrive without arranging a visa from an embassy. We deliberately exclude <strong>e-visa (eV)</strong> and <strong>electronic travel authorization (ETA)</strong> because they require an online application ahead of travel — still easy, but not the same.',
+  },
+  {
+    q: 'Can I expand my passport\'s reach without a second passport?',
+    a: 'Yes. <strong>Residence permits</strong> from countries like the UAE, US (Green Card), Schengen area, UK, and Canada grant you visa-free or visa-on-arrival access to additional countries on top of what your passport provides. See our <a href="/indian-passport-uae-resident">UAE residence + Indian passport</a> and <a href="/us-green-card-holders">US Green Card</a> guides for examples.',
+  },
+  {
+    q: 'Why is my passport ranked lower than I expected?',
+    a: 'Rankings change as countries add or drop visa exemptions. Our data is verified from government sources and we update monthly. If you think a specific visa exemption is missing, please check the data against the source linked on the relevant passport page — and let us know if our data is out of date.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Strongest Passports 2026: Complete Global Ranking',
+  description: `Full ranking of all ${ranked.length} world passports by visa-free and visa-on-arrival access in 2026. Updated monthly from official government sources.`,
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: 'https://visapathway.techtools365.com/strongest-passports-2026',
+};
+---
+
+<BaseLayout
+  title="Strongest Passports 2026 — Global Ranking of 199 Passports | VisaPathway"
+  description={`Complete 2026 passport ranking. All ${ranked.length} world passports ranked by visa-free and visa-on-arrival access, updated monthly from official government sources. Alternative to Henley Passport Index.`}
+  keywords="strongest passport 2026, passport ranking 2026, most powerful passport, henley passport index 2026, passport index 2026, world passport ranking, best passport for travel, visa free passport ranking"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="rank-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/">Visa Checker</a> <span>›</span>
+      <span>Passport ranking 2026</span>
+    </nav>
+
+    <header class="rp-header">
+      <div class="eyebrow">Updated April 2026 · {ranked.length} passports</div>
+      <h1>Strongest passports <em>of 2026</em></h1>
+      <p class="lede">
+        Every world passport ranked by "easy access" — the number of countries you can enter
+        visa-free or with visa on arrival. Data from official government sources,
+        cross-referenced monthly. An open, verifiable alternative to the Henley Passport Index.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{ranked.length}</strong><span>passports ranked</span></div>
+        <div class="kpi"><strong>{topScore}</strong><span>top-tier reach</span></div>
+        <div class="kpi"><strong>{avgScore}</strong><span>global average</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Top 10 strongest passports</h2>
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Passport</th>
+            <th class="num">Visa-free</th>
+            <th class="num">VoA</th>
+            <th class="num">Easy access</th>
+          </tr>
+        </thead>
+        <tbody>
+          {top10.map((r) => (
+            <tr>
+              <td class="rank"><strong>#{r.rank}</strong></td>
+              <td>{r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : r.passport}</td>
+              <td class="num">{r.visaFree}</td>
+              <td class="num">{r.voa}</td>
+              <td class="num"><strong>{r.easyAccess}</strong></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>Complete global ranking</h2>
+      <p class="section-sub">
+        All {ranked.length} passports. Click any passport with an underline to see its full
+        visa-free, VoA, e-visa, and visa-required country lists.
+      </p>
+      <div class="table-wrap">
+        <table class="rank-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Passport</th>
+              <th class="num">VF</th>
+              <th class="num">VoA</th>
+              <th class="num">eV</th>
+              <th class="num">Req.</th>
+              <th class="num">Easy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ranked.map((r) => (
+              <tr>
+                <td class="rank">{r.rank}</td>
+                <td>{r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : r.passport}</td>
+                <td class="num">{r.visaFree}</td>
+                <td class="num">{r.voa}</td>
+                <td class="num">{r.eVisa}</td>
+                <td class="num">{r.visaRequired}</td>
+                <td class="num"><strong>{r.easyAccess}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>Bottom 10 — passports with most travel friction</h2>
+      <p class="section-sub">
+        These passports give holders the fewest visa-free or visa-on-arrival options. If you
+        hold one, pairing it with a <a href="/us-green-card-holders">US Green Card</a>,
+        <a href="/indian-passport-uae-resident"> UAE residence permit</a>, or
+        <a href="/schengen-residence-permit-benefits"> Schengen residence permit</a> can
+        significantly expand your reach.
+      </p>
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Passport</th>
+            <th class="num">Easy access</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bottom10.map((r) => (
+            <tr>
+              <td class="rank">#{r.rank}</td>
+              <td>{r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : r.passport}</td>
+              <td class="num">{r.easyAccess}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Methodology</h2>
+      <p>
+        We rank passports by <strong>easy access</strong> — the count of destinations where
+        you can arrive without arranging a visa in advance. That includes:
+      </p>
+      <ul>
+        <li><strong>Visa-free (VF):</strong> No visa needed, walk across the border or through arrivals.</li>
+        <li><strong>Visa on arrival (VoA):</strong> Visa issued at the destination airport or land border for a fee, no embassy visit.</li>
+      </ul>
+      <p>We deliberately <em>exclude</em> from "easy access":</p>
+      <ul>
+        <li><strong>e-Visa (eV):</strong> Requires an online application before travel — still easier than embassy visas, but not immediate.</li>
+        <li><strong>Electronic Travel Authorization (ETA):</strong> Same reasoning as e-visas.</li>
+      </ul>
+      <p>
+        Raw data comes from the open-source <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a>,
+        which cross-references IATA, government, and embassy sources. We update our copy
+        monthly. Rankings tie frequently; in this table we break ties alphabetically.
+      </p>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/">Use the multi-passport visa checker</a></li>
+        <li><a href="/indian-passport-uae-resident">Indian passport + UAE residence: extra countries</a></li>
+        <li><a href="/us-green-card-holders">US Green Card: visa-free countries</a></li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit benefits</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .rank-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+
+    .rp-header { margin-bottom: 2rem; }
+    .rp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .rp-header h1 {
+      font-size: clamp(1.7rem, 3.3vw, 2.3rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.08; margin-bottom: .6rem;
+    }
+    .rp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .rp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1.25rem; margin-top: 1rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 100px;
+    }
+    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+
+    section h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p, section ul li { font-size: .93rem; line-height: 1.6; }
+    section ul { padding-left: 1.1rem; margin-bottom: .75rem; }
+    section ul li { margin-bottom: .3rem; }
+    .section-sub { color: var(--muted); font-size: .9rem; max-width: 64ch; margin: 0 0 .85rem; }
+
+    .table-wrap { overflow-x: auto; margin: .5rem 0 1rem; }
+    .rank-table {
+      width: 100%; border-collapse: collapse; font-size: .86rem;
+      background: var(--surface); border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .rank-table th, .rank-table td {
+      padding: .5rem .7rem; text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .rank-table th { background: var(--surface-2); font-weight: 600; font-size: .78rem; color: var(--text); }
+    .rank-table tr:last-child td { border-bottom: none; }
+    .rank-table tr:hover td { background: rgba(124,58,237,.03); }
+    .rank-table td.num, .rank-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .rank-table td.rank { font-weight: 700; color: var(--primary); width: 3.5rem; }
+    .rank-table a { color: var(--primary); text-decoration: none; border-bottom: 1px solid transparent; }
+    .rank-table a:hover { border-bottom-color: var(--primary); }
+
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>

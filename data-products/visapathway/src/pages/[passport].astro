@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VisaCountryGrid from '../components/VisaCountryGrid.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { summarizePassport, getVerified, type VisaStatus } from '../lib/visa-data';
+import { priorityPassports } from '../data/priority-passports';
+
+export async function getStaticPaths() {
+  return priorityPassports.map((p) => ({
+    params: { passport: p.slug },
+    props: p,
+  }));
+}
+
+const { slug, passport, nationality, priority } = Astro.props;
+const summary = summarizePassport(passport);
+
+// Build entry lists for the grids. When we have a verified entry for a
+// (passport, country) pair we prefer it — it supersedes the bulk matrix,
+// carries a source URL, and gets a green ✓ badge. Verified status is
+// authoritative — we re-bucket the country based on the verified status,
+// so a country the bulk matrix had in "visa-free" but verified says "vr"
+// moves to the visa-required list.
+type GridEntry = { country: string; status: VisaStatus; days?: number | string; note?: string; source?: string; verified?: boolean };
+
+interface Buckets { vf: GridEntry[]; voa: GridEntry[]; ev: GridEntry[]; vr: GridEntry[]; eta: GridEntry[] }
+const buckets: Buckets = { vf: [], voa: [], ev: [], vr: [], eta: [] };
+
+// Walk EVERY destination the bulk matrix has for this passport, so verified
+// data can promote or demote a country into the right bucket.
+const allDestinations = [
+  ...summary.visaFree,
+  ...summary.voaEta,
+  ...summary.eVisa,
+  ...summary.visaRequired,
+];
+
+for (const c of allDestinations) {
+  const v = getVerified(passport, c);
+  if (v) {
+    // Use the verified status, not the bulk matrix one.
+    const status = v.status as 'vf' | 'voa' | 'ev' | 'eta' | 'vr';
+    const entry: GridEntry = {
+      country: c,
+      status: (v.days ?? status) as VisaStatus,
+      days: v.days ?? undefined,
+      note: v.notes || undefined,
+      source: v.source ?? undefined,
+      verified: true,
+    };
+    if (status === 'vf') buckets.vf.push(entry);
+    else if (status === 'voa') buckets.voa.push(entry);
+    else if (status === 'ev') buckets.ev.push(entry);
+    else if (status === 'eta') buckets.eta.push(entry);
+    else if (status === 'vr') buckets.vr.push(entry);
+    continue;
+  }
+  // Unverified — fall back to bulk matrix classification.
+  const days = summary.daysByCountry[c];
+  if (summary.visaFree.includes(c)) {
+    buckets.vf.push({ country: c, status: (days ?? 'vf') as VisaStatus });
+  } else if (summary.voaEta.includes(c)) {
+    buckets.voa.push({ country: c, status: 'voa' as VisaStatus });
+  } else if (summary.eVisa.includes(c)) {
+    buckets.ev.push({ country: c, status: 'ev' as VisaStatus });
+  } else if (summary.visaRequired.includes(c)) {
+    buckets.vr.push({ country: c, status: 'vr' as VisaStatus });
+  }
+}
+
+// Sort each bucket alphabetically
+for (const b of Object.values(buckets)) b.sort((a, c) => a.country.localeCompare(c.country));
+
+const visaFreeEntries = buckets.vf;
+const voaEntries = [...buckets.voa, ...buckets.eta];   // combine VoA + ETA for display
+const eVisaEntries = buckets.ev;
+
+const totalEasy = visaFreeEntries.length + voaEntries.length;
+
+// Related passports (same region/strength, up to 4)
+const related = priorityPassports
+  .filter((p) => p.slug !== slug)
+  .sort((a, b) => b.priority - a.priority)
+  .slice(0, 4);
+
+// FAQ generated from data
+const topDestinations = visaFreeEntries.slice(0, 5).map((e) => e.country).join(', ');
+const verifiedCount = [...visaFreeEntries, ...voaEntries, ...eVisaEntries, ...buckets.vr]
+  .filter((e) => e.verified).length;
+const faq = [
+  {
+    q: `How many countries can ${nationality} passport holders visit visa-free?`,
+    a: `${nationality} passport holders have visa-free or visa-on-arrival access to approximately <strong>${totalEasy} countries</strong> — ${visaFreeEntries.length} visa-free and ${voaEntries.length} visa-on-arrival. Notable visa-free destinations include ${topDestinations}.`,
+  },
+  {
+    q: `Is the ${nationality} passport strong?`,
+    a: totalEasy >= 100
+      ? `Yes — the ${nationality} passport is considered strong, giving access to ${totalEasy}+ destinations without needing to arrange a visa in advance.`
+      : totalEasy >= 60
+      ? `The ${nationality} passport is moderately powerful, covering ${totalEasy} destinations for easy entry. Pairing it with a residence permit (UAE, Schengen, US Green Card) significantly expands access.`
+      : `The ${nationality} passport has limited visa-free reach (${totalEasy} destinations). You can dramatically expand access by obtaining a UAE residence permit, US Green Card, or Schengen residence permit — see our residence permit guides for details.`,
+  },
+  {
+    q: `Do I need an ETA or e-visa for some countries?`,
+    a: `Yes. ${eVisaEntries.length} destinations require an <strong>e-visa</strong> (online application before arrival) for ${nationality} passport holders. These are typically quicker than embassy visas but still need to be arranged before travel.`,
+  },
+  {
+    q: `Which countries require a full visa in advance?`,
+    a: `${buckets.vr.length} countries require ${nationality} passport holders to obtain a visa from an embassy before travelling. Check the destination embassy's website for specific requirements and processing times.`,
+  },
+  {
+    q: `Can a residence permit or second visa unlock extra countries?`,
+    a: `Yes — several residence permits grant bonus visa-free access regardless of your ${nationality} passport. See our guides for <a href="/indian-passport-uae-resident">UAE residence</a>, <a href="/us-green-card-holders">US Green Card</a>, and <a href="/schengen-residence-permit-benefits">Schengen residence permit</a> to learn which countries unlock for each.`,
+  },
+  {
+    q: `How accurate is this list?`,
+    a: `Entries marked with a <strong style="color:#16a34a">✓</strong> badge have been re-verified against an official government source (embassy, ministry, or visa portal) and link to that source. Entries without the badge come from the community-maintained open-source <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> — a reasonable starting point but not individually verified. Rules change frequently. <strong>Always confirm with the destination embassy before booking travel.</strong>`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${nationality} passport visa-free countries — complete list`,
+  description: `Full list of countries ${nationality} passport holders can visit visa-free, with visa on arrival, or with e-visa in ${new Date().getFullYear()}.`,
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-18',
+  dateModified: '2026-04-18',
+  mainEntityOfPage: `https://visapathway.techtools365.com/${slug}`,
+};
+---
+
+<BaseLayout
+  title={`${nationality} Passport Visa-Free Countries 2026 — ${totalEasy} Destinations | VisaPathway`}
+  description={`Complete list of ${totalEasy} countries ${nationality} passport holders can visit visa-free or with visa on arrival. e-Visa destinations, visa requirements, and residence-permit travel benefits.`}
+  keywords={`${nationality.toLowerCase()} passport visa free countries, ${nationality.toLowerCase()} passport visa required, ${passport.toLowerCase()} visa free, ${nationality.toLowerCase()} passport strength, visa free countries for ${nationality.toLowerCase()}, ${passport.toLowerCase()} passport ranking`}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="passport-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/">Visa Checker</a> <span>›</span>
+      <span>{nationality} passport</span>
+    </nav>
+
+    <header class="pp-header">
+      <div class="eyebrow">Passport guide · {nationality}</div>
+      <h1>{nationality} passport: <em>{totalEasy} visa-free destinations</em></h1>
+      <p class="lede">
+        Holders of a {passport} passport have easy entry to <strong>{totalEasy}</strong> countries
+        — {visaFreeEntries.length} visa-free and {voaEntries.length} with visa on arrival.
+        Below is the full, sourced list plus e-visa and visa-required countries.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{visaFreeEntries.length}</strong><span>visa-free</span></div>
+        <div class="kpi"><strong>{voaEntries.length}</strong><span>visa on arrival</span></div>
+        <div class="kpi"><strong>{eVisaEntries.length}</strong><span>e-visa</span></div>
+        <div class="kpi"><strong>{buckets.vr.length}</strong><span>visa required</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Visa-free destinations</h2>
+      <p>
+        Countries a {nationality} passport holder can enter without arranging any visa in advance.
+        Day-limit shown where available.
+      </p>
+      <VisaCountryGrid entries={visaFreeEntries} emptyLabel="No visa-free destinations for this passport." />
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>Visa on arrival</h2>
+      <p>
+        Visa issued at the border — typically quick, fee-paid, and no embassy visit required.
+        Still bring passport photos, proof of onward travel, and hotel bookings.
+      </p>
+      <VisaCountryGrid entries={voaEntries} emptyLabel="No visa-on-arrival destinations." />
+    </section>
+
+    <section>
+      <h2>e-Visa destinations</h2>
+      <p>
+        Apply online before you travel. Usually approved within a few days, cheaper and faster
+        than an embassy visa.
+      </p>
+      <VisaCountryGrid entries={eVisaEntries} emptyLabel="No e-visa destinations." />
+    </section>
+
+    <MidContentAd />
+
+    {buckets.vr.length > 0 && (
+      <section>
+        <details class="vr-section">
+          <summary>
+            <h2>Visa required — {buckets.vr.length} destinations</h2>
+            <span class="vr-hint">embassy visa needed · click to expand</span>
+          </summary>
+          <p>
+            These destinations require a full visa from an embassy or consulate in advance.
+            Entries marked <span class="vr-check">✓</span> have been re-verified against an official government source.
+          </p>
+          <VisaCountryGrid entries={buckets.vr} emptyLabel="" />
+        </details>
+      </section>
+    )}
+
+    <section class="expand-access">
+      <h2>Expand your access with a residence permit</h2>
+      <p>
+        If your {nationality} passport has limited reach, a residence permit can unlock many
+        additional destinations. Pairing your passport with one of the permits below typically
+        adds 5–15 new visa-free or visa-on-arrival countries:
+      </p>
+      <ul class="permit-links">
+        <li><a href="/indian-passport-uae-resident">UAE residence permit</a> — strong for South Asian passport holders, unlocks Armenia, Georgia, Azerbaijan, Serbia</li>
+        <li><a href="/us-green-card-holders">US Green Card</a> — unlocks Mexico, Canada (via eTA), several Caribbean and Central American countries</li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit</a> — unlocks Turkey, Balkans, several visa-free short stays across the EU</li>
+      </ul>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Other passport guides</h2>
+      <ul class="related-grid">
+        {related.map((r) => (
+          <li><a href={`/${r.slug}`}>{r.nationality} passport</a></li>
+        ))}
+        <li><a href="/">Use the interactive multi-passport checker →</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .passport-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+    .pp-header { margin-bottom: 2rem; }
+    .pp-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .pp-header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.12; margin-bottom: .6rem;
+    }
+    .pp-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .pp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 95px;
+    }
+    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    section h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p, section ol li, section ul li { font-size: .93rem; line-height: 1.6; }
+    .expand-access { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; margin: 2rem 0; }
+    .permit-links { list-style: none; padding: 0; margin: .25rem 0 0; }
+    .permit-links li { padding: .3rem 0; border-bottom: 1px dashed var(--border); }
+    .permit-links li:last-child { border-bottom: none; }
+    .permit-links a { color: var(--primary); font-weight: 600; }
+    .related .related-grid {
+      list-style: none; padding: 0;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .4rem;
+    }
+    .related .related-grid li {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: .45rem .7rem; font-size: .85rem;
+    }
+    .related .related-grid a { color: var(--text); font-weight: 500; }
+    .related .related-grid li:hover { border-color: var(--primary); }
+    .related .related-grid li:hover a { color: var(--primary); }
+
+    .vr-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: .5rem 1rem; margin-top: 1rem; }
+    .vr-section summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: .75rem 0; }
+    .vr-section summary::-webkit-details-marker { display: none; }
+    .vr-section summary h2 { margin: 0; }
+    .vr-section summary::after { content: '▸'; color: var(--muted); font-size: .85rem; transition: transform .15s; }
+    .vr-section[open] summary::after { content: '▾'; }
+    .vr-hint { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
+    .vr-check { display: inline-block; width: 14px; height: 14px; background: #16a34a; color: #fff; border-radius: 50%; font-size: .6rem; font-weight: 700; text-align: center; line-height: 14px; }
+  </style>
+</BaseLayout>
