@@ -7,6 +7,11 @@ interface SliderInputProps {
   step: number;
   prefix?: string;
   suffix?: string;
+  /**
+   * BCP-47 locale for number formatting. If omitted, we pick `en-IN`
+   * (lakhs/crores grouping) when the prefix contains ₹, otherwise `en-US`.
+   */
+  locale?: string;
   onChange: (value: number) => void;
 }
 
@@ -19,8 +24,12 @@ export default function SliderInput({
   step,
   prefix = '',
   suffix = '',
+  locale,
   onChange,
 }: SliderInputProps) {
+  const resolvedLocale = locale ?? (prefix.includes('₹') ? 'en-IN' : 'en-US');
+  const fmt = (n: number) => n.toLocaleString(resolvedLocale);
+
   const handleSlider = (e: Event) => {
     onChange(Number((e.target as HTMLInputElement).value));
   };
@@ -44,7 +53,7 @@ export default function SliderInput({
           <input
             type="text"
             id={`${id}-input`}
-            value={value.toLocaleString()}
+            value={fmt(value)}
             onInput={handleInput}
             class="value-input"
           />
@@ -63,8 +72,8 @@ export default function SliderInput({
         style={`--fill: ${percent}%`}
       />
       <div class="slider-range">
-        <span>{prefix}{min.toLocaleString()}{suffix}</span>
-        <span>{prefix}{max.toLocaleString()}{suffix}</span>
+        <span>{prefix}{fmt(min)}{suffix}</span>
+        <span>{prefix}{fmt(max)}{suffix}</span>
       </div>
     </div>
   );

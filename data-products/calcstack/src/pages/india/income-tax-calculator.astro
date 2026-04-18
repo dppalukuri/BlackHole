@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import IncomeTaxCalculator from '../../components/calculators/engines/IncomeTaxCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Income Tax Calculator 2026 - New Regime FY 2025-26 | CalcStack"
   description="Free India income tax calculator for FY 2025-26 (AY 2026-27). Calculate tax under the new regime with updated slabs, standard deduction of ₹75,000, and Section 87A rebate."
@@ -50,6 +51,8 @@ import IncomeTaxCalculator from '../../components/calculators/engines/IncomeTaxC
       <li>New regime is now the default — you must explicitly opt for old regime</li>
     </ul>
   </section>
+
+    <AffiliateCTA partner={GROWW} title="Save tax under Section 80C" blurb="Invest up to ₹1.5 lakh in ELSS mutual funds (3-year lock-in, direct plans) to cut your tax bill while building wealth." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

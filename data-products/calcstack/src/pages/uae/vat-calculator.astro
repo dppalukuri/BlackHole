@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VATCalculator from '../../components/calculators/engines/VATCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { SARWA } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="UAE VAT Calculator - Add or Remove 5% VAT | CalcStack"
   description="Free UAE VAT calculator. Add 5% VAT to any amount or extract VAT from a VAT-inclusive price. Instant, accurate calculation for UAE businesses and consumers."
@@ -31,6 +32,8 @@ import VATCalculator from '../../components/calculators/engines/VATCalculator';
       <li><strong>Standard (5%):</strong> Everything else — restaurants, electronics, clothing, services, commercial property</li>
     </ul>
   </section>
+
+    <AffiliateCTA partner={SARWA} title="Invest what you save" blurb="Every dirham saved on VAT is a dirham you can invest. Sarwa’s automated portfolios start from AED 500." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

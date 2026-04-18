@@ -2,51 +2,83 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const allCalcs = [
-  { slug: 'india/old-vs-new-tax-regime', name: 'Old vs New Tax Regime', country: 'India', tags: 'tax regime compare deductions' },
-  { slug: 'india/fire-calculator', name: 'FIRE Calculator', country: 'India', tags: 'fire retire early independence' },
-  { slug: 'india/step-up-sip-calculator', name: 'Step-Up SIP Calculator', country: 'India', tags: 'sip step up increase' },
-  { slug: 'india/loan-comparison', name: 'Loan Comparison', country: 'India', tags: 'loan compare bank emi' },
-  { slug: 'india/sip-calculator', name: 'SIP Calculator', country: 'India', tags: 'sip mutual fund' },
-  { slug: 'india/emi-calculator', name: 'EMI Calculator', country: 'India', tags: 'emi loan home car' },
-  { slug: 'india/income-tax-calculator', name: 'Income Tax Calculator', country: 'India', tags: 'income tax slab' },
-  { slug: 'india/fd-calculator', name: 'FD Calculator', country: 'India', tags: 'fd fixed deposit' },
-  { slug: 'india/ppf-calculator', name: 'PPF Calculator', country: 'India', tags: 'ppf provident fund' },
-  { slug: 'india/lumpsum-calculator', name: 'Lump Sum Calculator', country: 'India', tags: 'lumpsum one time' },
-  { slug: 'uae/gratuity-calculator', name: 'UAE Gratuity Calculator', country: 'UAE', tags: 'gratuity end of service' },
+  { slug: 'india/old-vs-new-tax-regime', name: 'Old vs New Tax Regime', country: 'India', tags: 'tax regime compare deductions 80c' },
+  { slug: 'india/fire-calculator', name: 'FIRE Calculator', country: 'India', tags: 'fire retire early independence financial' },
+  { slug: 'india/step-up-sip-calculator', name: 'Step-Up SIP Calculator', country: 'India', tags: 'sip step up increase mutual fund' },
+  { slug: 'india/loan-comparison', name: 'Loan Comparison', country: 'India', tags: 'loan compare bank emi home car' },
+  { slug: 'india/sip-calculator', name: 'SIP Calculator', country: 'India', tags: 'sip mutual fund systematic investment' },
+  { slug: 'india/emi-calculator', name: 'EMI Calculator', country: 'India', tags: 'emi loan home car education' },
+  { slug: 'india/income-tax-calculator', name: 'Income Tax Calculator', country: 'India', tags: 'income tax slab old new regime' },
+  { slug: 'india/fd-calculator', name: 'FD Calculator', country: 'India', tags: 'fd fixed deposit interest' },
+  { slug: 'india/ppf-calculator', name: 'PPF Calculator', country: 'India', tags: 'ppf provident fund 15 year' },
+  { slug: 'india/lumpsum-calculator', name: 'Lump Sum Calculator', country: 'India', tags: 'lumpsum one time investment' },
+  { slug: 'uae/gratuity-calculator', name: 'UAE Gratuity Calculator', country: 'UAE', tags: 'gratuity end of service dubai' },
   { slug: 'uae/rental-yield-calculator', name: 'Dubai Rental Yield', country: 'UAE', tags: 'rental yield dubai property roi' },
-  { slug: 'uae/vat-calculator', name: 'UAE VAT Calculator', country: 'UAE', tags: 'vat tax 5%' },
-  { slug: 'us/compound-interest-calculator', name: 'Compound Interest', country: 'US', tags: 'compound interest savings' },
+  { slug: 'uae/vat-calculator', name: 'UAE VAT Calculator', country: 'UAE', tags: 'vat tax 5 percent' },
+  { slug: 'us/compound-interest-calculator', name: 'Compound Interest', country: 'US', tags: 'compound interest savings growth' },
 ];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://calcstack.techtools365.com/#website",
+      "url": "https://calcstack.techtools365.com/",
+      "name": "CalcStack",
+      "description": "Free online financial calculators for India, UAE, and the US.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://techtools365.com/#org" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://calcstack.techtools365.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "name": "CalcStack — Free Financial Calculators",
+      "numberOfItems": allCalcs.length,
+      "itemListElement": allCalcs.map((c, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": c.name,
+        "url": `https://calcstack.techtools365.com/${c.slug}/`
+      }))
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title="CalcStack - Free Financial Calculators for India, UAE & US"
-  description="Free online financial calculators. SIP calculator, EMI calculator, gratuity calculator, income tax calculator, and more tools for India, UAE, and US."
+  title="Free Financial Calculators — SIP, EMI, FIRE, Tax | CalcStack"
+  description="14 free financial calculators for India, UAE, and the US. SIP, EMI, FIRE planner, tax regime comparator, PPF, FD, Dubai rental yield, and more. No signup, no tracking."
+  keywords="free financial calculator, SIP calculator, EMI calculator, FIRE calculator India, old vs new tax regime, PPF calculator, FD calculator, Dubai rental yield, UAE gratuity calculator, compound interest calculator"
+  jsonLd={jsonLd}
 >
-  <div style="text-align:center;padding:1.5rem 0 0.75rem;">
-    <h1>Free Financial Calculators</h1>
-    <p class="page-subtitle">India, UAE, and US. No signup.</p>
-  </div>
+  <section class="home-hero">
+    <h1>Free financial calculators <span class="hero-mark">for India · UAE · US</span></h1>
+    <p class="hero-sub">SIP, EMI, FIRE, tax regime, PPF, FD, Dubai rental yield, and more — all free, no signup.</p>
+  </section>
 
   <input
-    type="text"
+    type="search"
     id="calc-search"
-    placeholder="Search all calculators... (tax, SIP, EMI, gratuity, FIRE, loan, rental)"
-    style="width:100%;padding:0.55rem 0.85rem;border:2px solid #e5e7eb;border-radius:8px;font-size:0.9rem;font-family:inherit;margin-bottom:0.75rem;background:#f9fafb;outline:none;"
-    onfocus="this.style.borderColor='#6366f1'"
-    onblur="this.style.borderColor='#e5e7eb'"
+    class="calc-search"
+    placeholder="Search calculators — tax, SIP, EMI, gratuity, FIRE, loan, rental…"
+    aria-label="Search calculators"
   />
 
   <div class="calc-grid" id="calc-grid">
     {allCalcs.map((calc) => (
-      <a href={`/${calc.slug}`} class="calc-card" data-search={`${calc.name} ${calc.country} ${calc.tags}`.toLowerCase()}>
-        <span style="font-size:0.65rem;font-weight:700;text-transform:uppercase;color:#6b7280;letter-spacing:0.05em;">{calc.country}</span>
-        <h3 style="margin:0.15rem 0 0;font-size:0.95rem;">{calc.name}</h3>
+      <a href={`/${calc.slug}/`} class="calc-card" data-search={`${calc.name} ${calc.country} ${calc.tags}`.toLowerCase()}>
+        <span class="calc-card-tag">{calc.country}</span>
+        <h3>{calc.name}</h3>
       </a>
     ))}
   </div>
 
-  <div id="no-results" style="display:none;text-align:center;padding:1.5rem;color:#6b7280;font-size:0.9rem;">
+  <div id="no-results" class="no-results" hidden>
     No calculators match your search.
   </div>
 </BaseLayout>
@@ -61,10 +93,44 @@ document.getElementById('calc-search').addEventListener('input', function(e) {
     card.style.display = match ? '' : 'none';
     if (match) visible++;
   });
-  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+  document.getElementById('no-results').hidden = visible !== 0;
 });
 </script>
 
 <style>
-  .calc-card h3 { font-size: 0.95rem; margin: 0; }
+  .home-hero { padding: 1.25rem 0 .75rem; }
+  .home-hero h1 {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-weight: 800; letter-spacing: -.02em; line-height: 1.15;
+    margin-bottom: .3rem;
+  }
+  .home-hero h1 .hero-mark {
+    font-size: .72em; font-weight: 600; color: #6b7280; letter-spacing: 0;
+    display: inline-block; margin-left: .15em;
+  }
+  .home-hero .hero-sub { font-size: .9rem; color: #6b7280; max-width: 60ch; margin: 0; }
+
+  .calc-search {
+    width: 100%;
+    padding: .6rem .9rem;
+    border: 1px solid #e5e7eb; border-radius: 8px;
+    background: #fff;
+    font-size: .9rem; font-family: inherit;
+    margin: .85rem 0 1rem;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .calc-search:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,.14);
+  }
+
+  .calc-card { display: block; position: relative; }
+  .calc-card-tag {
+    font-size: .6rem; font-weight: 700; text-transform: uppercase;
+    color: #6366f1; letter-spacing: .08em;
+  }
+  .calc-card h3 { font-size: .95rem; margin: .2rem 0 0; color: #0b1220; font-weight: 600; letter-spacing: -.01em; }
+
+  .no-results { text-align: center; padding: 1.5rem; color: #6b7280; font-size: .9rem; }
 </style>

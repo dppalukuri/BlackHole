@@ -90,6 +90,7 @@ export default function CompoundInterestCalculator() {
           ]}
         />
         <DoughnutChart
+          locale="en-US"
           segments={[
             { label: 'Principal', value: result.investedAmount, color: '#6366f1' },
             { label: 'Interest', value: result.estimatedReturns, color: '#22c55e' },

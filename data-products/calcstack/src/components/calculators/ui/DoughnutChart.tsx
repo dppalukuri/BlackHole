@@ -6,9 +6,11 @@ interface DoughnutChartProps {
     value: number;
     color: string;
   }>;
+  /** BCP-47 locale for tooltip number formatting. Defaults to `en-IN`. */
+  locale?: string;
 }
 
-export default function DoughnutChart({ segments }: DoughnutChartProps) {
+export default function DoughnutChart({ segments, locale = 'en-IN' }: DoughnutChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<any>(null);
 
@@ -59,7 +61,7 @@ export default function DoughnutChart({ segments }: DoughnutChartProps) {
                   const val = ctx.parsed;
                   const total = ctx.dataset.data.reduce((a: number, b: number) => a + b, 0);
                   const pct = ((val / total) * 100).toFixed(1);
-                  return ` ${ctx.label}: ${val.toLocaleString()} (${pct}%)`;
+                  return ` ${ctx.label}: ${val.toLocaleString(locale)} (${pct}%)`;
                 },
               },
             },

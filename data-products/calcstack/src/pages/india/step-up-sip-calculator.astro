@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StepUpSIPCalculator from '../../components/calculators/engines/StepUpSIPCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Step-Up SIP Calculator — See How Annual Increases Multiply Your Wealth | CalcStack"
   description="Free step-up SIP calculator. See how increasing your SIP by 10-15% every year can create 2-3x more wealth than a regular SIP. Year-by-year breakdown included."
@@ -30,6 +31,8 @@ import StepUpSIPCalculator from '../../components/calculators/engines/StepUpSIPC
       <li>Review annually: if you got a bigger raise, increase the step-up percentage</li>
     </ol>
   </section>
+
+    <AffiliateCTA partner={GROWW} title="Automate your step-up SIP" blurb="Groww supports automatic SIP step-ups — set your % increase once, invest in direct mutual funds with zero commission." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

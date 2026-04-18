@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FIRECalculator from '../../components/calculators/engines/FIRECalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="FIRE Calculator India — When Can You Retire Early? | CalcStack"
   description="Free FIRE calculator for India. Calculate your Financial Independence number, years to retire early, and see a year-by-year progress tracker. Adjusted for Indian inflation and returns."
@@ -40,6 +41,8 @@ import FIRECalculator from '../../components/calculators/engines/FIRECalculator'
       <li><strong>Coast FIRE:</strong> A middle ground — accumulate enough that compound interest alone will grow it to your FIRE number by traditional retirement age, then work a lower-stress job.</li>
     </ul>
   </section>
+
+    <AffiliateCTA partner={GROWW} title="Build your FIRE corpus" blurb="Invest your SIPs directly in mutual funds with zero commission. Track progress toward FIRE in one place." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

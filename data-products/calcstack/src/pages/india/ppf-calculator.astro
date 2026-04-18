@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PPFCalculator from '../../components/calculators/engines/PPFCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { ZERODHA } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="PPF Calculator - Public Provident Fund Calculator 2026 | CalcStack"
   description="Free PPF calculator. Calculate your Public Provident Fund maturity value at current 7.1% interest rate. See how ₹1.5 lakh yearly investment grows over 15-50 years."
@@ -32,6 +33,8 @@ import PPFCalculator from '../../components/calculators/engines/PPFCalculator';
       <li><strong>Maturity:</strong> The entire maturity amount is tax-free</li>
     </ul>
   </section>
+
+    <AffiliateCTA partner={ZERODHA} title="Open a free demat + PPF-linked account" blurb="Zerodha offers integrated savings, PPF-linked investing, and zero-commission direct mutual funds." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

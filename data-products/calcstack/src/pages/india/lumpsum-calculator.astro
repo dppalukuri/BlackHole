@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LumpSumCalculator from '../../components/calculators/engines/LumpSumCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Lump Sum Calculator - Mutual Fund Returns Calculator | CalcStack"
   description="Free lump sum investment calculator. Calculate how much your one-time investment in mutual funds can grow over time with the power of compounding."
@@ -63,4 +64,6 @@ import LumpSumCalculator from '../../components/calculators/engines/LumpSumCalcu
       </a>
     </div>
   </section>
+
+  <AffiliateCTA partner={GROWW} title="Invest your lump sum in direct mutual funds" blurb="Zero-commission direct mutual funds on Groww save 0.5–1% in expense ratio vs regular plans — compounds into lakhs over time." />
 </BaseLayout>

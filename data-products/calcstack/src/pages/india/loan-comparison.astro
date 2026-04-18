@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MultiLoanComparator from '../../components/calculators/engines/MultiLoanComparator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Home Loan Comparison Calculator — Compare 3 Bank Offers Side-by-Side | CalcStack"
   description="Compare home loan offers from 3 banks side-by-side. See EMI, total interest, and total payment differences instantly. Find the cheapest loan deal."
@@ -44,4 +45,6 @@ import MultiLoanComparator from '../../components/calculators/engines/MultiLoanC
       <a href="/india/old-vs-new-tax-regime" class="related-card"><h3>Tax Regime Comparator</h3><p>Home loan interest is deductible under old regime.</p></a>
     </div>
   </section>
+
+  <AffiliateCTA partner={GROWW} title="Start investing while paying EMIs" blurb="Don’t wait until you’re debt-free — even a ₹5,000 SIP in direct mutual funds starts compounding now." />
 </BaseLayout>

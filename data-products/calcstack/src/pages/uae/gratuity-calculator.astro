@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import UAEGratuityCalculator from '../../components/calculators/engines/UAEGratuityCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { SARWA } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="UAE Gratuity Calculator 2026 - End of Service Benefits | CalcStack"
   description="Free UAE gratuity calculator. Calculate your end-of-service gratuity based on UAE Labour Law (Federal Decree-Law No. 33 of 2021). Supports limited and unlimited contracts."
@@ -60,6 +61,8 @@ import UAEGratuityCalculator from '../../components/calculators/engines/UAEGratu
       <li>Gratuity must be paid within <strong>14 days</strong> of the last working day</li>
     </ul>
   </section>
+
+    <AffiliateCTA partner={SARWA} title="Grow your gratuity safely" blurb="Don’t let your end-of-service gratuity sit idle. Sarwa’s regulated portfolios grow it with diversified ETFs, from AED 500." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

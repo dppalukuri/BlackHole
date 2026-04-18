@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TaxRegimeComparator from '../../components/calculators/engines/TaxRegimeComparator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Old vs New Tax Regime Calculator 2026-27 — Which Saves More? | CalcStack"
   description="Compare old and new income tax regimes for FY 2025-26 (AY 2026-27). Enter your deductions to find which regime saves you more tax. Updated for Budget 2025 changes."
@@ -53,6 +54,8 @@ import TaxRegimeComparator from '../../components/calculators/engines/TaxRegimeC
     </ul>
     <p>Rule of thumb: if your total deductions exceed <strong>~₹3.75 lakh</strong>, run the numbers. Below that, new regime almost always wins.</p>
   </section>
+
+    <AffiliateCTA partner={GROWW} title="Invest your tax savings" blurb="Whichever regime saves more, redirect those savings into ELSS or equity mutual funds for long-term compounding." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

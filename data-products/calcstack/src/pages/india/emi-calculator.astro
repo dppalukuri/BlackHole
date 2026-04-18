@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="EMI Calculator - Calculate Loan EMI Online | CalcStack"
   description="Free EMI calculator for home loan, car loan, and personal loan. Calculate your monthly EMI, total interest payable, and view the complete amortization schedule."
@@ -82,6 +83,8 @@ import EMICalculator from '../../components/calculators/engines/EMICalculator';
       P = 30,00,000, r = 0.00708, n = 240. EMI = approximately ₹26,035/month. Total interest paid = ₹32,48,445.
     </p>
   </section>
+
+    <AffiliateCTA partner={GROWW} title="Free up cash flow with smart investing" blurb="While you pay off EMIs, start a small SIP. Even ₹5,000/month in direct mutual funds compounds into lakhs." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

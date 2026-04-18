@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CompoundInterestCalculator from '../../components/calculators/engines/CompoundInterestCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Compound Interest Calculator - Free Online Tool | CalcStack"
   description="Free compound interest calculator. See how your money grows with daily, monthly, quarterly, or annual compounding. Visualize the power of compound interest over time."
@@ -43,6 +44,8 @@ import CompoundInterestCalculator from '../../components/calculators/engines/Com
     </ul>
     <p>The difference between annual and daily compounding is $466 on a $10,000 investment — not life-changing, but it adds up on larger amounts and longer time periods.</p>
   </section>
+
+    <AffiliateCTA partner={BETTERMENT} title="Put compound interest to work" blurb="Betterment automates long-term investing with tax-loss harvesting. Start with $10 and let compounding do the rest." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FDCalculator from '../../components/calculators/engines/FDCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { ET_MONEY } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="FD Calculator - Fixed Deposit Maturity Calculator | CalcStack"
   description="Free FD calculator. Calculate your Fixed Deposit maturity amount and interest earned. Compare FD rates across SBI, HDFC, ICICI, and other banks."
@@ -27,6 +28,8 @@ import FDCalculator from '../../components/calculators/engines/FDCalculator';
     <h2>FD Interest Compounding</h2>
     <p>Most Indian banks compound FD interest <strong>quarterly</strong>. This means your interest earns interest every 3 months, resulting in a slightly higher effective yield than the stated annual rate. For example, a 7% FD with quarterly compounding yields an effective annual rate of approximately 7.19%.</p>
   </section>
+
+    <AffiliateCTA partner={ET_MONEY} title="Compare FD rates across banks" blurb="ET Money’s FD platform compares rates from top Indian banks and NBFCs — book directly, track in one dashboard." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

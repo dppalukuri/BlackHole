@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RentalYieldCalculator from '../../components/calculators/engines/RentalYieldCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { SARWA } from '../../lib/affiliates';
 ---
-
 <BaseLayout
   title="Dubai Rental Yield Calculator 2026 — ROI with DLD Fees & Service Charges | CalcStack"
   description="Calculate net rental yield on Dubai property. Includes DLD fee (4%), agent commission, service charges, vacancy, and maintenance. Compare your ROI against Dubai benchmarks."
@@ -52,6 +53,8 @@ import RentalYieldCalculator from '../../components/calculators/engines/RentalYi
     </table>
     <p style="font-size: 0.85rem; color: #64748b;">Source: Dubai Land Department transaction data, Q1 2026 estimates. Actual yields vary by building, unit type, and furnishing.</p>
   </section>
+
+    <AffiliateCTA partner={SARWA} title="Diversify beyond Dubai property" blurb="Property alone is concentrated risk. Sarwa gives you globally diversified ETFs from AED 500 — liquid, regulated." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

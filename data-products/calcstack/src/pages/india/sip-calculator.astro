@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
 ---
 
 <BaseLayout
@@ -130,12 +132,7 @@ import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
     </ul>
   </section>
 
-  <div class="affiliate-cta">
-    <h3>Start your SIP today</h3>
-    <p>Open a free demat account and invest in direct mutual funds with zero commission.</p>
-    <a href="#" rel="nofollow sponsored" class="cta-btn">Open Free Account</a>
-    <span class="cta-disclosure">We may earn a commission if you sign up through our links.</span>
-  </div>
+  <AffiliateCTA partner={GROWW} title="Start your SIP today" blurb="Open a free demat account and invest in direct mutual funds with zero commission." />
 
   <section class="faq-section">
     <h2>Frequently Asked Questions</h2>

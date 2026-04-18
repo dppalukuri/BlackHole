@@ -1,0 +1,37 @@
+---
+/**
+ * AffiliateCTA — reusable call-to-action with disclosure, reading from
+ * centralized affiliate config (src/lib/affiliates.ts).
+ *
+ * Usage:
+ *   <AffiliateCTA partner={GROWW} title="Start your SIP today" />
+ */
+import { DISCLOSURE, type AffiliatePartner } from '../lib/affiliates';
+
+interface Props {
+  partner: AffiliatePartner;
+  title?: string;
+  blurb?: string;
+}
+
+const { partner, title, blurb } = Astro.props;
+const heading = title ?? `Try ${partner.name}`;
+const body = blurb ?? partner.blurb;
+const isPlaceholder = partner.url === '#';
+---
+
+<aside class="affiliate-cta" role="complementary" aria-labelledby={`cta-${partner.name}`}>
+  <h3 id={`cta-${partner.name}`}>{heading}</h3>
+  <p>{body}</p>
+  <a
+    href={partner.url}
+    rel="nofollow sponsored noopener"
+    target="_blank"
+    class="cta-btn"
+    data-affiliate={partner.name.toLowerCase()}
+  >{partner.cta}</a>
+  <span class="cta-disclosure">{DISCLOSURE}</span>
+  {isPlaceholder && (
+    <!-- Build-time reminder: placeholder URL. Replace in src/lib/affiliates.ts. -->
+  )}
+</aside>
