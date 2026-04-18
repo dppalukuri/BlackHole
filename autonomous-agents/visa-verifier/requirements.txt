@@ -1,0 +1,7 @@
+# No Python deps needed for the subscription-based agent — the `claude` CLI
+# (installed with Claude Code) is the only external dependency.
+#
+# If you prefer the direct-API variant (API key required), install:
+#   anthropic>=0.92.0
+#   python-dotenv>=1.0.1
+# and swap verifier.py to use the anthropic SDK (see git history).

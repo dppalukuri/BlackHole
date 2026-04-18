@@ -1,0 +1,39 @@
+{
+  "description": "Seed list: passports × destinations the agent will verify. Extend anytime — the agent skips entries already verified within TTL.",
+  "passports": [
+    "India",
+    "United Kingdom",
+    "United States",
+    "Canada",
+    "Australia"
+  ],
+  "destinations": [
+    "United States",
+    "United Kingdom",
+    "France",
+    "Germany",
+    "Italy",
+    "Spain",
+    "Canada",
+    "Australia",
+    "Japan",
+    "Singapore",
+    "Thailand",
+    "United Arab Emirates",
+    "Turkey",
+    "Switzerland",
+    "Netherlands",
+    "Greece",
+    "Indonesia",
+    "Malaysia",
+    "South Korea",
+    "Mexico"
+  ],
+  "output": "output/verified-visas.json",
+  "site_sync_path": "../../data-products/visapathway/public/data/verified-visas.json",
+  "notes": [
+    "A passport + destination that are identical (e.g. India → India) is auto-skipped.",
+    "The agent calls Claude with web_search enabled and requires a gov-domain source URL to mark an entry 'verified'.",
+    "Entries without an authoritative source are marked 'unknown' and not shown on-site."
+  ]
+}
