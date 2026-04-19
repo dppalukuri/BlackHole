@@ -120,6 +120,45 @@ const jsonLd = {
 
   <VisaChecker client:load />
 
+  <section class="popular-queries">
+    <h2>Or pick a popular query</h2>
+    <p class="section-sub">Each link pre-fills the checker with a common passport + permit combination. Shareable — paste any URL into a chat or forum and the receiver sees exactly your query.</p>
+    <div class="pq-grid">
+      <a href="/?p=India&perm=UAE%20Residence%20Permit&d=Turkey" class="pq-card">
+        <div class="pq-label">🇮🇳 + 🇦🇪 → 🇹🇷</div>
+        <div class="pq-desc">Indian passport + UAE residence → Turkey</div>
+      </a>
+      <a href="/?p=India&perm=Valid%20US%20Visa%20(B1%2FB2)&d=Turkey" class="pq-card">
+        <div class="pq-label">🇮🇳 + 🇺🇸 visa → 🇹🇷</div>
+        <div class="pq-desc">Indian passport + valid US visa → Turkey</div>
+      </a>
+      <a href="/?p=India&perm=UAE%20Residence%20Permit&d=Georgia" class="pq-card">
+        <div class="pq-label">🇮🇳 + 🇦🇪 → 🇬🇪</div>
+        <div class="pq-desc">Indian passport + UAE residence → Georgia</div>
+      </a>
+      <a href="/?p=United%20Kingdom&d=United%20Arab%20Emirates" class="pq-card">
+        <div class="pq-label">🇬🇧 → 🇦🇪</div>
+        <div class="pq-desc">British passport → UAE</div>
+      </a>
+      <a href="/?p=United%20States&d=Japan" class="pq-card">
+        <div class="pq-label">🇺🇸 → 🇯🇵</div>
+        <div class="pq-desc">American passport → Japan</div>
+      </a>
+      <a href="/?p=Pakistan&perm=UAE%20Residence%20Permit&d=Georgia" class="pq-card">
+        <div class="pq-label">🇵🇰 + 🇦🇪 → 🇬🇪</div>
+        <div class="pq-desc">Pakistani passport + UAE residence → Georgia</div>
+      </a>
+      <a href="/?p=Philippines&perm=UAE%20Residence%20Permit&d=Armenia" class="pq-card">
+        <div class="pq-label">🇵🇭 + 🇦🇪 → 🇦🇲</div>
+        <div class="pq-desc">Filipino passport + UAE residence → Armenia</div>
+      </a>
+      <a href="/?p=Bangladesh&perm=Valid%20US%20Visa%20(B1%2FB2)&d=Mexico" class="pq-card">
+        <div class="pq-label">🇧🇩 + 🇺🇸 visa → 🇲🇽</div>
+        <div class="pq-desc">Bangladeshi passport + valid US visa → Mexico</div>
+      </a>
+    </div>
+  </section>
+
   <section class="popular-passports">
     <div class="section-head">
       <div>
@@ -302,7 +341,19 @@ const jsonLd = {
       border-radius: 50%; font-size: .65rem; font-weight: 700;
     }
 
-    .popular-passports, .permit-guides, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }
+    .popular-passports, .permit-guides, .popular-queries, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }
+    .pq-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: .5rem; margin-top: .75rem;
+    }
+    .pq-card {
+      display: block; padding: .75rem .9rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      text-decoration: none; transition: all .15s;
+    }
+    .pq-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 4px 12px -6px rgba(124,58,237,.25); }
+    .pq-label { font-size: 1.05rem; letter-spacing: .03em; }
+    .pq-desc { font-size: .8rem; color: var(--muted); margin-top: .25rem; line-height: 1.4; }
     .dest-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: .55rem; margin-top: .75rem;
