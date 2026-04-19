@@ -18,7 +18,8 @@ set "LOG=output\hourly-%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%.log"
 echo. >> "%LOG%"
 echo ======== %DATE% %TIME% ======== >> "%LOG%"
 
-python agent.py --limit 150 --parallel 4 --sync >> "%LOG%" 2>&1
+REM --limit is sized for Claude Max daily quota. Lower to 30 if you see frequent quota bails.
+python agent.py --limit 50 --parallel 4 --sync >> "%LOG%" 2>&1
 
 echo -- exit %ERRORLEVEL% -- >> "%LOG%"
 exit /b %ERRORLEVEL%

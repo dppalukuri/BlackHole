@@ -190,10 +190,31 @@ def verify_batch(
     added = 0
     total_pairs = len(pending)
 
+    # Circuit-breaker: if the Claude Max quota is exhausted, every subsequent
+    # CLI call comes back instantly with "You've hit your limit" / 429. Keep
+    # going chews through the pending list and clutters the log. Bail after
+    # N consecutive quota-style failures.
+    quota_errors = {"_n": 0}  # mutable shared counter
+    QUOTA_BAIL_AFTER = 10
+    QUOTA_MARKERS = ("hit your limit", "429", "rate_limit", "usage limit", "quota")
+
+    def looks_like_quota(result) -> bool:
+        if not isinstance(result, Exception):
+            return False
+        msg = str(result).lower()
+        return any(m.lower() in msg for m in QUOTA_MARKERS)
+
     if parallel <= 1:
-        # Sequential path — keeps the old behavior exactly
+        # Sequential path
         for idx, (p, d) in enumerate(pending, start=1):
             _, _, result = _verify_with_retry(p, d, model)
+            if looks_like_quota(result):
+                quota_errors["_n"] += 1
+                if quota_errors["_n"] >= QUOTA_BAIL_AFTER:
+                    print(f"  [bail] {quota_errors['_n']} consecutive quota errors — stopping run at [{idx}/{total_pairs}] to preserve log clarity")
+                    break
+            else:
+                quota_errors["_n"] = 0
             added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
         return added
 
@@ -201,13 +222,25 @@ def verify_batch(
     print(f"[parallel] running {parallel} workers")
     with ThreadPoolExecutor(max_workers=parallel) as pool:
         futures = {pool.submit(_verify_with_retry, p, d, model): (p, d) for (p, d) in pending}
+        bailed = False
         for idx, fut in enumerate(as_completed(futures), start=1):
+            if bailed:
+                fut.cancel()
+                continue
             try:
                 p, d, result = fut.result()
             except Exception as e:
-                # Should never happen — _verify_with_retry catches — but defence in depth
                 p, d = futures[fut]
                 result = e
+            if looks_like_quota(result):
+                quota_errors["_n"] += 1
+                if quota_errors["_n"] >= QUOTA_BAIL_AFTER:
+                    print(f"  [bail] {quota_errors['_n']} consecutive quota errors — cancelling remaining workers")
+                    bailed = True
+                    for f in futures:
+                        f.cancel()
+            else:
+                quota_errors["_n"] = 0
             added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
     return added
 
