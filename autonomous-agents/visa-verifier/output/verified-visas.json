@@ -21,6 +21,10 @@
         "passport": "Australia",
         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -32,6 +36,10 @@
         "passport": "Australia",
         "source": "https://france-visas.gouv.fr/en/web/france-visas/australie",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -43,6 +51,10 @@
         "passport": "Australia",
         "source": "https://australien.diplo.de/au-en/service/visa/short-term-visa-2073662",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -54,6 +66,10 @@
         "passport": "Australia",
         "source": "https://greece.embassy.gov.au/athn/visas_for_gr.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI timed out after 240s",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -65,6 +81,13 @@
         "passport": "Australia",
         "source": "https://evisa.imigrasi.go.id/front/info/evoa",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said ev, sonnet said voa",
+        "validation_result": "differ-status",
+        "validator_days": 30,
+        "validator_source": "https://kbri-canberra.go.id/en/menu-visa-service.html",
+        "validator_status": "voa",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -76,6 +99,10 @@
         "passport": "Australia",
         "source": "https://conssydney.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -87,6 +114,10 @@
         "passport": "Australia",
         "source": "https://www.mofa.go.jp/j_info/visit/visa/short/novisa.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -98,6 +129,10 @@
         "passport": "Australia",
         "source": "https://www.kln.gov.my/web/aus_canberra/requirement_foreigner",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -109,6 +144,10 @@
         "passport": "Australia",
         "source": "https://embamex.sre.gob.mx/australia/index.php/en/?option=com_content&view=article&id=251",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -120,6 +159,10 @@
         "passport": "Australia",
         "source": "https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-australia",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -131,6 +174,13 @@
         "passport": "Australia",
         "source": "https://canberra.mfa.gov.sg/consular-services/visa-information/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both vf but days differ — haiku=90, sonnet=30",
+        "validation_result": "differ-days",
+        "validator_days": 30,
+        "validator_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+        "validator_status": "vf",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -142,6 +192,10 @@
         "passport": "Australia",
         "source": "https://www.mofa.go.kr/au-en/brd/m_3304/view.do?seq=761372",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -153,6 +207,10 @@
         "passport": "Australia",
         "source": "https://www.eeas.europa.eu/australia/travel-study_en",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -164,6 +222,10 @@
         "passport": "Australia",
         "source": "https://www.eda.admin.ch/countries/australia/en/home/visa/entry-ch.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI timed out after 240s",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -175,6 +237,10 @@
         "passport": "Australia",
         "source": "https://www.mfa.go.th/en/page/questions-answers-on-thai-visa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (60d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -186,6 +252,10 @@
         "passport": "Australia",
         "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -197,6 +267,13 @@
         "passport": "Australia",
         "source": "https://u.ae/en/information-and-services/visa-and-emirates-id/tourist-visa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said vf, sonnet said voa",
+        "validation_result": "differ-status",
+        "validator_days": 30,
+        "validator_source": "https://u.ae/en/information-and-services/visa-and-emirates-id/do-you-need-an-entry-permit-or-a-visa-to-enter-the-uae/visa-on-arrival",
+        "validator_status": "voa",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -208,6 +285,10 @@
         "passport": "Australia",
         "source": "https://www.gov.uk/eta",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -219,6 +300,10 @@
         "passport": "Australia",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visa-waiver-program.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       }
     },
@@ -232,6 +317,10 @@
         "passport": "Canada",
         "source": "https://canada.embassy.gov.au/otwa/visas_and_migration.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -254,6 +343,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/france",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -265,6 +358,10 @@
         "passport": "Canada",
         "source": "https://canada.diplo.de/ca-en/consular-services/visa/2653576-2653576",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -276,6 +373,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/greece",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -287,6 +388,13 @@
         "passport": "Canada",
         "source": "https://evisa.imigrasi.go.id/front/info/evoa",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said ev, sonnet said voa",
+        "validation_result": "differ-status",
+        "validator_days": 30,
+        "validator_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+        "validator_status": "voa",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -298,6 +406,10 @@
         "passport": "Canada",
         "source": "https://constoronto.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti/visti-schengen/visto-per-turismo/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -309,6 +421,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/japan",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -320,6 +436,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/malaysia",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -331,6 +451,10 @@
         "passport": "Canada",
         "source": "https://consulmex.sre.gob.mx/toronto/index.php/en/servicesforeigners/doclegalization/52-conservices/225-visitors-who-do-not-require-a-visa-with-a-stay-up-to-180-days",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -342,6 +466,10 @@
         "passport": "Canada",
         "source": "https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-canada",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -353,6 +481,10 @@
         "passport": "Canada",
         "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (30d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -364,6 +496,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/south-korea",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -375,6 +511,10 @@
         "passport": "Canada",
         "source": "https://www.exteriores.gob.es/Embajadas/ottawa/en/ServiciosConsulares/Paginas/Canadian-citizens-are-exempt-from-obtaining-a-tourist-visa-to-travel-to-Spain.aspx",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -386,6 +526,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/switzerland",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -397,6 +541,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/thailand",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (60d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -408,6 +556,10 @@
         "passport": "Canada",
         "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -419,6 +571,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/united-arab-emirates",
         "status": "voa",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: voa (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -430,6 +586,10 @@
         "passport": "Canada",
         "source": "https://travel.gc.ca/destinations/united-kingdom",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -441,6 +601,10 @@
         "passport": "Canada",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/citizens-of-canada-and-bermuda.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       }
     },
@@ -454,6 +618,13 @@
         "passport": "Germany",
         "source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/evisitor-651",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said eta, sonnet said ev",
+        "validation_result": "differ-status",
+        "validator_days": 90,
+        "validator_source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/evisitor-651",
+        "validator_status": "ev",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -465,6 +636,10 @@
         "passport": "Germany",
         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -476,6 +651,10 @@
         "passport": "Germany",
         "source": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -498,6 +677,10 @@
         "passport": "Germany",
         "source": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -509,6 +692,10 @@
         "passport": "Germany",
         "source": "https://evisa.imigrasi.go.id/front/info/evoa",
         "status": "voa",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: voa (30d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -520,6 +707,10 @@
         "passport": "Germany",
         "source": "https://www.italia.it/en/italy/practical-information/travel-document-italy",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -531,6 +722,10 @@
         "passport": "Germany",
         "source": "https://www.de.emb-japan.go.jp/itpr_de/konsular_Visa_EN.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -542,6 +737,10 @@
         "passport": "Germany",
         "source": "https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -553,6 +752,10 @@
         "passport": "Germany",
         "source": "https://embamex.sre.gob.mx/alemania/index.php/de/konsularabteilung/visum/51-alemania/752-regular-requirements-for-non-mexican-persons-entering-mexico",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -564,6 +767,10 @@
         "passport": "Germany",
         "source": "https://www.eeas.europa.eu/sites/default/files/frequently_asked_questions_en.pdf",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -575,6 +782,10 @@
         "passport": "Germany",
         "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI timed out after 240s",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -586,6 +797,10 @@
         "passport": "Germany",
         "source": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140769",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI timed out after 240s",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -597,6 +812,10 @@
         "passport": "Germany",
         "source": "https://www.exteriores.gob.es/Consulados/washington/en/ServiciosConsulares/Paginas/Consular/Condiciones-de-entrada-en-Espana.aspx",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -608,6 +827,10 @@
         "passport": "Germany",
         "source": "https://www.sem.admin.ch/sem/en/home/overview-einreise.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -619,6 +842,10 @@
         "passport": "Germany",
         "source": "https://berlin.thaiembassy.org/de/page/allgemeine-informationen?menu=624afc370442b4457e30b123",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (60d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -630,6 +857,10 @@
         "passport": "Germany",
         "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -641,6 +872,13 @@
         "passport": "Germany",
         "source": "https://www.mofa.gov.ae/en/visa-exemptions-for-non-citizen",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said vf, sonnet said voa",
+        "validation_result": "differ-status",
+        "validator_days": 90,
+        "validator_source": "https://www.mofa.gov.ae/en/missions/the-hague/services/visas",
+        "validator_status": "voa",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -652,6 +890,10 @@
         "passport": "Germany",
         "source": "https://www.gov.uk/eta",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -663,6 +905,10 @@
         "passport": "Germany",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visa-waiver-program.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: eta (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       }
     },
@@ -676,6 +922,10 @@
         "passport": "India",
         "source": "https://india.embassy.gov.au/ndli/vm_visitaus.html",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: ev (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -687,6 +937,10 @@
         "passport": "India",
         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/visitor-visa.html",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -698,6 +952,10 @@
         "passport": "India",
         "source": "https://france-visas.gouv.fr/",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -709,6 +967,10 @@
         "passport": "India",
         "source": "https://india.diplo.de/in-en/service/2341254-2341254",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -720,6 +982,10 @@
         "passport": "India",
         "source": "https://in-gr.gvcworld.eu/en/visa-info-tourism",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -731,6 +997,13 @@
         "passport": "India",
         "source": "https://evisa.imigrasi.go.id/front/info/evoa",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said ev, sonnet said voa",
+        "validation_result": "differ-status",
+        "validator_days": 30,
+        "validator_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+        "validator_status": "voa",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -742,6 +1015,10 @@
         "passport": "India",
         "source": "https://ambnewdelhi.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti/",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -753,6 +1030,13 @@
         "passport": "India",
         "source": "https://www.mofa.go.jp/j_info/visit/visa/visaonline.html",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said ev, sonnet said vr",
+        "validation_result": "differ-status",
+        "validator_days": 90,
+        "validator_source": "https://www.mofa.go.jp/j_info/visit/visa/short/other_visa.html",
+        "validator_status": "vr",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -764,6 +1048,10 @@
         "passport": "India",
         "source": "https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (30d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -775,6 +1063,10 @@
         "passport": "India",
         "source": "https://www.indiainmexico.gov.in/public_files/assets/pdf/IMPORTANT_NOTICE_TO_INDIAN_NATIONALS_TRAVELLING_TO_MEXICO.pdf",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -786,6 +1078,10 @@
         "passport": "India",
         "source": "https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-india",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -797,6 +1093,13 @@
         "passport": "India",
         "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/india",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said ev, sonnet said vr",
+        "validation_result": "differ-status",
+        "validator_days": 30,
+        "validator_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/india",
+        "validator_status": "vr",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -808,6 +1111,10 @@
         "passport": "India",
         "source": "https://www.visa.go.kr/",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -819,6 +1126,10 @@
         "passport": "India",
         "source": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -830,6 +1141,10 @@
         "passport": "India",
         "source": "https://www.myswitzerland.com/en-in/planning/about-switzerland/general-facts/entry/visa-regulations-for-indian-passport-holders/",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (90d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -841,6 +1156,10 @@
         "passport": "India",
         "source": "https://newdelhi.thaiembassy.org/en/page/visa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vf (60d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -867,6 +1186,13 @@
         "passport": "India",
         "source": "https://www.mofa.gov.ae/en/missions/new-delhi/services/visas",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "haiku said vr, sonnet said ev",
+        "validation_result": "differ-status",
+        "validator_days": 90,
+        "validator_source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e60",
+        "validator_status": "ev",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -878,6 +1204,10 @@
         "passport": "India",
         "source": "https://www.gov.uk/standard-visitor",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -889,6 +1219,10 @@
         "passport": "India",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visitor.html",
         "status": "vr",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "both agree: vr (180d)",
+        "validation_result": "agree",
         "verified_at": "2026-04-18"
       }
     },
@@ -902,6 +1236,10 @@
         "passport": "Japan",
         "source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/electronic-travel-authority-601",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":56929,\"duration_api_ms\":61567,\"num_turns\":13,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -913,6 +1251,10 @@
         "passport": "Japan",
         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":14860,\"duration_api_ms\":17912,\"num_turns\":4,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_r",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -924,6 +1266,10 @@
         "passport": "Japan",
         "source": "https://www.eeas.europa.eu/japan/travel_en",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":4221,\"duration_api_ms\":5879,\"num_turns\":2,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_rea",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -935,6 +1281,10 @@
         "passport": "Japan",
         "source": "https://japan.diplo.de/ja-de/service/entry/932308",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":546,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -946,6 +1296,10 @@
         "passport": "Japan",
         "source": "https://www.mfa.gr/missionsabroad/en/japan-en/visas/schengen-visas.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":692,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -957,6 +1311,10 @@
         "passport": "Japan",
         "source": "https://evisa.imigrasi.go.id/front/info/evoa",
         "status": "voa",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":500,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -968,6 +1326,10 @@
         "passport": "Japan",
         "source": "https://www.vistoperitalia.it/en/paesi-senza-visto-italia/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":680,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -990,6 +1352,10 @@
         "passport": "Japan",
         "source": "https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":678,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -1001,6 +1367,10 @@
         "passport": "Japan",
         "source": "https://embamex.sre.gob.mx/canada/index.php/en/sconeng/11352-visitorsnovisarequired",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":543,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -1012,6 +1382,10 @@
         "passport": "Japan",
         "source": "https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-japan",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":578,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -1023,6 +1397,10 @@
         "passport": "Japan",
         "source": "https://tokyo.mfa.gov.sg/visa-information/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":614,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -1034,6 +1412,10 @@
         "passport": "Japan",
         "source": "https://www.k-eta.go.kr/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":538,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -1045,6 +1427,10 @@
         "passport": "Japan",
         "source": "https://www.exteriores.gob.es/Embajadas/tokio/en/ServiciosConsulares/Paginas/Consular/Visados-Schengen.aspx",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":942,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -1056,6 +1442,10 @@
         "passport": "Japan",
         "source": "https://www.eda.admin.ch/countries/japan/en/home/visa-entry-to-switzerland/entry-ch/up-90-days/do-i-need-a-schengen-visa.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":823,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -1067,6 +1457,10 @@
         "passport": "Japan",
         "source": "https://www.mfa.go.th/en/page/general-information",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1186,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -1078,6 +1472,10 @@
         "passport": "Japan",
         "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1261,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -1089,6 +1487,10 @@
         "passport": "Japan",
         "source": "https://www.mofa.gov.ae/en/visa-exemptions-for-non-citizen",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":498,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -1100,6 +1502,10 @@
         "passport": "Japan",
         "source": "https://www.gov.uk/eta",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1092,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -1111,6 +1517,10 @@
         "passport": "Japan",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visa-waiver-program.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":744,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       }
     },
@@ -1124,6 +1534,10 @@
         "passport": "Singapore",
         "source": "https://singapore.embassy.gov.au/sing/visas_and_migration.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1721,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -1135,6 +1549,10 @@
         "passport": "Singapore",
         "source": "https://ircc.canada.ca/english/visit/visas.asp?country=Singapore",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":542,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -1146,6 +1564,10 @@
         "passport": "Singapore",
         "source": "https://www.mfa.gov.sg/travelling-overseas/travel-advisories-notices-and-visa-information/france/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":981,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -1157,6 +1579,10 @@
         "passport": "Singapore",
         "source": "https://singapur.diplo.de/sg-en/service/05-visaeinreise/1225482-1225482",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":501,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -1168,6 +1594,10 @@
         "passport": "Singapore",
         "source": "https://www.mfa.gr/missionsabroad/en/visas.html?mission=sgp&mis=singapore",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":633,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -1179,6 +1609,10 @@
         "passport": "Singapore",
         "source": "https://indonesianembassy.de/visa/visa-exemption/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":723,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -1190,6 +1624,10 @@
         "passport": "Singapore",
         "source": "https://ambsingapore.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":741,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -1201,6 +1639,10 @@
         "passport": "Singapore",
         "source": "https://www.sg.emb-japan.go.jp/itpr_en/visa_requirement.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1312,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -1212,6 +1654,10 @@
         "passport": "Singapore",
         "source": "https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":821,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -1223,6 +1669,10 @@
         "passport": "Singapore",
         "source": "https://embamex.sre.gob.mx/singapur/index.php/consular-services/visas",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":574,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -1234,6 +1684,10 @@
         "passport": "Singapore",
         "source": "https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-singapore",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":709,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -1256,6 +1710,10 @@
         "passport": "Singapore",
         "source": "https://www.mfa.gov.sg/travelling-overseas/travel-advisories-notices-and-visa-information/republic-of-south-korea/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":626,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -1267,6 +1725,10 @@
         "passport": "Singapore",
         "source": "https://www.visa-schengen.info/en/travelling-in-europe/exempted-countries/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":584,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -1278,6 +1740,10 @@
         "passport": "Singapore",
         "source": "https://www.sem.admin.ch/sem/en/home/publiservice/weisungen-kreisschreiben/visa/liste1_staatsangehoerigkeit/s.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":597,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -1289,6 +1755,10 @@
         "passport": "Singapore",
         "source": "https://singapore.thaiembassy.org/en/page/tourist-visa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1530,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -1300,6 +1770,10 @@
         "passport": "Singapore",
         "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":975,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -1311,6 +1785,10 @@
         "passport": "Singapore",
         "source": "https://www.mofa.gov.ae/en/Missions/Singapore/Services/Visas",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":534,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -1322,6 +1800,10 @@
         "passport": "Singapore",
         "source": "https://www.gov.uk/guidance/check-when-you-can-get-an-electronic-travel-authorisation-eta",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":828,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -1333,6 +1815,10 @@
         "passport": "Singapore",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visa-waiver-program.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1110,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       }
     },
@@ -1346,6 +1832,10 @@
         "passport": "United Kingdom",
         "source": "https://uk.embassy.gov.au/lhlh/visas_and_migration.html",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":860,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -1357,6 +1847,10 @@
         "passport": "United Kingdom",
         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":613,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -1368,6 +1862,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/france/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1593,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -1379,6 +1877,10 @@
         "passport": "United Kingdom",
         "source": "https://uk.diplo.de/uk-en/02/do-i-need-a-visa-2442126",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":800,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -1390,6 +1892,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/greece/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":824,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -1401,6 +1907,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/indonesia/entry-requirements",
         "status": "voa",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":681,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -1412,6 +1922,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/italy/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":972,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -1423,6 +1937,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/japan/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":586,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -1434,6 +1952,10 @@
         "passport": "United Kingdom",
         "source": "https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1241,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -1445,6 +1967,10 @@
         "passport": "United Kingdom",
         "source": "https://consulmex.sre.gob.mx/reinounido/index.php/es/contenido/92-tourist-visa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":846,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -1456,6 +1982,10 @@
         "passport": "United Kingdom",
         "source": "https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-united-kingdom",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":739,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -1467,6 +1997,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/singapore/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":696,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -1478,6 +2012,10 @@
         "passport": "United Kingdom",
         "source": "https://overseas.mofa.go.kr/gb-en/wpge/m_8346/contents.do",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":578,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -1489,6 +2027,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/spain/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":934,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -1500,6 +2042,10 @@
         "passport": "United Kingdom",
         "source": "https://www.sem.admin.ch/sem/en/home/themen/einreise/faq.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":760,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -1511,6 +2057,10 @@
         "passport": "United Kingdom",
         "source": "https://london.thaiembassy.org/en/page/exemp-visa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":955,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -1522,6 +2072,10 @@
         "passport": "United Kingdom",
         "source": "https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":490,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -1533,6 +2087,10 @@
         "passport": "United Kingdom",
         "source": "https://www.gov.uk/foreign-travel-advice/united-arab-emirates/entry-requirements",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":681,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -1555,6 +2113,10 @@
         "passport": "United Kingdom",
         "source": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visa-waiver-program.html",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1376,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       }
     },
@@ -1568,6 +2130,10 @@
         "passport": "United States",
         "source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/electronic-travel-authority-601",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":711,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Canada": {
@@ -1579,6 +2145,10 @@
         "passport": "United States",
         "source": "https://ircc.canada.ca/english/helpcentre/answer.asp?qnum=1116&top=16",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1683,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "France": {
@@ -1590,6 +2160,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/before-you-go/travelers-with-special-considerations/US_Travelers_in_Europes_Schengen_Area.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":877,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Germany": {
@@ -1601,6 +2175,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Germany.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":562,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Greece": {
@@ -1612,6 +2190,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Greece.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":561,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Indonesia": {
@@ -1623,6 +2205,10 @@
         "passport": "United States",
         "source": "https://evisa.imigrasi.go.id/front/info/evoa",
         "status": "ev",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1720,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Italy": {
@@ -1634,6 +2220,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Italy.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":725,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Japan": {
@@ -1645,6 +2235,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Japan.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":583,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Malaysia": {
@@ -1656,6 +2250,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Malaysia.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":608,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Mexico": {
@@ -1667,6 +2265,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Mexico.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":653,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Netherlands": {
@@ -1678,6 +2280,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Netherlands.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":631,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Singapore": {
@@ -1689,6 +2295,10 @@
         "passport": "United States",
         "source": "https://washington.mfa.gov.sg/visa-and-entry-requirements/",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1237,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "South Korea": {
@@ -1700,6 +2310,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/SouthKorea.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":1155,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Spain": {
@@ -1711,6 +2325,10 @@
         "passport": "United States",
         "source": "https://www.exteriores.gob.es/Consulados/washington/en/ServiciosConsulares/Paginas/Consular/Condiciones-de-entrada-en-Espana.aspx",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":961,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Switzerland": {
@@ -1722,6 +2340,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Switzerland.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":836,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Thailand": {
@@ -1733,6 +2355,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Thailand.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":608,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "Turkey": {
@@ -1744,6 +2370,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Turkey.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":596,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Arab Emirates": {
@@ -1755,6 +2385,10 @@
         "passport": "United States",
         "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/UnitedArabEmirates.html",
         "status": "vf",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":645,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United Kingdom": {
@@ -1766,6 +2400,10 @@
         "passport": "United States",
         "source": "https://www.gov.uk/standard-visitor",
         "status": "eta",
+        "validated_at": "2026-04-18",
+        "validated_by": "claude-code:sonnet",
+        "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":930,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
+        "validation_result": "error",
         "verified_at": "2026-04-18"
       },
       "United States": {
@@ -1785,7 +2423,7 @@
     "added_this_run": 60,
     "generator": "autonomous-agents/visa-verifier v0.1",
     "last_run": "2026-04-18T16:26:38+00:00",
-    "last_validation": "2026-04-18T17:29:05+00:00",
+    "last_validation": "2026-04-18T17:59:46+00:00",
     "last_validation_model": "sonnet",
     "model_default": "haiku",
     "total_entries": 160

@@ -1,0 +1,117 @@
+{
+  "generated_at": "2026-04-18T17:59:46+00:00",
+  "issues": [
+    {
+      "destination": "Indonesia",
+      "notes": "haiku said ev, sonnet said voa",
+      "original_days": 30,
+      "original_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+      "original_status": "ev",
+      "passport": "Australia",
+      "validator_days": 30,
+      "validator_source": "https://kbri-canberra.go.id/en/menu-visa-service.html",
+      "validator_status": "voa"
+    },
+    {
+      "destination": "Singapore",
+      "notes": "both vf but days differ — haiku=90, sonnet=30",
+      "original_days": 90,
+      "original_source": "https://canberra.mfa.gov.sg/consular-services/visa-information/",
+      "original_status": "vf",
+      "passport": "Australia",
+      "validator_days": 30,
+      "validator_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+      "validator_status": "vf"
+    },
+    {
+      "destination": "United Arab Emirates",
+      "notes": "haiku said vf, sonnet said voa",
+      "original_days": 90,
+      "original_source": "https://u.ae/en/information-and-services/visa-and-emirates-id/tourist-visa",
+      "original_status": "vf",
+      "passport": "Australia",
+      "validator_days": 30,
+      "validator_source": "https://u.ae/en/information-and-services/visa-and-emirates-id/do-you-need-an-entry-permit-or-a-visa-to-enter-the-uae/visa-on-arrival",
+      "validator_status": "voa"
+    },
+    {
+      "destination": "Indonesia",
+      "notes": "haiku said ev, sonnet said voa",
+      "original_days": 30,
+      "original_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+      "original_status": "ev",
+      "passport": "Canada",
+      "validator_days": 30,
+      "validator_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+      "validator_status": "voa"
+    },
+    {
+      "destination": "Australia",
+      "notes": "haiku said eta, sonnet said ev",
+      "original_days": 90,
+      "original_source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/evisitor-651",
+      "original_status": "eta",
+      "passport": "Germany",
+      "validator_days": 90,
+      "validator_source": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/evisitor-651",
+      "validator_status": "ev"
+    },
+    {
+      "destination": "United Arab Emirates",
+      "notes": "haiku said vf, sonnet said voa",
+      "original_days": 90,
+      "original_source": "https://www.mofa.gov.ae/en/visa-exemptions-for-non-citizen",
+      "original_status": "vf",
+      "passport": "Germany",
+      "validator_days": 90,
+      "validator_source": "https://www.mofa.gov.ae/en/missions/the-hague/services/visas",
+      "validator_status": "voa"
+    },
+    {
+      "destination": "Indonesia",
+      "notes": "haiku said ev, sonnet said voa",
+      "original_days": 30,
+      "original_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+      "original_status": "ev",
+      "passport": "India",
+      "validator_days": 30,
+      "validator_source": "https://evisa.imigrasi.go.id/front/info/evoa",
+      "validator_status": "voa"
+    },
+    {
+      "destination": "Japan",
+      "notes": "haiku said ev, sonnet said vr",
+      "original_days": 90,
+      "original_source": "https://www.mofa.go.jp/j_info/visit/visa/visaonline.html",
+      "original_status": "ev",
+      "passport": "India",
+      "validator_days": 90,
+      "validator_source": "https://www.mofa.go.jp/j_info/visit/visa/short/other_visa.html",
+      "validator_status": "vr"
+    },
+    {
+      "destination": "Singapore",
+      "notes": "haiku said ev, sonnet said vr",
+      "original_days": null,
+      "original_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/india",
+      "original_status": "ev",
+      "passport": "India",
+      "validator_days": 30,
+      "validator_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/india",
+      "validator_status": "vr"
+    },
+    {
+      "destination": "United Arab Emirates",
+      "notes": "haiku said vr, sonnet said ev",
+      "original_days": 30,
+      "original_source": "https://www.mofa.gov.ae/en/missions/new-delhi/services/visas",
+      "original_status": "vr",
+      "passport": "India",
+      "validator_days": 90,
+      "validator_source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e60",
+      "validator_status": "ev"
+    }
+  ],
+  "total_validated": 152,
+  "validator_model": "sonnet"
+}
