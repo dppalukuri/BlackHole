@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { goldenVisaPrograms } from '../data/golden-visa-programs';
+
+const fmtK = (n: number) => {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1000) return `$${(n / 1000).toFixed(0)}k`;
+  if (n === 0) return 'No direct $';
+  return `$${n}`;
+};
+
+const sorted = [...goldenVisaPrograms].sort((a, b) => a.min_investment_usd - b.min_investment_usd);
+const cbi = goldenVisaPrograms.filter((v) => v.kind === 'CBI');
+const rbi = goldenVisaPrograms.filter((v) => v.kind === 'RBI');
+const cheapestCbi = [...cbi].sort((a, b) => a.min_investment_usd - b.min_investment_usd).slice(0, 5);
+const fastestCitizenship = rbi
+  .filter((v) => v.path_to_citizenship_years !== null)
+  .sort((a, b) => (a.path_to_citizenship_years ?? 99) - (b.path_to_citizenship_years ?? 99))
+  .slice(0, 5);
+const noPresence = goldenVisaPrograms.filter(
+  (v) => v.physical_presence_days_per_year === null || v.physical_presence_days_per_year === 0
+);
+const total = goldenVisaPrograms.length;
+
+const faq = [
+  {
+    q: 'What\'s the difference between RBI and CBI?',
+    a: '<strong>Residence-by-Investment (RBI)</strong> gives you a residence permit in exchange for investment — you can live there, but you stay a citizen of your home country. After a few years of residency you can usually apply for citizenship normally. <strong>Citizenship-by-Investment (CBI)</strong> grants you the passport directly, typically within 3-9 months.',
+  },
+  {
+    q: 'Which is the cheapest golden visa?',
+    a: `By headline minimum investment: <strong>${sorted[0].country} (${sorted[0].program_name})</strong> at ${fmtK(sorted[0].min_investment_usd)}. Among residence-by-investment programs with a real property / asset track, <strong>${sorted.find((v) => v.kind === 'RBI' && v.min_investment_usd > 0)?.country}</strong> and <strong>Paraguay ($70k)</strong> are the cheapest.`,
+  },
+  {
+    q: 'Which is the cheapest citizenship-by-investment?',
+    a: `Among Caribbean CBIs, <strong>Dominica</strong> is consistently the cheapest at $200k donation for a single applicant. <strong>${cheapestCbi[0].country}</strong> and <strong>${cheapestCbi[1].country}</strong> are close behind. For passport strength though, St Kitts and Grenada (E-2 treaty) outperform Dominica.`,
+  },
+  {
+    q: 'Which golden visa has the fastest path to an EU passport?',
+    a: `<strong>Portugal</strong> remains the leader at 5 years + 7 days/year physical presence. <strong>Greece</strong> (7 years) and <strong>Cyprus</strong> (7 years) are next. Malta\'s MPRP gives permanent residency immediately but no citizenship path. <strong>Turkey</strong> (4-6 months to full passport) is faster but not EU.`,
+  },
+  {
+    q: 'Do I have to physically live there?',
+    a: `${noPresence.length} of ${total} programs have <em>no</em> physical-presence requirement — you just need to make the investment and visit occasionally. Others require as little as 7 days/year (Portugal), or as much as 183 days/year (US EB-5, Canada Start-up). Check the "Physical presence" column carefully.`,
+  },
+  {
+    q: 'Are Caribbean CBI passports still useful?',
+    a: `Yes, but visa-free lists have shrunk recently. <strong>Vanuatu</strong> lost Schengen visa-free access in 2023. <strong>St Kitts, Antigua, Dominica, Grenada, St Lucia</strong> still offer 140-155-country visa-free access including Schengen and UK. EU has signalled it may require visas from all Caribbean CBI holders by late 2026 — buy early if this matters.`,
+  },
+  {
+    q: 'Is Turkey\'s citizenship-by-investment still a good deal?',
+    a: `<strong>Turkey CBI</strong> at $400k real-estate is the best-value true citizenship (not just residency) on the market. Turkish passport gives visa-free access to ~115 countries including Japan, Singapore, Malaysia, most of Latin America — and Turkish citizens can apply for the US E-2 treaty-investor visa. Downside: Turkish real estate has underperformed USD-terms since 2018.`,
+  },
+  {
+    q: 'Which golden visa gives the best tax treatment?',
+    a: '<strong>UAE Golden Visa</strong> (0% personal income tax). <strong>St Kitts / Dominica / Vanuatu CBIs</strong> (0% worldwide). <strong>Italy Investor</strong> (€200k/yr flat-tax regime covers all foreign income). <strong>Cyprus Non-Dom</strong> (0% on dividends/interest for 17 years). <strong>Malaysia MM2H</strong> (territorial — foreign income exempt).',
+  },
+  {
+    q: 'How current is this list?',
+    a: 'Compiled from official programme pages in the links provided. Programs change frequently — Spain closed its investor visa (effective April 2025), Portugal removed the property track (October 2023), Hungary rebooted (2024). Always verify current rules on the government source page before paying any fees.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Golden Visa Programs 2026 — Residence & Citizenship by Investment Compared',
+  description: `Complete comparison of ${total} residence-by-investment and citizenship-by-investment programs worldwide. Minimum investment, tax regime, processing time, path to citizenship.`,
+  author: { '@type': 'Organization', name: 'TechTools365' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TechTools365',
+    logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+  },
+  datePublished: '2026-04-19',
+  dateModified: '2026-04-19',
+  mainEntityOfPage: 'https://visapathway.techtools365.com/golden-visa-programs',
+};
+---
+
+<BaseLayout
+  title="Golden Visa Programs 2026 — Residence & Citizenship by Investment | VisaPathway"
+  description={`${total} RBI + CBI programs compared: minimum investment, tax regime, path to citizenship, physical presence, family inclusion. Portugal, Greece, Malta, UAE, Turkey, Caribbean CBIs — official source links.`}
+  keywords="golden visa, residence by investment, citizenship by investment, CBI, RBI, Portugal golden visa, Greece golden visa, UAE golden visa, Turkey citizenship investment, Caribbean passport, St Kitts CBI, Dominica CBI, Malta residence"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="gv-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <span>Golden Visa Programs</span>
+    </nav>
+
+    <header class="gv-header">
+      <div class="eyebrow">Guide · Updated {new Date().toISOString().slice(0, 10)}</div>
+      <h1>Golden visa programs: <em>residence &amp; citizenship by investment</em></h1>
+      <p class="lede">
+        Every major residence-by-investment (RBI) and citizenship-by-investment (CBI) program in one place.
+        Sorted by minimum investment, with tax regime, physical-presence requirement, path-to-citizenship
+        timeline, and a direct link to the official government programme page.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{total}</strong><span>programs listed</span></div>
+        <div class="kpi"><strong>{cbi.length}</strong><span>direct-citizenship</span></div>
+        <div class="kpi"><strong>{rbi.length}</strong><span>residence permits</span></div>
+        <div class="kpi"><strong>{noPresence.length}</strong><span>no-presence programs</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Cheapest direct citizenship (CBI)</h2>
+      <p>
+        These programs give you a second passport — not just a residence permit — for a donation or
+        investment. Caribbean CBIs are the most established; Turkey is the cheapest true <em>major</em>
+        passport upgrade.
+      </p>
+      <table class="compact">
+        <thead><tr><th>Country</th><th>Investment</th><th>Type</th><th>Processing</th><th>Tax regime</th></tr></thead>
+        <tbody>
+          {cheapestCbi.map((v) => (
+            <tr>
+              <td><a href={`#${v.slug}`}>{v.country}</a></td>
+              <td><strong>{fmtK(v.min_investment_usd)}</strong></td>
+              <td>{v.investment_type}</td>
+              <td>{v.processing_months} months</td>
+              <td>{v.tax_regime}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>Fastest path to citizenship (RBI)</h2>
+      <p>
+        If you want an EU or similar passport via residency rather than direct CBI, these are the shortest
+        paths. Physical-presence requirements vary — some ask for just 7 days/year (Portugal).
+      </p>
+      <table class="compact">
+        <thead><tr><th>Country</th><th>Investment</th><th>Years to citizenship</th><th>Physical presence</th></tr></thead>
+        <tbody>
+          {fastestCitizenship.map((v) => (
+            <tr>
+              <td><a href={`#${v.slug}`}>{v.country}</a></td>
+              <td>{fmtK(v.min_investment_usd)}</td>
+              <td><strong>{v.path_to_citizenship_years} years</strong></td>
+              <td>{v.physical_presence_days_per_year === null ? '—' : `${v.physical_presence_days_per_year} days/year`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>No physical presence required</h2>
+      <p>
+        These programs don\'t require you to actually live in the country — just a visit every year
+        or two to keep the permit active. Good for second-home / "Plan B" holders.
+      </p>
+      <div class="chips">
+        {noPresence.map((v) => (
+          <a href={`#${v.slug}`} class="chip">{v.country} · {fmtK(v.min_investment_usd)}</a>
+        ))}
+      </div>
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>All {total} programs (sorted by minimum investment)</h2>
+      <p class="section-sub">Low → high. Click any country name to jump to details.</p>
+      <div class="prog-grid">
+        {sorted.map((v) => (
+          <article id={v.slug} class="prog">
+            <header class="prog-head">
+              <h3>
+                {v.country} · <span class="prog-name">{v.program_name}</span>
+              </h3>
+              <div class="prog-tags">
+                <span class="tag tag-kind">{v.kind}</span>
+                {v.family_included && <span class="tag tag-family">family</span>}
+                {v.renewable && <span class="tag tag-renew">renewable</span>}
+                {(v.physical_presence_days_per_year === null || v.physical_presence_days_per_year === 0) && <span class="tag tag-light">no-presence</span>}
+              </div>
+            </header>
+            <dl class="prog-facts">
+              <div><dt>Min investment</dt><dd>{fmtK(v.min_investment_usd)}</dd></div>
+              <div><dt>Investment type</dt><dd>{v.investment_type}</dd></div>
+              <div><dt>Duration</dt><dd>{v.duration_years === 999 ? 'Permanent' : `${v.duration_years} years`}</dd></div>
+              <div><dt>Path to citizenship</dt><dd>{v.path_to_citizenship_years === null ? 'N/A' : v.path_to_citizenship_years === 0 ? 'Immediate' : `${v.path_to_citizenship_years} years`}</dd></div>
+              <div><dt>Physical presence</dt><dd>{v.physical_presence_days_per_year === null ? 'None' : `${v.physical_presence_days_per_year} days/yr`}</dd></div>
+              <div><dt>Processing</dt><dd>{v.processing_months} months</dd></div>
+            </dl>
+            <p class="prog-notes"><strong>Tax regime:</strong> {v.tax_regime}</p>
+            <p class="prog-notes">{v.notes}</p>
+            <a href={v.source} target="_blank" rel="noopener" class="prog-source">Official programme page ↗</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/digital-nomad-visas">Digital nomad visas — 32 programs compared</a></li>
+        <li><a href="/indian-passport-uae-resident">Indian passport + UAE residence: travel benefits</a></li>
+        <li><a href="/us-green-card-holders">US Green Card holders: visa-free countries</a></li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit: travel benefits</a></li>
+        <li><a href="/strongest-passports-2026">Strongest passports ranking 2026</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .gv-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+
+    .gv-header { margin-bottom: 2rem; }
+    .gv-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .gv-header h1 {
+      font-size: clamp(1.7rem, 3.3vw, 2.3rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.08; margin-bottom: .6rem;
+    }
+    .gv-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .gv-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 100px;
+    }
+    .kpi strong { font-size: 1.3rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .66rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+
+    section h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p { font-size: .93rem; line-height: 1.6; max-width: 70ch; }
+    .section-sub { color: var(--muted); font-size: .88rem; margin-bottom: .5rem; }
+
+    table.compact {
+      width: 100%; border-collapse: collapse; font-size: .85rem; margin: .5rem 0 1rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    }
+    table.compact th, table.compact td { padding: .5rem .7rem; text-align: left; border-bottom: 1px solid var(--border); }
+    table.compact th { background: var(--surface-2); font-weight: 600; font-size: .78rem; color: var(--text); }
+    table.compact tr:last-child td { border-bottom: none; }
+    table.compact a { color: var(--primary); font-weight: 500; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin: .75rem 0; }
+    .chip {
+      padding: .25rem .7rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; font-size: .8rem; color: var(--text); text-decoration: none; transition: all .15s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); }
+
+    .prog-grid { display: grid; gap: .8rem; margin: 1rem 0 1.5rem; }
+    .prog {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.15rem; scroll-margin-top: 100px;
+    }
+    .prog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .6rem; }
+    .prog h3 { font-size: 1rem; font-weight: 700; letter-spacing: -.015em; margin: 0; color: var(--text); }
+    .prog .prog-name { color: var(--muted); font-weight: 500; }
+    .prog-tags { display: flex; gap: .3rem; flex-wrap: wrap; }
+    .tag {
+      display: inline-block; font-size: .65rem; font-weight: 700;
+      padding: .1rem .5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .tag-kind { background: #fef3c7; color: #92400e; }
+    .tag-renew { background: rgba(124,58,237,.12); color: var(--primary); }
+    .tag-family { background: #dbeafe; color: #1e40af; }
+    .tag-light { background: #dcfce7; color: #166534; }
+
+    .prog-facts {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .5rem 1rem;
+      margin: .6rem 0; padding-top: .5rem; border-top: 1px dashed var(--border);
+    }
+    .prog-facts dt { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .prog-facts dd { margin: .1rem 0 0; font-size: .88rem; font-weight: 600; color: var(--text); }
+    .prog-notes { font-size: .85rem; color: var(--muted); line-height: 1.5; margin: .4rem 0 .5rem; max-width: none; }
+    .prog-source { font-size: .78rem; color: var(--primary); font-weight: 500; }
+
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>
