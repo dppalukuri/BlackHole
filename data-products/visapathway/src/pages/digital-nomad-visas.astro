@@ -1,0 +1,288 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MidContentAd from '../components/MidContentAd.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { digitalNomadVisas, type NomadVisa } from '../data/digital-nomad-visas';
+
+const fmtUsd = (n: number | null) =>
+  n === null ? '—' : new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n);
+
+/** Sort primary by min income (ascending, nulls last), then by country */
+const sorted = [...digitalNomadVisas].sort((a, b) => {
+  const ai = a.min_income_usd_month ?? Number.POSITIVE_INFINITY;
+  const bi = b.min_income_usd_month ?? Number.POSITIVE_INFINITY;
+  if (ai !== bi) return ai - bi;
+  return a.country.localeCompare(b.country);
+});
+
+const cheapest = sorted.filter((v) => v.min_income_usd_month !== null).slice(0, 5);
+const taxFriendly = digitalNomadVisas.filter((v) => v.tax_friendly);
+const longest = [...digitalNomadVisas].sort((a, b) => b.duration_months - a.duration_months).slice(0, 5);
+const noIncomeCheck = digitalNomadVisas.filter((v) => v.min_income_usd_month === null);
+
+const total = digitalNomadVisas.length;
+
+const faq = [
+  {
+    q: 'Which country has the cheapest digital nomad visa?',
+    a: `By income threshold, <strong>${cheapest[0]?.country} (${cheapest[0]?.program_name})</strong> has the lowest official minimum — around $${fmtUsd(cheapest[0]?.min_income_usd_month ?? 0)}/month. <strong>${cheapest[1]?.country}</strong> is close behind. See the "Cheapest entry points" section above.`,
+  },
+  {
+    q: 'Which digital nomad visas give the best tax treatment?',
+    a: `${taxFriendly.length} of the ${total} programs listed here either exempt foreign-earned income or offer a flat low-rate regime. Popular picks: <strong>UAE (0%)</strong>, <strong>Thailand LTR (17% flat)</strong>, <strong>Portugal (Portuguese rates, ex-NHR)</strong>, <strong>Cyprus (50% exemption on &gt;€55k)</strong>. Always get local tax advice before relocating — "exempt" usually means "if structured correctly".`,
+  },
+  {
+    q: 'Which nomad visas don\'t require proof of income?',
+    a: `${noIncomeCheck.length} programs skip the monthly-income check: ${noIncomeCheck.map((v) => v.country).join(', ')}. They usually substitute a savings / bank-balance requirement or a flat application fee.`,
+  },
+  {
+    q: 'Can I bring my family on a digital nomad visa?',
+    a: `Most programs allow dependants (spouse + children), but many require an additional income buffer — typically +20% to +50% per dependant. A handful (Estonia, Hungary White Card, Iceland) are single-applicant only. Check the "Family allowed" column above.`,
+  },
+  {
+    q: 'Do I need to pay tax in the country where I\'m a nomad?',
+    a: `Depends on (1) how many days you stay, and (2) whether the country has a "tax residence based on physical presence" rule (most do, at 183 days). Many programs specifically exempt you from local tax if your stay is under the threshold OR if income comes from abroad. Get professional tax advice if you\'re nomadding in one country for 6+ months.`,
+  },
+  {
+    q: 'Can I switch to a residence permit or citizenship later?',
+    a: `Yes — many programs (Portugal D8, Spain DNV, Mexico Temporary Resident, Colombia, Panama, Mauritius) are renewable and convert to permanent residency after 3-5 years, eventually leading to citizenship. See individual entries above for path-to-citizenship notes.`,
+  },
+  {
+    q: 'How current is this list?',
+    a: 'Compiled from official government programme pages. Data is a point-in-time snapshot — visa rules, income thresholds, and fees change without notice. Always confirm with the embassy or official programme page (linked per entry) before applying.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: 'Digital Nomad Visas 2026 — Complete Guide to 30+ Programs',
+      description: `Compare ${total} digital nomad visa programs by income threshold, duration, tax treatment, and family eligibility. Links to official government sources.`,
+      author: { '@type': 'Organization', name: 'TechTools365' },
+      publisher: {
+        '@type': 'Organization',
+        name: 'TechTools365',
+        logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
+      },
+      datePublished: '2026-04-19',
+      dateModified: '2026-04-19',
+      mainEntityOfPage: 'https://visapathway.techtools365.com/digital-nomad-visas',
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Digital Nomad Visas 2026 — 30+ Programs Compared | VisaPathway"
+  description={`Complete comparison of ${total} digital nomad visa programs worldwide — income requirements, duration, tax treatment, family eligibility, and official source links. Updated ${new Date().toISOString().slice(0, 10)}.`}
+  keywords="digital nomad visa, remote worker visa, nomad visa 2026, best digital nomad visas, Portugal D8, Spain DNV, UAE virtual working, Thailand LTR DTV, Estonia nomad visa, Barbados Welcome Stamp"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="dn-page">
+    <nav aria-label="Breadcrumb" class="crumbs">
+      <a href="/">Home</a> <span>›</span>
+      <span>Digital Nomad Visas</span>
+    </nav>
+
+    <header class="dn-header">
+      <div class="eyebrow">Guide · Updated {new Date().toISOString().slice(0, 10)}</div>
+      <h1>Digital nomad visas: <em>{total} programs compared</em></h1>
+      <p class="lede">
+        Every serious digital-nomad visa program, ranked by monthly income requirement.
+        Links go directly to the official government programme page — no aggregators, no guesses.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><strong>{total}</strong><span>programs listed</span></div>
+        <div class="kpi"><strong>{taxFriendly.length}</strong><span>tax-friendly</span></div>
+        <div class="kpi"><strong>{noIncomeCheck.length}</strong><span>no income check</span></div>
+        <div class="kpi"><strong>$540</strong><span>cheapest entry</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Cheapest entry points by income threshold</h2>
+      <p>If you\'re not a high-earner yet, these are the most accessible programs. Pair any of them with a UAE residence permit later for a big travel-access jump (see our <a href="/indian-passport-uae-resident">UAE residence guide</a>).</p>
+      <table class="compact">
+        <thead><tr><th>Country</th><th>Program</th><th>Min income / month</th><th>Duration</th><th>Family</th></tr></thead>
+        <tbody>
+          {cheapest.map((v) => (
+            <tr>
+              <td><a href={`#${v.slug}`}>{v.country}</a></td>
+              <td>{v.program_name}</td>
+              <td><strong>${fmtUsd(v.min_income_usd_month)}</strong></td>
+              <td>{v.duration_months}mo{v.renewable ? ' renewable' : ''}</td>
+              <td>{v.family_allowed ? '✓' : '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>Longest initial validity</h2>
+      <p>Planning to stay put for a while? These programs give the longest initial issue length before you have to renew.</p>
+      <table class="compact">
+        <thead><tr><th>Country</th><th>Program</th><th>Duration (initial)</th><th>Min income</th><th>Tax-friendly</th></tr></thead>
+        <tbody>
+          {longest.map((v) => (
+            <tr>
+              <td><a href={`#${v.slug}`}>{v.country}</a></td>
+              <td>{v.program_name}</td>
+              <td><strong>{v.duration_months} months</strong>{v.renewable ? ' (renewable)' : ''}</td>
+              <td>{v.min_income_usd_month === null ? '—' : `$${fmtUsd(v.min_income_usd_month)}`}</td>
+              <td>{v.tax_friendly ? '✓' : '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Tax-friendly picks</h2>
+      <p>
+        Foreign-earned income either fully exempt, or a flat low-rate regime available.
+        "Tax-friendly" here means the program doesn\'t try to tax you as a local resident
+        on global income during the permit\'s validity — but <strong>every case is individual</strong>,
+        so treat this as a shortlist, not advice.
+      </p>
+      <div class="chips">
+        {taxFriendly.map((v) => (
+          <a href={`#${v.slug}`} class="chip">{v.country}</a>
+        ))}
+      </div>
+    </section>
+
+    <MidContentAd />
+
+    <section>
+      <h2>All {total} programs (sorted by income threshold)</h2>
+      <p class="section-sub">Ranked low → high. Null income thresholds (savings-based or free) appear last.</p>
+      <div class="prog-grid">
+        {sorted.map((v) => (
+          <article id={v.slug} class="prog">
+            <header class="prog-head">
+              <h3>{v.country} · <span class="prog-name">{v.program_name}</span></h3>
+              <div class="prog-tags">
+                {v.tax_friendly && <span class="tag tag-tax">tax-friendly</span>}
+                {v.renewable && <span class="tag tag-renew">renewable</span>}
+                {v.family_allowed && <span class="tag tag-family">family</span>}
+              </div>
+            </header>
+            <dl class="prog-facts">
+              <div><dt>Min income</dt><dd>{v.min_income_usd_month === null ? 'No income check' : `$${fmtUsd(v.min_income_usd_month)}/mo`}</dd></div>
+              <div><dt>Application fee</dt><dd>{v.fee_usd === null ? '—' : v.fee_usd === 0 ? 'Free' : `$${fmtUsd(v.fee_usd)}`}</dd></div>
+              <div><dt>Initial validity</dt><dd>{v.duration_months} months{v.renewable ? ' (renewable)' : ''}</dd></div>
+              <div><dt>Processing</dt><dd>{v.processing_weeks} weeks</dd></div>
+            </dl>
+            <p class="prog-notes">{v.notes}</p>
+            <a href={v.source} target="_blank" rel="noopener" class="prog-source">Official programme page ↗</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <FAQBlock items={faq} />
+
+    <section class="related">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/golden-visa-programs">Golden visa programs (residence-by-investment)</a></li>
+        <li><a href="/indian-passport-uae-resident">Indian passport + UAE residence: travel benefits</a></li>
+        <li><a href="/us-green-card-holders">US Green Card holders: visa-free countries</a></li>
+        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit: travel benefits</a></li>
+        <li><a href="/strongest-passports-2026">Strongest passports ranking 2026</a></li>
+        <li><a href="/">Multi-passport visa checker (interactive)</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <style>
+    .dn-page { padding: 1rem 0 .5rem; }
+    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--primary); }
+    .crumbs span { margin: 0 .25rem; }
+
+    .dn-header { margin-bottom: 2rem; }
+    .dn-header .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--primary); background: rgba(124,58,237,.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .dn-header h1 {
+      font-size: clamp(1.7rem, 3.3vw, 2.3rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.08; margin-bottom: .6rem;
+    }
+    .dn-header h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .dn-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
+    .kpis { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .kpi {
+      display: flex; flex-direction: column; gap: .15rem;
+      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; min-width: 100px;
+    }
+    .kpi strong { font-size: 1.3rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
+    .kpi span { font-size: .66rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+
+    section h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
+    section p { font-size: .93rem; line-height: 1.6; max-width: 70ch; }
+    .section-sub { color: var(--muted); font-size: .88rem; margin-bottom: .5rem; }
+
+    table.compact {
+      width: 100%; border-collapse: collapse; font-size: .85rem; margin: .5rem 0 1rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    }
+    table.compact th, table.compact td { padding: .5rem .7rem; text-align: left; border-bottom: 1px solid var(--border); }
+    table.compact th { background: var(--surface-2); font-weight: 600; font-size: .78rem; color: var(--text); }
+    table.compact tr:last-child td { border-bottom: none; }
+    table.compact a { color: var(--primary); font-weight: 500; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin: .75rem 0; }
+    .chip {
+      padding: .25rem .7rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; font-size: .8rem; color: var(--text); text-decoration: none; transition: all .15s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); }
+
+    .prog-grid { display: grid; gap: .8rem; margin: 1rem 0 1.5rem; }
+    .prog {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.15rem; scroll-margin-top: 100px;
+    }
+    .prog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .6rem; }
+    .prog h3 { font-size: 1rem; font-weight: 700; letter-spacing: -.015em; margin: 0; color: var(--text); }
+    .prog .prog-name { color: var(--muted); font-weight: 500; }
+    .prog-tags { display: flex; gap: .3rem; flex-wrap: wrap; }
+    .tag {
+      display: inline-block; font-size: .65rem; font-weight: 700;
+      padding: .1rem .5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .tag-tax { background: #dcfce7; color: #166534; }
+    .tag-renew { background: rgba(124,58,237,.12); color: var(--primary); }
+    .tag-family { background: #dbeafe; color: #1e40af; }
+
+    .prog-facts {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .5rem 1rem;
+      margin: .6rem 0; padding-top: .5rem; border-top: 1px dashed var(--border);
+    }
+    .prog-facts > div { }
+    .prog-facts dt { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .prog-facts dd { margin: .1rem 0 0; font-size: .88rem; font-weight: 600; color: var(--text); }
+    .prog-notes { font-size: .85rem; color: var(--muted); line-height: 1.5; margin: .5rem 0 .6rem; }
+    .prog-source { font-size: .78rem; color: var(--primary); font-weight: 500; }
+
+    .related ul { list-style: none; padding: 0; }
+    .related li { margin-bottom: .4rem; }
+    .related a { color: var(--primary); font-weight: 500; }
+  </style>
+</BaseLayout>
