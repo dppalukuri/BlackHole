@@ -88,6 +88,8 @@ export default function VisaChecker() {
   const [selectedPermits, setSelectedPermits] = useState<string[]>([]);
   const [destination, setDestination] = useState('');
 
+  const [copyState, setCopyState] = useState<'idle' | 'copied'>('idle');
+
   useEffect(() => {
     Promise.all([
       fetch('/data/visa-matrix.json').then(r => r.json()),
@@ -95,6 +97,78 @@ export default function VisaChecker() {
       fetch('/data/residence-permits.json').then(r => r.json()),
     ]).then(([m, c, p]) => { setMatrix(m); setCountries(c); setPermits(p); });
   }, []);
+
+  // Hydrate state from URL query params first, then localStorage, once data is loaded.
+  useEffect(() => {
+    if (!countries.length || !permits) return;
+    // URL takes precedence so shareable links always win.
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+    const urlP = params.get('p');
+    const urlR = params.get('perm');
+    const urlD = params.get('d');
+    let hydratedFromUrl = false;
+
+    const tryApply = (raw: string | null, set: (v: string[]) => void, valid: string[]) => {
+      if (!raw) return false;
+      const picks = raw.split(',').map(s => decodeURIComponent(s.trim())).filter(v => valid.includes(v));
+      if (picks.length) { set(picks); return true; }
+      return false;
+    };
+
+    hydratedFromUrl ||= tryApply(urlP, setPassports, countries);
+    hydratedFromUrl ||= tryApply(urlR, setSelectedPermits, Object.keys(permits));
+    if (urlD && countries.includes(urlD)) { setDestination(urlD); hydratedFromUrl = true; }
+
+    if (!hydratedFromUrl && typeof window !== 'undefined') {
+      // Fall back to last session saved in localStorage.
+      try {
+        const savedP = JSON.parse(localStorage.getItem('vp.passports') || '[]');
+        const savedR = JSON.parse(localStorage.getItem('vp.permits') || '[]');
+        if (Array.isArray(savedP)) setPassports(savedP.filter((v: string) => countries.includes(v)));
+        if (Array.isArray(savedR)) setSelectedPermits(savedR.filter((v: string) => Object.keys(permits).includes(v)));
+      } catch {}
+    }
+  }, [countries.length, permits]);
+
+  // Mirror state → URL + localStorage so shares and repeat-visits work.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !countries.length) return;
+    const params = new URLSearchParams();
+    if (passports.length) params.set('p', passports.map(encodeURIComponent).join(','));
+    if (selectedPermits.length) params.set('perm', selectedPermits.map(encodeURIComponent).join(','));
+    if (destination) params.set('d', destination);
+    const qs = params.toString();
+    const nextUrl = window.location.pathname + (qs ? '?' + qs : '');
+    if (window.location.pathname + window.location.search !== nextUrl) {
+      window.history.replaceState(null, '', nextUrl);
+    }
+    try {
+      localStorage.setItem('vp.passports', JSON.stringify(passports));
+      localStorage.setItem('vp.permits', JSON.stringify(selectedPermits));
+    } catch {}
+  }, [passports, selectedPermits, destination, countries.length]);
+
+  const copyShareLink = async () => {
+    if (typeof window === 'undefined') return;
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopyState('copied');
+      setTimeout(() => setCopyState('idle'), 2000);
+    } catch {
+      // Fallback: select + prompt
+      prompt('Copy this link to share:', window.location.href);
+    }
+  };
+
+  const resetAll = () => {
+    setPassports([]);
+    setSelectedPermits([]);
+    setDestination('');
+    try {
+      localStorage.removeItem('vp.passports');
+      localStorage.removeItem('vp.permits');
+    } catch {}
+  };
 
   const addPassport = (p: string) => {
     if (p && countries.includes(p) && !passports.includes(p)) setPassports([...passports, p]);
@@ -227,7 +301,17 @@ export default function VisaChecker() {
       {/* Results */}
       {best && destination && (
         <>
-          <div style={{ background: best.info.bg, border: `2px solid ${best.info.border}`, borderRadius: '16px', padding: '2rem', marginBottom: '1rem' }}>
+          <div style={{ background: best.info.bg, border: `2px solid ${best.info.border}`, borderRadius: '16px', padding: '2rem', marginBottom: '1rem', position: 'relative' }}>
+            <div style={{ position: 'absolute', top: '0.85rem', right: '0.85rem', display: 'flex', gap: '0.35rem' }}>
+              <button onClick={copyShareLink} title="Copy a shareable link that reopens this query"
+                style={{ padding: '0.4rem 0.7rem', border: '1px solid rgba(0,0,0,.1)', background: 'rgba(255,255,255,.85)', borderRadius: '8px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 600, color: '#334155', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '.35rem' }}>
+                {copyState === 'copied' ? '✓ Copied!' : '🔗 Share'}
+              </button>
+              <button onClick={resetAll} title="Clear passports, permits, and destination"
+                style={{ padding: '0.4rem 0.7rem', border: '1px solid rgba(0,0,0,.1)', background: 'rgba(255,255,255,.85)', borderRadius: '8px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 600, color: '#64748b', fontFamily: 'inherit' }}>
+                Reset
+              </button>
+            </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>{best.info.icon}</div>
               <div style={{ fontSize: '1.6rem', fontWeight: 800, color: best.info.color }}>{best.info.text}</div>
