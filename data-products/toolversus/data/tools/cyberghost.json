@@ -1,0 +1,66 @@
+{
+  "slug": "cyberghost",
+  "name": "CyberGhost VPN",
+  "tagline": "Budget VPN with 11,700+ servers, streaming-optimized, from $2.03/mo on 2-year plans",
+  "category": ["vpn"],
+  "website": "https://www.cyberghostvpn.com",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 2.03,
+    "currency": "USD",
+    "billing_cycle": "monthly (2-year plan + 2 months free)",
+    "tiers": [
+      {"name": "Monthly", "price_monthly": 12.99},
+      {"name": "6-month", "price_monthly": 6.99},
+      {"name": "2-year (+2mo free)", "price_monthly": 2.03}
+    ]
+  },
+  "features": {
+    "servers": 11700,
+    "countries": 100,
+    "simultaneous_connections": 7,
+    "mobile_app": true,
+    "api_available": false,
+    "sso": false,
+    "kill_switch": true,
+    "split_tunneling": true,
+    "no_logs_audited": true,
+    "wireguard_support": true,
+    "protocol": "WireGuard, OpenVPN, IKEv2",
+    "ad_blocker": true,
+    "streaming_unblock": true,
+    "p2p_support": true,
+    "dedicated_ip": true,
+    "streaming_servers": true,
+    "p2p_servers": true,
+    "nospy_servers": true
+  },
+  "ratings": {
+    "g2_score": 4.3,
+    "g2_reviews": 180,
+    "trustpilot_score": 4.0,
+    "trustpilot_reviews": 13000
+  },
+  "pros": [
+    "Largest server network — 11,700+ servers in 100 countries",
+    "Specialised servers for streaming, torrenting, and gaming (clearly labelled in-app)",
+    "Very cheap on 2-year plans ($2.03/mo with 2 months free)",
+    "45-day money-back guarantee (longer than NordVPN's 30 days)",
+    "NoSpy servers in Romanian HQ (extra jurisdiction protection)",
+    "Beginner-friendly UI with one-click streaming profiles"
+  ],
+  "cons": [
+    "Owned by Kape Technologies (also owns ExpressVPN, PIA) — consolidation concerns for privacy purists",
+    "Monthly plan is expensive ($12.99)",
+    "No free plan",
+    "Speed is lower than NordLynx in most independent tests",
+    "Not as effective in heavily-censored countries (China, UAE variable)",
+    "Audited less frequently than NordVPN or ExpressVPN"
+  ],
+  "best_for": ["Streaming", "Budget-conscious users", "Families (7 devices)", "Beginners"],
+  "affiliate": {
+    "commission_rate": "Varies by plan",
+    "cookie_days": 45,
+    "tracking_link": ""
+  }
+}
