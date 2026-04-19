@@ -1,0 +1,70 @@
+permit_type,destination,access,days,source_url,notes,permit_source_last_verified
+UAE Residence Permit,Georgia,vf,90,https://uae.mfa.gov.ge/en/visa-information,"Permit must be valid 1+ year on arrival. 17 nationalities (Pakistan, Afghanistan, Bangladesh, Nigeria, etc.) face stricter screening — verify at geoconsul.gov.ge",April 2026
+UAE Residence Permit,Armenia,vf,180,https://www.mfa.am,All GCC residence permit holders get 180 days visa-free,April 2026
+UAE Residence Permit,Azerbaijan,voa,30,https://evisa.gov.az,Visa on arrival at Baku airport for UAE residence permit holders. Permit must have 6+ months validity. e-Visa also available.,April 2026
+UAE Residence Permit,Oman,ev,30,https://evisa.rop.gov.om,GCC residents get eVisa (~5 OMR / $13). Apply at evisa.rop.gov.om as 'GCC Resident'. UAE residence must have 3+ months validity.,April 2026
+UAE Residence Permit,Bahrain,voa,14,https://www.evisa.gov.bh,GCC residence holders can get VoA (14 days). Laborer occupations excluded. Alternatively apply for eVisa at evisa.gov.bh.,April 2026
+US Green Card (Permanent Resident),Turkey,ev,30,https://www.evisa.gov.tr,"e-visa via evisa.gov.tr (single entry, 30 days)",April 2026
+US Green Card (Permanent Resident),Georgia,vf,90,https://geoconsul.gov.ge,,April 2026
+US Green Card (Permanent Resident),Mexico,vf,180,https://www.inm.gob.mx,,April 2026
+US Green Card (Permanent Resident),Canada,vf,180,https://www.canada.ca/en/immigration-refugees-citizenship.html,No visa required for US permanent residents,April 2026
+US Green Card (Permanent Resident),Colombia,vf,90,https://www.migracioncolombia.gov.co,,April 2026
+US Green Card (Permanent Resident),Panama,vf,30,https://www.migracion.gob.pa,,April 2026
+US Green Card (Permanent Resident),Costa Rica,vf,30,https://www.migracion.go.cr,,April 2026
+US Green Card (Permanent Resident),Albania,vf,90,https://punetejashtme.gov.al,,April 2026
+US Green Card (Permanent Resident),Serbia,vf,90,https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements,,April 2026
+US Green Card (Permanent Resident),Montenegro,vf,30,https://www.gov.me,,April 2026
+US Green Card (Permanent Resident),Bosnia and Herzegovina,vf,30,https://bhmc.ae/visa-information/,,April 2026
+US Green Card (Permanent Resident),Egypt,voa,30,https://visa2egypt.gov.eg,Visa on arrival at select airports. Officer discretion.,April 2026
+US Green Card (Permanent Resident),Singapore,vf,4,https://www.ica.gov.sg,96-hour VFTF for US permanent residents transiting by air with onward ticket.,April 2026
+Valid US Visa (B1/B2),Turkey,ev,30,https://www.evisa.gov.tr,Single-entry e-visa via evisa.gov.tr. Must have valid US/Schengen/UK/Ireland visa.,April 2026
+Valid US Visa (B1/B2),Georgia,vf,90,https://geoconsul.gov.ge,Visa-free entry with any valid US visa — all nationalities,April 2026
+Valid US Visa (B1/B2),Mexico,vf,180,https://www.inm.gob.mx,No Mexican visa needed. Any valid US visa type qualifies — all nationalities.,April 2026
+Valid US Visa (B1/B2),Colombia,vf,90,https://www.migracioncolombia.gov.co,"Must be currently valid. 90 days, extendable to 180/year.",April 2026
+Valid US Visa (B1/B2),Panama,vf,30,https://www.migracion.gob.pa,"Visa-free entry with valid US visa (must have been used at least once). Entry stamp at immigration, no fee.",April 2026
+Valid US Visa (B1/B2),Costa Rica,vf,30,https://www.migracion.go.cr,Valid US visa allows entry up to 30 days,April 2026
+Valid US Visa (B1/B2),Albania,vf,90,https://punetejashtme.gov.al,Multi-entry US visa that has been used at least once. 90 days in 180-day period.,April 2026
+Valid US Visa (B1/B2),Serbia,vf,90,https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements,Valid US visa or residence permit. 90 days in 6-month period.,April 2026
+Valid US Visa (B1/B2),Montenegro,vf,30,https://www.gov.me,Valid US visa allows entry up to 30 days,April 2026
+Valid US Visa (B1/B2),Bosnia and Herzegovina,vf,30,https://bhmc.ae/visa-information/,Multi-entry US visa. Stay up to 30 days.,April 2026
+Valid US Visa (B1/B2),Egypt,voa,30,https://visa2egypt.gov.eg,Visa on arrival at select airports for holders of valid US/UK/Schengen visa. Not guaranteed — at immigration officer discretion.,April 2026
+Valid US Visa (B1/B2),Bahrain,voa,14,https://www.evisa.gov.bh,"VoA available for holders of valid US visa, or apply for eVisa at evisa.gov.bh",April 2026
+Valid US Visa (B1/B2),Singapore,vf,4,https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements,96-hour Visa-Free Transit Facility (VFTF). Must be transiting through Singapore by air with onward ticket within 96 hours. Not for stays without onward travel.,April 2026
+Valid Schengen Visa,Turkey,ev,30,https://www.evisa.gov.tr,e-visa via evisa.gov.tr with valid Schengen visa,April 2026
+Valid Schengen Visa,Georgia,vf,90,https://geoconsul.gov.ge,,April 2026
+Valid Schengen Visa,Mexico,vf,180,https://www.inm.gob.mx,,April 2026
+Valid Schengen Visa,Colombia,vf,90,https://www.migracioncolombia.gov.co,,April 2026
+Valid Schengen Visa,Panama,vf,30,https://www.migracion.gob.pa,,April 2026
+Valid Schengen Visa,Costa Rica,vf,30,https://www.migracion.go.cr,,April 2026
+Valid Schengen Visa,Albania,vf,90,https://punetejashtme.gov.al,"Multi-entry Schengen visa, used at least once",April 2026
+Valid Schengen Visa,Serbia,vf,90,https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements,,April 2026
+Valid Schengen Visa,Montenegro,vf,30,https://www.gov.me,,April 2026
+Valid Schengen Visa,Bosnia and Herzegovina,vf,30,https://bhmc.ae/visa-information/,,April 2026
+Valid Schengen Visa,Egypt,voa,30,https://visa2egypt.gov.eg,Visa on arrival at select airports. Not guaranteed — officer discretion.,April 2026
+Valid Schengen Visa,Singapore,vf,4,https://www.ica.gov.sg,96-hour VFTF. Only Schengen visas issued by Germany or Switzerland qualify. Must be transiting by air with onward ticket.,April 2026
+Schengen Residence Permit,Turkey,ev,30,https://www.evisa.gov.tr,,April 2026
+Schengen Residence Permit,Georgia,vf,90,https://geoconsul.gov.ge,,April 2026
+Schengen Residence Permit,Mexico,vf,180,https://www.inm.gob.mx,,April 2026
+Schengen Residence Permit,Colombia,vf,90,https://www.migracioncolombia.gov.co,,April 2026
+Schengen Residence Permit,Panama,vf,30,https://www.migracion.gob.pa,,April 2026
+Schengen Residence Permit,Costa Rica,vf,30,https://www.migracion.go.cr,,April 2026
+Schengen Residence Permit,Albania,vf,90,https://punetejashtme.gov.al,,April 2026
+Schengen Residence Permit,Serbia,vf,90,https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements,,April 2026
+Schengen Residence Permit,Montenegro,vf,30,https://www.gov.me,,April 2026
+Schengen Residence Permit,Bosnia and Herzegovina,vf,30,https://bhmc.ae/visa-information/,,April 2026
+Schengen Residence Permit,Egypt,voa,30,https://visa2egypt.gov.eg,Visa on arrival at select airports. Officer discretion.,April 2026
+UK Residence Permit (BRP),Turkey,ev,30,https://www.evisa.gov.tr,e-visa via evisa.gov.tr with valid UK visa/BRP,April 2026
+UK Residence Permit (BRP),Georgia,vf,90,https://geoconsul.gov.ge,,April 2026
+UK Residence Permit (BRP),Mexico,vf,180,https://www.inm.gob.mx,,April 2026
+UK Residence Permit (BRP),Panama,vf,30,https://www.migracion.gob.pa,,April 2026
+UK Residence Permit (BRP),Albania,vf,90,https://punetejashtme.gov.al,"Multi-entry UK visa/BRP, used at least once",April 2026
+UK Residence Permit (BRP),Serbia,vf,90,https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-requirements,,April 2026
+UK Residence Permit (BRP),Montenegro,vf,30,https://www.gov.me,,April 2026
+UK Residence Permit (BRP),Egypt,voa,30,https://visa2egypt.gov.eg,Visa on arrival at select airports. Not guaranteed.,April 2026
+UK Residence Permit (BRP),Singapore,vf,4,https://www.ica.gov.sg,96-hour VFTF for UK visa/BRP holders transiting by air with onward ticket.,April 2026
+Canada Permanent Resident,Georgia,vf,90,https://geoconsul.gov.ge,,April 2026
+Canada Permanent Resident,Mexico,vf,180,https://www.inm.gob.mx,,April 2026
+Canada Permanent Resident,Costa Rica,vf,30,https://www.migracion.go.cr,,April 2026
+Canada Permanent Resident,Panama,vf,30,https://www.migracion.gob.pa,,April 2026
+Canada Permanent Resident,Albania,vf,90,https://punetejashtme.gov.al,,April 2026
+Canada Permanent Resident,Singapore,vf,4,https://www.ica.gov.sg,96-hour VFTF for Canada permanent residents transiting by air with onward ticket.,April 2026
