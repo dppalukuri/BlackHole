@@ -1,0 +1,63 @@
+{
+  "slug": "protonvpn",
+  "name": "ProtonVPN",
+  "tagline": "Swiss-based VPN from the makers of Proton Mail — security-first, open-source apps",
+  "category": ["vpn"],
+  "website": "https://protonvpn.com",
+  "pricing": {
+    "has_free_plan": true,
+    "starting_price": 4.99,
+    "currency": "USD",
+    "billing_cycle": "monthly (2-year plan)",
+    "tiers": [
+      {"name": "Free", "price_monthly": 0, "notes": "3 countries, 1 device, unlimited data"},
+      {"name": "Plus", "price_monthly": 9.99, "price_2yr": 4.99},
+      {"name": "Unlimited (Proton Suite)", "price_monthly": 12.99, "price_2yr": 9.99}
+    ]
+  },
+  "features": {
+    "servers": 5800,
+    "countries": 91,
+    "simultaneous_connections": 10,
+    "mobile_app": true,
+    "api_available": false,
+    "sso": false,
+    "kill_switch": true,
+    "split_tunneling": true,
+    "no_logs_audited": true,
+    "wireguard_support": true,
+    "protocol": "WireGuard, OpenVPN, IKEv2",
+    "ad_blocker": true,
+    "streaming_unblock": true,
+    "p2p_support": true,
+    "dedicated_ip": false,
+    "open_source_apps": true
+  },
+  "ratings": {
+    "g2_score": 4.5,
+    "g2_reviews": 340,
+    "trustpilot_score": 4.5,
+    "trustpilot_reviews": 4800
+  },
+  "pros": [
+    "Based in Switzerland — outside 14-Eyes jurisdiction, strong privacy law",
+    "Only major VPN with fully open-source apps (Android, iOS, macOS, Windows, Linux)",
+    "Independently audited no-logs policy (by SEC Consult, 2022 and 2024)",
+    "Strong free plan (unlimited data, 3 countries, 1 device) — rare among reputable VPNs",
+    "Secure Core multi-hop routes through hardened Swiss/Iceland/Sweden servers",
+    "Bundles with Proton Mail / Drive / Calendar in the Unlimited plan"
+  ],
+  "cons": [
+    "More expensive than NordVPN or Surfshark on equivalent plans",
+    "Fewer servers than NordVPN (5,800 vs 6,400)",
+    "No dedicated IP option",
+    "Apps can be more complex for beginners (privacy-focused defaults)",
+    "Streaming unblocking is slightly less consistent than NordVPN"
+  ],
+  "best_for": ["Privacy-focused users", "Activists / journalists", "Users already in the Proton ecosystem", "Open-source advocates"],
+  "affiliate": {
+    "commission_rate": "25-100% first month depending on plan",
+    "cookie_days": 30,
+    "tracking_link": ""
+  }
+}

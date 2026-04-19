@@ -1,0 +1,65 @@
+{
+  "slug": "mullvad",
+  "name": "Mullvad",
+  "tagline": "Swedish VPN with no accounts, no tracking, and a flat €5/month price — privacy purism",
+  "category": ["vpn"],
+  "website": "https://mullvad.net",
+  "pricing": {
+    "has_free_plan": false,
+    "starting_price": 5.49,
+    "currency": "USD",
+    "billing_cycle": "monthly (flat, no multi-year discount)",
+    "tiers": [
+      {"name": "Flat rate", "price_monthly": 5.49, "notes": "€5/month — same price whether you buy 1 month or 1 year, paid month-to-month"}
+    ]
+  },
+  "features": {
+    "servers": 700,
+    "countries": 38,
+    "simultaneous_connections": 5,
+    "mobile_app": true,
+    "api_available": true,
+    "sso": false,
+    "kill_switch": true,
+    "split_tunneling": true,
+    "no_logs_audited": true,
+    "wireguard_support": true,
+    "protocol": "WireGuard, OpenVPN",
+    "ad_blocker": true,
+    "streaming_unblock": false,
+    "p2p_support": true,
+    "dedicated_ip": false,
+    "open_source_apps": true,
+    "anonymous_signup": true,
+    "cash_accepted": true
+  },
+  "ratings": {
+    "g2_score": 4.5,
+    "g2_reviews": 140,
+    "trustpilot_score": 4.6,
+    "trustpilot_reviews": 6100
+  },
+  "pros": [
+    "No email, no account — you get a random 16-digit account number at signup",
+    "Accepts anonymous cash payments (mail cash in an envelope), Monero, Bitcoin",
+    "Flat €5/month — no multi-year lock-in, never changes",
+    "Independently audited no-logs by Cure53 and Assured (2020, 2022, 2023)",
+    "Fully open-source apps + server infrastructure (RAM-only since 2023)",
+    "Swedish-based but EU-GDPR compliant; warrant-canary on every status page",
+    "Best-in-class privacy reputation among infosec communities"
+  ],
+  "cons": [
+    "Only 700 servers in 38 countries — significantly fewer than competitors",
+    "Does NOT unblock Netflix / Disney+ / BBC iPlayer reliably (privacy > streaming)",
+    "Only 5 simultaneous connections",
+    "No free plan or trial (30-day money-back guarantee)",
+    "€5/month is pricier than NordVPN's $3.39/mo 2-year plan",
+    "Limited customer support — email-only, no live chat"
+  ],
+  "best_for": ["Privacy-focused users", "Journalists / activists", "Anyone wanting anonymous signup", "Torrenting"],
+  "affiliate": {
+    "commission_rate": "Mullvad does NOT run an affiliate program",
+    "cookie_days": 0,
+    "tracking_link": ""
+  }
+}
