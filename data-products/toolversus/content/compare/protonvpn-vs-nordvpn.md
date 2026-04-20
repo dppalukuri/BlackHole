@@ -24,7 +24,7 @@ verdict:
 - You want a free plan to test first
 - You're in a heavily-surveilled situation where Swiss jurisdiction matters
 
-For everyone else, NordVPN. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D)
+For everyone else, NordVPN. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D?subId1=compare-protonvpn-vs-nordvpn)
 
 ## Pricing
 
@@ -124,7 +124,7 @@ ProtonVPN's ecosystem play — if you also use Proton Mail, Drive, Calendar, Pas
 - Travel to lots of countries (111 vs 91)
 - Are a regular privacy-conscious user, not an activist or source
 - Want to try the features first (30-day money-back)
-- [Sign up with our link →](https://go.nordvpn.net/SHB0D)
+- [Sign up with our link →](https://go.nordvpn.net/SHB0D?subId1=compare-protonvpn-vs-nordvpn)
 
 **Choose ProtonVPN if you:**
 - Already pay for Proton Mail / Drive (the Unlimited bundle pays for itself)

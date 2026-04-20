@@ -23,7 +23,7 @@ verdict:
 - Server count — 11,700+ servers vs NordVPN's 6,400+
 - Money-back window — 45 days vs NordVPN's 30
 
-For most people, NordVPN's premium is worth the $1.36/mo difference — the speed gap, audit frequency, and streaming consistency compound quickly. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D)
+For most people, NordVPN's premium is worth the $1.36/mo difference — the speed gap, audit frequency, and streaming consistency compound quickly. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D?subId1=compare-cyberghost-vs-nordvpn)
 
 If your budget is genuinely tight and you're okay with slightly slower speeds, CyberGhost is the legitimate second choice.
 
@@ -134,7 +134,7 @@ If you travel to or live in a restrictive-internet country, NordVPN is the safer
 - Stream from many regions regularly
 - Travel to countries with internet restrictions (UAE, China, Turkey)
 - Care about ownership transparency (Nord Security ≠ Kape)
-- [Sign up via our link →](https://go.nordvpn.net/SHB0D)
+- [Sign up via our link →](https://go.nordvpn.net/SHB0D?subId1=compare-cyberghost-vs-nordvpn)
 
 **Choose CyberGhost if you:**
 - Budget is genuinely tight ($2.03/mo is compelling)
