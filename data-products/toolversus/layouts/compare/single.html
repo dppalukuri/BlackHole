@@ -73,6 +73,11 @@
 
   {{ .Content }}
 
+  {{/* Show NordVPN recommendation on VPN comparisons where NordVPN isn't already one of the compared tools */}}
+  {{ if and (eq .Params.category "VPN") (ne .Params.tool_a "nordvpn") (ne .Params.tool_b "nordvpn") }}
+  {{ partial "nordvpn-recommendation.html" . }}
+  {{ end }}
+
   <div style="margin-top: 2rem;">
     <h2>More Comparisons</h2>
     <div class="cards-grid">

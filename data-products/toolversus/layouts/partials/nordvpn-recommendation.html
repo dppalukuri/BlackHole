@@ -1,0 +1,35 @@
+{{/* Shown at the bottom of VPN compare pages where neither tool is nordvpn */}}
+<aside class="nordvpn-reco" aria-label="Editor's top VPN pick">
+  <div class="reco-inner">
+    <div class="reco-body">
+      <div class="reco-eyebrow">⭐ Our #1 VPN Overall</div>
+      <h3>NordVPN still leads our rankings</h3>
+      <p>Comparing VPNs? NordVPN won both our head-to-head tests against ProtonVPN and CyberGhost. Fastest speeds, 6,400+ servers, Deloitte-audited no-logs. From <strong>$3.39/mo</strong>.</p>
+    </div>
+    <a href="https://go.nordvpn.net/SHB0D?subId1=tv-compare-footer-{{ .File.ContentBaseName }}" rel="nofollow sponsored" target="_blank" class="reco-btn">Get NordVPN →</a>
+  </div>
+  <p class="reco-disclaimer">Affiliate link — we earn a commission if you sign up, at no extra cost to you. Doesn't influence our rankings.</p>
+</aside>
+
+<style>
+  .nordvpn-reco {
+    margin: 2rem 0 1rem; padding: 1.1rem 1.25rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f1f5f9; border-radius: 12px; border: 1px solid #334155;
+  }
+  .reco-inner { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; align-items: center; }
+  .reco-eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .08em; color: #fbbf24; text-transform: uppercase; margin-bottom: .3rem; }
+  .reco-body h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .3rem; color: #fff; }
+  .reco-body p { font-size: .84rem; color: #cbd5e1; margin: 0; line-height: 1.5; }
+  .reco-btn {
+    display: inline-block; background: #10b981; color: #fff;
+    padding: .6rem .95rem; border-radius: 8px; font-weight: 700; font-size: .85rem;
+    text-decoration: none; white-space: nowrap; box-shadow: 0 3px 10px rgba(16,185,129,.3);
+  }
+  .reco-btn:hover { transform: translateY(-1px); }
+  .reco-disclaimer { font-size: .68rem; color: #94a3b8; margin: .8rem 0 0; }
+  @media (max-width: 640px) {
+    .reco-inner { grid-template-columns: 1fr; }
+    .reco-btn { text-align: center; }
+  }
+</style>
