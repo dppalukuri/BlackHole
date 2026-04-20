@@ -6,13 +6,14 @@ import MidContentAd from '../components/MidContentAd.astro';
 import { priorityPassports } from '../data/priority-passports';
 import { priorityPermits } from '../data/priority-permits';
 import { priorityDestinations } from '../data/priority-destinations';
-import { summarizePassport, verifiedData, residencePermits } from '../lib/visa-data';
+import { summarizePassport, verifiedData, residencePermits, relativeFreshness } from '../lib/visa-data';
 
 // Verification-progress stats for the homepage trust signal
 const verifiedCount = Object.values(verifiedData.data ?? {})
   .reduce((acc, v) => acc + Object.keys(v).length, 0);
 const permitExemptionsCount = Object.values(residencePermits)
   .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
+const lastVerifiedRelative = relativeFreshness(verifiedData.meta?.last_run);
 
 /** Top 9 passports by priority, with live counts for the card display. */
 const topPassports = priorityPassports
@@ -112,6 +113,12 @@ const jsonLd = {
         <span class="trust-check">✓</span>
         <strong>{verifiedCount}</strong> high-traffic pairs re-verified against gov sources
       </div>
+      {lastVerifiedRelative && (
+        <div class="trust-stat trust-freshness">
+          <span class="trust-dot" aria-hidden="true"></span>
+          Last re-verified <strong>{lastVerifiedRelative}</strong>
+        </div>
+      )}
       <div class="trust-stat">
         <a href="/methodology">See methodology →</a>
       </div>
@@ -339,6 +346,16 @@ const jsonLd = {
       display: inline-flex; align-items: center; justify-content: center;
       width: 16px; height: 16px; background: #16a34a; color: #fff;
       border-radius: 50%; font-size: .65rem; font-weight: 700;
+    }
+    .trust-freshness .trust-dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: #16a34a; box-shadow: 0 0 0 0 rgba(22,163,74,.7);
+      animation: trust-pulse 2s infinite;
+    }
+    @keyframes trust-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(22,163,74,.65); }
+      70% { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
+      100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
     }
 
     .popular-passports, .permit-guides, .popular-queries, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }

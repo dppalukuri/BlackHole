@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { verifiedData, visaMatrix, residencePermits } from '../lib/visa-data';
+import { verifiedData, visaMatrix, residencePermits, relativeFreshness } from '../lib/visa-data';
 
 const verifiedCount = Object.values(verifiedData.data ?? {})
   .reduce((acc, v) => acc + Object.keys(v).length, 0);
@@ -10,6 +10,10 @@ const totalPassports = Object.keys(visaMatrix).length;
 const totalPermits = Object.keys(residencePermits).length;
 const totalPermitExemptions = Object.values(residencePermits)
   .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
+const lastVerifiedRelative = relativeFreshness(verifiedData.meta?.last_run);
+const lastVerifiedAbsolute = verifiedData.meta?.last_run
+  ? new Date(verifiedData.meta.last_run).toISOString().slice(0, 16).replace('T', ' ') + ' UTC'
+  : null;
 
 const faq = [
   {
@@ -85,6 +89,15 @@ const jsonLd = {
         <div class="kpi"><strong>{totalPermitExemptions}</strong><span>permit exemptions hand-sourced</span></div>
         <div class="kpi"><strong>{verifiedCount}</strong><span>pairs re-verified</span></div>
         <div class="kpi"><strong>{totalPassports}</strong><span>passports covered</span></div>
+        {lastVerifiedRelative && (
+          <div class="kpi kpi-fresh">
+            <strong>{lastVerifiedRelative}</strong>
+            <span>
+              last run
+              {lastVerifiedAbsolute && (<em title={lastVerifiedAbsolute}> · {lastVerifiedAbsolute}</em>)}
+            </span>
+          </div>
+        )}
       </div>
     </header>
 
@@ -236,6 +249,9 @@ const jsonLd = {
     }
     .kpi strong { font-size: 1.3rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
     .kpi span { font-size: .66rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    .kpi-fresh { border-left: 3px solid #16a34a; }
+    .kpi-fresh strong { color: #16a34a; font-size: 1rem; }
+    .kpi-fresh em { font-style: normal; color: var(--muted); font-size: .62rem; }
 
     section h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
     section p { font-size: .93rem; line-height: 1.6; max-width: 70ch; margin-bottom: .6rem; }
