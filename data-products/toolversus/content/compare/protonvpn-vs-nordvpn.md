@@ -24,7 +24,7 @@ verdict:
 - You want a free plan to test first
 - You're in a heavily-surveilled situation where Swiss jurisdiction matters
 
-For everyone else, NordVPN. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D?subId1=compare-protonvpn-vs-nordvpn)
+For everyone else, NordVPN. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D?subId1=compare-protonvpn-vs-nordvpn) *(affiliate link — supports this site at no cost to you; disclosed in full at the bottom of this page.)*
 
 ## Pricing
 
@@ -37,6 +37,8 @@ For everyone else, NordVPN. [Sign up for NordVPN →](https://go.nordvpn.net/SHB
 | Money-back | 30 days | 30 days |
 
 Over 2 years, NordVPN is roughly $38 cheaper. The gap widens if you also need the specialty features NordVPN bundles by default (ad-blocker, threat protection, dedicated IP available).
+
+**Renewal warning:** NordVPN's $3.39/mo is the 2-year intro rate — renewals go up. Check current renewal pricing in-app before committing.
 
 **Edge: NordVPN.**
 
@@ -63,15 +65,16 @@ This is where ProtonVPN earns its premium:
 - Made by the team behind Proton Mail — recognised brand in the privacy-tool space.
 
 **NordVPN:**
-- **Panama**-based — no data retention laws.
-- Apps are proprietary (not open source).
-- Independently audited by Deloitte (2022, 2023) + PwC (2020).
+- VPN operations registered in **Panama** (no data retention laws). Corporate parent **Nord Security** is headquartered in Lithuania; Panama jurisdiction is what governs user-data handling.
+- Apps are proprietary (not open source). The **NordLynx** protocol is a proprietary WireGuard-based implementation — unlike the standard WireGuard that ProtonVPN ships, it has not been independently protocol-audited.
+- Independently audited no-logs policy by Deloitte (2022, 2023) + PwC (2020).
 - Uses **diskless / RAM-only servers** (fully rolled out 2023).
-- Owned by Nord Security, which also owns other privacy tools (Mullvad is a competitor/separate entity).
+- Nord Security merged with **Surfshark** in 2022 — the two brands now share a corporate parent but operate separate infrastructure, apps, and teams.
+- In 2018, an unauthorised third party accessed one of NordVPN's Finnish datacenter servers — no user logs or credentials were exposed (none are kept), and the incident was publicly confirmed by NordVPN in 2019. They've since moved to a colocated-server model with stricter vetting.
 
-Both policies are bulletproof in practice. If you care about open-source, ProtonVPN wins decisively. If you care about independent audit record, it's essentially tied.
+Both have strong audited no-logs records; ProtonVPN's fully open-source stack is the more transparent of the two, and uses audited upstream WireGuard rather than a proprietary fork.
 
-**Edge: ProtonVPN** on transparency; **tie** on actual privacy.
+**Edge: ProtonVPN** on transparency and protocol openness; **NordVPN** on audit frequency.
 
 ## Server network
 

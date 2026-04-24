@@ -23,7 +23,7 @@ verdict:
 - Server count — 11,700+ servers vs NordVPN's 6,400+
 - Money-back window — 45 days vs NordVPN's 30
 
-For most people, NordVPN's premium is worth the $1.36/mo difference — the speed gap, audit frequency, and streaming consistency compound quickly. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D?subId1=compare-cyberghost-vs-nordvpn)
+For most users who value speed and audit depth over raw dollars saved, NordVPN's $1.36/mo premium tends to be worth it — the speed gap, audit frequency, and streaming consistency compound over 2 years. [Sign up for NordVPN →](https://go.nordvpn.net/SHB0D?subId1=compare-cyberghost-vs-nordvpn) *(affiliate link — supports this site at no cost to you; disclosed in full at the bottom of this page.)*
 
 If your budget is genuinely tight and you're okay with slightly slower speeds, CyberGhost is the legitimate second choice.
 
@@ -38,6 +38,8 @@ If your budget is genuinely tight and you're okay with slightly slower speeds, C
 | Money-back | 45 days | 30 days |
 
 CyberGhost is ~40% cheaper on the 2-year plan. Over 2 years: $49 on CyberGhost vs $81 on NordVPN — a real $32 gap. That's the main reason people pick CyberGhost.
+
+**Renewal warning:** both providers' 2-year intro rates ($3.39/mo NordVPN, $2.03/mo CyberGhost) **do not persist on renewal** — year 3 onwards both charge closer to the 1-year rate. Check current renewal pricing in-app before committing.
 
 **Edge: CyberGhost** on price, **NordVPN** on money-back flexibility (marginal).
 
@@ -58,9 +60,10 @@ Both have no-logs policies. Audit frequency and rigor differ:
 
 **NordVPN:**
 - Audited by **Deloitte (2022, 2023)** and **PwC (2020)**.
-- Based in **Panama** — no data retention laws.
+- VPN operations registered in **Panama** (no data retention laws); corporate parent **Nord Security** is headquartered in Lithuania. The Panama jurisdiction is what governs user-data handling.
 - RAM-only server infrastructure (fully rolled out 2023).
-- Owned by Nord Security — which operates Mullvad independently (separate companies, different ownership).
+- In 2018, one of NordVPN's Finnish datacenter servers was accessed by an unauthorised third party — no user logs or credentials were exposed (none are kept), but the incident was real and publicly confirmed by NordVPN in 2019. They've since moved to a colocated-server model with stricter vetting.
+- In 2022, Nord Security merged with **Surfshark** — both brands now share a corporate parent but operate separate infrastructure, apps, and teams.
 
 **CyberGhost:**
 - Audited by **Deloitte (2024)** — their first major no-logs audit.
@@ -68,9 +71,9 @@ Both have no-logs policies. Audit frequency and rigor differ:
 - Maintains "NoSpy" servers in their Romanian HQ as an extra layer.
 - Owned by **Kape Technologies**, which also owns **ExpressVPN** and **Private Internet Access** — consolidation concerns for privacy purists (Kape was previously called "Crossrider" and had adware history in 2013-2016).
 
-Kape's ownership of multiple major VPNs is a real concern for some users. If corporate structure matters to you, NordVPN (Nord Security, owns only itself + Mullvad which operates independently) has a cleaner story.
+Kape's ownership of multiple major VPNs (CyberGhost + ExpressVPN + PIA under one parent) is a real concern for some users. Nord Security's merger with Surfshark raises a similar, if smaller, question — both now share a parent company. If ownership concentration matters to you, Mullvad (independently owned by Amagicom AB, Sweden) is the cleanest story in the category.
 
-**Edge: NordVPN** on audit track and ownership transparency.
+**Edge: NordVPN** on audit frequency; both have ownership caveats worth knowing about.
 
 ## Server network
 

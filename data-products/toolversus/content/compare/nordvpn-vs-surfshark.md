@@ -58,9 +58,11 @@ NordVPN has a clear edge in server count and kill switch reliability. Surfshark'
 
 ## Privacy
 
-Both have independently audited no-logs policies. NordVPN is based in Panama; Surfshark is based in the Netherlands. Panama has stronger privacy laws (no data retention), but the Netherlands has robust EU privacy regulations (GDPR).
+Both have independently audited no-logs policies. NordVPN's VPN operations are registered in Panama (no data retention laws); its corporate parent Nord Security is headquartered in Lithuania. Surfshark is based in the Netherlands — EU member with robust GDPR protections.
 
-Both are trustworthy. Neither has had a verified data breach or log disclosure.
+Neither has had user logs or credentials exposed in any public incident. However, NordVPN did publicly confirm in 2019 that one of its Finnish datacenter servers had been accessed by an unauthorised third party in 2018 — no user data was compromised (none is kept), but the incident itself was real. Since then, NordVPN moved to a stricter colocated-server vetting model. Surfshark has no comparable public incident on record.
+
+**Ownership note:** Nord Security merged with Surfshark in February 2022. Both brands continue to operate as independent products with separate infrastructure, apps, and teams — but they now share a corporate parent. Whether that matters is a judgement call; some users prefer unrelated ownership for competitive-privacy reasons.
 
 ## Who Should Choose Surfshark?
 
@@ -82,7 +84,17 @@ Both are trustworthy. Neither has had a verified data breach or log disclosure.
 
 <details>
 <summary>Are NordVPN and Surfshark owned by the same company?</summary>
-<div class="answer">Yes. Nord Security (NordVPN's parent company) merged with Surfshark in February 2022. However, both continue to operate as independent products with separate infrastructure, apps, and teams. Your choice between them should be based on features and price, not ownership concerns.</div>
+<div class="answer">Yes — Nord Security merged with Surfshark in February 2022, so both brands now share a corporate parent. They operate as independent products with separate infrastructure, apps, and teams. If ownership concentration matters to you (e.g. you want your VPN provider to be genuinely unrelated to competitors), a provider outside the Nord Security + Kape consolidation — like Mullvad (Amagicom AB, Sweden) — may be a better fit.</div>
+</details>
+
+<details>
+<summary>Has NordVPN ever had a data breach?</summary>
+<div class="answer">NordVPN publicly confirmed in 2019 that one of its Finnish datacenter servers was accessed by an unauthorised third party in 2018. No user logs, credentials, or traffic data were exposed (NordVPN keeps none). The company has since moved to a colocated-server model with stricter vetting. Surfshark has no comparable public incident on record.</div>
+</details>
+
+<details>
+<summary>Do the intro prices renew at the same rate?</summary>
+<div class="answer">No. Both NordVPN's $3.39/mo and Surfshark's $2.19/mo are 2-year introductory rates — renewals are materially higher. Before committing, check in-app what the renewal rate will be, or plan to rotate (cancel before renewal, resubscribe with a fresh intro deal).</div>
 </details>
 
 <details>
@@ -96,3 +108,7 @@ Both are trustworthy. Neither has had a verified data breach or log disclosure.
 </details>
 
 </div>
+
+---
+
+*Affiliate disclosure: we have an affiliate partnership with NordVPN, meaning we may earn a commission if you sign up after clicking a NordVPN link elsewhere on this site. We do not have an affiliate relationship with Surfshark. Rankings on this page reflect our honest assessment of the two products and are not influenced by the commission structure — see our [methodology](/about/) for the full framework.*

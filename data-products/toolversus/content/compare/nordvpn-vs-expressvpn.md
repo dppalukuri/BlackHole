@@ -16,13 +16,15 @@ verdict:
 
 ## The Quick Answer
 
-**NordVPN wins.** It's nearly half the price of ExpressVPN ($3.39/mo vs $6.67/mo on annual plans), faster in speed tests, has twice as many servers, and includes extras like a built-in ad blocker and malware protection that ExpressVPN doesn't offer.
+**NordVPN is the better value for most users.** It's nearly half the price of ExpressVPN ($3.39/mo vs $6.67/mo on annual plans), faster in independent speed tests, has twice as many servers, and bundles extras like an ad-blocker and malware protection that ExpressVPN charges separately for (or doesn't offer).
 
-ExpressVPN's only real advantages are: (1) it works more reliably in China, and (2) its app is slightly easier to use. For 99% of people, NordVPN is the better deal.
+**ExpressVPN has genuine advantages** that are worth the premium if they match your use case: (1) it's the most consistently reliable VPN inside China and other heavily censored networks; (2) its TrustedServer RAM-only architecture is an established privacy-engineering edge over NordVPN's partial rollout; (3) British Virgin Islands jurisdiction with a well-tested legal track record; (4) the apps are best-in-class on iOS and macOS. For travellers, journalists, and users in restricted countries, ExpressVPN is often the right call.
+
+For everyone else — especially value-conscious users on home broadband — NordVPN tends to be the better fit.
 
 ## Pricing Comparison
 
-This is where NordVPN pulls ahead decisively:
+On price, NordVPN is clearly cheaper:
 
 | Plan | NordVPN | ExpressVPN |
 |------|---------|------------|
@@ -31,6 +33,8 @@ This is where NordVPN pulls ahead decisively:
 | 2-Year | **$3.39/mo** | Not available |
 
 NordVPN's 2-year plan is nearly **50% cheaper** than ExpressVPN's annual plan. Over 2 years, that's a savings of roughly $79. Both offer 30-day money-back guarantees.
+
+**Renewal warning:** NordVPN's $3.39/mo is the 2-year intro rate — subsequent renewals are materially higher. Check in-app pricing before committing.
 
 ## Speed
 
@@ -45,12 +49,12 @@ Both are fast enough for 4K streaming and gaming. The difference matters more if
 
 Both VPNs have been independently audited for their no-logs policies:
 
-- **NordVPN**: Audited by Deloitte (2022, 2023). Based in Panama (no data retention laws).
-- **ExpressVPN**: Audited by KPMG and Cure53. Based in British Virgin Islands. Uses RAM-only servers (TrustedServer).
+- **NordVPN**: Audited by Deloitte (2022, 2023) and PwC (2020). VPN operations registered in Panama (no data retention laws); corporate parent Nord Security is headquartered in Lithuania. In 2018, one of NordVPN's Finnish datacenter servers was accessed by an unauthorised third party — no user logs or credentials were exposed (none are kept), but the incident was real and publicly confirmed by NordVPN in 2019. They've since moved to a stricter colocated-server model.
+- **ExpressVPN**: Audited by KPMG, Cure53, and PricewaterhouseCoopers. Based in the British Virgin Islands — a jurisdiction that has been legally tested (ExpressVPN has resisted subpoenas successfully). Uses RAM-only servers (TrustedServer) — data is physically impossible to retain across reboots. No verified breach history.
 
-ExpressVPN's RAM-only servers are a genuine security advantage — data is physically impossible to retain across reboots. NordVPN has started implementing this but hasn't fully rolled it out.
+ExpressVPN's architecture (fully rolled-out RAM-only + multiple independent audits) is a genuine edge over NordVPN's partial RAM-only rollout. NordVPN's Lightway counterpart **NordLynx** is also proprietary — unlike ExpressVPN's Lightway which has been independently audited at the protocol level.
 
-**Edge: ExpressVPN** on pure privacy architecture, but both are excellent.
+**Edge: ExpressVPN** on privacy architecture and protocol audit. Both are trustworthy at the policy level; ExpressVPN has the more transparent engineering story.
 
 ## Streaming
 
@@ -93,3 +97,7 @@ For streaming in the UAE (where VoIP and some content is restricted), both work 
 </details>
 
 </div>
+
+---
+
+*Affiliate disclosure: we have an affiliate partnership with NordVPN, meaning we may earn a commission if you sign up after clicking a NordVPN link on this site. We do not have an affiliate relationship with ExpressVPN. Rankings on this page reflect our honest assessment of the two products and are not influenced by the commission structure — see our [methodology](/about/) for the full framework.*
