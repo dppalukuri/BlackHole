@@ -139,7 +139,7 @@ They're essentially tied. Both use WireGuard and hit 350-450 Mbps on a 500 Mbps 
 ProtonVPN has Stealth protocol specifically designed for heavy-censorship countries. Mullvad works intermittently — obfuscated via Shadowsocks bridges, but not reliably. For these markets, ExpressVPN is still the most-reliable option.
 
 **Can I use Proton Mail with Mullvad?**
-Yes — they have no technical interaction. You'd pay for each separately. If you're already paying for Proton Mail and want a VPN, ProtonVPN\'s bundle is obviously more cost-effective.
+Yes — they have no technical interaction. You'd pay for each separately. If you're already paying for [Proton Mail](https://go.getproton.me/aff_c?offer_id=7&aff_id=17422&subId1=compare-protonvpn-vs-mullvad-mail) and want a VPN, ProtonVPN\'s bundle is obviously more cost-effective.
 
 **Do either support dedicated IPs?**
 No. Neither offers a dedicated IP add-on, by design — a dedicated IP de-anonymizes you at the network level, which both VPNs consider a privacy anti-pattern. NordVPN and Surfshark offer dedicated IPs.

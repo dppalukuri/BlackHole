@@ -19,7 +19,7 @@ verdict:
 **NordVPN is the better all-rounder.** It's cheaper ($3.39/mo vs $4.99/mo on 2-year plans), faster in almost every independent speed test, has more servers, and unblocks streaming services more reliably.
 
 **ProtonVPN wins if:**
-- You already use Proton Mail / Drive (the Unlimited bundle is genuinely good value)
+- You already use [Proton Mail](https://go.getproton.me/aff_c?offer_id=7&aff_id=17422&subId1=compare-protonvpn-vs-nordvpn-mail) / [Drive](https://go.getproton.me/aff_c?offer_id=43&aff_id=17422&subId1=compare-protonvpn-vs-nordvpn-drive) (the Unlimited bundle is genuinely good value)
 - Open-source apps matter to you (ProtonVPN's are fully OSS; NordVPN's aren't)
 - You want a free plan to test first
 - You're in a heavily-surveilled situation where Swiss jurisdiction matters
@@ -114,8 +114,8 @@ Both need to be on paid plans to unblock — ProtonVPN's free plan has no stream
 | Dedicated IP | ✓ ($3.99/mo add-on) | ✗ |
 | Free plan | ✗ | ✓ |
 | Browser extension | ✓ (Chrome/Firefox) | ✓ (Chrome/Firefox) |
-| Password manager | NordPass (separate subscription) | Proton Pass (separate) |
-| Encrypted email | ✗ | Proton Mail (separate or bundle) |
+| Password manager | NordPass (separate subscription) | [Proton Pass](https://go.getproton.me/aff_c?offer_id=38&aff_id=17422&subId1=compare-protonvpn-vs-nordvpn-pass) (separate) |
+| Encrypted email | ✗ | [Proton Mail](https://go.getproton.me/aff_c?offer_id=7&aff_id=17422&subId1=compare-protonvpn-vs-nordvpn-mail) (separate or bundle) |
 
 ProtonVPN's ecosystem play — if you also use Proton Mail, Drive, Calendar, Pass — is where the Unlimited bundle becomes cost-competitive with NordVPN ($9.99 vs $3.39 isn't just VPN money).
 
