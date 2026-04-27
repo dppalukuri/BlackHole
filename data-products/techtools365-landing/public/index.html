@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- build: 2026-04-27 — landing revamped + multi-page -->
+<!-- build: 2026-04-28 — Truvista-inspired light redesign -->
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
+  <meta name="theme-color" content="#fafaf9" />
 
   <title>TechTools365 — Free Financial Calculators, SaaS Comparisons &amp; Visa Tools</title>
   <meta name="description" content="Three free, no-signup tools: 20+ financial calculators (SIP, EMI, FIRE, tax), 17 SaaS comparisons (VPN, hosting, email), and a multi-passport visa checker covering 199 countries. Built for India, UAE, and US." />
@@ -25,7 +25,6 @@
   <meta property="og:url" content="https://techtools365.com/" />
   <meta property="og:locale" content="en_US" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="TechTools365 — Free Tools for Finance, Travel &amp; SaaS Decisions" />
   <meta name="twitter:description" content="20+ free calculators, 17 SaaS comparisons, and the most comprehensive multi-passport visa checker on the open web. No signup." />
@@ -35,7 +34,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/site.css" />
 
   <!-- Structured data -->
@@ -81,31 +80,33 @@
         <li><a href="/about/">About</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/contact/">Contact</a></li>
+        <li><a href="#tools" class="nav-cta">Browse tools</a></li>
       </ul>
     </div>
   </nav>
 
   <main>
-    <section class="hero container">
-      <div class="hero-eyebrow">3 free tools · No signup · No tracking</div>
+    <!-- Hero -->
+    <section class="hero">
+      <span class="hero-eyebrow"><span class="dot"></span> 3 live tools · No signup · No tracking</span>
       <h1>Free tools for <em>finance, travel, and tech decisions.</em></h1>
       <p class="hero-sub">
-        Three working tools, not promises. Run financial calculators built for Indian and UAE residents,
-        compare SaaS pricing across 17 head-to-head comparisons, and check visa requirements
-        for any of 199 countries using your full passport-and-permit stack.
+        Three working tools — financial calculators built for India and UAE, honest SaaS
+        comparisons with named verdicts, and a multi-passport visa checker covering 199
+        countries. Every tool runs in your browser. Nothing to install, nothing to sign up for.
       </p>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong>20+</strong><span>Calculators</span></div>
-        <div class="hero-stat"><strong>17</strong><span>SaaS comparisons</span></div>
-        <div class="hero-stat"><strong>199</strong><span>Countries covered</span></div>
-        <div class="hero-stat"><strong>0</strong><span>Signups required</span></div>
+      <div class="hero-actions">
+        <a href="#tools" class="btn btn-primary btn-arrow">Browse the tools</a>
+        <a href="/blog/" class="btn btn-secondary">Read the blog</a>
       </div>
     </section>
 
-    <section class="container" aria-label="Live tools">
-      <div class="section-head">
-        <h2>Open a tool</h2>
-        <span class="count">3 live · 2 coming</span>
+    <!-- Tools (pricing-card-style) -->
+    <section class="tools-panel" id="tools" aria-label="Live tools">
+      <div class="tools-panel-head">
+        <span class="eyebrow">Live tools</span>
+        <h2>Three free tools. Pick what you need.</h2>
+        <p>Each tool is a fully working app — not a demo, not a paywall. Open one and start using it.</p>
       </div>
 
       <div class="tools-grid">
@@ -115,40 +116,36 @@
             <div class="tool-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5M8 16h5"/><rect x="14" y="12" width="4" height="4" rx="1" fill="white" stroke="none"/></svg>
             </div>
-            <span class="tool-badge live">● Live</span>
+            <span class="tool-badge live">Live</span>
           </header>
-          <h2>CalcStack</h2>
-          <p class="tool-desc">
-            Financial calculators built for India and UAE residents.
-            SIP, EMI, FIRE, tax-regime comparison, Dubai rental yield, salary structuring — every input
-            cached locally so you can revisit your numbers without retyping.
-          </p>
-          <div class="tool-stat-row">
-            <span><strong>20+</strong> calculators</span>
-            <span><strong>India</strong> · <strong>UAE</strong></span>
-            <span>No signup</span>
-          </div>
+          <h3>CalcStack</h3>
+          <p class="tool-tag">Financial calculators</p>
+          <p class="tool-desc">Built for Indian and UAE residents. Tax-regime aware, currency aware, locally-cached.</p>
+          <ul class="tool-features">
+            <li>20+ calculators (SIP, EMI, FIRE, tax)</li>
+            <li>India-specific salary &amp; tax math</li>
+            <li>Dubai rental yield, EoS gratuity</li>
+            <li>localStorage caching — revisit without retyping</li>
+          </ul>
           <a href="https://calcstack.techtools365.com/" class="tool-cta" target="_blank" rel="noopener">Open CalcStack</a>
         </article>
 
-        <article class="tool-card" data-color="cyan">
+        <article class="tool-card featured" data-color="cyan">
           <header class="tool-card-head">
             <div class="tool-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M4 6h7M4 12h7M4 18h7M13 6h7M13 12h7M13 18h7"/></svg>
             </div>
-            <span class="tool-badge live">● Live</span>
+            <span class="tool-badge live">Live</span>
           </header>
-          <h2>ToolVersus</h2>
-          <p class="tool-desc">
-            Honest SaaS comparisons for VPN, web hosting, and email marketing.
-            Side-by-side pricing, features, and verdicts — based on the merchants' published data
-            and our own testing. Affiliate disclosures on every page.
-          </p>
-          <div class="tool-stat-row">
-            <span><strong>17</strong> comparisons</span>
-            <span><strong>VPN · Hosting · Email</strong></span>
-            <span>Verdicts, not "it depends"</span>
-          </div>
+          <h3>ToolVersus</h3>
+          <p class="tool-tag">Honest SaaS comparisons</p>
+          <p class="tool-desc">VPN, hosting, email marketing — head-to-head with named winners. Transparent affiliate disclosures.</p>
+          <ul class="tool-features">
+            <li>17 in-depth comparisons</li>
+            <li>Named verdicts, not "it depends"</li>
+            <li>Quarterly bias-audit process</li>
+            <li>Affiliate links disclosed inline</li>
+          </ul>
           <a href="https://toolversus.techtools365.com/" class="tool-cta" target="_blank" rel="noopener">Open ToolVersus</a>
         </article>
 
@@ -157,19 +154,17 @@
             <div class="tool-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
             </div>
-            <span class="tool-badge live">● Live</span>
+            <span class="tool-badge live">Live</span>
           </header>
-          <h2>VisaPathway</h2>
-          <p class="tool-desc">
-            The only multi-passport visa checker on the open web. Stack your passports, residence
-            permits, and long-term visas — get the easiest legal entry to any of 199 destinations,
-            with official sources cited.
-          </p>
-          <div class="tool-stat-row">
-            <span><strong>199</strong> countries</span>
-            <span><strong>7</strong> permit types</span>
-            <span>Gov-source verified</span>
-          </div>
+          <h3>VisaPathway</h3>
+          <p class="tool-tag">Multi-passport visa checker</p>
+          <p class="tool-desc">The only checker on the open web that handles passports + residence permits + visas in combination.</p>
+          <ul class="tool-features">
+            <li>199 countries · 7 residence permits</li>
+            <li>Live verifier against gov sources</li>
+            <li>Stack any combination of documents</li>
+            <li>Source URL shown with every entry</li>
+          </ul>
           <a href="https://visapathway.techtools365.com/" class="tool-cta" target="_blank" rel="noopener">Open VisaPathway</a>
         </article>
 
@@ -177,73 +172,128 @@
 
       <p class="coming-soon">
         <strong>Coming soon:</strong> SalaryAtlas (Q3 2026 — salary &amp; cost-of-living comparisons across 500+ cities)
-        · InsureCompare (Q4 2026 — UAE insurance &amp; credit card comparisons)
+        · InsureCompare (Q4 2026 — UAE insurance &amp; credit-card comparisons)
       </p>
     </section>
 
-    <aside class="container featured-deal" aria-label="Featured partner deal">
-      <div>
-        <div class="deal-eyebrow">⭐ Featured Partner Deal</div>
-        <h3>NordVPN — our top-ranked VPN pick</h3>
-        <p>Wins 3 of 4 VPN head-to-heads on ToolVersus; Surfshark edges it on value. 6,400+ servers · audited no-logs · from <strong>$3.39/mo</strong> (2-year intro, renews higher).</p>
-        <a href="https://toolversus.techtools365.com/compare/protonvpn-vs-nordvpn/" target="_blank" rel="noopener" class="deal-secondary">Read the full comparison →</a>
-      </div>
-      <a href="https://go.nordvpn.net/SHB0D?subId1=landing-featured-deal" target="_blank" rel="nofollow sponsored noopener" class="deal-cta">Get NordVPN →</a>
-    </aside>
-
-    <section class="container" aria-label="Why TechTools365">
-      <div class="section-head"><h2>Why TechTools365</h2></div>
-      <div class="trust-row">
-        <div class="trust-item">
-          <div class="trust-icon" aria-hidden="true">✓</div>
-          <div>
-            <h4>No signup, no email capture</h4>
-            <p>Every tool works instantly. Nothing gated behind a form.</p>
-          </div>
+    <!-- Stats row -->
+    <section class="stats" aria-label="By the numbers">
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-value">20+</div>
+          <div class="stat-label">Financial calculators</div>
         </div>
-        <div class="trust-item">
-          <div class="trust-icon" aria-hidden="true">◉</div>
-          <div>
-            <h4>Transparent rankings</h4>
-            <p>Affiliate partnerships disclosed on every page; never weighted into our verdicts.</p>
-          </div>
+        <div class="stat">
+          <div class="stat-value">17</div>
+          <div class="stat-label">SaaS comparisons</div>
         </div>
-        <div class="trust-item">
-          <div class="trust-icon" aria-hidden="true">◈</div>
-          <div>
-            <h4>Built in public</h4>
-            <p>Open source on <a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">github/BlackHole</a> — pull requests welcome.</p>
-          </div>
+        <div class="stat">
+          <div class="stat-value">199</div>
+          <div class="stat-label">Countries covered</div>
         </div>
       </div>
     </section>
 
-    <section class="container" aria-label="Latest writing">
+    <!-- About / Why us -->
+    <section class="about-section" aria-label="Why TechTools365">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="eyebrow">Why this exists</span>
+          <h2>Free tools that respect your time and privacy.</h2>
+          <p>
+            Most "free" web tools are email-walled. We don't ask for your email, your name, or anything
+            else — every tool runs entirely in your browser. Calculator inputs, visa-checker selections,
+            comparison reads — all local. Nothing flows back to us.
+          </p>
+          <p>
+            We make money two ways: affiliate commissions on a small set of products we've personally
+            evaluated, and Google ads on content pages. Both are disclosed transparently and never
+            influence rankings. The full breakdown is on the <a href="/about/">About page</a>.
+          </p>
+          <a href="/about/" class="btn btn-primary btn-arrow">Learn more about us</a>
+        </div>
+        <aside class="about-visual" aria-hidden="true">
+          <div class="visual-card">
+            <span class="visual-card-icon indigo">✓</span>
+            <div class="visual-card-text">
+              <strong>No signup, no email capture</strong>
+              <span>Every tool works instantly</span>
+            </div>
+          </div>
+          <div class="visual-card">
+            <span class="visual-card-icon cyan">◉</span>
+            <div class="visual-card-text">
+              <strong>Affiliate-transparent</strong>
+              <span>Disclosed on every page; never weighted</span>
+            </div>
+          </div>
+          <div class="visual-card">
+            <span class="visual-card-icon violet">◈</span>
+            <div class="visual-card-text">
+              <strong>Open source on GitHub</strong>
+              <span>Every line of code is auditable</span>
+            </div>
+          </div>
+          <div class="visual-card">
+            <span class="visual-card-icon amber">⚡</span>
+            <div class="visual-card-text">
+              <strong>Live data, not stale screenshots</strong>
+              <span>Visa rules re-verified hourly</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Featured deal (NordVPN affiliate) -->
+    <aside class="featured-deal" aria-label="Featured partner deal">
+      <div>
+        <div class="deal-eyebrow">⭐ Featured Partner Deal</div>
+        <h3>NordVPN — our top-ranked VPN pick</h3>
+        <p>Wins 3 of 4 VPN head-to-heads on ToolVersus; Surfshark edges it on raw value. 6,400+ servers · Deloitte-audited no-logs · from <strong>$3.39/mo</strong> on the 2-year intro (renews higher).</p>
+        <a href="https://toolversus.techtools365.com/compare/protonvpn-vs-nordvpn/" target="_blank" rel="noopener" class="deal-secondary">Read the full comparison →</a>
+      </div>
+      <a href="https://go.nordvpn.net/SHB0D?subId1=landing-featured-deal" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary btn-arrow">Get NordVPN</a>
+    </aside>
+
+    <!-- Blog list -->
+    <section class="blog-section" aria-label="Latest writing">
       <div class="section-head">
-        <h2>From the blog</h2>
-        <a href="/blog/" class="deal-secondary">All articles →</a>
+        <h2>Recent guides</h2>
+        <a href="/blog/">All articles →</a>
       </div>
       <div class="blog-list">
         <a href="/blog/how-to-choose-a-vpn-2026/" class="blog-card">
           <h3>How to choose a VPN in 2026 — what actually matters</h3>
-          <p>Speed-test marketing is mostly noise. The real decision factors are jurisdiction, audit history, and what the provider does when subpoenaed. Here's the framework we use to rank VPNs at ToolVersus.</p>
-          <span class="meta">Guide · April 2026</span>
+          <p>Speed-test marketing is mostly noise. The real decision factors are jurisdiction, audit history, and what the provider does when subpoenaed.</p>
+          <span class="meta">Guide · 1,800 words · April 2026</span>
         </a>
         <a href="/blog/visa-stacking-explained-2026/" class="blog-card">
-          <h3>Visa stacking — how passports + residence permits = more countries</h3>
-          <p>Most travelers think about passport rankings. The real travel-access lever is what you stack on top of your passport: UAE residence, US Green Card, Schengen permit. Stacking explained with examples.</p>
-          <span class="meta">Guide · April 2026</span>
+          <h3>Visa stacking — passports + residence permits = more countries</h3>
+          <p>Most travelers think about passport rankings. The real lever is what you stack on top: UAE residence, US Green Card, Schengen permits.</p>
+          <span class="meta">Guide · 2,000 words · April 2026</span>
         </a>
         <a href="/blog/uae-vs-india-take-home-salary-2026/" class="blog-card">
           <h3>UAE vs India take-home salary — the real comparison</h3>
-          <p>Comparing a "₹40 LPA in Bangalore" offer to "AED 25k/month in Dubai" requires more than the obvious tax math. Cost of living, rent, school fees, and remittance — what actually lands in your bank.</p>
-          <span class="meta">Analysis · April 2026</span>
+          <p>Tax-only math misleads. Cost of living, rent, school fees, and remittance — what actually lands in your bank account.</p>
+          <span class="meta">Analysis · 1,900 words · April 2026</span>
         </a>
         <a href="/blog/techtools365-methodology/" class="blog-card">
           <h3>How we test and rank — the TechTools365 methodology</h3>
-          <p>Specifics over superlatives, with named criteria. How we evaluate VPNs vs hosting providers vs visa data sources, why we name winners instead of saying "it depends," and where we draw the line on affiliate influence.</p>
-          <span class="meta">Editorial · April 2026</span>
+          <p>Specifics over superlatives. The named criteria, named sources, and explicit affiliate-disclosure framework behind our rankings.</p>
+          <span class="meta">Editorial · 1,500 words · April 2026</span>
         </a>
+      </div>
+    </section>
+
+    <!-- CTA section -->
+    <section class="cta-section" aria-label="Open a tool">
+      <span class="eyebrow">Get started</span>
+      <h2>Pick a tool and start using it.</h2>
+      <p>No signup, no email capture, no payment screen. Every tool is fully functional from the first click.</p>
+      <div class="hero-actions">
+        <a href="#tools" class="btn btn-primary btn-arrow">Browse tools</a>
+        <a href="/about/" class="btn btn-secondary">Learn more</a>
       </div>
     </section>
   </main>
@@ -251,19 +301,39 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="/" class="nav-brand" style="display:inline-flex;">
+        <a href="/" class="nav-brand">
           <span class="nav-brand-mark">T</span>
           <span>Tech<span class="nav-brand-accent">Tools</span>365</span>
         </a>
+        <p>Free tools for finance, travel, and tech decisions. Built in Dubai, open source on GitHub.</p>
       </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="/about/">About</a>
-        <a href="/blog/">Blog</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/contact/">Contact</a>
-        <a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">GitHub ↗</a>
-      </nav>
-      <p class="footer-fine">&copy; 2026 TechTools365 — free tools, no tricks. We may earn affiliate commissions on outbound links to NordVPN and Proton; partnerships are disclosed on every relevant page and never weighted into our verdicts.</p>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="https://calcstack.techtools365.com/" target="_blank" rel="noopener">CalcStack ↗</a></li>
+          <li><a href="https://toolversus.techtools365.com/" target="_blank" rel="noopener">ToolVersus ↗</a></li>
+          <li><a href="https://visapathway.techtools365.com/" target="_blank" rel="noopener">VisaPathway ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Open</h4>
+        <ul>
+          <li><a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">GitHub repo ↗</a></li>
+          <li><a href="/blog/techtools365-methodology/">Methodology</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 TechTools365 — free tools, no tricks. We may earn affiliate commissions on outbound links to NordVPN and Proton; partnerships are disclosed on every relevant page.</p>
     </div>
   </footer>
 </body>
