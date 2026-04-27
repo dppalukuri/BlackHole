@@ -104,10 +104,10 @@
     </div>
     <nav class="sub-nav" aria-label="ToolVersus sections">
       <div class="sub-nav-inner">
-        <a href="/" class="sub-link{{ if .IsHome }} is-active{{ end }}">All</a>
+        <a href="/" class="sub-link{{ if .IsHome }} is-active{{ end }}">Home</a>
         <a href="/compare/" class="sub-link{{ if eq .Section `compare` }} is-active{{ end }}">Comparisons</a>
-        <a href="/review/" class="sub-link{{ if eq .Section `review` }} is-active{{ end }}">Reviews</a>
-        <a href="/categories/" class="sub-link{{ if eq .Section `categories` }} is-active{{ end }}">Categories</a>
+        <a href="/about/" class="sub-link{{ if eq .Section `about` }} is-active{{ end }}">About</a>
+        <a href="/contact/" class="sub-link{{ if eq .Section `contact` }} is-active{{ end }}">Contact</a>
       </div>
     </nav>
   </header>
@@ -146,12 +146,10 @@
       </div>
       <nav class="footer-links" aria-label="Footer">
         <a href="/compare/">Comparisons</a>
-        <a href="/review/">Reviews</a>
         <a href="/about/">About</a>
         <a href="/privacy/">Privacy</a>
         <a href="/contact/">Contact</a>
         <a href="https://techtools365.com/" target="_blank" rel="noopener">All tools ↗</a>
-        <a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
       <p class="footer-fine">&copy; {{ now.Year }} ToolVersus by TechTools365. We may earn affiliate commissions when you purchase through our links. This does not affect our editorial independence — our rankings are based on publicly available pricing, features, and our testing.</p>
     </div>

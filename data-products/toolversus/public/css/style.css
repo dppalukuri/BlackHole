@@ -18,7 +18,9 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 ::selection { background: var(--color-hub); color: #fff; }
-body { font-family: 'Inter', system-ui, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; letter-spacing: -.005em; }
+html { overflow-x: hidden; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; letter-spacing: -.005em; overflow-x: hidden; width: 100%; max-width: 100vw; }
+img, table, pre, code { max-width: 100%; }
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { color: var(--color-primary-hover); }
 a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 4px; }

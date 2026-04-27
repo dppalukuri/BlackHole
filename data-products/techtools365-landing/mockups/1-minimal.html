@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mockup 1 — Modern Minimal · TechTools365</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#05060a; --surface:#0c0e14; --border:rgba(255,255,255,.08);
+    --text:#e7e9ee; --muted:#8890a0; --dim:#555a66;
+    --accent:#7c8cff; --accent-glow:rgba(124,140,255,.25);
+  }
+  html,body{background:var(--bg);color:var(--text)}
+  body{
+    font-family:'Inter Tight',system-ui,sans-serif;font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;letter-spacing:-0.01em;
+    min-height:100vh;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* subtle grain overlay */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:.6;
+  }
+  /* mesh gradient */
+  .mesh{
+    position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(80px);opacity:.55;
+    background:
+      radial-gradient(60% 50% at 20% 20%,#4f46e5 0%,transparent 70%),
+      radial-gradient(45% 40% at 80% 10%,#a855f7 0%,transparent 70%),
+      radial-gradient(50% 40% at 70% 80%,#06b6d4 0%,transparent 70%);
+  }
+  .wrap{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:0 1.5rem}
+
+  header{padding:1.25rem 0;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-weight:700;font-size:.95rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
+  .logo-dot{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,#7c8cff,#a855f7);box-shadow:0 0 14px var(--accent-glow)}
+  .nav{display:flex;gap:1.75rem;font-size:.82rem;color:var(--muted)}
+  .nav a{transition:color .15s}
+  .nav a:hover{color:var(--text)}
+
+  .hero{padding:4.5rem 0 2.5rem;max-width:720px}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:500;color:var(--muted);border:1px solid var(--border);padding:.35rem .7rem;border-radius:999px;background:rgba(255,255,255,.02);margin-bottom:1.5rem}
+  .pulse{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+  h1{font-size:clamp(2.5rem,6vw,4.25rem);font-weight:700;line-height:1.02;letter-spacing:-.035em;margin-bottom:1.25rem}
+  h1 em{font-style:normal;background:linear-gradient(135deg,#c7d0ff 0%,#8b96ff 50%,#e8b4ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:1.1rem;color:var(--muted);max-width:520px;line-height:1.5}
+
+  .stats{display:flex;gap:3rem;padding:2rem 0 3rem;border-top:1px solid var(--border);margin-top:2.5rem}
+  .stat .n{font-family:'Inter Tight',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.03em}
+  .stat .l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:.15rem}
+
+  .section-label{display:flex;align-items:center;gap:.75rem;font-size:.7rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.25rem}
+  .section-label::before{content:"";width:24px;height:1px;background:var(--dim)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.75rem;padding-bottom:4rem}
+  .card{
+    position:relative;padding:1.4rem;border-radius:14px;
+    background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+    border:1px solid var(--border);
+    transition:transform .25s ease,border-color .25s ease,background .25s ease;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,var(--card-accent,#7c8cff),transparent);opacity:.7;
+  }
+  .card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+  .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+  .icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--icon-bg);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 6px 16px -8px var(--card-accent)}
+  .icon svg{width:18px;height:18px;stroke:white;fill:none;stroke-width:1.8}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.05em}
+  .tag.live{color:#4ade80}
+  .card h2{font-size:1rem;font-weight:600;letter-spacing:-.015em;margin-bottom:.35rem}
+  .card p{font-size:.85rem;color:var(--muted);line-height:1.55;margin-bottom:1rem}
+  .meta{display:flex;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--dim);padding-top:.75rem;border-top:1px solid var(--border)}
+  .meta b{color:var(--text);font-weight:500}
+  .card.soon{opacity:.55}
+
+  footer{padding:2rem 0 3rem;color:var(--dim);font-size:.8rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--text)}
+
+  @media(max-width:640px){
+    .hero{padding:3rem 0 1.5rem}
+    .stats{gap:1.75rem}
+    .stat .n{font-size:1.5rem}
+  }
+</style>
+</head>
+<body>
+<div class="mesh"></div>
+<div class="wrap">
+  <header>
+    <div class="logo"><span class="logo-dot"></span>techtools<span style="color:var(--muted);font-weight:500">365</span></div>
+    <nav class="nav">
+      <a href="#">CalcStack</a><a href="#">ToolVersus</a><a href="#">VisaPathway</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow"><span class="pulse"></span> 3 products live · no signup · no tracking</div>
+    <h1>Tools that respect <em>your time and data.</em></h1>
+    <p class="lede">Financial calculators, SaaS comparisons, and visa intelligence — purpose-built for India, UAE, and the US. Free forever, zero signup.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">3</div><div class="l">Live Products</div></div>
+      <div class="stat"><div class="n">45+</div><div class="l">Tools &amp; Pages</div></div>
+      <div class="stat"><div class="n">199</div><div class="l">Countries Covered</div></div>
+    </div>
+  </section>
+
+  <div class="section-label">Our Tools</div>
+  <div class="grid">
+    <a href="#" class="card" style="--card-accent:#6366f1;--icon-bg:linear-gradient(135deg,#6366f1,#8b5cf6)">
+      <div class="card-top">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+        <span class="tag live">● LIVE</span>
+      </div>
+      <h2>CalcStack</h2>
+      <p>Interactive financial calculators — SIP, EMI, FIRE planner, tax comparator, Dubai rental yield.</p>
+      <div class="meta"><span><b>20</b> calculators</span><span><b>IN · AE · US</b></span></div>
+    </a>
+
+    <a href="#" class="card" style="--card-accent:#06b6d4;--icon-bg:linear-gradient(135deg,#0ea5e9,#06b6d4)">
+      <div class="card-top">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h7M4 12h7M4 18h7M13 6h7M13 12h7M13 18h7"/><circle cx="13" cy="12" r="1.5" fill="white"/></svg></div>
+        <span class="tag live">● LIVE</span>
+      </div>
+      <h2>ToolVersus</h2>
+      <p>Honest SaaS comparisons — side-by-side pricing, features, and verdicts for VPN, hosting, email.</p>
+      <div class="meta"><span><b>13</b> comparisons</span><span>VPN · HOST · EMAIL</span></div>
+    </a>
+
+    <a href="#" class="card" style="--card-accent:#a855f7;--icon-bg:linear-gradient(135deg,#7c3aed,#a78bfa)">
+      <div class="card-top">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div>
+        <span class="tag live">● LIVE</span>
+      </div>
+      <h2>VisaPathway</h2>
+      <p>Multi-passport visa checker — enter all your passports, find the best way to enter any country.</p>
+      <div class="meta"><span><b>199</b> countries</span><span><b>7</b> permit types</span></div>
+    </a>
+
+    <div class="card soon" style="--card-accent:#64748b;--icon-bg:linear-gradient(135deg,#475569,#64748b)">
+      <div class="card-top">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M7 7h8a3 3 0 010 6H9a3 3 0 000 6h9"/></svg></div>
+        <span class="tag">SOON</span>
+      </div>
+      <h2>SalaryAtlas</h2>
+      <p>Salary data and cost-of-living comparisons across 500+ cities worldwide.</p>
+      <div class="meta"><span>City vs city</span><span>Q3 2026</span></div>
+    </div>
+
+    <div class="card soon" style="--card-accent:#64748b;--icon-bg:linear-gradient(135deg,#475569,#64748b)">
+      <div class="card-top">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></svg></div>
+        <span class="tag">SOON</span>
+      </div>
+      <h2>InsureCompare</h2>
+      <p>Insurance and credit-card comparisons for UAE and India.</p>
+      <div class="meta"><span>Credit · Insurance</span><span>Q4 2026</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <div>© 2026 <b style="color:var(--text)">TechTools365</b> — free tools, no tricks.</div>
+    <div><a href="#">About</a> &nbsp;·&nbsp; <a href="#">Privacy</a></div>
+  </footer>
+</div>
+</body>
+</html>

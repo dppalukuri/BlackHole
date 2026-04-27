@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mockup 3 — Data-forward · TechTools365</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a0d10; --panel:#0f1317; --panel-hi:#141920; --grid:rgba(255,255,255,.035);
+    --border:rgba(255,255,255,.07); --border-hi:rgba(110,231,183,.25);
+    --text:#d1d6db; --muted:#7a8691; --dim:#4a535c;
+    --accent:#6ee7b7; --accent-hi:#34d399; --amber:#fbbf24; --magenta:#f472b6; --blue:#60a5fa;
+  }
+  html,body{background:var(--bg);color:var(--text)}
+  body{
+    font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;min-height:100vh;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:40px 40px;background-position:-1px -1px;
+  }
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+
+  /* top bar */
+  header{padding:.9rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:.78rem}
+  .logo{font-weight:600;display:flex;align-items:center;gap:.55rem;letter-spacing:-.01em}
+  .logo-mark{width:22px;height:22px;background:linear-gradient(135deg,var(--accent),var(--accent-hi));border-radius:4px;display:grid;place-items:center;color:#06281d;font-weight:700;font-family:'IBM Plex Mono';font-size:.75rem}
+  .status-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.15rem .55rem;border-radius:4px;background:rgba(110,231,183,.1);color:var(--accent);font-family:'IBM Plex Mono';font-size:.7rem}
+  .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 1.8s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.35}}
+  .nav{display:flex;gap:.25rem;font-family:'IBM Plex Mono';font-size:.72rem;color:var(--muted)}
+  .nav a{padding:.3rem .65rem;border-radius:4px;transition:all .15s}
+  .nav a:hover{background:var(--panel-hi);color:var(--text)}
+
+  /* hero dashboard */
+  .hero{padding:2rem 0 1rem;display:grid;grid-template-columns:1.25fr 1fr;gap:1.5rem;align-items:start}
+  .hero-left h1{font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:600;line-height:1.08;letter-spacing:-.025em;margin-bottom:.85rem}
+  .hero-left h1 em{font-style:normal;color:var(--accent);position:relative}
+  .hero-left h1 em::after{content:"_";animation:caret 1s steps(2) infinite;color:var(--accent-hi)}
+  @keyframes caret{50%{opacity:0}}
+  .lede{color:var(--muted);font-size:.95rem;max-width:480px;margin-bottom:1.25rem}
+  .tag-line{display:flex;gap:.5rem;flex-wrap:wrap;font-family:'IBM Plex Mono';font-size:.7rem;color:var(--muted)}
+  .tag-line span{padding:.2rem .55rem;background:var(--panel);border:1px solid var(--border);border-radius:4px}
+
+  .hero-right{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:1rem;position:relative}
+  .hero-right::before{content:"live · system metrics";position:absolute;top:.5rem;left:1rem;font-family:'IBM Plex Mono';font-size:.65rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1.5rem}
+  .metric{padding:.65rem .75rem;background:var(--panel-hi);border-radius:6px;border-left:2px solid var(--accent)}
+  .metric:nth-child(2){border-color:var(--amber)}
+  .metric:nth-child(3){border-color:var(--blue)}
+  .metric:nth-child(4){border-color:var(--magenta)}
+  .metric-label{font-family:'IBM Plex Mono';font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .metric-value{font-family:'IBM Plex Mono';font-size:1.35rem;font-weight:600;color:var(--text);margin-top:.15rem;letter-spacing:-.02em}
+  .metric-delta{font-family:'IBM Plex Mono';font-size:.65rem;color:var(--accent);margin-top:.1rem}
+  .metric-delta.up::before{content:"▲ "}
+
+  /* inline sparkline */
+  .spark-row{margin-top:.75rem;padding:.5rem .75rem;background:var(--panel-hi);border-radius:6px}
+  .spark-row-head{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:.65rem;color:var(--muted);margin-bottom:.35rem}
+  .sparkline{display:block;width:100%;height:32px}
+
+  /* section */
+  .section{padding:2rem 0 1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);margin-top:1rem}
+  .section h2{font-family:'IBM Plex Mono';font-size:.75rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  .section .right{font-family:'IBM Plex Mono';font-size:.7rem;color:var(--dim)}
+
+  /* cards as data widgets */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:.75rem;padding-bottom:2rem}
+  .widget{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:0;overflow:hidden;transition:all .15s;position:relative;
+  }
+  .widget:hover{border-color:var(--border-hi);transform:translateY(-1px)}
+  .widget-head{padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+  .widget-title{display:flex;align-items:center;gap:.55rem}
+  .w-icon{width:22px;height:22px;border-radius:4px;display:grid;place-items:center;font-family:'IBM Plex Mono';font-size:.7rem;font-weight:600;color:#06281d}
+  .w-name{font-size:.9rem;font-weight:600}
+  .badge{font-family:'IBM Plex Mono';font-size:.62rem;padding:.15rem .45rem;border-radius:3px;letter-spacing:.05em}
+  .badge.live{background:rgba(110,231,183,.15);color:var(--accent)}
+  .badge.soon{background:rgba(251,191,36,.12);color:var(--amber)}
+
+  .widget-body{padding:.85rem 1rem}
+  .widget-desc{color:var(--muted);font-size:.8rem;line-height:1.45;margin-bottom:.85rem;min-height:2.6em}
+
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem}
+  .kpi{padding:.45rem .6rem;background:var(--panel-hi);border-radius:5px}
+  .kpi-label{font-family:'IBM Plex Mono';font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .kpi-value{font-family:'IBM Plex Mono';font-size:1rem;font-weight:600;margin-top:.1rem}
+
+  .chart{height:48px;width:100%;display:block}
+  .chart-foot{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:.62rem;color:var(--dim);margin-top:.25rem}
+
+  .widget.soon .widget-body{opacity:.6}
+
+  footer{padding:1.5rem 0 2.5rem;border-top:1px solid var(--border);font-family:'IBM Plex Mono';font-size:.72rem;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--text)}
+
+  @media(max-width:820px){
+    .hero{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><span class="logo-mark">T</span>techtools365<span class="mono" style="color:var(--muted);margin-left:.5rem">/dashboard</span></div>
+    <span class="status-pill"><span class="dot"></span>ALL SYSTEMS OPERATIONAL</span>
+    <nav class="nav">
+      <a href="#">$ calcstack</a><a href="#">$ toolversus</a><a href="#">$ visapathway</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Tools, <em>measured</em>.</h1>
+      <p class="lede">Financial calculators, SaaS comparisons, and visa intelligence — instrumented, transparent, purpose-built for India, UAE, and the US.</p>
+      <div class="tag-line">
+        <span>no signup</span><span>no tracking</span><span>free forever</span><span>oss-minded</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Live products</div>
+          <div class="metric-value">03</div>
+          <div class="metric-delta up">2 this quarter</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Tools &amp; pages</div>
+          <div class="metric-value">45+</div>
+          <div class="metric-delta up">12% MoM</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Countries covered</div>
+          <div class="metric-value">199</div>
+          <div class="metric-delta">global</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Avg load</div>
+          <div class="metric-value">0.8s</div>
+          <div class="metric-delta up">p95 &lt; 1.2s</div>
+        </div>
+      </div>
+
+      <div class="spark-row">
+        <div class="spark-row-head"><span>traffic · last 30d</span><span>→ 14.2k visits</span></div>
+        <svg class="sparkline" viewBox="0 0 300 32" preserveAspectRatio="none">
+          <defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6ee7b7" stop-opacity=".4"/><stop offset="1" stop-color="#6ee7b7" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 24 L15 22 L30 25 L45 20 L60 23 L75 18 L90 21 L105 15 L120 17 L135 13 L150 16 L165 11 L180 14 L195 9 L210 12 L225 7 L240 10 L255 5 L270 8 L285 4 L300 6 L300 32 L0 32 Z" fill="url(#g1)"/>
+          <path d="M0 24 L15 22 L30 25 L45 20 L60 23 L75 18 L90 21 L105 15 L120 17 L135 13 L150 16 L165 11 L180 14 L195 9 L210 12 L225 7 L240 10 L255 5 L270 8 L285 4 L300 6" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="section"><h2>// products</h2><span class="right">updated 2 min ago</span></div>
+
+  <div class="grid">
+    <!-- CalcStack -->
+    <a href="#" class="widget">
+      <div class="widget-head">
+        <div class="widget-title"><span class="w-icon" style="background:linear-gradient(135deg,#818cf8,#6366f1);color:#fff">C</span><span class="w-name">CalcStack</span></div>
+        <span class="badge live">● LIVE</span>
+      </div>
+      <div class="widget-body">
+        <p class="widget-desc">Interactive financial calculators — SIP, EMI, FIRE, tax regime, Dubai rental yield.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">calculators</div><div class="kpi-value">20</div></div>
+          <div class="kpi"><div class="kpi-label">markets</div><div class="kpi-value">IN·AE·US</div></div>
+        </div>
+        <svg class="chart" viewBox="0 0 300 48" preserveAspectRatio="none">
+          <defs><linearGradient id="cs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#818cf8" stop-opacity=".45"/><stop offset="1" stop-color="#818cf8" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 38 L30 32 L60 35 L90 28 L120 30 L150 22 L180 25 L210 18 L240 20 L270 12 L300 14 L300 48 L0 48 Z" fill="url(#cs)"/>
+          <path d="M0 38 L30 32 L60 35 L90 28 L120 30 L150 22 L180 25 L210 18 L240 20 L270 12 L300 14" fill="none" stroke="#818cf8" stroke-width="1.5"/>
+        </svg>
+        <div class="chart-foot"><span>visits · 30d</span><span style="color:var(--accent)">▲ 32%</span></div>
+      </div>
+    </a>
+
+    <!-- ToolVersus -->
+    <a href="#" class="widget">
+      <div class="widget-head">
+        <div class="widget-title"><span class="w-icon" style="background:linear-gradient(135deg,#06b6d4,#0ea5e9);color:#fff">V</span><span class="w-name">ToolVersus</span></div>
+        <span class="badge live">● LIVE</span>
+      </div>
+      <div class="widget-body">
+        <p class="widget-desc">Honest SaaS comparisons — side-by-side pricing, features, verdicts. No sponsored bias.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">comparisons</div><div class="kpi-value">13</div></div>
+          <div class="kpi"><div class="kpi-label">categories</div><div class="kpi-value">03</div></div>
+        </div>
+        <svg class="chart" viewBox="0 0 300 48" preserveAspectRatio="none">
+          <defs><linearGradient id="tv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#06b6d4" stop-opacity=".45"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 42 L30 40 L60 36 L90 38 L120 30 L150 32 L180 24 L210 26 L240 18 L270 20 L300 12 L300 48 L0 48 Z" fill="url(#tv)"/>
+          <path d="M0 42 L30 40 L60 36 L90 38 L120 30 L150 32 L180 24 L210 26 L240 18 L270 20 L300 12" fill="none" stroke="#06b6d4" stroke-width="1.5"/>
+        </svg>
+        <div class="chart-foot"><span>ranking positions · 30d</span><span style="color:var(--accent)">▲ 18%</span></div>
+      </div>
+    </a>
+
+    <!-- VisaPathway -->
+    <a href="#" class="widget">
+      <div class="widget-head">
+        <div class="widget-title"><span class="w-icon" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff">P</span><span class="w-name">VisaPathway</span></div>
+        <span class="badge live">● LIVE</span>
+      </div>
+      <div class="widget-body">
+        <p class="widget-desc">Multi-passport visa checker — find the best entry path to any country.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">countries</div><div class="kpi-value">199</div></div>
+          <div class="kpi"><div class="kpi-label">permits</div><div class="kpi-value">07</div></div>
+        </div>
+        <svg class="chart" viewBox="0 0 300 48" preserveAspectRatio="none">
+          <g stroke="#a78bfa" stroke-width="8" stroke-linecap="butt" opacity=".9">
+            <line x1="8"  y1="48" x2="8"  y2="30"/>
+            <line x1="28" y1="48" x2="28" y2="26"/>
+            <line x1="48" y1="48" x2="48" y2="34"/>
+            <line x1="68" y1="48" x2="68" y2="20"/>
+            <line x1="88" y1="48" x2="88" y2="28"/>
+            <line x1="108" y1="48" x2="108" y2="14"/>
+            <line x1="128" y1="48" x2="128" y2="22"/>
+            <line x1="148" y1="48" x2="148" y2="10"/>
+            <line x1="168" y1="48" x2="168" y2="24"/>
+            <line x1="188" y1="48" x2="188" y2="16"/>
+            <line x1="208" y1="48" x2="208" y2="8"/>
+            <line x1="228" y1="48" x2="228" y2="18"/>
+            <line x1="248" y1="48" x2="248" y2="6"/>
+            <line x1="268" y1="48" x2="268" y2="12"/>
+            <line x1="288" y1="48" x2="288" y2="4"/>
+          </g>
+        </svg>
+        <div class="chart-foot"><span>lookups · 30d</span><span style="color:var(--accent)">▲ 45%</span></div>
+      </div>
+    </a>
+
+    <!-- SalaryAtlas -->
+    <div class="widget soon">
+      <div class="widget-head">
+        <div class="widget-title"><span class="w-icon" style="background:linear-gradient(135deg,#64748b,#475569);color:#fff">S</span><span class="w-name">SalaryAtlas</span></div>
+        <span class="badge soon">◌ QUEUED</span>
+      </div>
+      <div class="widget-body">
+        <p class="widget-desc">Salary data and cost-of-living comparisons across 500+ cities worldwide.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">cities</div><div class="kpi-value">500+</div></div>
+          <div class="kpi"><div class="kpi-label">est. ship</div><div class="kpi-value">Q3·26</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- InsureCompare -->
+    <div class="widget soon">
+      <div class="widget-head">
+        <div class="widget-title"><span class="w-icon" style="background:linear-gradient(135deg,#64748b,#475569);color:#fff">I</span><span class="w-name">InsureCompare</span></div>
+        <span class="badge soon">◌ QUEUED</span>
+      </div>
+      <div class="widget-body">
+        <p class="widget-desc">Insurance and credit-card comparisons for UAE and India.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">markets</div><div class="kpi-value">UAE·IN</div></div>
+          <div class="kpi"><div class="kpi-label">est. ship</div><div class="kpi-value">Q4·26</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>© 2026 techtools365 <span class="mono" style="color:var(--dim)">// free tools, measured honestly</span></div>
+    <div><a href="#">./about</a> &nbsp; <a href="#">./privacy</a> &nbsp; <a href="#">./status</a></div>
+  </footer>
+</div>
+</body>
+</html>

@@ -41,9 +41,9 @@ Found a comparison helpful? A specific axis we should be testing differently? A 
 
 For media inquiries (especially around our methodology, the affiliate-disclosure framework, or the bias-audit process we run on our own content), email with the publication name and your deadline.
 
-### Bug reports
+### Bug Reports
 
-ToolVersus is open source on [GitHub](https://github.com/dppalukuri/BlackHole). The fastest way to fix bugs is to file a GitHub issue with steps to reproduce. For non-technical bug reports (broken images, mobile layout issues, etc.), email is fine.
+Email us with steps to reproduce — the page URL, what you did, what you expected to happen, and what actually happened. Screenshots help. We typically fix obvious bugs (broken affiliate link, broken table on mobile, factual error in a comparison) within 48 hours.
 
 ## What we don't do
 
@@ -64,6 +64,6 @@ ToolVersus is operated by Durga Prasad in Dubai, UAE. We don't publish a postal 
 | Partnership inquiry | 2–3 business days |
 | Feedback / suggestion | 2–5 business days |
 | Press / media | Same day for time-sensitive |
-| GitHub issue | Within 48 hours |
+| Bug report | Within 48 hours |
 
 We're a one-person operation — please be patient if it takes a little longer during travel periods or major holidays.

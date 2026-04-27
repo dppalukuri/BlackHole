@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mockup 1d — Typographic Minimal · TechTools365</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a0a0a; --panel:#111111; --ink:#f1f0ec; --ink-2:#dcdad3;
+    --muted:#7e7c74; --dim:#4a4844; --rule:#1e1d1a;
+    --accent:#c8ff2d; /* acid lime */
+  }
+  html,body{background:var(--bg);color:var(--ink)}
+  body{
+    font-family:'Inter Tight',system-ui,sans-serif;font-size:15px;line-height:1.45;
+    -webkit-font-smoothing:antialiased;letter-spacing:-.005em;min-height:100vh;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 2rem;position:relative}
+
+  /* thin top strip */
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;border-bottom:1px solid var(--rule)}
+  .topbar .left{display:flex;align-items:center;gap:.55rem}
+  .topbar .left .k{width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent);animation:throb 2.4s ease-in-out infinite}
+  @keyframes throb{0%,100%{opacity:.9}50%{opacity:.35}}
+  .topbar .center{display:flex;gap:1.75rem}
+  .topbar a:hover{color:var(--ink)}
+
+  /* The hero is the whole page. Giant type edge-to-edge. */
+  .hero{padding:6rem 0 4rem}
+  .hero-mark{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-bottom:3rem;display:flex;align-items:center;gap:1rem}
+  .hero-mark::before{content:"";width:60px;height:1px;background:var(--muted)}
+
+  .giant{
+    font-size:clamp(3.5rem,14vw,13rem);
+    font-weight:800;line-height:.88;letter-spacing:-.055em;
+    color:var(--ink);margin:0;
+  }
+  .giant .l1{display:block}
+  .giant .l2{display:block;color:var(--muted);font-weight:500;font-style:italic}
+  .giant .l3{display:block;color:var(--accent);text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:-.03em}
+  .giant .l4{display:block;font-weight:300}
+
+  .hero-foot{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;padding:4rem 0 0;border-top:1px solid var(--rule);margin-top:4rem}
+  .hero-foot .lede{font-size:1rem;color:var(--ink-2);line-height:1.5;max-width:480px}
+  .hero-foot .lede b{color:var(--ink)}
+  .hero-foot .fact .n{font-size:1.75rem;font-weight:600;letter-spacing:-.025em;line-height:1}
+  .hero-foot .fact .n em{font-style:normal;color:var(--accent)}
+  .hero-foot .fact .l{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.5rem}
+
+  /* marquee-ish strip between */
+  .marquee{margin:6rem 0 3rem;padding:1rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;white-space:nowrap;overflow:hidden;position:relative}
+  .marquee-track{display:flex;gap:3rem;animation:scroll 40s linear infinite}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .marquee-track span::after{content:"✦";margin-left:3rem;color:var(--accent)}
+
+  /* products — minimal, huge typography led */
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-bottom:2rem;display:flex;align-items:baseline;justify-content:space-between}
+
+  .product{
+    padding:3rem 0;border-bottom:1px solid var(--rule);
+    display:grid;grid-template-columns:6rem 1fr 1fr 8rem;gap:2rem;align-items:start;
+    transition:all .25s;cursor:pointer;position:relative;
+  }
+  .product:hover{padding-left:1rem;color:var(--accent)}
+  .product:hover .pname{color:var(--accent)}
+  .product .pnum{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);padding-top:.5rem;letter-spacing:.1em}
+  .product .pname{
+    font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;letter-spacing:-.04em;line-height:1;
+    color:var(--ink);transition:color .25s;
+  }
+  .product .pname small{display:block;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;font-weight:500;margin-top:1rem}
+  .product .pname small.live::before{content:"●";color:var(--accent);margin-right:.35rem}
+  .product .pname small.soon::before{content:"○";color:var(--dim);margin-right:.35rem}
+  .product .pdesc{color:var(--ink-2);font-size:1rem;line-height:1.5;padding-top:1.5rem}
+  .product .pmeta{padding-top:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-align:right}
+  .product .pmeta div{padding:.2rem 0}
+  .product .pmeta b{color:var(--ink)}
+  .product .arrow{position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-size:1.5rem;opacity:0;transition:all .25s}
+  .product:hover .arrow{opacity:1;right:-2rem;color:var(--accent)}
+
+  .product.soon .pname{color:var(--dim)}
+  .product.soon:hover{color:var(--ink)}
+  .product.soon:hover .pname{color:var(--ink)}
+
+  /* closing */
+  .close{padding:8rem 0 4rem;text-align:left}
+  .close h4{font-size:clamp(2rem,5vw,4rem);font-weight:600;letter-spacing:-.03em;line-height:1.02;max-width:900px}
+  .close h4 em{font-style:normal;color:var(--accent)}
+  .close .sig{margin-top:2rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+
+  footer{padding:2rem 0 3rem;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  footer a:hover{color:var(--accent)}
+
+  @media(max-width:820px){
+    .hero-foot{grid-template-columns:1fr;gap:1.5rem;padding-top:2rem;margin-top:2rem}
+    .product{grid-template-columns:1fr;gap:.75rem;padding:2rem 0}
+    .product .pmeta{text-align:left}
+    .product:hover{padding-left:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="left"><span class="k"></span>techtools365 / operator's almanac</div>
+    <div class="center">
+      <a href="#">calcstack</a><a href="#">toolversus</a><a href="#">visapathway</a>
+    </div>
+    <div>18.04.2026 · v1.0</div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-mark">Mission brief — №. 001</div>
+    <h1 class="giant">
+      <span class="l1">Tools</span>
+      <span class="l2">for the three-</span>
+      <span class="l3">market life.</span>
+      <span class="l4">Free, forever.</span>
+    </h1>
+
+    <div class="hero-foot">
+      <div class="lede">A small catalogue of <b>financial calculators, SaaS comparisons, and visa intelligence</b> — each built in the open for India, the UAE, and the United States. No signup. No tracking. No affiliate bias.</div>
+      <div class="fact"><div class="n"><em>03</em></div><div class="l">Products live</div></div>
+      <div class="fact"><div class="n">45<em>+</em></div><div class="l">Tools &amp; pages</div></div>
+      <div class="fact"><div class="n">199</div><div class="l">Countries covered</div></div>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>No signup</span><span>No tracking</span><span>No affiliate bias</span><span>No email capture</span><span>Open source</span><span>Built in public</span>
+      <span>No signup</span><span>No tracking</span><span>No affiliate bias</span><span>No email capture</span><span>Open source</span><span>Built in public</span>
+    </div>
+  </div>
+
+  <div class="section-label"><span>The catalogue</span><span>05 products · 03 live</span></div>
+
+  <section>
+    <a href="#" class="product">
+      <div class="pnum">№ 001</div>
+      <div class="pname">calcstack<small class="live">Live</small></div>
+      <div class="pdesc">Interactive financial calculators — SIP, EMI, FIRE planner, tax regime comparator, Dubai rental yield. Instruments for a cross-border life.</div>
+      <div class="pmeta"><div><b>20</b> calcs</div><div>IN · AE · US</div></div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="#" class="product">
+      <div class="pnum">№ 002</div>
+      <div class="pname">toolversus<small class="live">Live</small></div>
+      <div class="pdesc">Honest SaaS comparisons — side-by-side pricing, features, and verdicts for VPN, web hosting, and email marketing. No sponsored rankings.</div>
+      <div class="pmeta"><div><b>13</b> versus</div><div>3 categories</div></div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="#" class="product">
+      <div class="pnum">№ 003</div>
+      <div class="pname">visapathway<small class="live">Live</small></div>
+      <div class="pdesc">The multi-passport visa checker. Enter every passport and residence permit you hold, and find the shortest legal way into any of 199 countries.</div>
+      <div class="pmeta"><div><b>199</b> countries</div><div><b>7</b> permit types</div></div>
+      <span class="arrow">→</span>
+    </a>
+
+    <div class="product soon">
+      <div class="pnum">№ 004</div>
+      <div class="pname">salaryatlas<small class="soon">Queued · Q3 / 26</small></div>
+      <div class="pdesc">Salary and cost-of-living comparisons across 500+ cities — with purchasing-power adjustments and city-vs-city breakdowns.</div>
+      <div class="pmeta"><div>500+ cities</div><div>global</div></div>
+    </div>
+
+    <div class="product soon">
+      <div class="pnum">№ 005</div>
+      <div class="pname">insurecompare<small class="soon">Queued · Q4 / 26</small></div>
+      <div class="pdesc">Insurance and credit-card comparisons for UAE and India, written to the same no-affiliate standards as the rest of the catalogue.</div>
+      <div class="pmeta"><div>UAE · India</div><div>credit · ins.</div></div>
+    </div>
+  </section>
+
+  <section class="close">
+    <h4>No signup. No email capture. <em>No data sold.</em><br/>Just the tools we wish existed.</h4>
+    <p class="sig">— the techtools365 desk · built in public at github.com/dppalukuri/BlackHole</p>
+  </section>
+
+  <footer>
+    <div>© 2026 techtools365</div>
+    <div><a href="#">about</a> &nbsp;·&nbsp; <a href="#">privacy</a> &nbsp;·&nbsp; <a href="#">github</a></div>
+  </footer>
+</div>
+</body>
+</html>

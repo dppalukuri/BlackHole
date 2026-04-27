@@ -49,7 +49,7 @@ NEW_FOOTER = """<footer class="site-footer">
           <span class="nav-brand-mark">T</span>
           <span>Tech<span class="nav-brand-accent">Tools</span>365</span>
         </a>
-        <p>Free tools for finance, travel, and tech decisions. Built in Dubai, open source on GitHub.</p>
+        <p>Free tools for finance, travel, and tech decisions. Built in Dubai by Durga Prasad.</p>
       </div>
       <div class="footer-col">
         <h4>Tools</h4>
@@ -69,10 +69,10 @@ NEW_FOOTER = """<footer class="site-footer">
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Open</h4>
+        <h4>Editorial</h4>
         <ul>
-          <li><a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">GitHub repo \u2197</a></li>
           <li><a href="/blog/techtools365-methodology/">Methodology</a></li>
+          <li><a href="mailto:palukuri.biz@gmail.com">Email us</a></li>
         </ul>
       </div>
     </div>
