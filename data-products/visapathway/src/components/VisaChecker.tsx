@@ -98,15 +98,19 @@ export default function VisaChecker() {
     ]).then(([m, c, p]) => { setMatrix(m); setCountries(c); setPermits(p); });
   }, []);
 
-  // Hydrate state from URL query params first, then localStorage, once data is loaded.
+  // Hydrate state from URL query params, once data is loaded.
+  // BUG-FIX: do NOT use `||=` here — it short-circuits, so if `p` was applied,
+  // `perm` would be skipped silently. Each tryApply must run independently.
+  // Also: if there are NO URL params at all, give a clean slate (no localStorage
+  // restore) — users expect a logo-click / direct-load to be a fresh checker,
+  // not the previous session.
   useEffect(() => {
     if (!countries.length || !permits) return;
-    // URL takes precedence so shareable links always win.
     const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
     const urlP = params.get('p');
     const urlR = params.get('perm');
     const urlD = params.get('d');
-    let hydratedFromUrl = false;
+    const hasAnyUrlParam = !!(urlP || urlR || urlD);
 
     const tryApply = (raw: string | null, set: (v: string[]) => void, valid: string[]) => {
       if (!raw) return false;
@@ -115,22 +119,18 @@ export default function VisaChecker() {
       return false;
     };
 
-    hydratedFromUrl ||= tryApply(urlP, setPassports, countries);
-    hydratedFromUrl ||= tryApply(urlR, setSelectedPermits, Object.keys(permits));
-    if (urlD && countries.includes(urlD)) { setDestination(urlD); hydratedFromUrl = true; }
-
-    if (!hydratedFromUrl && typeof window !== 'undefined') {
-      // Fall back to last session saved in localStorage.
-      try {
-        const savedP = JSON.parse(localStorage.getItem('vp.passports') || '[]');
-        const savedR = JSON.parse(localStorage.getItem('vp.permits') || '[]');
-        if (Array.isArray(savedP)) setPassports(savedP.filter((v: string) => countries.includes(v)));
-        if (Array.isArray(savedR)) setSelectedPermits(savedR.filter((v: string) => Object.keys(permits).includes(v)));
-      } catch {}
+    if (hasAnyUrlParam) {
+      // Apply each independently — no short-circuit.
+      tryApply(urlP, setPassports, countries);
+      tryApply(urlR, setSelectedPermits, Object.keys(permits));
+      if (urlD && countries.includes(urlD)) setDestination(urlD);
     }
+    // Clean URL (no params): leave state empty. localStorage hydration
+    // intentionally removed — users expect a fresh checker on direct load.
   }, [countries.length, permits]);
 
-  // Mirror state → URL + localStorage so shares and repeat-visits work.
+  // Mirror state → URL so a manually-built selection produces a shareable link.
+  // localStorage writes intentionally removed (see comment on hydration effect).
   useEffect(() => {
     if (typeof window === 'undefined' || !countries.length) return;
     const params = new URLSearchParams();
@@ -142,10 +142,6 @@ export default function VisaChecker() {
     if (window.location.pathname + window.location.search !== nextUrl) {
       window.history.replaceState(null, '', nextUrl);
     }
-    try {
-      localStorage.setItem('vp.passports', JSON.stringify(passports));
-      localStorage.setItem('vp.permits', JSON.stringify(selectedPermits));
-    } catch {}
   }, [passports, selectedPermits, destination, countries.length]);
 
   const copyShareLink = async () => {

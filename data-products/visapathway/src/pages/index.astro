@@ -359,18 +359,31 @@ const jsonLd = {
     }
 
     .popular-passports, .permit-guides, .popular-queries, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }
+    .popular-queries h2, .popular-destinations h2 {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      font-size: 1.35rem; font-weight: 800; letter-spacing: -.02em;
+      margin-bottom: .25rem; color: var(--text);
+    }
+    .popular-queries .section-sub { font-size: .88rem; color: var(--muted); margin-bottom: 1rem; max-width: 60ch; line-height: 1.5; }
     .pq-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: .5rem; margin-top: .75rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+      gap: .65rem; margin-top: .85rem;
     }
     .pq-card {
-      display: block; padding: .75rem .9rem;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      display: block; padding: .9rem 1rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
       text-decoration: none; transition: all .15s;
     }
-    .pq-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 4px 12px -6px rgba(124,58,237,.25); }
-    .pq-label { font-size: 1.05rem; letter-spacing: .03em; }
-    .pq-desc { font-size: .8rem; color: var(--muted); margin-top: .25rem; line-height: 1.4; }
+    .pq-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(124,58,237,.25); }
+    .pq-label {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 700; letter-spacing: -.01em;
+      color: var(--text); line-height: 1.2;
+    }
+    .pq-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem; color: var(--muted); margin-top: .35rem; line-height: 1.45;
+    }
     .dest-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: .55rem; margin-top: .75rem;

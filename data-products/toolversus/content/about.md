@@ -58,4 +58,4 @@ If you spot inaccuracies, bugs, or out-of-date data, email <palukuri.biz@gmail.c
 
 ## Contact
 
-The fastest way to reach us is by [email](/contact/). We read every message and respond within 2–3 business days. For correction requests, please include the URL of the page in question and the specific claim you'd like reviewed.
+The fastest way to reach us is by email at <palukuri.biz@gmail.com>. We read every message and respond within 2–3 business days. For correction requests, please include the URL of the page in question and the specific claim you'd like reviewed.
