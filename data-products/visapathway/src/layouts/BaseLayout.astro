@@ -89,7 +89,7 @@ const currentPath = Astro.url.pathname;
     <nav class="sub-nav" aria-label="VisaPathway sections">
       <div class="sub-nav-inner">
         <a href="/" class={`sub-link ${currentPath === '/' ? 'is-active' : ''}`}>Visa Checker</a>
-        <a href="/about" class={`sub-link ${currentPath.startsWith('/about') ? 'is-active' : ''}`}>About</a>
+        <a href="/about/" class={`sub-link ${currentPath.startsWith('/about') ? 'is-active' : ''}`}>About</a>
       </div>
     </nav>
   </header>
@@ -127,8 +127,8 @@ const currentPath = Astro.url.pathname;
         <p class="footer-tag">Multi-passport visa intelligence. Free.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
         <a href="https://techtools365.com/" target="_blank" rel="noopener">All tools ↗</a>
         <a href="https://github.com/dppalukuri/BlackHole" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>

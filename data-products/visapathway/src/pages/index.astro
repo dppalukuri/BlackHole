@@ -52,11 +52,11 @@ const faq = [
   },
   {
     q: 'How accurate is the visa information?',
-    a: 'Our data comes from three tiers of different confidence levels. <strong>Tier 1: residence-permit exemptions</strong> — hand-compiled from embassy pages with source URLs per entry. <strong>Tier 2: high-traffic passport → destination pairs</strong> are re-verified by our automated pipeline against gov sources (marked with a ✓ badge, source linked). <strong>Tier 3: the bulk passport matrix</strong> starts from the community-maintained <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> — a reasonable starting point, not a verified fact. See our <a href="/methodology">full methodology</a> for how the verifier works. Always confirm with the destination embassy before booking.',
+    a: 'Our data comes from three tiers of different confidence levels. <strong>Tier 1: residence-permit exemptions</strong> — hand-compiled from embassy pages with source URLs per entry. <strong>Tier 2: high-traffic passport → destination pairs</strong> are re-verified by our automated pipeline against gov sources (marked with a ✓ badge, source linked). <strong>Tier 3: the bulk passport matrix</strong> starts from the community-maintained <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">Passport Index Dataset</a> — a reasonable starting point, not a verified fact. See our <a href="/methodology/">full methodology</a> for how the verifier works. Always confirm with the destination embassy before booking.',
   },
   {
     q: 'Which passport is strongest for travel?',
-    a: 'As of 2026, Singapore, Japan, and several European passports top global rankings with visa-free access to 115–130+ countries. Our <a href="/singapore-passport">Singapore passport</a>, <a href="/japanese-passport">Japanese passport</a>, and <a href="/german-passport">German passport</a> guides show the full lists.',
+    a: 'As of 2026, Singapore, Japan, and several European passports top global rankings with visa-free access to 115–130+ countries. Our <a href="/singapore-passport/">Singapore passport</a>, <a href="/japanese-passport/">Japanese passport</a>, and <a href="/german-passport/">German passport</a> guides show the full lists.',
   },
 ];
 
@@ -120,7 +120,7 @@ const jsonLd = {
         </div>
       )}
       <div class="trust-stat">
-        <a href="/methodology">See methodology →</a>
+        <a href="/methodology/">See methodology →</a>
       </div>
     </div>
   </section>
@@ -172,11 +172,11 @@ const jsonLd = {
         <h2>Popular passport guides</h2>
         <p class="section-sub">Each guide lists every visa-free, visa-on-arrival, and e-visa destination for the passport — updated monthly.</p>
       </div>
-      <a href="/strongest-passports-2026" class="section-cta">See full 2026 ranking →</a>
+      <a href="/strongest-passports-2026/" class="section-cta">See full 2026 ranking →</a>
     </div>
     <div class="pp-grid">
       {topPassports.map((p) => (
-        <a href={`/${p.slug}`} class="pp-card">
+        <a href={`/${p.slug}/`} class="pp-card">
           <div class="pp-name">{p.nationality} passport</div>
           <div class="pp-count">{p.total}<span>easy destinations</span></div>
         </a>
@@ -198,7 +198,7 @@ const jsonLd = {
     </p>
     <div class="permit-grid">
       {topPermits.map((p) => (
-        <a href={`/${p.slug}`} class="permit-card">
+        <a href={`/${p.slug}/`} class="permit-card">
           <div class="permit-name">{p.fullName}</div>
           <div class="permit-blurb">{p.blurb.split('.')[0]}.</div>
           <div class="permit-cta">See unlocked countries →</div>
@@ -206,9 +206,9 @@ const jsonLd = {
       ))}
     </div>
     <p class="permit-footnote">
-      Also available: <a href="/valid-us-visa-benefits">valid US B1/B2 visa</a>,
-      <a href="/valid-schengen-visa-benefits"> valid Schengen C-visa</a>,
-      <a href="/us-green-card-holders"> US Green Card</a>.
+      Also available: <a href="/valid-us-visa-benefits/">valid US B1/B2 visa</a>,
+      <a href="/valid-schengen-visa-benefits/"> valid Schengen C-visa</a>,
+      <a href="/us-green-card-holders/"> US Green Card</a>.
     </p>
   </section>
 
@@ -221,7 +221,7 @@ const jsonLd = {
     </p>
     <div class="dest-grid">
       {topDestinations.map((d) => (
-        <a href={`/visa-free-to-${d.slug}`} class="dest-card">
+        <a href={`/visa-free-to-${d.slug}/`} class="dest-card">
           <div class="dc-name">{d.country}</div>
           <div class="dc-blurb">{d.blurb.split('—')[0].trim()}</div>
         </a>
@@ -294,7 +294,7 @@ const jsonLd = {
         .slice()
         .sort((a, b) => a.nationality.localeCompare(b.nationality))
         .map((p) => (
-          <a href={`/${p.slug}`} class="pp-list-link">{p.nationality}</a>
+          <a href={`/${p.slug}/`} class="pp-list-link">{p.nationality}</a>
         ))}
     </div>
   </section>
@@ -306,7 +306,7 @@ const jsonLd = {
         .slice()
         .sort((a, b) => a.country.localeCompare(b.country))
         .map((d) => (
-          <a href={`/visa-free-to-${d.slug}`} class="pp-list-link">{d.country}</a>
+          <a href={`/visa-free-to-${d.slug}/`} class="pp-list-link">{d.country}</a>
         ))}
     </div>
   </section>

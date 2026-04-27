@@ -72,7 +72,7 @@ const faq = [
   },
   {
     q: `Can a residence permit help me enter ${country}?`,
-    a: `Sometimes. Holders of UAE residence, US Green Card, Schengen residence, UK BRP, or Canadian PR can sometimes access additional countries regardless of their home passport. See our <a href="/us-green-card-holders">Green Card guide</a>, <a href="/indian-passport-uae-resident">Indian+UAE guide</a>, and <a href="/schengen-residence-permit-benefits">Schengen permit guide</a> for details.`,
+    a: `Sometimes. Holders of UAE residence, US Green Card, Schengen residence, UK BRP, or Canadian PR can sometimes access additional countries regardless of their home passport. See our <a href="/us-green-card-holders/">Green Card guide</a>, <a href="/indian-passport-uae-resident/">Indian+UAE guide</a>, and <a href="/schengen-residence-permit-benefits/">Schengen permit guide</a> for details.`,
   },
   {
     q: `How accurate is this list?`,
@@ -145,7 +145,7 @@ const renderPassportList = (list: Row[]) =>
         <ul class="passport-pill-list">
           {bucket.visaFree.map((r) => (
             <li class="pill pill-vf">
-              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+              {r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : <span>{r.passport}</span>}
               {r.days && <span class="days">{r.days}d</span>}
             </li>
           ))}
@@ -162,7 +162,7 @@ const renderPassportList = (list: Row[]) =>
         <ul class="passport-pill-list">
           {bucket.voa.map((r) => (
             <li class="pill pill-voa">
-              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+              {r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : <span>{r.passport}</span>}
             </li>
           ))}
         </ul>
@@ -176,7 +176,7 @@ const renderPassportList = (list: Row[]) =>
         <ul class="passport-pill-list">
           {bucket.eVisa.map((r) => (
             <li class="pill pill-ev">
-              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+              {r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : <span>{r.passport}</span>}
             </li>
           ))}
         </ul>
@@ -190,7 +190,7 @@ const renderPassportList = (list: Row[]) =>
         <ul class="passport-pill-list">
           {bucket.eta.map((r) => (
             <li class="pill pill-ev">
-              {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+              {r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : <span>{r.passport}</span>}
             </li>
           ))}
         </ul>
@@ -205,7 +205,7 @@ const renderPassportList = (list: Row[]) =>
       <ul class="passport-pill-list passport-pill-list--dim">
         {bucket.visaReq.map((r) => (
           <li class="pill pill-vr">
-            {r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : <span>{r.passport}</span>}
+            {r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : <span>{r.passport}</span>}
           </li>
         ))}
       </ul>
@@ -217,7 +217,7 @@ const renderPassportList = (list: Row[]) =>
       <h2>Other popular destinations</h2>
       <div class="related-grid">
         {relatedDestinations.map((r) => (
-          <a href={`/visa-free-to-${r.slug}`} class="related-card">
+          <a href={`/visa-free-to-${r.slug}/`} class="related-card">
             <div class="rc-name">{r.country}</div>
             <div class="rc-blurb">{r.blurb.split('—')[0].trim()}</div>
           </a>

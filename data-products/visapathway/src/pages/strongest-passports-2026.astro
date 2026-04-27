@@ -70,7 +70,7 @@ const faq = [
   },
   {
     q: 'Can I expand my passport\'s reach without a second passport?',
-    a: 'Yes. <strong>Residence permits</strong> from countries like the UAE, US (Green Card), Schengen area, UK, and Canada grant you visa-free or visa-on-arrival access to additional countries on top of what your passport provides. See our <a href="/indian-passport-uae-resident">UAE residence + Indian passport</a> and <a href="/us-green-card-holders">US Green Card</a> guides for examples.',
+    a: 'Yes. <strong>Residence permits</strong> from countries like the UAE, US (Green Card), Schengen area, UK, and Canada grant you visa-free or visa-on-arrival access to additional countries on top of what your passport provides. See our <a href="/indian-passport-uae-resident/">UAE residence + Indian passport</a> and <a href="/us-green-card-holders/">US Green Card</a> guides for examples.',
   },
   {
     q: 'Why is my passport ranked lower than I expected?',
@@ -140,7 +140,7 @@ const jsonLd = {
           {top10.map((r) => (
             <tr>
               <td class="rank"><strong>#{r.rank}</strong></td>
-              <td>{r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : r.passport}</td>
+              <td>{r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : r.passport}</td>
               <td class="num">{r.visaFree}</td>
               <td class="num">{r.voa}</td>
               <td class="num"><strong>{r.easyAccess}</strong></td>
@@ -175,7 +175,7 @@ const jsonLd = {
             {ranked.map((r) => (
               <tr>
                 <td class="rank">{r.rank}</td>
-                <td>{r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : r.passport}</td>
+                <td>{r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : r.passport}</td>
                 <td class="num">{r.visaFree}</td>
                 <td class="num">{r.voa}</td>
                 <td class="num">{r.eVisa}</td>
@@ -194,9 +194,9 @@ const jsonLd = {
       <h2>Bottom 10 — passports with most travel friction</h2>
       <p class="section-sub">
         These passports give holders the fewest visa-free or visa-on-arrival options. If you
-        hold one, pairing it with a <a href="/us-green-card-holders">US Green Card</a>,
-        <a href="/indian-passport-uae-resident"> UAE residence permit</a>, or
-        <a href="/schengen-residence-permit-benefits"> Schengen residence permit</a> can
+        hold one, pairing it with a <a href="/us-green-card-holders/">US Green Card</a>,
+        <a href="/indian-passport-uae-resident/"> UAE residence permit</a>, or
+        <a href="/schengen-residence-permit-benefits/"> Schengen residence permit</a> can
         significantly expand your reach.
       </p>
       <table class="rank-table">
@@ -211,7 +211,7 @@ const jsonLd = {
           {bottom10.map((r) => (
             <tr>
               <td class="rank">#{r.rank}</td>
-              <td>{r.slug ? (<a href={`/${r.slug}`}>{r.passport}</a>) : r.passport}</td>
+              <td>{r.slug ? (<a href={`/${r.slug}/`}>{r.passport}</a>) : r.passport}</td>
               <td class="num">{r.easyAccess}</td>
             </tr>
           ))}
@@ -247,9 +247,9 @@ const jsonLd = {
       <h2>Related guides</h2>
       <ul>
         <li><a href="/">Use the multi-passport visa checker</a></li>
-        <li><a href="/indian-passport-uae-resident">Indian passport + UAE residence: extra countries</a></li>
-        <li><a href="/us-green-card-holders">US Green Card: visa-free countries</a></li>
-        <li><a href="/schengen-residence-permit-benefits">Schengen residence permit benefits</a></li>
+        <li><a href="/indian-passport-uae-resident/">Indian passport + UAE residence: extra countries</a></li>
+        <li><a href="/us-green-card-holders/">US Green Card: visa-free countries</a></li>
+        <li><a href="/schengen-residence-permit-benefits/">Schengen residence permit benefits</a></li>
       </ul>
     </section>
   </article>
