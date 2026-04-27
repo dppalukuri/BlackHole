@@ -5,6 +5,31 @@
   <p class="hero-sub">Side-by-side pricing, features, and verdicts for VPN, web hosting, email marketing, and more — based on public pricing and our own testing.</p>
 </section>
 
+<h2>Latest comparisons</h2>
+<div class="cards-grid">
+  {{ range first 9 (where .Site.RegularPages "Section" "compare") }}
+  <a href="{{ .Permalink }}" class="card">
+    <span class="tag">{{ .Params.category }}</span>
+    <h3>{{ .Title }}</h3>
+    <p>{{ .Description }}</p>
+    <span class="freshness">Verified {{ .Params.last_verified }}</span>
+  </a>
+  {{ end }}
+</div>
+
+{{ with (where .Site.RegularPages "Section" "review") }}
+<h2>Tool reviews</h2>
+<div class="cards-grid">
+  {{ range first 6 . }}
+  <a href="{{ .Permalink }}" class="card">
+    <span class="tag">Review</span>
+    <h3>{{ .Title }}</h3>
+    <p>{{ .Description }}</p>
+  </a>
+  {{ end }}
+</div>
+{{ end }}
+
 <aside class="editors-pick" aria-label="Editor's pick: top VPN">
   <div class="pick-inner">
     <div class="pick-body">
@@ -34,10 +59,29 @@
 </aside>
 
 <style>
+  .home-hero { padding: 1.25rem 0 .75rem; }
+  .home-hero .eyebrow {
+    display: inline-block; font-size: .7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: #0ea5e9; background: rgba(14,165,233,0.1);
+    padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+  }
+  .home-hero h1 {
+    font-size: clamp(1.55rem, 3vw, 2rem);
+    font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
+    margin-bottom: .35rem;
+  }
+  .home-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .home-hero .hero-sub { font-size: .92rem; color: #6b7280; max-width: 58ch; margin: 0; }
+
   .editors-pick {
     background: linear-gradient(135deg, #0f172a, #1e293b);
     color: #f1f5f9; border-radius: 14px; padding: 1.25rem 1.5rem;
-    margin: 1rem 0 2rem; border: 1px solid #334155;
+    margin: 3rem 0 1.5rem; border: 1px solid #334155;
   }
   .pick-inner { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; }
   .pick-eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .08em; color: #fbbf24; text-transform: uppercase; margin-bottom: .35rem; }
@@ -62,7 +106,7 @@
   .alt-pick {
     background: linear-gradient(135deg, #1a103d, #2d1b69);
     color: #f1f5f9; border-radius: 12px; padding: 1rem 1.25rem;
-    margin: -1rem 0 2rem; border: 1px solid #4c1d95;
+    margin: 1.5rem 0 2rem; border: 1px solid #4c1d95;
   }
   .alt-inner { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; align-items: center; }
   .alt-eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .08em; color: #c4b5fd; text-transform: uppercase; margin-bottom: .25rem; }
@@ -78,51 +122,5 @@
     .alt-inner { grid-template-columns: 1fr; gap: .75rem; }
     .alt-btn { display: block; text-align: center; }
   }
-</style>
-
-<h2>Latest comparisons</h2>
-<div class="cards-grid">
-  {{ range first 9 (where .Site.RegularPages "Section" "compare") }}
-  <a href="{{ .Permalink }}" class="card">
-    <span class="tag">{{ .Params.category }}</span>
-    <h3>{{ .Title }}</h3>
-    <p>{{ .Description }}</p>
-    <span class="freshness">Verified {{ .Params.last_verified }}</span>
-  </a>
-  {{ end }}
-</div>
-
-{{ with (where .Site.RegularPages "Section" "review") }}
-<h2>Tool reviews</h2>
-<div class="cards-grid">
-  {{ range first 6 . }}
-  <a href="{{ .Permalink }}" class="card">
-    <span class="tag">Review</span>
-    <h3>{{ .Title }}</h3>
-    <p>{{ .Description }}</p>
-  </a>
-  {{ end }}
-</div>
-{{ end }}
-
-<style>
-  .home-hero { padding: 1.25rem 0 .75rem; }
-  .home-hero .eyebrow {
-    display: inline-block; font-size: .7rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: .12em;
-    color: #0ea5e9; background: rgba(14,165,233,0.1);
-    padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
-  }
-  .home-hero h1 {
-    font-size: clamp(1.55rem, 3vw, 2rem);
-    font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
-    margin-bottom: .35rem;
-  }
-  .home-hero h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .home-hero .hero-sub { font-size: .92rem; color: #6b7280; max-width: 58ch; margin: 0; }
 </style>
 {{ end }}

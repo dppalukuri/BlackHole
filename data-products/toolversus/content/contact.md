@@ -7,7 +7,7 @@ slug: "contact"
 
 ## How to reach us
 
-The fastest way to contact ToolVersus is by **email: durga.prasad.22121993@gmail.com**
+The fastest way to contact ToolVersus is by **email: palukuri.biz@gmail.com**
 
 We read every message and aim to reply within 2–3 business days. For urgent corrections (e.g., misleading pricing, broken affiliate link, factual error), we usually respond same-day.
 
@@ -54,7 +54,7 @@ ToolVersus is open source on [GitHub](https://github.com/dppalukuri/BlackHole). 
 
 ## Mailing address
 
-ToolVersus is operated by Prasad in Dubai, UAE. We don't publish a postal address publicly to avoid spam, but legitimate legal / regulatory correspondence can be sent to the email above and we will provide a forwarding address.
+ToolVersus is operated by Durga Prasad in Dubai, UAE. We don't publish a postal address publicly to avoid spam, but legitimate legal / regulatory correspondence can be sent to the email above and we will provide a forwarding address.
 
 ## Response times
 

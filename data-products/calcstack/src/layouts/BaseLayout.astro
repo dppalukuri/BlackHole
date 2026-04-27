@@ -80,15 +80,18 @@ const isActive = (prefix: string) =>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a href="https://techtools365.com/" target="_blank" rel="noopener" class="brand" aria-label="TechTools365 — home">
-        <span class="brand-mark">T</span>
-        <span class="brand-text">Tech<span class="brand-accent">Tools</span>365</span>
-      </a>
+      <div class="brand-stack">
+        <a href="https://techtools365.com/" target="_blank" rel="noopener" class="brand" aria-label="TechTools365 — home">
+          <span class="brand-mark">T</span>
+          <span class="brand-text">Tech<span class="brand-accent">Tools</span>365</span>
+        </a>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <span class="brand-current">CalcStack</span>
+      </div>
       <nav class="hub-nav" aria-label="TechTools365 sites">
-        <a href="/" class="hub-link is-active" aria-current="page">CalcStack</a>
         <a href="https://toolversus.techtools365.com/" target="_blank" rel="noopener" class="hub-link">ToolVersus</a>
         <a href="https://visapathway.techtools365.com/" target="_blank" rel="noopener" class="hub-link">VisaPathway</a>
-        <a href="https://techtools365.com/" target="_blank" rel="noopener" class="hub-link home-link">Home <span class="ext">↗</span></a>
+        <a href="https://techtools365.com/" target="_blank" rel="noopener" class="hub-link home-link">All tools <span class="ext">↗</span></a>
       </nav>
     </div>
     <nav class="sub-nav" aria-label="CalcStack sections">
