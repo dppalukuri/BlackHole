@@ -132,35 +132,35 @@ const jsonLd = {
     <p class="section-sub">Each link pre-fills the checker with a common passport + permit combination. Shareable — paste any URL into a chat or forum and the receiver sees exactly your query.</p>
     <div class="pq-grid">
       <a href="/?p=India&perm=UAE%20Residence%20Permit&d=Turkey" class="pq-card">
-        <div class="pq-label">🇮🇳 + 🇦🇪 → 🇹🇷</div>
+        <div class="pq-label">IN + UAE → TR</div>
         <div class="pq-desc">Indian passport + UAE residence → Turkey</div>
       </a>
       <a href="/?p=India&perm=Valid%20US%20Visa%20(B1%2FB2)&d=Turkey" class="pq-card">
-        <div class="pq-label">🇮🇳 + 🇺🇸 visa → 🇹🇷</div>
+        <div class="pq-label">IN + US-VISA → TR</div>
         <div class="pq-desc">Indian passport + valid US visa → Turkey</div>
       </a>
       <a href="/?p=India&perm=UAE%20Residence%20Permit&d=Georgia" class="pq-card">
-        <div class="pq-label">🇮🇳 + 🇦🇪 → 🇬🇪</div>
+        <div class="pq-label">IN + UAE → GE</div>
         <div class="pq-desc">Indian passport + UAE residence → Georgia</div>
       </a>
       <a href="/?p=United%20Kingdom&d=United%20Arab%20Emirates" class="pq-card">
-        <div class="pq-label">🇬🇧 → 🇦🇪</div>
+        <div class="pq-label">GB → UAE</div>
         <div class="pq-desc">British passport → UAE</div>
       </a>
       <a href="/?p=United%20States&d=Japan" class="pq-card">
-        <div class="pq-label">🇺🇸 → 🇯🇵</div>
+        <div class="pq-label">US → JP</div>
         <div class="pq-desc">American passport → Japan</div>
       </a>
       <a href="/?p=Pakistan&perm=UAE%20Residence%20Permit&d=Georgia" class="pq-card">
-        <div class="pq-label">🇵🇰 + 🇦🇪 → 🇬🇪</div>
+        <div class="pq-label">PK + UAE → GE</div>
         <div class="pq-desc">Pakistani passport + UAE residence → Georgia</div>
       </a>
       <a href="/?p=Philippines&perm=UAE%20Residence%20Permit&d=Armenia" class="pq-card">
-        <div class="pq-label">🇵🇭 + 🇦🇪 → 🇦🇲</div>
+        <div class="pq-label">PH + UAE → AM</div>
         <div class="pq-desc">Filipino passport + UAE residence → Armenia</div>
       </a>
       <a href="/?p=Bangladesh&perm=Valid%20US%20Visa%20(B1%2FB2)&d=Mexico" class="pq-card">
-        <div class="pq-label">🇧🇩 + 🇺🇸 visa → 🇲🇽</div>
+        <div class="pq-label">BD + US-VISA → MX</div>
         <div class="pq-desc">Bangladeshi passport + valid US visa → Mexico</div>
       </a>
     </div>
@@ -377,8 +377,10 @@ const jsonLd = {
     .pq-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(124,58,237,.25); }
     .pq-label {
       font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-      font-size: 1rem; font-weight: 700; letter-spacing: -.01em;
+      font-size: .98rem; font-weight: 700; letter-spacing: .015em;
       color: var(--text); line-height: 1.2;
+      text-transform: uppercase;
+      font-feature-settings: "tnum" 1;  /* tabular nums for arrow alignment */
     }
     .pq-desc {
       font-family: 'Inter', sans-serif;
