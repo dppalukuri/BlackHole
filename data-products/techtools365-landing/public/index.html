@@ -12,7 +12,9 @@
   <meta name="author" content="TechTools365" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow" />
-  <meta name="google-adsense-account" content="ca-pub-9446467058878539" />
+  <!-- AdSense pulled 2026-04-27: 1-page landing fails AdSense site review.
+       Re-add once we have 5+ original articles or move account approval to
+       toolversus subdomain first. -->
   <meta name="msvalidate.01" content="7F3CCCB76D80496F017A15B03DA778F6" />
 
   <link rel="canonical" href="https://techtools365.com/" />
@@ -41,8 +43,11 @@
   <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Google AdSense loader -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9446467058878539" crossorigin="anonymous"></script>
+  <!-- Google AdSense loader removed 2026-04-27 — see meta comment above.
+       Empty rail/inline ad <ins> tags below are kept as layout reservations
+       and inactivated by removing the loader script + push() loop at end of
+       body. They will be re-enabled once a content-rich subdomain
+       (toolversus) is approved by AdSense and we extend approval to landing. -->
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -534,13 +539,8 @@
 
   </div>
 
-  <script>
-    (function () {
-      var ads = document.querySelectorAll('ins.adsbygoogle');
-      for (var i = 0; i < ads.length; i++) {
-        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
-      }
-    })();
-  </script>
+  <!-- AdSense push loop removed 2026-04-27 — loader is gone, slots stay
+       as inert layout reservations until landing has enough content for
+       AdSense approval. See meta-tag comment in <head>. -->
 </body>
 </html>
