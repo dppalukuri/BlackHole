@@ -110,6 +110,7 @@ ProtonVPN\'s higher connection limit matters for families and power users runnin
 - Want a free tier to test drive (or for a family member who needs basic VPN)
 - Travel to places where Mullvad has no servers
 - Are technically inclined but not a privacy extremist
+- [Sign up with our link →](https://go.getproton.me/aff_c?offer_id=26&aff_id=17422&subId1=compare-protonvpn-vs-mullvad) *(affiliate link — supports this site at no cost to you.)*
 
 **Choose Mullvad if you:**
 - Consider anonymous signup + cash payment a hard requirement

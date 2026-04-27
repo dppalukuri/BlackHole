@@ -1,0 +1,35 @@
+{{/* Shown at the bottom of compare pages where ProtonVPN is the declared winner */}}
+<aside class="proton-reco" aria-label="Editor's privacy-first VPN pick">
+  <div class="reco-inner">
+    <div class="reco-body">
+      <div class="reco-eyebrow">🛡️ Our Privacy-First VPN Pick</div>
+      <h3>ProtonVPN — by the team behind Proton Mail</h3>
+      <p>For users who want fully open-source apps, Swiss jurisdiction, and a genuinely usable free plan. From <strong>$4.99/mo</strong> on the 2-year intro — bundles with Proton Mail / Drive / Calendar in the Unlimited plan.</p>
+    </div>
+    <a href="https://go.getproton.me/aff_c?offer_id=26&aff_id=17422&subId1=tv-compare-footer-{{ .File.ContentBaseName }}-proton" rel="nofollow sponsored" target="_blank" class="reco-btn reco-btn-proton">Get ProtonVPN →</a>
+  </div>
+  <p class="reco-disclaimer">Affiliate link — we earn a commission if you sign up, at no extra cost to you. Doesn't influence our rankings.</p>
+</aside>
+
+<style>
+  .proton-reco {
+    margin: 2rem 0 1rem; padding: 1.1rem 1.25rem;
+    background: linear-gradient(135deg, #1a103d, #2d1b69);
+    color: #f1f5f9; border-radius: 12px; border: 1px solid #4c1d95;
+  }
+  .proton-reco .reco-inner { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; align-items: center; }
+  .proton-reco .reco-eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .08em; color: #c4b5fd; text-transform: uppercase; margin-bottom: .3rem; }
+  .proton-reco .reco-body h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .3rem; color: #fff; }
+  .proton-reco .reco-body p { font-size: .84rem; color: #cbd5e1; margin: 0; line-height: 1.5; }
+  .reco-btn-proton {
+    display: inline-block; background: #8b5cf6; color: #fff;
+    padding: .6rem .95rem; border-radius: 8px; font-weight: 700; font-size: .85rem;
+    text-decoration: none; white-space: nowrap; box-shadow: 0 3px 10px rgba(139,92,246,.35);
+  }
+  .reco-btn-proton:hover { transform: translateY(-1px); }
+  .proton-reco .reco-disclaimer { font-size: .68rem; color: #c4b5fd; margin: .8rem 0 0; }
+  @media (max-width: 640px) {
+    .proton-reco .reco-inner { grid-template-columns: 1fr; }
+    .reco-btn-proton { text-align: center; }
+  }
+</style>

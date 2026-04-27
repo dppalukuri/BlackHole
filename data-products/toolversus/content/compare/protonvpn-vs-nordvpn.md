@@ -134,6 +134,7 @@ ProtonVPN's ecosystem play — if you also use Proton Mail, Drive, Calendar, Pas
 - Open-source apps are a hard requirement
 - You want a genuinely-usable free plan (ProtonVPN free is the best free VPN)
 - You're in a sensitive profession (activist, journalist, corp-espionage target) and want the Swiss jurisdiction + Secure Core guarantees
+- [Sign up with our link →](https://go.getproton.me/aff_c?offer_id=26&aff_id=17422&subId1=compare-protonvpn-vs-nordvpn) *(affiliate link — supports this site at no cost to you.)*
 
 ## Verdict
 

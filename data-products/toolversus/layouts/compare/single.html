@@ -73,9 +73,16 @@
 
   {{ .Content }}
 
-  {{/* Show NordVPN recommendation on VPN comparisons where NordVPN isn't already one of the compared tools */}}
-  {{ if and (eq .Params.category "VPN") (ne .Params.tool_a "nordvpn") (ne .Params.tool_b "nordvpn") }}
-  {{ partial "nordvpn-recommendation.html" . }}
+  {{/* VPN compare-page footer recommendation logic:
+       - If ProtonVPN wins this comparison and is in it → show ProtonVPN partial
+       - Else if neither tool is NordVPN → show NordVPN partial (default)
+       - Else (NordVPN is in the comparison) → no footer (already has its own affiliate card) */}}
+  {{ if eq .Params.category "VPN" }}
+    {{ if and (eq .Params.verdict.winner_slug "protonvpn") (or (eq .Params.tool_a "protonvpn") (eq .Params.tool_b "protonvpn")) }}
+      {{ partial "protonvpn-recommendation.html" . }}
+    {{ else if and (ne .Params.tool_a "nordvpn") (ne .Params.tool_b "nordvpn") }}
+      {{ partial "nordvpn-recommendation.html" . }}
+    {{ end }}
   {{ end }}
 
   <div style="margin-top: 2rem;">
