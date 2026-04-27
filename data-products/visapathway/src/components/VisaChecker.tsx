@@ -89,6 +89,7 @@ export default function VisaChecker() {
   const [destination, setDestination] = useState('');
 
   const [copyState, setCopyState] = useState<'idle' | 'copied'>('idle');
+  const [reportState, setReportState] = useState<'idle' | 'copied'>('idle');
 
   useEffect(() => {
     Promise.all([
@@ -352,18 +353,44 @@ export default function VisaChecker() {
           }}>
             <div>
               <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>Is this information incorrect?</div>
-              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Help us improve — report wrong visa info and we'll verify and fix it.</div>
+              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                {reportState === 'copied'
+                  ? <span style={{ color: '#047857' }}>Copied to clipboard — paste into your email to <strong>palukuri.biz@gmail.com</strong></span>
+                  : <>Help us improve — report wrong visa info and we'll verify and fix it.</>}
+              </div>
             </div>
-            <a
-              href={`mailto:palukuri.biz@gmail.com?subject=${encodeURIComponent(`[VisaPathway] Incorrect visa info: ${passports.join(', ')} → ${destination}`)}&body=${encodeURIComponent(`Hi,\n\nThe visa information shown for the following combination appears to be incorrect:\n\nPassports: ${passports.join(', ')}\nAdditional documents: ${selectedPermits.join(', ') || 'None'}\nDestination: ${destination}\nResult shown: ${best?.info.text} (via ${best?.document})\n\nWhat is the correct information:\n[Please describe the correct visa requirement and how you know — e.g., personal experience, embassy website, etc.]\n\nThank you!`)}`}
+            <button
+              type="button"
+              onClick={() => {
+                const subject = `[VisaPathway] Incorrect visa info: ${passports.join(', ')} → ${destination}`;
+                const body = `Hi,\n\nThe visa information shown for the following combination appears to be incorrect:\n\nPassports: ${passports.join(', ')}\nAdditional documents: ${selectedPermits.join(', ') || 'None'}\nDestination: ${destination}\nResult shown: ${best?.info.text} (via ${best?.document})\n\nWhat is the correct information:\n[Please describe the correct visa requirement and how you know — e.g., personal experience, embassy website, etc.]\n\nThank you!`;
+                const fullText = `To: palukuri.biz@gmail.com\nSubject: ${subject}\n\n${body}`;
+                // Copy to clipboard so user can always paste — this works regardless of email-client setup
+                if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                  navigator.clipboard.writeText(fullText).then(() => {
+                    setReportState('copied');
+                    setTimeout(() => setReportState('idle'), 4000);
+                  }).catch(() => {});
+                } else {
+                  setReportState('copied');
+                  setTimeout(() => setReportState('idle'), 4000);
+                }
+                // Also try to open the user's email client (works if a default mailto handler is configured)
+                const mailto = `mailto:palukuri.biz@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailto;
+              }}
               style={{
-                display: 'inline-block', padding: '0.5rem 1.25rem', background: '#fef2f2',
-                color: '#dc2626', border: '1px solid #fecaca', borderRadius: '8px',
-                fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap',
+                display: 'inline-block', padding: '0.5rem 1.25rem',
+                background: reportState === 'copied' ? '#ecfdf5' : '#fef2f2',
+                color: reportState === 'copied' ? '#047857' : '#dc2626',
+                border: '1px solid ' + (reportState === 'copied' ? '#a7f3d0' : '#fecaca'),
+                borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600,
+                cursor: 'pointer', whiteSpace: 'nowrap', fontFamily: 'inherit',
+                transition: 'background 0.15s, color 0.15s, border-color 0.15s',
               }}
             >
-              Report incorrect info
-            </a>
+              {reportState === 'copied' ? '✓ Copied' : 'Report incorrect info'}
+            </button>
           </div>
 
           <div class="disclaimer">
