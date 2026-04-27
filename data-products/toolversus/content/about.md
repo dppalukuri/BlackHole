@@ -52,9 +52,9 @@ For web hosting, email marketing, and other categories, the criteria adapt — b
 
 ## Who we are
 
-ToolVersus is run by [Durga Prasad](https://github.com/dppalukuri), a software engineer based in Dubai. The site is part of [TechTools365](https://techtools365.com), a small portfolio of free tools and comparisons covering finance, travel, and SaaS.
+ToolVersus is run by Durga Prasad, a software engineer based in Dubai. The site is part of [TechTools365](https://techtools365.com), a small portfolio of free tools and comparisons covering finance, travel, and SaaS.
 
-The full source code for ToolVersus is open source on [GitHub](https://github.com/dppalukuri/BlackHole) — feel free to file issues if you spot inaccuracies, bugs, or out-of-date data.
+If you spot inaccuracies, bugs, or out-of-date data, email <palukuri.biz@gmail.com> with the page URL and what you found — corrections are usually live within 24 hours.
 
 ## Contact
 
