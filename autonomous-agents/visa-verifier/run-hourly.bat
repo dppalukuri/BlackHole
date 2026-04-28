@@ -17,6 +17,8 @@ set H=1%time:~0,2%
 set /a HOUR=%H% - 100
 
 REM Overnight window: 22:00-06:59 local. During the day we bail fast.
+REM (All-day override that was active 2026-04-26 → 2026-04-28 has been
+REM  reverted; back to overnight-only mode.)
 set "LOG=output\hourly-%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%.log"
 if %HOUR% geq 7 if %HOUR% lss 22 (
   echo %DATE% %TIME%  skip ^(hour=%HOUR% outside 22-07 overnight window^) >> "%LOG%"
