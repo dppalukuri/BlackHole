@@ -20058,6 +20058,17 @@
         "status": "vf",
         "verified_at": "2026-04-29"
       },
+      "Brazil": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Brazil",
+        "model": "claude-code:haiku",
+        "notes": "EU citizens including Austria visa-free for 90 days per 180-day period under Brazil-EU visa waiver agreement.",
+        "passport": "Austria",
+        "source": "https://www.gov.br/mre/pt-br/embaixada-viena/vistos/vivis",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
       "Brunei": {
         "confidence": "high",
         "days": 90,
@@ -20123,6 +20134,17 @@
         "source": "https://evisacam.cm/",
         "status": "ev",
         "verified_at": "2026-04-29"
+      },
+      "Canada": {
+        "confidence": "high",
+        "days": 180,
+        "destination": "Canada",
+        "model": "claude-code:haiku",
+        "notes": "Austrian citizens need an Electronic Travel Authorization (eTA) to enter Canada by air; valid for 5 years with multiple entries.",
+        "passport": "Austria",
+        "source": "https://ircc.canada.ca/english/helpcentre/answer.asp?qnum=1198&top=16",
+        "status": "eta",
+        "verified_at": "2026-05-01"
       },
       "Cape Verde": {
         "confidence": "high",
@@ -20267,6 +20289,17 @@
         "status": "vf",
         "verified_at": "2026-04-28"
       },
+      "DR Congo": {
+        "confidence": "high",
+        "days": 7,
+        "destination": "DR Congo",
+        "model": "claude-code:haiku",
+        "notes": "E-visa (Ordinary Flying Visa) valid for 7 days, single entry, must be used within 3 months of issuance.",
+        "passport": "Austria",
+        "source": "https://evisa.gouv.cd/",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
       "Denmark": {
         "confidence": "low",
         "days": null,
@@ -20321,6 +20354,17 @@
         "source": "https://www.gov.uk/foreign-travel-advice/ecuador/entry-requirements",
         "status": "vf",
         "verified_at": "2026-04-28"
+      },
+      "Egypt": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Egypt",
+        "model": "claude-code:haiku",
+        "notes": "Austrian citizens can obtain an e-visa online for Egypt with a maximum 30-day stay; visa on arrival also available.",
+        "passport": "Austria",
+        "source": "https://visa.vfsglobal.com/one-pager/austria/egypt/english/",
+        "status": "ev",
+        "verified_at": "2026-05-01"
       },
       "El Salvador": {
         "confidence": "low",
@@ -20916,6 +20960,17 @@
         "status": "vf",
         "verified_at": "2026-04-29"
       },
+      "Maldives": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Maldives",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival, no pre-approval required; 30-day free tourist visa issued upon arrival with valid passport and completed IMUGA declaration.",
+        "passport": "Austria",
+        "source": "https://www.immigration.gov.mv/visa/tourist-visa",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
       "Mali": {
         "confidence": "high",
         "days": null,
@@ -21135,6 +21190,17 @@
         "source": "https://www.bmeia.gv.at/reise-services/reiseinformation/land/nicaragua",
         "status": "vf",
         "verified_at": "2026-04-29"
+      },
+      "Niger": {
+        "confidence": "low",
+        "days": 30,
+        "destination": "Niger",
+        "model": "claude-code:haiku",
+        "notes": "E-visa available for tourists through Niger's official Ministry of Interior and Decentralization portal.",
+        "passport": "Austria",
+        "source": "https://nigerevisaportal.midas-dev.com/",
+        "status": "ev",
+        "verified_at": "2026-05-01"
       },
       "Nigeria": {
         "confidence": "high",
@@ -21389,6 +21455,17 @@
         "status": "vf",
         "verified_at": "2026-04-29"
       },
+      "San Marino": {
+        "confidence": "low",
+        "days": 30,
+        "destination": "San Marino",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for Austrian citizens; up to 30 days per bilateral agreement with San Marino.",
+        "passport": "Austria",
+        "source": "https://www.bmeia.gv.at/reise-services/reiseinformation/land/san-marino",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
       "Sao Tome and Principe": {
         "confidence": "low",
         "days": 15,
@@ -21455,6 +21532,17 @@
         "status": "ev",
         "verified_at": "2026-04-29"
       },
+      "Singapore": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Singapore",
+        "model": "claude-code:haiku",
+        "notes": "Austrian citizens can enter Singapore visa-free as tourists for up to 90 days on arrival.",
+        "passport": "Austria",
+        "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
       "Slovakia": {
         "confidence": "low",
         "days": 90,
@@ -21498,6 +21586,17 @@
         "source": "https://immigration.gov.so/en/visa/",
         "status": "ev",
         "verified_at": "2026-04-28"
+      },
+      "South Africa": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "South Africa",
+        "model": "claude-code:haiku",
+        "notes": "Austrian citizens with valid passports do not require a visa for stays up to 90 days in South Africa.",
+        "passport": "Austria",
+        "source": "https://dirco.gov.za/uk/visa-countries-waivers/",
+        "status": "vf",
+        "verified_at": "2026-05-01"
       },
       "South Korea": {
         "confidence": "high",
@@ -22117,6 +22216,17 @@
         "status": "ev",
         "verified_at": "2026-04-28"
       },
+      "Bolivia": {
+        "confidence": "low",
+        "days": 30,
+        "destination": "Bolivia",
+        "model": "claude-code:haiku",
+        "notes": "Visa required in advance; 30-day tourist visa obtainable at Bolivian embassy or consulate with 20-day advance notice.",
+        "passport": "Azerbaijan",
+        "source": "https://embajadadebolivia.eu/en/turism-visa/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
       "Bosnia and Herzegovina": {
         "confidence": "high",
         "days": 90,
@@ -22149,6 +22259,17 @@
         "source": "https://www.gov.br/mre/pt-br/embaixada-baku/servicos-consulares-1/outras-nacionalidades/visit-visa",
         "status": "vr",
         "verified_at": "2026-04-28"
+      },
+      "Brunei": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Brunei",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan is Category B; requires advance visa application through nearest Brunei Darussalam Mission Abroad with BND 20 fee and 3 working days processing.",
+        "passport": "Azerbaijan",
+        "source": "https://www.mfa.gov.bn/pages/category-b.aspx",
+        "status": "vr",
+        "verified_at": "2026-05-01"
       },
       "Bulgaria": {
         "confidence": "high",
@@ -22227,6 +22348,28 @@
         "status": "vr",
         "verified_at": "2026-04-28"
       },
+      "Central African Republic": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Central African Republic",
+        "model": "claude-code:haiku",
+        "notes": "Visa required; apply in advance at CAR Embassy; processed in 4-7 working days; valid for 30 days from issue.",
+        "passport": "Azerbaijan",
+        "source": "https://www.usrcaembassy.org/about-5",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Chad": {
+        "confidence": "medium",
+        "days": 90,
+        "destination": "Chad",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijanis must obtain an e-visa online via Chad's official portal; not on the visa-exempt list.",
+        "passport": "Azerbaijan",
+        "source": "https://evisa.td",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
       "Chile": {
         "confidence": "low",
         "days": 90,
@@ -22281,6 +22424,545 @@
         "source": "https://evisa.gouv.cd/",
         "status": "ev",
         "verified_at": "2026-04-29"
+      },
+      "Costa Rica": {
+        "confidence": "low",
+        "days": 30,
+        "destination": "Costa Rica",
+        "model": "claude-code:haiku",
+        "notes": "Visa required; Azerbaijani citizens must obtain approval from Costa Rica's Commission of Restricted Visas before arrival. Apply at least 90 days in advance at a Costa Rican consulate.",
+        "passport": "Azerbaijan",
+        "source": "https://costarica.org/travel/visas/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Croatia": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Croatia",
+        "model": "claude-code:haiku",
+        "notes": "Schengen C-visa required; maximum 90 days in any 180-day period. Visa facilitation agreement applies.",
+        "passport": "Azerbaijan",
+        "source": "https://mvep.gov.hr/consular-informaton/visas-86726/86726",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Cuba": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Cuba",
+        "model": "claude-code:haiku",
+        "notes": "E-visa required; valid for 90 days with extension possible for additional 90 days.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Cuba",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Cyprus": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Cyprus",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals require a national Cyprus visa for tourism; application through Cyprus Embassy in Moscow.",
+        "passport": "Azerbaijan",
+        "source": "https://www.cyprusvisa.eu/countries-required-entry-visa-cyprus.html",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Czech Republic": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Czech Republic",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens require a Schengen visa for Czech Republic entry; maximum 90 days per 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://mzv.gov.cz/baku/en/visa_and_consular_information/visa_up_to_90_days/visa_up_to_90_days.html",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "DR Congo": {
+        "confidence": "high",
+        "days": 7,
+        "destination": "DR Congo",
+        "model": "claude-code:haiku",
+        "notes": "DRC eVisa for tourism; valid 90 days from issue, allows stay up to 7 days; apply online before travel.",
+        "passport": "Azerbaijan",
+        "source": "https://congo-evisa.com/democratic-republic-of-the-congo-visa-policy/",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Denmark": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Denmark",
+        "model": "claude-code:haiku",
+        "notes": "Tourist visa required; apply at Danish embassy; maximum 90 days in any 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://nyidanmark.dk/en-GB/You-want-to-apply/Short-stay-visa/Private-visits-and-tourist-visits-",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Djibouti": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Djibouti",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival ($23 USD) available at Djibouti-Ambouli International Airport; eVisa program discontinued.",
+        "passport": "Azerbaijan",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Djibouti.html",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Dominica": {
+        "confidence": "high",
+        "days": null,
+        "destination": "Dominica",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals must obtain a visitor visa in advance; requires formal application with documentation and $200 fee.",
+        "passport": "Azerbaijan",
+        "source": "https://dominica.gov.dm/services/passports-and-travel-documents-non-nationals/do-i-need-a-visa-to-enter-into-dominica",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Dominican Republic": {
+        "confidence": "low",
+        "days": null,
+        "destination": "Dominican Republic",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani nationals must apply for a tourist visa at a Dominican Republic embassy or consulate in advance; not visa-exempt.",
+        "passport": "Azerbaijan",
+        "source": "https://www.godominicanrepublic.com/travel/entry-requirements",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Ecuador": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Ecuador",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for 90 days in any consecutive 12-month period; passport valid 6 months required.",
+        "passport": "Azerbaijan",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ecuador.html",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
+      "Egypt": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Egypt",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani tourists must apply for e-Visa online in advance; Single-Entry eVisa valid for 30 days.",
+        "passport": "Azerbaijan",
+        "source": "https://egymonuments.gov.eg/news/now-easily-the-e-visa-online/",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "El Salvador": {
+        "confidence": "low",
+        "days": null,
+        "destination": "El Salvador",
+        "model": "claude-code:haiku",
+        "notes": "Visa required; must apply at Salvadoran embassy or consulate before arrival.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_El_Salvador",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Equatorial Guinea": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Equatorial Guinea",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens must obtain an e-Visa online prior to arrival; processing takes ~5 working days ($75 fee); single entry, 90-day maximum stay.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Equatorial_Guinea",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Eritrea": {
+        "confidence": "high",
+        "days": null,
+        "destination": "Eritrea",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan citizens require a visa from an Eritrean embassy or consulate before traveling; visa type and duration not specified.",
+        "passport": "Azerbaijan",
+        "source": "https://us.embassyeritrea.org/visa/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Estonia": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Estonia",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens require a Schengen visa to visit Estonia; short-stay limit is 90 days within any 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://vm.ee/en/consular-visa-and-travel-information/visa-information/application-schengen-visa",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Ethiopia": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Ethiopia",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens must apply for an eVisa online; approved within 3 working days.",
+        "passport": "Azerbaijan",
+        "source": "https://www.evisa.gov.et/",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Fiji": {
+        "confidence": "high",
+        "days": 120,
+        "destination": "Fiji",
+        "model": "claude-code:haiku",
+        "notes": "Fiji visa required; Single Entry Visa (valid 3 months) or Multiple Entry Visa (valid 12 months, max 4 months per entry) must be applied for in advance. Processing takes 14 working days.",
+        "passport": "Azerbaijan",
+        "source": "https://www.immigration.gov.fj/fiji-visas/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Finland": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Finland",
+        "model": "claude-code:haiku",
+        "notes": "Schengen visa required; allows 90 days within any 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://um.fi/visa-to-visit-finland",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "France": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "France",
+        "model": "claude-code:haiku",
+        "notes": "Schengen short-stay visa required for tourism; maximum 90 days within 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://france-visas.gouv.fr/en/web/france-visas/azerbaidjan",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Gabon": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Gabon",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens require an e-visa issued within 72 hours; valid only for arrival via Leon Mba International Airport in Libreville.",
+        "passport": "Azerbaijan",
+        "source": "https://www.gabonembassyusa.org/en/visa-consular/visa",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Gambia": {
+        "confidence": "medium",
+        "days": 28,
+        "destination": "Gambia",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival at Banjul International Airport; valid passport and yellow fever vaccination certificate required.",
+        "passport": "Azerbaijan",
+        "source": "https://gambia.gov.gm/immigration-and-visas/",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Georgia": {
+        "confidence": "low",
+        "days": 365,
+        "destination": "Georgia",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals may enter Georgia without a visa and stay for up to 1 year.",
+        "passport": "Azerbaijan",
+        "source": "https://georgia.travel/coming-to-georgia/georgia-travel-visa-application",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
+      "Germany": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Germany",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani nationals require a Schengen visa; short-stay tourist visas allow up to 90 days per 6 months in the Schengen area.",
+        "passport": "Azerbaijan",
+        "source": "https://www.auswaertiges-amt.de/en/visa-service/215870-215870",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Ghana": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Ghana",
+        "model": "claude-code:haiku",
+        "notes": "Tourist visa required; Azerbaijani citizens must apply at Ghanaian embassy in advance; up to 3 months stay if approved.",
+        "passport": "Azerbaijan",
+        "source": "https://gis.gov.gh/visas/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Greece": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Greece",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan passport holders require a Schengen visa for Greece; maximum 90 days within any 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Grenada": {
+        "confidence": "low",
+        "days": 60,
+        "destination": "Grenada",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival with pre-clearance letter required from Grenadian authorities; maximum 60-day stay.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Grenada",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Guatemala": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Guatemala",
+        "model": "claude-code:haiku",
+        "notes": "Visa required at Guatemalan embassy; consular visa (Category B) for single-entry 90-day tourist stay.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Guatemala",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Guinea": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Guinea",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals are not visa-exempt; e-visa required, apply online at paf.gov.gn, decision within 72 hours.",
+        "passport": "Azerbaijan",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea.html",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Guinea-Bissau": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Guinea-Bissau",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival available; all non-exempt nationalities can obtain visa upon arrival at border for up to 90 days.",
+        "passport": "Azerbaijan",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea-Bissau.html",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Guyana": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Guyana",
+        "model": "claude-code:haiku",
+        "notes": "Visitor visa required; typically issued for 30 days, extendable up to 90 days total.",
+        "passport": "Azerbaijan",
+        "source": "https://www.minfor.gov.gy/visa-information",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Haiti": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Haiti",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan citizens enter visa-free for up to 3 months; US$10 tourist fee required on arrival.",
+        "passport": "Azerbaijan",
+        "source": "https://www.haiti.org/tourist-visa/",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
+      "Honduras": {
+        "confidence": "low",
+        "days": null,
+        "destination": "Honduras",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan is not on Honduras' list of 84 visa-exempt jurisdictions; visa required in advance.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Honduras",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Hong Kong": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Hong Kong",
+        "model": "claude-code:haiku",
+        "notes": "Regular Azerbaijan passport holders require advance visa application; diplomatic/official passports may visit visa-free for 14 days.",
+        "passport": "Azerbaijan",
+        "source": "https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Hungary": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Hungary",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens require a Schengen Type C visa for tourist stays in Hungary; valid for 90 days within 180-day period.",
+        "passport": "Azerbaijan",
+        "source": "https://baku.mfa.gov.hu/eng",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Iceland": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Iceland",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals require a Schengen visa for short stays in Iceland; visa facilitation agreement provides streamlined procedures.",
+        "passport": "Azerbaijan",
+        "source": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "India": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "India",
+        "model": "claude-code:haiku",
+        "notes": "E-Tourist Visa available for Azerbaijan citizens; apply online, receive approval via email before travel.",
+        "passport": "Azerbaijan",
+        "source": "https://indianvisaonline.gov.in/evisa/tvoa.html",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Indonesia": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Indonesia",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan citizens are eligible for Visa on Arrival valid for 30 days, extendable once for another 30 days.",
+        "passport": "Azerbaijan",
+        "source": "https://www.imigrasi.go.id/wna/daftar-negara-voa-bvk-calling-visa",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Iran": {
+        "confidence": "low",
+        "days": 14,
+        "destination": "Iran",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan citizens are exempt from visa requirements and can enter Iran for up to 14 days.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Iran",
+        "status": "vf",
+        "verified_at": "2026-05-01"
+      },
+      "Iraq": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Iraq",
+        "model": "claude-code:haiku",
+        "notes": "E-visa required for Azerbaijan citizens; apply online via official portal before travel.",
+        "passport": "Azerbaijan",
+        "source": "https://evisa.iq/en",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Ireland": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Ireland",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals require a short-stay 'C' visitor visa, valid for up to 90 days, obtained in advance through online application.",
+        "passport": "Azerbaijan",
+        "source": "https://www.irishimmigration.ie/coming-to-visit-ireland/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Israel": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Israel",
+        "model": "claude-code:haiku",
+        "notes": "Visa required; must apply in advance at Israeli embassy in Baku. Tourist visa valid up to 90 days depending on applicant request.",
+        "passport": "Azerbaijan",
+        "source": "https://embassies.gov.il/azerbaijan/en/services/foreign-citizens/entry-visa-visiting-or-touring-israel",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Italy": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Italy",
+        "model": "claude-code:haiku",
+        "notes": "Schengen uniform visa (Type C) required; maximum 90 days within 180-day period; apply through VFS Global in Baku.",
+        "passport": "Azerbaijan",
+        "source": "https://vistoperitalia.esteri.it/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Ivory Coast": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Ivory Coast",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan citizens are eligible for an e-visa valid for 90 days with multiple entries; apply online at SNEDAI portal, processing takes 48 hours minimum.",
+        "passport": "Azerbaijan",
+        "source": "https://www.aeroport-abidjan.com/visa_on_arrival_ivory_coast.php",
+        "status": "ev",
+        "verified_at": "2026-05-01"
+      },
+      "Jamaica": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Jamaica",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival (POE) — USD $100 fee; obtained at Jamaica's ports of entry; stay duration at immigration officer's discretion.",
+        "passport": "Azerbaijan",
+        "source": "https://www.pica.gov.jm/immigration/entry-visa-requirements",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Japan": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Japan",
+        "model": "claude-code:haiku",
+        "notes": "Tourist visa required via embassy application; short-term stay visa permits up to 90 days.",
+        "passport": "Azerbaijan",
+        "source": "https://www.mofa.go.jp/j_info/visit/visa/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Jordan": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Jordan",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival issued at Queen Alia Airport and border crossings; 3-month stay allowed.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_requirements_for_Azerbaijani_citizens",
+        "status": "voa",
+        "verified_at": "2026-05-01"
+      },
+      "Kiribati": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Kiribati",
+        "model": "claude-code:haiku",
+        "notes": "Visitor visa required; apply to Ministry of Foreign Affairs & Immigration. Maximum stay 30 days per visit, 90 days within 12 months.",
+        "passport": "Azerbaijan",
+        "source": "https://www.mfa.gov.ki/visa/",
+        "status": "vr",
+        "verified_at": "2026-05-01"
+      },
+      "Kosovo": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Kosovo",
+        "model": "claude-code:haiku",
+        "notes": "Type C visa required; apply at Kosovo embassy in advance; maximum 90 days within 180 days.",
+        "passport": "Azerbaijan",
+        "source": "https://arkivi.mfa-ks.net/en/sherbimet_konsullore/505/kategorit-e-veanta-t-liruara-nga-viza/505.html",
+        "status": "vr",
+        "verified_at": "2026-05-01"
       }
     },
     "Canada": {
@@ -24396,10 +25078,10 @@
     }
   },
   "meta": {
-    "added_this_run": 73,
+    "added_this_run": 62,
     "generator": "autonomous-agents/visa-verifier v0.1",
-    "last_run": "2026-04-29T01:00:23+00:00",
+    "last_run": "2026-05-01T00:29:57+00:00",
     "model_default": "haiku",
-    "total_entries": 2156
+    "total_entries": 2218
   }
 }
