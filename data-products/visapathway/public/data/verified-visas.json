@@ -23316,6 +23316,17 @@
         "status": "vr",
         "verified_at": "2026-05-03"
       },
+      "Namibia": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Namibia",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival required (effective April 1, 2025) at designated airports and border posts; fee NAD 1,600.",
+        "passport": "Azerbaijan",
+        "source": "https://eservices.mhaiss.gov.na/visaonarrival",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
       "Nauru": {
         "confidence": "medium",
         "days": 30,
@@ -23371,6 +23382,28 @@
         "status": "ev",
         "verified_at": "2026-05-03"
       },
+      "Niger": {
+        "confidence": "high",
+        "days": null,
+        "destination": "Niger",
+        "model": "claude-code:haiku",
+        "notes": "Tourism visa required; must apply through Niger embassy with invitation letter or tourism contract, valid passport, and supporting documents.",
+        "passport": "Azerbaijan",
+        "source": "https://embassyofniger-usa.org/visa-dentree/",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
+      "Nigeria": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Nigeria",
+        "model": "claude-code:haiku",
+        "notes": "E-visa required for Azerbaijan tourists; single-entry allows 30 days, multiple-entry allows 90 days total.",
+        "passport": "Azerbaijan",
+        "source": "https://evisa.immigration.gov.ng/",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
       "North Macedonia": {
         "confidence": "high",
         "days": 90,
@@ -23404,6 +23437,17 @@
         "status": "ev",
         "verified_at": "2026-05-03"
       },
+      "Pakistan": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Pakistan",
+        "model": "claude-code:haiku",
+        "notes": "Apply online for tourist e-visa. Processing time 7-10 business days.",
+        "passport": "Azerbaijan",
+        "source": "https://visa.nadra.gov.pk/",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
       "Palau": {
         "confidence": "low",
         "days": 30,
@@ -23414,6 +23458,17 @@
         "source": "https://bcbp.pw/?page_id=165",
         "status": "voa",
         "verified_at": "2026-05-03"
+      },
+      "Panama": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Panama",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens require an authorized visa; apply in person at a Panamanian consulate with $140 fee, proof of funds ($500 USD minimum), and return ticket.",
+        "passport": "Azerbaijan",
+        "source": "https://www.embassyofpanama.org/visas-1",
+        "status": "vr",
+        "verified_at": "2026-05-04"
       },
       "Papua New Guinea": {
         "confidence": "low",
@@ -23448,6 +23503,17 @@
         "status": "vr",
         "verified_at": "2026-05-03"
       },
+      "Philippines": {
+        "confidence": "high",
+        "days": null,
+        "destination": "Philippines",
+        "model": "claude-code:haiku",
+        "notes": "Visa required; Azerbaijan nationals must apply at Philippine embassy/consulate before travel.",
+        "passport": "Azerbaijan",
+        "source": "https://evisa.gov.ph/page/policy",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
       "Poland": {
         "confidence": "high",
         "days": 90,
@@ -23458,6 +23524,17 @@
         "source": "https://www.gov.pl/web/diplomacy/visas",
         "status": "vr",
         "verified_at": "2026-05-03"
+      },
+      "Portugal": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Portugal",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijan nationals must obtain a short-stay Schengen visa for Portugal; processing is streamlined under the EU-Azerbaijan visa facilitation agreement.",
+        "passport": "Azerbaijan",
+        "source": "https://vistos.mne.gov.pt/en/short-stay-visas-schengen/general-information/who-needs-a-visa",
+        "status": "vr",
+        "verified_at": "2026-05-04"
       },
       "Qatar": {
         "confidence": "low",
@@ -23789,6 +23866,17 @@
         "status": "vr",
         "verified_at": "2026-05-03"
       },
+      "Syria": {
+        "confidence": "low",
+        "days": 15,
+        "destination": "Syria",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival available at Damascus and Aleppo airports for Azerbaijan nationals.",
+        "passport": "Azerbaijan",
+        "source": "https://www.damascus-airport.com/en/visa_on_arrival_syria.php",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
       "Taiwan": {
         "confidence": "high",
         "days": 90,
@@ -23876,6 +23964,17 @@
         "source": "https://foreign.gov.tt/services/visas/",
         "status": "vr",
         "verified_at": "2026-05-03"
+      },
+      "Tunisia": {
+        "confidence": "low",
+        "days": null,
+        "destination": "Tunisia",
+        "model": "claude-code:haiku",
+        "notes": "Visa required for independent tourists. Exception: visa-free if traveling on organized tour with hotel voucher.",
+        "passport": "Azerbaijan",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Tunisia",
+        "status": "vr",
+        "verified_at": "2026-05-04"
       },
       "Turkey": {
         "confidence": "high",
@@ -24031,6 +24130,17 @@
         "status": "ev",
         "verified_at": "2026-05-03"
       },
+      "Yemen": {
+        "confidence": "low",
+        "days": null,
+        "destination": "Yemen",
+        "model": "claude-code:haiku",
+        "notes": "Azerbaijani citizens must obtain a visa in advance from a Yemeni embassy or consulate; e-visas and visas on arrival are not available.",
+        "passport": "Azerbaijan",
+        "source": "https://embassies.net/yemen-visa-for-azerbaijan-citizens",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
       "Zambia": {
         "confidence": "high",
         "days": 90,
@@ -24154,6 +24264,17 @@
         "status": "vr",
         "verified_at": "2026-05-03"
       },
+      "Austria": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Austria",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-free for Austria for up to 90 days within a 180-day period for tourist purposes.",
+        "passport": "Bahamas",
+        "source": "https://www.bmeia.gv.at/en/austrian-embassy-london/travelling-to-austria/entry-requirements-visa-and-immigration/do-i-need-a-visa/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
       "Azerbaijan": {
         "confidence": "high",
         "days": 30,
@@ -24252,6 +24373,578 @@
         "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Benin",
         "status": "vf",
         "verified_at": "2026-05-03"
+      },
+      "Bhutan": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Bhutan",
+        "model": "claude-code:haiku",
+        "notes": "e-Visa required; USD 40 application fee plus USD 100/day Sustainable Development Fee. Process through Department of Immigration online system.",
+        "passport": "Bahamas",
+        "source": "https://www.doi.gov.bt/?page_id=192&lang=en",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Brazil": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Brazil",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for up to 30 days (extendable to 90 days within 12 months); policy effective February 24, 2026.",
+        "passport": "Bahamas",
+        "source": "https://www.visahq.com/news/2026-02-26/br/brazil-opens-30-day-visa-free-entry-to-eight-new-markets/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Brunei": {
+        "confidence": "high",
+        "days": null,
+        "destination": "Brunei",
+        "model": "claude-code:haiku",
+        "notes": "Category B nationals; visa required and must be applied through nearest Brunei diplomatic mission",
+        "passport": "Bahamas",
+        "source": "https://www.mfa.gov.bn/Pages/Visa-Information.aspx",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
+      "Bulgaria": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Bulgaria",
+        "model": "claude-code:haiku",
+        "notes": "Bahamian nationals are visa-free under EU Regulation 2018/1806 Annex II for stays up to 90 days in any 180-day period.",
+        "passport": "Bahamas",
+        "source": "https://www.mfa.bg/en/services-travel/consular-services/travel-bulgaria/visa-bulgaria",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Burkina Faso": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Burkina Faso",
+        "model": "claude-code:haiku",
+        "notes": "Short-stay tourist eVisa required; maximum 90 days stay allowed.",
+        "passport": "Bahamas",
+        "source": "https://www.visaburkina.bf/en/entry-visas-to-burkina-faso-the-short-term-visa/",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Burundi": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Burundi",
+        "model": "claude-code:haiku",
+        "notes": "30-day visa on arrival available at Bujumbura Airport for USD 90; extensions available in-country.",
+        "passport": "Bahamas",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Burundi.html",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
+      "Cambodia": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Cambodia",
+        "model": "claude-code:haiku",
+        "notes": "E-visa (online) or visa on arrival; single entry tourist visa valid for 30 days.",
+        "passport": "Bahamas",
+        "source": "https://www.evisa.gov.kh/",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Cameroon": {
+        "confidence": "low",
+        "days": 180,
+        "destination": "Cameroon",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders require an e-visa for tourism to Cameroon; short-stay tourist visa allows up to 180 days maximum stay.",
+        "passport": "Bahamas",
+        "source": "https://cameroonhighcommission.co.uk/faq-e-visa-application-procedures/",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Canada": {
+        "confidence": "low",
+        "days": 180,
+        "destination": "Canada",
+        "model": "claude-code:haiku",
+        "notes": "Bahamians require an Electronic Travel Authorization (eTA) at CAD$7 to visit or transit Canada; applied online.",
+        "passport": "Bahamas",
+        "source": "https://www.bahighco.ca/bahamians/immigration/",
+        "status": "eta",
+        "verified_at": "2026-05-04"
+      },
+      "Central African Republic": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Central African Republic",
+        "model": "claude-code:haiku",
+        "notes": "Visa must be obtained in advance through the Central African Republic Embassy in Paris; no visa on arrival. Tourist visas available for 30, 60, or 90 days.",
+        "passport": "Bahamas",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/CentralAfricanRepublic.html",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
+      "Chad": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Chad",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens must obtain an electronic visa (e-visa) online before travel to Chad; visa on arrival is not available.",
+        "passport": "Bahamas",
+        "source": "https://www.chadembassy.us/services-4",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Chile": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Chile",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free tourist entry for up to 90 days under Permanencia Transitoria permit; passport must be valid 6+ months beyond stay.",
+        "passport": "Bahamas",
+        "source": "https://serviciomigraciones.cl/en/permanencia-transitoria-permit/subcategories/tourists/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "China": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "China",
+        "model": "claude-code:haiku",
+        "notes": "Bahamian citizens enjoy visa-free entry to China for up to 30 days under Mutual Visa Exemption Agreement since 12 February 2014.",
+        "passport": "Bahamas",
+        "source": "https://bs.china-embassy.gov.cn/eng/lsyw/qz/qzsq/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Colombia": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Colombia",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens do not require a visa and may stay up to 90 days as tourists.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Colombia",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Comoros": {
+        "confidence": "low",
+        "days": 45,
+        "destination": "Comoros",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival available for €60 (45-day stay). Valid passport required.",
+        "passport": "Bahamas",
+        "source": "https://www.un.int/comoros/comoros/passport-and-visa-process",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
+      "Congo": {
+        "confidence": "high",
+        "days": 7,
+        "destination": "Congo",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens require an eVisa (Ordinary Flying eVisa) with 7-day maximum initial stay; extensions available in-country.",
+        "passport": "Bahamas",
+        "source": "https://congo-evisa.com/drc-evisa-for-bahamian-citizens/",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Costa Rica": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Costa Rica",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens in Group 1; visa-free with tourist stamp on arrival, usually 90 days (discretionary).",
+        "passport": "Bahamas",
+        "source": "https://costarica.org/travel/visas/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Croatia": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Croatia",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-free for 3 months (90 days) in Schengen area; Croatia member since 2023.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_requirements_for_Bahamian_citizens",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Cuba": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Cuba",
+        "model": "claude-code:haiku",
+        "notes": "Cuba requires electronic visa for Bahamas passport holders; valid for 90 days (extendable to 180); mandatory as of July 1, 2025.",
+        "passport": "Bahamas",
+        "source": "https://evisacuba.cu/en/inicio",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Czech Republic": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Czech Republic",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for stays not exceeding 3 months (90 days in 180-day period); longer stays require a Schengen visa.",
+        "passport": "Bahamas",
+        "source": "https://mzv.gov.cz/havana/en/visas_and_consular_information/visa_information_for_the_citizens_of_the/index.html",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "DR Congo": {
+        "confidence": "low",
+        "days": 30,
+        "destination": "DR Congo",
+        "model": "claude-code:haiku",
+        "notes": "Visa required in advance from DR Congo embassy. Standard tourist visa issued for 1 month (single entry).",
+        "passport": "Bahamas",
+        "source": "https://www.ambadrcusa.org/consular-affairs/passport-visa-tenant-lieu/",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
+      "Denmark": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Denmark",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders are visa-free for tourism; 90-day stay limit in Schengen area.",
+        "passport": "Bahamas",
+        "source": "https://www.nyidanmark.dk/en-GB/Words%20and%20Concepts%20Front%20Page/US/Visum/Must_have_a_visa_countries_and_countries_with_visa_exemption",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Djibouti": {
+        "confidence": "medium",
+        "days": 30,
+        "destination": "Djibouti",
+        "model": "claude-code:haiku",
+        "notes": "Visa on arrival available at entry for US$23; e-visa system exists but currently unreliable. Valid passport with 6 months validity required.",
+        "passport": "Bahamas",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Djibouti.html",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
+      "Dominica": {
+        "confidence": "high",
+        "days": 180,
+        "destination": "Dominica",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders (CARICOM member state) can enter Dominica visa-free for up to 6 months.",
+        "passport": "Bahamas",
+        "source": "https://dominica.gov.dm/services/passports-and-travel-documents-non-nationals/do-i-need-a-visa-to-enter-into-dominica",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Dominican Republic": {
+        "confidence": "low",
+        "days": 30,
+        "destination": "Dominican Republic",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-free; a USD 10 tourist card required upon arrival for up to 30 days.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_the_Dominican_Republic",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "El Salvador": {
+        "confidence": "low",
+        "days": 180,
+        "destination": "El Salvador",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for up to 180 days; $12 tourist card fee applies on arrival.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_El_Salvador",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Equatorial Guinea": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Equatorial Guinea",
+        "model": "claude-code:haiku",
+        "notes": "E-Visa required prior to arrival; maximum 90-day tourist stay permitted.",
+        "passport": "Bahamas",
+        "source": "https://www.egembassydc.com/consular-services",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Eritrea": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Eritrea",
+        "model": "claude-code:haiku",
+        "notes": "Visa required; must apply in advance through Eritrean Embassy. Valid for 1 month upon entry (extendable), application requires 15+ business days processing.",
+        "passport": "Bahamas",
+        "source": "https://us.embassyeritrea.org/visa/",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
+      "Estonia": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Estonia",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens can visit visa-free for up to 90 days within any 180-day period under Schengen rules.",
+        "passport": "Bahamas",
+        "source": "https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Ethiopia": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Ethiopia",
+        "model": "claude-code:haiku",
+        "notes": "Bahamian citizens must apply for an online e-visa before travel; tourist visas valid for 30 or 90 days.",
+        "passport": "Bahamas",
+        "source": "https://www.evisa.gov.et/information/tourist",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Fiji": {
+        "confidence": "high",
+        "days": 120,
+        "destination": "Fiji",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-exempt and receive a visitor permit on arrival for up to 4 months.",
+        "passport": "Bahamas",
+        "source": "https://www.immigration.gov.fj/visa-exempted-countries/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Finland": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Finland",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-free for up to 90 days in any 180-day period within Schengen area (Finland included).",
+        "passport": "Bahamas",
+        "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:22009A0630(04)",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "France": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "France",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders may enter France visa-free for up to 90 days.",
+        "passport": "Bahamas",
+        "source": "https://mofa.gov.bs/visa-requirements-for-bahamians-travelling-overseas/",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Gabon": {
+        "confidence": "medium",
+        "days": 30,
+        "destination": "Gabon",
+        "model": "claude-code:haiku",
+        "notes": "Gabon eVisa (electronic visa) required; apply online, processed in 72 hours, must arrive via Libreville International Airport.",
+        "passport": "Bahamas",
+        "source": "https://www.gabonembassyusa.org/en/visa-consular/visa",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Gambia": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Gambia",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens must apply in advance at a Gambian diplomatic mission; visa on arrival is not available for this nationality.",
+        "passport": "Bahamas",
+        "source": "https://gid.gov.gm/visa/",
+        "status": "vr",
+        "verified_at": "2026-05-04"
+      },
+      "Georgia": {
+        "confidence": "low",
+        "days": 365,
+        "destination": "Georgia",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-free and may stay in Georgia for one full year with a valid passport.",
+        "passport": "Bahamas",
+        "source": "https://georgia.travel/coming-to-georgia/georgia-travel-visa-application",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Germany": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Germany",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for up to 90 days within any 180-day period; no paid work allowed.",
+        "passport": "Bahamas",
+        "source": "https://www.auswaertiges-amt.de/en/visa-service/231148-231148",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Ghana": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Ghana",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens can obtain a 30-day single-entry visa on arrival at Ghana ports of entry.",
+        "passport": "Bahamas",
+        "source": "https://gis.gov.gh/how-to-acquire-a-visa-on-arrival-to-ghana-2025-guide/",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
+      "Greece": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Greece",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas nationals may enter the Schengen Area without a visa for short stays of 90 days within any 180-day period. Greece is a Schengen member.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_the_Schengen_Area",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Grenada": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Grenada",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders can enter Grenada without a visa for a maximum 3-month stay.",
+        "passport": "Bahamas",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Grenada.html",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Guatemala": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Guatemala",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders can enter Guatemala visa-free for up to 90 days.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Guatemala",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Guinea": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Guinea",
+        "model": "claude-code:haiku",
+        "notes": "Electronic visa (eVisa) required; apply online, 72-hour processing",
+        "passport": "Bahamas",
+        "source": "https://www.paf.gov.gn/visa",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Guinea-Bissau": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Guinea-Bissau",
+        "model": "claude-code:haiku",
+        "notes": "Visa available on arrival at airport or in advance at embassy; maximum 90-day stay.",
+        "passport": "Bahamas",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea-Bissau.html",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
+      "Guyana": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Guyana",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders receive a landing permit upon arrival; CARICOM nationals exempt from visa requirement for stays up to 90 days.",
+        "passport": "Bahamas",
+        "source": "https://www.minfor.gov.gy/visa-information",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Haiti": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Haiti",
+        "model": "claude-code:haiku",
+        "notes": "Foreign tourists do not need a visa for stays up to 90 days; must pay $10 tourist fee at airport.",
+        "passport": "Bahamas",
+        "source": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Haiti.html",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Honduras": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Honduras",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are visa-exempt; tourist card purchased on arrival.",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Honduras",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Hong Kong": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Hong Kong",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas passport holders enjoy 90-day visa-free entry for tourism.",
+        "passport": "Bahamas",
+        "source": "https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Hungary": {
+        "confidence": "high",
+        "days": 90,
+        "destination": "Hungary",
+        "model": "claude-code:haiku",
+        "notes": "Visa-free entry for up to 90 days in any 180-day period under EU Regulation (EU) 2018/1806.",
+        "passport": "Bahamas",
+        "source": "https://oif.gov.hu/factsheets/visa-free-citizens",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "Iceland": {
+        "confidence": "low",
+        "days": 90,
+        "destination": "Iceland",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas is Schengen Annex II visa-exempt; 90 days allowed in 180-day period",
+        "passport": "Bahamas",
+        "source": "https://en.wikipedia.org/wiki/Visa_requirements_for_Bahamian_citizens",
+        "status": "vf",
+        "verified_at": "2026-05-04"
+      },
+      "India": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "India",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas citizens are eligible for India's e-Tourist visa; standard 30-day option, or 1-year/5-year with max 180 days per calendar year.",
+        "passport": "Bahamas",
+        "source": "https://www.indianvisaonline.gov.in/evisa/tvoa.html",
+        "status": "ev",
+        "verified_at": "2026-05-04"
+      },
+      "Iran": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Iran",
+        "model": "claude-code:haiku",
+        "notes": "Bahamian nationals eligible for visa on arrival at Iranian airports; must apply for e-visa authorization 2 days in advance online.",
+        "passport": "Bahamas",
+        "source": "https://evisa.mfa.ir/en/",
+        "status": "voa",
+        "verified_at": "2026-05-04"
+      },
+      "Iraq": {
+        "confidence": "high",
+        "days": 30,
+        "destination": "Iraq",
+        "model": "claude-code:haiku",
+        "notes": "Bahamas nationals must apply for a tourist visa in advance through the Iraqi embassy or consulate; visa-free and e-visa options are unavailable for this nationality.",
+        "passport": "Bahamas",
+        "source": "https://mofa.gov.iq/visa/",
+        "status": "vr",
+        "verified_at": "2026-05-04"
       }
     },
     "Canada": {
@@ -26367,10 +27060,10 @@
     }
   },
   "meta": {
-    "added_this_run": 111,
+    "added_this_run": 63,
     "generator": "autonomous-agents/visa-verifier v0.1",
-    "last_run": "2026-05-03T10:01:20+00:00",
+    "last_run": "2026-05-04T15:53:08+00:00",
     "model_default": "haiku",
-    "total_entries": 2335
+    "total_entries": 2398
   }
 }
