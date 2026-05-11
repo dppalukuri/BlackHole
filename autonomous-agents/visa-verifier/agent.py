@@ -55,11 +55,20 @@ def load_existing(path: Path) -> dict:
 
 
 def save(path: Path, payload: dict) -> None:
+    """Atomic JSON write. Uses indent=1 + sort_keys for diff stability (we still
+    want predictable line-by-line diffs in git), but indent=1 (not 2) cuts write
+    size ~15% vs the prior indent=2."""
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
     with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False, sort_keys=True)
+        json.dump(payload, f, indent=1, ensure_ascii=False, sort_keys=True)
     tmp.replace(path)
+
+
+# How often to persist mid-batch — at this cadence we lose at most N-1 pairs
+# on Ctrl-C, but write to disk 1/N as often. 10 is a good safety/throughput
+# balance for a 200-pair burst.
+SAVE_EVERY = 10
 
 
 def is_stale(entry: dict, ttl_days: int) -> bool:
@@ -216,6 +225,8 @@ def verify_batch(
             else:
                 quota_errors["_n"] = 0
             added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
+        # Always flush at the end of sequential path too
+        save(output_path, existing)
         return added
 
     # Parallel path — N workers share the pool, main thread merges serially
@@ -242,6 +253,8 @@ def verify_batch(
             else:
                 quota_errors["_n"] = 0
             added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
+    # Always flush the final batch — _handle_result only saves every SAVE_EVERY entries
+    save(output_path, existing)
     return added
 
 
@@ -256,7 +269,10 @@ def _handle_result(
     result: object,
     added_so_far: int,
 ) -> int:
-    """Log + persist one completed verification. Returns 1 if persisted, else 0."""
+    """Log + persist one completed verification. Returns 1 if persisted, else 0.
+    Saves to disk every SAVE_EVERY successful entries — not every entry — to cut
+    disk write volume by ~10x. Always saves the very last entry of a run via the
+    explicit save() call in verify_batch's epilogue."""
     if isinstance(result, Exception):
         print(f"  [{idx}/{total_pairs}] {p} → {d}: ERROR {result!s}")
         return 0
@@ -266,8 +282,10 @@ def _handle_result(
     suffix = "" if entry.confidence == "unknown" else f"  src={entry.source or '-'}"
     print(f"  [{idx}/{total_pairs}] {p} → {d}: {label} (conf={entry.confidence}){suffix}")
     total = sum(len(v) for v in existing.get("data", {}).values())
-    update_meta(existing, total, added_so_far + 1, model)
-    save(output_path, existing)
+    new_count = added_so_far + 1
+    update_meta(existing, total, new_count, model)
+    if new_count % SAVE_EVERY == 0:
+        save(output_path, existing)
     return 1
 
 
