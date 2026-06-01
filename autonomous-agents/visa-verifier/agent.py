@@ -155,11 +155,12 @@ def run_once(args) -> int:
         return 0
 
     parallel = max(1, int(getattr(args, "parallel", 1) or 1))
-    added = verify_batch(existing, pending, model, output_path, parallel)
+    site_path = (ROOT / cfg["site_sync_path"]) if args.sync else None
+    added = verify_batch(existing, pending, model, output_path, parallel, site_path)
 
     print(f"[done] wrote {added} entries → {output_path}")
-    if args.sync:
-        sync_to_site(output_path, ROOT / cfg["site_sync_path"])
+    # site_path is also flushed inside verify_batch on every SAVE_EVERY tick and at the end,
+    # so no extra sync_to_site is needed here.
     return 0
 
 
@@ -190,6 +191,7 @@ def verify_batch(
     model: str,
     output_path: Path,
     parallel: int,
+    site_path: Optional[Path] = None,
 ) -> int:
     """Run the pending list — sequentially when parallel==1, else ThreadPoolExecutor.
 
@@ -224,9 +226,11 @@ def verify_batch(
                     break
             else:
                 quota_errors["_n"] = 0
-            added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
+            added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added, site_path)
         # Always flush at the end of sequential path too
         save(output_path, existing)
+        if site_path is not None:
+            sync_to_site(output_path, site_path)
         return added
 
     # Parallel path — N workers share the pool, main thread merges serially
@@ -252,9 +256,11 @@ def verify_batch(
                         f.cancel()
             else:
                 quota_errors["_n"] = 0
-            added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added)
+            added += _handle_result(existing, output_path, model, idx, total_pairs, p, d, result, added, site_path)
     # Always flush the final batch — _handle_result only saves every SAVE_EVERY entries
     save(output_path, existing)
+    if site_path is not None:
+        sync_to_site(output_path, site_path)
     return added
 
 
@@ -268,11 +274,14 @@ def _handle_result(
     d: str,
     result: object,
     added_so_far: int,
+    site_path: Optional[Path] = None,
 ) -> int:
     """Log + persist one completed verification. Returns 1 if persisted, else 0.
     Saves to disk every SAVE_EVERY successful entries — not every entry — to cut
     disk write volume by ~10x. Always saves the very last entry of a run via the
-    explicit save() call in verify_batch's epilogue."""
+    explicit save() call in verify_batch's epilogue. When site_path is provided,
+    the data-products copy is refreshed on the same cadence so the website never
+    lags more than SAVE_EVERY entries behind output/."""
     if isinstance(result, Exception):
         print(f"  [{idx}/{total_pairs}] {p} → {d}: ERROR {result!s}")
         return 0
@@ -286,6 +295,8 @@ def _handle_result(
     update_meta(existing, total, new_count, model)
     if new_count % SAVE_EVERY == 0:
         save(output_path, existing)
+        if site_path is not None:
+            sync_to_site(output_path, site_path)
     return 1
 
 
