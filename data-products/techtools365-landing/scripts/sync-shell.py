@@ -54,9 +54,9 @@ NEW_FOOTER = """<footer class="site-footer">
       <div class="footer-col">
         <h4>Tools</h4>
         <ul>
-          <li><a href="https://calcstack.techtools365.com/" target="_blank" rel="noopener">CalcStack \u2197</a></li>
-          <li><a href="https://toolversus.techtools365.com/" target="_blank" rel="noopener">ToolVersus \u2197</a></li>
-          <li><a href="https://visapathway.techtools365.com/" target="_blank" rel="noopener">VisaPathway \u2197</a></li>
+          <li><a href="https://pennymath.techtools365.com/" target="_blank" rel="noopener">PennyMath \u2197</a></li>
+          <li><a href="https://tooljury.techtools365.com/" target="_blank" rel="noopener">ToolJury \u2197</a></li>
+          <li><a href="https://wanderwise.techtools365.com/" target="_blank" rel="noopener">Wanderwise \u2197</a></li>
         </ul>
       </div>
       <div class="footer-col">

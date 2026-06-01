@@ -13,7 +13,7 @@ Monorepo for MCP servers, autonomous agents, and AI-native data products.
 | LinkedIn Scraper MCP | `mcp-servers/linkedin/` | Active (v0.1) |
 | Lead Gen Agent | `autonomous-agents/lead-gen-agent/` | Active (v0.1) |
 | Visa Verifier Agent | `autonomous-agents/visa-verifier/` | Active (v0.1) |
-| Data Products — landing, calcstack, toolversus, visapathway | `data-products/` | Active |
+| Data Products — landing, pennymath, tooljury, wanderwise | `data-products/` | Active |
 
 ## Environment
 
@@ -44,7 +44,7 @@ cd mcp-servers/linkedin && claude
 
 ## Data-products dependency
 
-- `data-products/visapathway/src/lib/visa-data.ts` reads `public/data/verified-visas.json` at build time. That file is produced by `autonomous-agents/visa-verifier/agent.py --sync` — when the verifier runs it writes to its own `output/` then copies into the Astro public dir.
+- `data-products/wanderwise/src/lib/visa-data.ts` reads `public/data/verified-visas.json` at build time. That file is produced by `autonomous-agents/visa-verifier/agent.py --sync` — when the verifier runs it writes to its own `output/` then copies into the Astro public dir.
 
 ## Git
 
@@ -54,5 +54,5 @@ Single repo, single branch (`main`). Commit messages should prefix with the subp
 - `google-maps: ...`
 - `serp-scraper: ...`
 - `linkedin: ...`
-- `calcstack: ...` / `toolversus: ...` / `visapathway: ...` / `landing: ...`
+- `pennymath: ...` / `tooljury: ...` / `wanderwise: ...` / `landing: ...`
 - `visa-verifier: ...`

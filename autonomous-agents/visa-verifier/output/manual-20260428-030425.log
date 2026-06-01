@@ -1,0 +1,204 @@
+[plan] 200 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/200] Armenia → Seychelles: VF (conf=high)  src=https://www.ics.gov.sc/visa-and-travel/visiting-seychelles
+  [2/200] Armenia → Slovakia: VR (conf=low)  src=https://www.mzv.sk/en/web/en/visa-and-services/schengen-visa
+  [3/200] Armenia → Sierra Leone: UNKNOWN (conf=unknown)
+  [4/200] Armenia → Singapore: EV (conf=high)  src=https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/armenia
+  [5/200] Armenia → Slovenia: VR (conf=high)  src=https://www.gov.si/en/countries/armenia/for-armenian-citizens/
+  [6/200] Armenia → Senegal: VOA (conf=high)  src=https://senegal-embassy.uk/list-of-countries-and-categories/
+  [7/200] Armenia → Solomon Islands: EV (conf=high)  src=https://immigration.gov.sb/visitor-visa-tourist/
+  [8/200] Armenia → Somalia: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Somalia
+  [9/200] Armenia → Spain: VR (conf=low)  src=https://armenia.blsspainvisa.com/short-term-visa.php
+  [10/200] Armenia → South Sudan: EV (conf=high)  src=https://evisa.gov.ss/
+  [11/200] Armenia → South Africa: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_South_Africa
+  [12/200] Armenia → Sri Lanka: EV (conf=high)  src=https://www.immigration.gov.lk/pages_e.php?id=14
+  [13/200] Armenia → Swaziland: EV (conf=high)  src=https://www.gov.sz/index.php/services-sp-22242747/visa
+  [14/200] Armenia → Sudan: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Sudan
+  [15/200] Armenia → Suriname: EV (conf=medium)  src=https://suriname.vfsevisa.com/suriname/online/home/who-can-apply-for-e-tourist-card
+  [16/200] Armenia → Switzerland: VR (conf=high)  src=https://mzv.gov.cz/yerevan/en/visa_and_consular_information/visa_information/information_on_short_term_schengen_visa/basic_schengen_visa_information/index.html
+  [17/200] Armenia → Sweden: VR (conf=low)  src=https://www.migrationsverket.se/en/you-want-to-apply/visiting-sweden/visiting-sweden-for-up-to-90-days-entry-visa.html
+  [18/200] Armenia → South Korea: ERROR claude CLI timed out after 240s
+  [19/200] Armenia → Syria: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Syria
+  [20/200] Armenia → Tanzania: EV (conf=high)  src=https://visa.immigration.go.tz/guidelines
+  [21/200] Armenia → Taiwan: EV (conf=high)  src=https://visawebapp.boca.gov.tw/BOCA_EVISA/MRV04FORM.do
+  [22/200] Armenia → Tajikistan: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Tajikistan
+  [23/200] Armenia → Togo: EV (conf=high)  src=https://dgdn.gouv.tg/en/title-and-documents/visa
+  [24/200] Armenia → Timor-Leste: VOA (conf=high)  src=https://www.migracao.gov.tl/html/sub0301.php
+  [25/200] Armenia → Thailand: VOA (conf=high)  src=https://doha.thaiembassy.org/en/publicservice/tourist-visa-exemption-visa-on-arrival
+  [26/200] Armenia → Tunisia: VR (conf=high)  src=https://www.tunisianembassy.org/visa-services
+  [27/200] Armenia → Turkey: EV (conf=high)  src=https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa
+  [28/200] Armenia → Trinidad and Tobago: UNKNOWN (conf=unknown)
+  [29/200] Armenia → Turkmenistan: VR (conf=high)  src=https://usa.tmembassy.gov.tm/en/consular-services/visa
+  [30/200] Armenia → Tuvalu: VOA (conf=low)  src=https://tuvaluhc.org.nz/visa
+  [31/200] Armenia → Tonga: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Tonga
+  [32/200] Armenia → United Arab Emirates: VF (conf=high)  src=https://www.mofa.gov.ae/en/mediahub/news/2023/9/12/12-9-2023-uae-armenia
+  [33/200] Armenia → Ukraine: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Armenian_citizens
+  [34/200] Armenia → Uganda: EV (conf=high)  src=https://www.immigration.go.ug/services/tourist-visa
+  [35/200] Armenia → United States: VR (conf=high)  src=https://travel.state.gov/content/travel/en/us-visas/Visa-Reciprocity-and-Civil-Documents-by-Country/Armenia.html
+  [36/200] Armenia → United Kingdom: VR (conf=high)  src=https://www.gov.uk/guidance/immigration-rules/immigration-rules-appendix-visitor-visa-national-list
+  [37/200] Armenia → Uzbekistan: VF (conf=low)  src=https://gov.uz/en/mfa/activity_page/o-zbekiston-respublikasi-vizasi
+  [38/200] Armenia → Uruguay: VF (conf=low)  src=https://www.gub.uy/ministerio-interior/comunicacion/publicaciones/regimen-visas-admision
+  [39/200] Armenia → Vatican: VR (conf=high)  src=https://ambjerevan.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti/
+  [40/200] Armenia → Vietnam: EV (conf=high)  src=https://evisa.gov.vn/
+  [41/200] Armenia → Vanuatu: VR (conf=high)  src=https://evisa.gov.vu
+  [42/200] Armenia → Zambia: VR (conf=high)  src=https://www.zambiaimmigration.gov.zm/nationals-requiring-visa-prior-to-travel/
+  [43/200] Armenia → Zimbabwe: EV (conf=high)  src=https://www.evisa.gov.zw/faq.html
+  [44/200] Armenia → Venezuela: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Venezuela
+  [45/200] Armenia → Yemen: UNKNOWN (conf=unknown)
+  [46/200] Australia → Afghanistan: VR (conf=medium)  src=https://www.afghanembassy.au/consular-affairs/visa-application.html
+  [47/200] Australia → Andorra: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Andorra.html
+  [48/200] Australia → Angola: VR (conf=high)  src=https://angolaconsulate.ae/visa-section/apply-for-a-visa/
+  [49/200] Australia → Algeria: VR (conf=high)  src=https://embcanberra.mfa.gov.dz/services-for-foreigners/entry-visa-to-algeria-1
+  [50/200] Australia → Albania: VF (conf=high)  src=https://punetejashtme.gov.al/en/regjimi-i-vizave-per-te-huajt/
+  [51/200] Australia → Austria: VF (conf=high)  src=https://www.bmeia.gv.at/en/austrian-embassy-canberra/travelling-to-austria/entry-and-residence/how-to-apply
+  [52/200] Australia → Argentina: VF (conf=high)  src=https://csidn.cancilleria.gob.ar/en/visas-foreign-citizens
+  [53/200] Australia → Azerbaijan: EV (conf=low)  src=https://azerbaijan.az/en/related-information/215
+  [54/200] Australia → Antigua and Barbuda: VF (conf=medium)  src=https://www.gov.uk/foreign-travel-advice/antigua-and-barbuda/entry-requirements
+  [55/200] Australia → Bahamas: VF (conf=high)  src=https://www.immigration.gov.bs/entry-requirements/before-your-arrival/
+  [56/200] Australia → Armenia: VF (conf=high)  src=https://www.mfa.am/en/visafreelist
+  [57/200] Australia → Bangladesh: VOA (conf=high)  src=https://voa.specialbranch.gov.bd/public/voa-instructions.html
+  [58/200] Australia → Bahrain: EV (conf=high)  src=https://evisa.gov.bh/list-of-online-visa-country.html
+  [59/200] Australia → Belgium: VF (conf=low)  src=https://australia.diplomatie.belgium.be/en/travel-belgium/visa-belgium
+  [60/200] Australia → Barbados: VF (conf=high)  src=https://immigration.gov.bb/pages/visitor.aspx
+  [61/200] Australia → Belarus: EV (conf=high)  src=https://mfa.gov.by/en/visa/general/evisa/
+  [62/200] Australia → Bhutan: EV (conf=low)  src=https://bhutan.travel/visa
+  [63/200] Australia → Benin: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Benin.html
+  [64/200] Australia → Belize: VF (conf=high)  src=https://immigration.gov.bz/visa/visa-who-qualify/
+  [65/200] Australia → Bosnia and Herzegovina: VF (conf=high)  src=https://www.bihembassy.org/index.php?option=com_content&view=article&id=8&Itemid=129&lang=bs
+  [66/200] Australia → Bolivia: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Bolivia
+  [67/200] Australia → Brazil: EV (conf=high)  src=https://www.gov.br/mre/pt-br/consulado-miami/information-about-visas-in-english/electronic-visitor-visa-e-visa
+  [68/200] Australia → Botswana: VF (conf=low)  src=https://www.botswanatourism.co.bw/travel-info/countries-requiring-visas
+  [69/200] Australia → Burkina Faso: EV (conf=low)  src=https://www.visaburkina.bf/en/home/
+  [70/200] Australia → Burundi: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Burundi.html
+  [71/200] Australia → Brunei: VF (conf=medium)  src=https://www.mfa.gov.bn/Pages/Visa-Information.aspx
+  [72/200] Australia → Cambodia: EV (conf=high)  src=https://www.cambodiaembassycbr.org/touristvisa
+  [73/200] Australia → Bulgaria: ERROR claude CLI timed out after 240s
+  [74/200] Australia → Cameroon: EV (conf=low)  src=https://cameroonhighcommission.co.uk/faq-e-visa-application-procedures/
+  [75/200] Australia → Chad: EV (conf=high)  src=https://evisa.td/
+  [76/200] Australia → Central African Republic: VR (conf=high)  src=https://cf.usembassy.gov/alert-central-african-republic-visa-policy-changes-february-12-2024/
+  [77/200] Australia → Cape Verde: VR (conf=high)  src=https://portalconsular.mnec.gov.cv/en/vistos
+  [78/200] Australia → China: VF (conf=high)  src=https://au.china-embassy.gov.cn/eng/tzgg/202511/t20251105_11747334.htm
+  [79/200] Australia → Chile: VF (conf=low)  src=https://serviciomigraciones.cl/en/permanencia-transitoria-permit/subcategories/tourists/
+  [80/200] Australia → Comoros: VOA (conf=low)  src=https://www.un.int/comoros/comoros/passport-and-visa-process
+  [81/200] Australia → Croatia: VF (conf=high)  src=https://mvep.gov.hr/services-for-citizens/consular-information-22802/visas-22807/visa-requirements-overview-22879/22879?country=9
+  [82/200] Australia → Congo: EV (conf=high)  src=https://congo-evisa.com/democratic-republic-of-the-congo-visa-for-australia/
+  [83/200] Australia → Costa Rica: VF (conf=low)  src=https://costarica.org/travel/visas/
+  [84/200] Australia → Colombia: VF (conf=high)  src=https://www.smartraveller.gov.au/destinations/americas/colombia
+  [85/200] Australia → Cuba: EV (conf=low)  src=https://evisacuba.cu
+  [86/200] Australia → DR Congo: EV (conf=medium)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/DemocraticRepublicoftheCongoDRC.html
+  [87/200] Australia → Czech Republic: VF (conf=high)  src=https://mzv.gov.cz/sydney/en/visa_consular_information/visa_information/do_you_need_a_visa/index.html
+  [88/200] Australia → Denmark: VF (conf=low)  src=https://um.dk/australien/en/travel-and-residence/practical-information/visa/visa-free-travels-and-bilateral-agreements
+  [89/200] Australia → Cyprus: ERROR claude CLI timed out after 240s
+  [90/200] Australia → Djibouti: EV (conf=high)  src=https://online.djibouti-evisa.com/
+  [91/200] Australia → Dominica: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Dominica.html
+  [92/200] Australia → Egypt: EV (conf=high)  src=https://visa2egypt.gov.eg
+  [93/200] Australia → Equatorial Guinea: EV (conf=high)  src=https://equatorialguinea-evisa.com/index.html
+  [94/200] Australia → Ecuador: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ecuador.html
+  [95/200] Australia → Eritrea: VR (conf=low)  src=https://ericon.org.au/services/visa/
+  [96/200] Australia → Estonia: VF (conf=low)  src=https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia
+  [97/200] Australia → Dominican Republic: VF (conf=low)  src=https://www.godominicanrepublic.com/travel/entry-requirements
+  [98/200] Australia → Finland: VF (conf=low)  src=https://um.fi/visa-to-visit-finland
+  [99/200] Australia → Ethiopia: EV (conf=high)  src=https://www.evisa.gov.et/
+  [100/200] Australia → Fiji: VF (conf=high)  src=https://www.immigration.gov.fj/visa-exempted-countries/
+  [101/200] Australia → El Salvador: ERROR claude CLI timed out after 240s
+  [102/200] Australia → Ghana: VR (conf=high)  src=https://canberra.mfa.gov.gh/visa-arrangements/
+  [103/200] Australia → Georgia: VF (conf=high)  src=https://matsne.gov.ge/en/document/view/2867361
+  [104/200] Australia → Gabon: EV (conf=high)  src=https://evisa.dgdi.ga/
+  [105/200] Australia → Guinea: EV (conf=high)  src=https://www.paf.gov.gn/visa
+  [106/200] Australia → Grenada: VF (conf=low)  src=https://www.puregrenada.com/travel-requirements/
+  [107/200] Australia → Gambia: VF (conf=high)  src=https://gambia.gov.gm/immigration-and-visas/
+  [108/200] Australia → Guyana: VF (conf=high)  src=https://www.embassyofguyana.be/countries-whose-nationals-do-not-require-visas-to-enter-guyana.php
+  [109/200] Australia → Guatemala: VF (conf=high)  src=https://igm.gob.gt/
+  [110/200] Australia → Haiti: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Haiti.html
+  [111/200] Australia → Guinea-Bissau: VOA (conf=high)  src=https://www.paf.gov.gn/visa
+  [112/200] Australia → Hong Kong: VF (conf=high)  src=https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html
+  [113/200] Australia → India: EV (conf=high)  src=https://indianvisaonline.gov.in/evisa/tvoa.html
+  [114/200] Australia → Honduras: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Honduras
+  [115/200] Australia → Iran: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Iran
+  [116/200] Australia → Iceland: VF (conf=low)  src=https://www.government.is/topics/foreign-affairs/visa-to-iceland/
+  [117/200] Australia → Iraq: EV (conf=high)  src=https://mofa.gov.iq/visa/
+  [118/200] Australia → Hungary: VF (conf=high)  src=https://canberra.mfa.gov.hu/en/vizum
+  [119/200] Australia → Jamaica: VF (conf=high)  src=https://www.pica.gov.jm/immigration/entry-visa-requirements
+  [120/200] Australia → Israel: ETA (conf=high)  src=https://israel-entry.piba.gov.il/
+  [121/200] Australia → Ireland: ERROR claude CLI timed out after 240s
+  [122/200] Australia → Ivory Coast: EV (conf=low)  src=https://www.aeroport-abidjan.com/visa_on_arrival_ivory_coast.php
+  [123/200] Australia → Kenya: EV (conf=low)  src=https://www.kenya.asn.au/diasora
+  [124/200] Australia → Kiribati: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Kiribati.html
+  [125/200] Australia → Kazakhstan: VF (conf=low)  src=https://new.wpk.kz/kaz_entry_eng
+  [126/200] Australia → Jordan: EV (conf=high)  src=https://eservices.moi.gov.jo/MOI_EVISA/faces/Pages/Runnables/login.jsf
+  [127/200] Australia → Kosovo: VF (conf=low)  src=https://arkivi.mfa-ks.net/en/sherbimet_konsullore/505/kategorit-e-veanta-t-liruara-nga-viza/505.html
+  [128/200] Australia → Latvia: VF (conf=high)  src=https://www.mfa.gov.lv/en/countries-and-territories-whose-citizens-may-enter-latvia-without-visa
+  [129/200] Australia → Laos: EV (conf=high)  src=https://laoevisa.gov.la/
+  [130/200] Australia → Kuwait: EV (conf=high)  src=https://kuwaitvisa.moi.gov.kw/
+  [131/200] Australia → Lesotho: VF (conf=high)  src=https://www.lesothoemb-usa.gov.ls/visa/
+  [132/200] Australia → Lebanon: VOA (conf=high)  src=https://www.general-security.gov.lb/en/posts/38
+  [133/200] Australia → Liberia: VOA (conf=high)  src=https://visaonarrival.lis.gov.lr/
+  [134/200] Australia → Kyrgyzstan: VF (conf=high)  src=https://mfa.gov.kg/en/Main-menu/Consular-services/Consular-visas-issues/izovye-i-bezvizovye-rezhimy
+  [135/200] Australia → Libya: EV (conf=high)  src=https://www.evisa.gov.ly/
+  [136/200] Australia → Macao: VF (conf=high)  src=https://www.gov.mo/en/services/ps-1474/ps-1474b/
+  [137/200] Australia → Liechtenstein: VF (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [138/200] Australia → Luxembourg: VF (conf=high)  src=https://www.eeas.europa.eu/australia/travel-study_en?s=163
+  [139/200] Australia → Lithuania: VF (conf=low)  src=https://www.migracija.lt/en/stay-less-than-3-months
+  [140/200] Australia → Madagascar: VOA (conf=high)  src=https://ambamad-washington.diplomatie.gov.mg/index.php/visa
+  [141/200] Australia → Maldives: VOA (conf=high)  src=https://www.immigration.gov.mv/visa/tourist-visa
+  [142/200] Australia → Malawi: EV (conf=high)  src=https://evisa.gov.mw/
+  [143/200] Australia → Mauritania: EV (conf=high)  src=https://anrpts.gov.mr/visa/requestvisa
+  [144/200] Australia → Mali: EV (conf=high)  src=https://www.diplomatiemdc.gouv.ml/vitrine/
+  [145/200] Australia → Marshall Islands: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_the_Marshall_Islands
+  [146/200] Australia → Malta: VF (conf=high)  src=https://identita.gov.mt/central-visa-unit-national-visa-long-stay-visa/
+  [147/200] Australia → Moldova: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Moldova
+  [148/200] Australia → Micronesia: VF (conf=high)  src=https://fsmembassy.fm/for-guests-visitors/
+  [149/200] Australia → Mauritius: VF (conf=high)  src=https://www.smartraveller.gov.au/destinations/africa/mauritius
+  [150/200] Australia → Montenegro: VF (conf=high)  src=https://www.gov.me/en/diplomatic-missions/embassies-and-consulates-of-montenegro/australia
+  [151/200] Australia → Monaco: VF (conf=high)  src=https://australien.diplo.de/au-en/service/visa/short-term-visa-2073662
+  [152/200] Australia → Mozambique: EV (conf=high)  src=https://usa.embamoc.gov.mz/?page_id=99
+  [153/200] Australia → Namibia: VOA (conf=low)  src=https://www.namibianconsulaustralia.com.au/
+  [154/200] Australia → Mongolia: VF (conf=high)  src=https://immigration.gov.mn/en/articles/249/
+  [155/200] Australia → Nauru: VR (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Nauru.html
+  [156/200] Australia → Nepal: VOA (conf=high)  src=https://au.nepalembassy.gov.np/pages/3/
+  [157/200] Australia → Myanmar: EV (conf=high)  src=https://evisa.moip.gov.mm/
+  [158/200] Australia → New Zealand: VF (conf=high)  src=https://www.immigration.govt.nz/visit/what-you-need-to-visit-new-zealand/australian-citizens-and-permanent-residents-travelling-to-new-zealand/
+  [159/200] Australia → Morocco: UNKNOWN (conf=unknown)
+  [160/200] Australia → North Korea: VR (conf=high)  src=https://www.smartraveller.gov.au/destinations/asia/north-korea-democratic-peoples-republic-korea
+  [161/200] Australia → Nigeria: EV (conf=high)  src=https://immigration.gov.ng/nigerian-visa/
+  [162/200] Australia → Norway: VF (conf=low)  src=https://www.udi.no/en/want-to-apply/visit-and-holiday?c=aus
+  [163/200] Australia → Nicaragua: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Nicaragua
+  [164/200] Australia → Niger: VR (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Niger.html
+  [165/200] Australia → Oman: VF (conf=high)  src=https://www.fm.gov.om/en/visitors/entry-visas/
+  [166/200] Australia → North Macedonia: VF (conf=high)  src=https://www.smartraveller.gov.au/destinations/europe/north-macedonia
+  [167/200] Australia → Panama: VF (conf=high)  src=https://www.embassyofpanama.org/visas-1
+  [168/200] Australia → Palestine: UNKNOWN (conf=unknown)
+  [169/200] Australia → Palau: VOA (conf=low)  src=https://bcbp.pw/?page_id=165
+  [170/200] Australia → Pakistan: EV (conf=high)  src=https://visa.nadra.gov.pk/tourist-visa/
+  [171/200] Australia → Philippines: VF (conf=high)  src=https://evisa.gov.ph/page/policy
+  [172/200] Australia → Peru: VF (conf=high)  src=https://www.smartraveller.gov.au/destinations/americas/peru
+  [173/200] Australia → Portugal: VF (conf=high)  src=https://portugal.embassy.gov.au/lbon/Visas_Portugal.html
+  [174/200] Australia → Paraguay: VF (conf=high)  src=https://migraciones.gov.py/informacion-sobre-visas/
+  [175/200] Australia → Poland: VF (conf=high)  src=https://www.gov.pl/web/australia-en/c-type-schengen-visa
+  [176/200] Australia → Qatar: VF (conf=low)  src=https://visitqatar.com/intl-en/plan-your-trip/visas
+  [177/200] Australia → Papua New Guinea: ERROR claude CLI timed out after 240s
+  [178/200] Australia → Rwanda: VOA (conf=high)  src=https://www.gov.rw/1/migration
+  [179/200] Australia → Russia: VR (conf=low)  src=https://australia.mid.ru/web/en/tourist-visa
+  [180/200] Australia → Romania: VF (conf=high)  src=https://www.smartraveller.gov.au/destinations/europe/romania
+  [181/200] Australia → Saint Vincent and the Grenadines: VF (conf=high)  src=https://www.svgconsulate.vc/non-nationals.php
+  [182/200] Australia → Saint Kitts and Nevis: ETA (conf=high)  src=https://www.sknis.gov.kn/2025/05/22/saint-kitts-and-nevis-introduces-effortless-digital-entry-enhanced-security-smoother-travel-for-visitors/
+  [183/200] Australia → Samoa: VOA (conf=low)  src=https://samoa.org.nz/visa-passport/
+  [184/200] Australia → Sao Tome and Principe: EV (conf=low)  src=https://saotomeislands.com/evisa/visa-policy.html
+  [185/200] Australia → Saint Lucia: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Saint_Lucia
+  [186/200] Australia → Saudi Arabia: EV (conf=low)  src=https://visa.visitsaudi.com/
+  [187/200] Australia → San Marino: VF (conf=high)  src=https://www.eeas.europa.eu/australia/travel-study_en
+  [188/200] Australia → Serbia: VF (conf=high)  src=https://www.mfa.gov.rs/en/citizens/travel-serbia/visa-regime/australija
+  [189/200] Australia → Seychelles: VF (conf=high)  src=https://www.ics.gov.sc/permits/visitors-permit
+  [190/200] Australia → Senegal: VR (conf=high)  src=https://diplomatie.gouv.sn/index.php/demande-de-visa
+  [191/200] Australia → Slovenia: VF (conf=high)  src=https://www.gov.si/en/countries/australia/for-australian-citizens/
+  [192/200] Australia → Slovakia: VF (conf=low)  src=https://www.mzv.sk/en/web/canberra-en/services/visa_information
+  [193/200] Australia → South Africa: VF (conf=high)  src=https://dirco.gov.za/canberra/visas-to-south-africa/
+  [194/200] Australia → Solomon Islands: VF (conf=high)  src=https://smartraveller.gov.au/destinations/pacific/solomon-islands
+  [195/200] Australia → Sri Lanka: ETA (conf=high)  src=https://eta.gov.lk/slvisa/visainfo/center.jsp?locale=en_US
+  [196/200] Australia → Sierra Leone: ERROR claude CLI timed out after 240s
+  [197/200] Australia → Sudan: VR (conf=low)  src=https://en.sudanicanberra.com/entry-visa
+  [198/200] Australia → South Sudan: EV (conf=medium)  src=https://www.evisa.gov.ss/
+  [199/200] Australia → Somalia: EV (conf=high)  src=https://usa.mfa.gov.so/how-to-apply-somali-evisa-online/
+  [200/200] Australia → Suriname: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":780,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 8:30am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"c70823ae-e4cc-4e08-88b0-ed45328cf785","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creat
+[done] wrote 192 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

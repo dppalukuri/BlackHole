@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://calcstack.techtools365.com/sitemap-index.xml

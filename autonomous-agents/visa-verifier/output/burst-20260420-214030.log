@@ -1,0 +1,103 @@
+[plan] 200 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/200] Andorra → Afghanistan: VR (conf=high)  src=https://mfa.gov.af/en/page/38999
+  [2/200] Andorra → Angola: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Angola.html
+  [3/200] Andorra → Albania: VF (conf=high)  src=https://punetejashtme.gov.al/en/regjimi-i-vizave-per-te-huajt/
+  [4/200] Algeria → Yemen: VR (conf=medium)  src=https://yemenembassynl.org/consulate/yemen-entry-visa-request
+  [5/200] Andorra → Argentina: VF (conf=high)  src=https://ctoro.cancilleria.gob.ar/en/passport-holders-exempt-visa-requirements-certain-immigration-categories
+  [6/200] Andorra → Algeria: VR (conf=high)  src=https://embwashington.mfa.gov.dz/services-for-foreigners/entry-visa-to-algeria-1
+  [7/200] Andorra → Antigua and Barbuda: VF (conf=low)  src=https://www.visitantiguabarbuda.com/visa-requirements/
+  [8/200] Andorra → Armenia: VF (conf=high)  src=https://www.mfa.am/en/visafreelist
+  [9/200] Andorra → Azerbaijan: EV (conf=low)  src=https://azerbaijan.az/en/related-information/215
+  [10/200] Andorra → Austria: VF (conf=high)  src=https://www.bmeia.gv.at/en/austrian-embassy-london/travelling-to-austria/entry-requirements-visa-and-immigration/do-i-need-a-visa
+  [11/200] Andorra → Bahamas: VF (conf=high)  src=https://www.immigration.gov.bs/entry-requirements/before-your-arrival/
+  [12/200] Andorra → Australia: ETA (conf=high)  src=https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/electronic-travel-authority-601
+  [13/200] Andorra → Bahrain: VOA (conf=high)  src=https://www.evisa.gov.bh/list-of-onarrival-visa-country.html
+  [14/200] Andorra → Belarus: VF (conf=high)  src=https://mfa.gov.by/en/visa/freemove/europe/
+  [15/200] Andorra → Bangladesh: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh
+  [16/200] Andorra → Belize: VF (conf=high)  src=https://immigration.gov.bz/visa/visa-who-qualify/
+  [17/200] Andorra → Barbados: VF (conf=high)  src=https://www.foreign.gov.bb/43-countries-granted-temporary-visa-waivers/
+  [18/200] Andorra → Belgium: VF (conf=low)  src=https://dofi.ibz.be/en/themes/entry/border-control/visa/visa-type-c/list-third-countries-whose-nationals-are-exempted
+  [19/200] Andorra → Bolivia: VF (conf=low)  src=https://embajadadebolivia.eu/en/turism-visa/
+  [20/200] Andorra → Benin: EV (conf=high)  src=https://evisa.bj/
+  [21/200] Andorra → Bhutan: EV (conf=high)  src=https://www.doi.gov.bt/?page_id=192&lang=en
+  [22/200] Andorra → Bosnia and Herzegovina: VF (conf=high)  src=https://www.bhembassy.be/CI/5.html
+  [23/200] Andorra → Botswana: EV (conf=high)  src=https://evisa.gov.bw
+  [24/200] Andorra → Brunei: VR (conf=high)  src=https://www.mfa.gov.bn/Pages/Visa-Information.aspx
+  [25/200] Andorra → Burkina Faso: EV (conf=low)  src=https://www.visaburkina.bf/en/home/
+  [26/200] Andorra → Bulgaria: VF (conf=high)  src=https://www.mfa.bg/en/services-travel/consular-services/travel-bulgaria/visa-bulgaria
+  [27/200] Andorra → Cambodia: EV (conf=high)  src=https://www.embassyofcambodiadc.org/tourist_visa_type-t.html
+  [28/200] Andorra → Brazil: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Brazil
+  [29/200] Andorra → Burundi: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Burundi.html
+  [30/200] Andorra → Cape Verde: VF (conf=high)  src=https://www.eeas.europa.eu/node/56167_en
+  [31/200] Andorra → Cameroon: EV (conf=low)  src=https://evisacam.cm/
+  [32/200] Andorra → Central African Republic: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/CentralAfricanRepublic.html
+  [33/200] Andorra → Canada: ETA (conf=high)  src=https://ircc.canada.ca/english/helpcentre/answer.asp?qnum=1198&top=16
+  [34/200] Andorra → China: VF (conf=high)  src=https://en.nia.gov.cn/n147418/n147463/c183390/content.html
+  [35/200] Andorra → Chile: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Chile.html
+  [36/200] Andorra → Comoros: VOA (conf=low)  src=https://www.un.int/comoros/comoros/passport-and-visa-process
+  [37/200] Andorra → Colombia: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Andorran_citizens
+  [38/200] Andorra → Chad: EV (conf=high)  src=https://evisa.td/
+  [39/200] Andorra → Costa Rica: VF (conf=low)  src=https://costarica.org/travel/visas/
+  [40/200] Andorra → Congo: EV (conf=high)  src=https://congo-evisa.com/
+  [41/200] Andorra → Croatia: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2001/539/oj/eng
+  [42/200] Andorra → Cuba: EV (conf=low)  src=https://misiones.cubaminrex.cu/en/articulo/electronic-tourist-visa
+  [43/200] Andorra → DR Congo: EV (conf=high)  src=https://congo-evisa.com/
+  [44/200] Andorra → Cyprus: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Cyprus.html
+  [45/200] Andorra → Denmark: VF (conf=low)  src=https://www.nyidanmark.dk/en-GB/Words%20and%20Concepts%20Front%20Page/US/Visum/Must_have_a_visa_countries_and_countries_with_visa_exemption
+  [46/200] Andorra → Djibouti: EV (conf=high)  src=https://online.djibouti-evisa.com/djibouti-visa-policy/
+  [47/200] Andorra → Dominica: VR (conf=high)  src=https://dominica.gov.dm/services/passports-and-travel-documents-non-nationals/do-i-need-a-visa-to-enter-into-dominica
+  [48/200] Andorra → Czech Republic: VF (conf=high)  src=https://mzv.gov.cz/jnp/en/information_for_aliens/short_stay_visa/list_of_states_whose_citizens_are_exempt/index.html
+  [49/200] Andorra → Ecuador: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ecuador.html
+  [50/200] Andorra → Dominican Republic: VF (conf=high)  src=https://nld.mirex.gob.do/consular/amsterdam/listado-de-paises-y-condiciones-de-visado/
+  [51/200] Andorra → El Salvador: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/ElSalvador.html
+  [52/200] Andorra → Equatorial Guinea: EV (conf=high)  src=https://www.gov.uk/foreign-travel-advice/equatorial-guinea/entry-requirements
+  [53/200] Andorra → Estonia: VF (conf=low)  src=https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia
+  [54/200] Andorra → Egypt: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Egypt
+  [55/200] Andorra → Eritrea: VR (conf=high)  src=https://us.embassyeritrea.org/visa/
+  [56/200] Andorra → Fiji: VR (conf=high)  src=https://www.immigration.gov.fj/fiji-visas/
+  [57/200] Andorra → Ethiopia: EV (conf=high)  src=https://www.evisa.gov.et/information/tourist
+  [58/200] Andorra → France: VF (conf=high)  src=https://www.gov.uk/foreign-travel-advice/andorra/entry-requirements
+  [59/200] Andorra → Gabon: EV (conf=high)  src=https://www.eeas.europa.eu/gabon/travel-study_en
+  [60/200] Andorra → Finland: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2018/1806/oj/eng
+  [61/200] Andorra → Gambia: VF (conf=medium)  src=https://gambia.gov.gm/immigration-and-visas/
+  [62/200] Andorra → Germany: VF (conf=low)  src=https://www.auswaertiges-amt.de/en/visa-service/231148-231148
+  [63/200] Andorra → Ghana: VR (conf=high)  src=https://madrid.mfa.gov.gh/VisaApplicationInfo.aspx
+  [64/200] Andorra → Georgia: VF (conf=high)  src=https://mfa.gov.ge/en
+  [65/200] Andorra → Greece: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Andorran_citizens
+  [66/200] Andorra → Guatemala: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Guatemala
+  [67/200] Andorra → Guinea: EV (conf=high)  src=https://www.paf.gov.gn/visa
+  [68/200] Andorra → Grenada: VF (conf=low)  src=https://www.puregrenada.com/travel-requirements/
+  [69/200] Andorra → Haiti: VF (conf=low)  src=https://www.haiti.org/tourist-visa/
+  [70/200] Andorra → Hong Kong: VF (conf=high)  src=https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html
+  [71/200] Andorra → Guinea-Bissau: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea-Bissau.html
+  [72/200] Andorra → Guyana: EV (conf=high)  src=https://eservices.iss.gov.gy/visitor-visa
+  [73/200] Andorra → Iceland: VF (conf=low)  src=https://island.is/en/do-you-need-a-visa
+  [74/200] Andorra → Honduras: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Honduras.html
+  [75/200] Andorra → Indonesia: VOA (conf=high)  src=https://www.imigrasi.go.id/wna/daftar-negara-voa-bvk-calling-visa/daftar-negara-subjek-visa-on-arrival
+  [76/200] Andorra → India: EV (conf=high)  src=https://indianvisaonline.gov.in/evisa/tvoa.html
+  [77/200] Andorra → Hungary: VF (conf=high)  src=https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32018R1806
+  [78/200] Andorra → Iran: EV (conf=high)  src=https://evisa.mfa.ir/en/
+  [79/200] Andorra → Israel: ETA (conf=high)  src=https://israel-entry.piba.gov.il/
+  [80/200] Andorra → Iraq: EV (conf=high)  src=https://mofa.gov.iq/visa/
+  [81/200] Andorra → Italy: VF (conf=high)  src=https://www.esteri.it/en/servizi-consolari-e-visti/ingressosoggiornoinitalia/visto_ingresso/paesi_esenti_visto/
+  [82/200] Andorra → Ireland: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Ireland
+  [83/200] Andorra → Japan: VF (conf=high)  src=https://www.mofa.go.jp/j_info/visit/visa/short/novisa.html
+  [84/200] Andorra → Ivory Coast: EV (conf=high)  src=https://royaumeuni.diplomatie.gouv.ci/visa.php?lang=en&num=1
+  [85/200] Andorra → Jamaica: VOA (conf=medium)  src=https://www.pica.gov.jm/immigration/entry-visa-requirements
+  [86/200] Andorra → Kazakhstan: VF (conf=low)  src=https://new.wpk.kz/kaz_entry_eng
+  [87/200] Andorra → Kiribati: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Kiribati.html
+  [88/200] Andorra → Kenya: EV (conf=high)  src=https://immigration.ecitizen.go.ke/index.php?id=6
+  [89/200] Andorra → Kyrgyzstan: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1545,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"2b8adc4a-2baa-4b8f-808b-e396a07a1666","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creatio
+  [90/200] Andorra → Kuwait: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":670,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"cf1a55ae-5f99-4101-9120-4d8bf812c208","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [91/200] Andorra → Jordan: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":736,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"a6449efa-b53d-46e8-85a1-9e204887775b","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [92/200] Andorra → Kosovo: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":710,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"24e37d6f-df1d-463d-b815-af58301b03c6","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [93/200] Andorra → Laos: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":890,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"32600585-1bd0-4a49-a72e-771462401205","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [94/200] Andorra → Lebanon: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1145,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"9934389f-38f3-4ca7-8478-c644e9208311","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creatio
+  [95/200] Andorra → Latvia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1300,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"87de7ef2-1590-4f14-a7e5-f884241bd92e","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creatio
+  [96/200] Andorra → Lesotho: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1209,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"6fc01991-587b-4d2a-8e95-5b9f5986ac23","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creatio
+  [97/200] Andorra → Liberia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":618,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"50cd97b4-9d7b-4c50-9f63-e97463fe3184","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [bail] 10 consecutive quota errors — cancelling remaining workers
+  [98/200] Andorra → Libya: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":748,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 2am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"23e2fb9e-37ff-4d98-a211-265cf0b5b831","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+[done] wrote 88 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

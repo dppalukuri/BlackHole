@@ -1,0 +1,104 @@
+[plan] 100 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/100] Antigua and Barbuda → Cameroon: EV (conf=low)  src=https://cameroonhighcommission.co.uk/faq-e-visa-application-procedures/
+  [2/100] Antigua and Barbuda → Cambodia: EV (conf=high)  src=https://www.embassyofcambodiadc.org/tourist_visa_type-t.html
+  [3/100] Antigua and Barbuda → Brunei: VR (conf=high)  src=https://www.mfa.gov.bn/pages/Types-of-visa.aspx
+  [4/100] Antigua and Barbuda → Canada: VR (conf=high)  src=https://ircc.canada.ca/english/helpcentre/answer.asp?qnum=1016&top=16
+  [5/100] Antigua and Barbuda → Cape Verde: VOA (conf=high)  src=https://portalconsular.mnec.gov.cv/en/vistos
+  [6/100] Antigua and Barbuda → Central African Republic: EV (conf=low)  src=https://evisa-centrafrique.com/
+  [7/100] Antigua and Barbuda → China: VF (conf=high)  src=https://ag.china-embassy.gov.cn/eng/lsfwx/zytz/202404/t20240429_11291164.htm
+  [8/100] Antigua and Barbuda → Colombia: VF (conf=high)  src=https://www.cancilleria.gov.co/tramites_servicios/visa/lista-a-b-c
+  [9/100] Antigua and Barbuda → Chad: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Chad
+  [10/100] Antigua and Barbuda → Chile: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Antigua_and_Barbuda_citizens
+  [11/100] Antigua and Barbuda → Comoros: VOA (conf=high)  src=https://travel.state.gov/en/international-travel/travel-advisories/comoros.html
+  [12/100] Antigua and Barbuda → Congo: EV (conf=high)  src=https://congo-evisa.com/
+  [13/100] Antigua and Barbuda → Costa Rica: UNKNOWN (conf=unknown)
+  [14/100] Antigua and Barbuda → Cuba: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Cuba
+  [15/100] Antigua and Barbuda → Cyprus: VF (conf=high)  src=https://www.gov.cy/mfa/en/documents/categories-of-persons-and-countries-whose-nationals-do-not-require-a-visa/
+  [16/100] Antigua and Barbuda → Croatia: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2018/1806/oj/eng
+  [17/100] Antigua and Barbuda → Czech Republic: VF (conf=high)  src=https://mzv.gov.cz/jnp/en/information_for_aliens/short_stay_visa/list_of_states_whose_citizens_are_exempt/index.html
+  [18/100] Antigua and Barbuda → Denmark: VF (conf=high)  src=https://www.eeas.europa.eu/barbados/travel-study_en
+  [19/100] Antigua and Barbuda → Djibouti: EV (conf=high)  src=https://online.djibouti-evisa.com/
+  [20/100] Antigua and Barbuda → DR Congo: EV (conf=high)  src=https://congo-evisa.com/democratic-republic-of-the-congo-visa-policy/
+  [21/100] Antigua and Barbuda → Dominica: VF (conf=high)  src=https://dominica.gov.dm/services/passports-and-travel-documents-non-nationals/do-i-need-a-visa-to-enter-into-dominica
+  [22/100] Antigua and Barbuda → Ecuador: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Ecuador
+  [23/100] Antigua and Barbuda → Egypt: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Egypt
+  [24/100] Antigua and Barbuda → Equatorial Guinea: EV (conf=high)  src=https://www.gov.uk/foreign-travel-advice/equatorial-guinea/entry-requirements
+  [25/100] Antigua and Barbuda → Dominican Republic: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_the_Dominican_Republic
+  [26/100] Antigua and Barbuda → Eritrea: VR (conf=high)  src=https://us.embassyeritrea.org/visa/
+  [27/100] Antigua and Barbuda → Estonia: VF (conf=low)  src=https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia
+  [28/100] Antigua and Barbuda → El Salvador: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_El_Salvador
+  [29/100] Antigua and Barbuda → Ethiopia: EV (conf=high)  src=https://www.gov.uk/foreign-travel-advice/ethiopia/entry-requirements
+  [30/100] Antigua and Barbuda → Finland: VF (conf=high)  src=https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:22009A0630(01)
+  [31/100] Antigua and Barbuda → Fiji: VF (conf=high)  src=https://www.immigration.gov.fj/visitors-permit/
+  [32/100] Antigua and Barbuda → Gabon: EV (conf=high)  src=https://evisa.dgdi.ga/
+  [33/100] Antigua and Barbuda → Georgia: VF (conf=low)  src=https://georgia.travel/coming-to-georgia/georgia-travel-visa-application
+  [34/100] Antigua and Barbuda → Gambia: VF (conf=high)  src=https://gambia.gov.gm/immigration-and-visas/
+  [35/100] Antigua and Barbuda → France: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2018/1806/oj/eng
+  [36/100] Antigua and Barbuda → Greece: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2018/1806/oj/eng
+  [37/100] Antigua and Barbuda → Ghana: VR (conf=low)  src=https://www.ghanaweb.com/GhanaHomePage/business/Ghana-expands-visa-free-access-to-Maldives-Zambia-Antigua-and-Barbuda-2031144
+  [38/100] Antigua and Barbuda → Grenada: VF (conf=low)  src=https://oecs.int/en/free-movement-of-persons-in-the-eastern-caribbean
+  [39/100] Antigua and Barbuda → Germany: VF (conf=low)  src=https://www.auswaertiges-amt.de/en/visa-service/231148-231148
+  [40/100] Antigua and Barbuda → Guinea: EV (conf=high)  src=https://www.paf.gov.gn/visa
+  [41/100] Antigua and Barbuda → Guinea-Bissau: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea-Bissau.html
+  [42/100] Antigua and Barbuda → Guyana: VF (conf=high)  src=https://www.minfor.gov.gy/visa-information
+  [43/100] Antigua and Barbuda → Haiti: VF (conf=low)  src=https://www.haiti.org/tourist-visa/
+  [44/100] Antigua and Barbuda → Guatemala: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Guatemala
+  [45/100] Antigua and Barbuda → Hong Kong: VF (conf=high)  src=https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html
+  [46/100] Antigua and Barbuda → India: EV (conf=high)  src=https://indianvisaonline.gov.in/evisa/tvoa.html
+  [47/100] Antigua and Barbuda → Hungary: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Antigua_and_Barbuda_citizens
+  [48/100] Antigua and Barbuda → Iceland: VF (conf=low)  src=https://www.government.is/topics/foreign-affairs/visa-to-iceland/
+  [49/100] Antigua and Barbuda → Honduras: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Honduras
+  [50/100] Antigua and Barbuda → Iran: VOA (conf=high)  src=https://evisa.mfa.ir/en/
+  [51/100] Antigua and Barbuda → Indonesia: VOA (conf=high)  src=https://evisa.imigrasi.go.id/front/info/evoa
+  [52/100] Antigua and Barbuda → Iraq: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Iraq.html
+  [53/100] Antigua and Barbuda → Israel: VR (conf=high)  src=https://embassies.gov.il/newyork/en/services/foreign-citizens/entry-visa-visiting-or-touring-israel
+  [54/100] Antigua and Barbuda → Ireland: VF (conf=low)  src=https://www.irishstatutebook.ie/eli/2014/si/473/made/en/print
+  [55/100] Antigua and Barbuda → Italy: VF (conf=high)  src=https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:22021X0824(01)
+  [56/100] Antigua and Barbuda → Jamaica: VF (conf=high)  src=https://www.pica.gov.jm/immigration/entry-visa-requirements
+  [57/100] Antigua and Barbuda → Ivory Coast: EV (conf=high)  src=https://www.gov.uk/foreign-travel-advice/cote-d-ivoire/entry-requirements
+  [58/100] Antigua and Barbuda → Kazakhstan: EV (conf=low)  src=https://egov.kz/cms/en/articles/rk_visa_obtaining
+  [59/100] Antigua and Barbuda → Jordan: EV (conf=high)  src=https://jordan-evisa.info/eligible-countries/
+  [60/100] Antigua and Barbuda → Kenya: EV (conf=high)  src=https://immigration.ecitizen.go.ke/index.php?id=6
+  [61/100] Antigua and Barbuda → Japan: VR (conf=high)  src=https://www.mofa.go.jp/j_info/visit/visa/short/other_visa.html
+  [62/100] Antigua and Barbuda → Kosovo: VF (conf=low)  src=https://arkivi.mfa-ks.net/en/sherbimet_konsullore/504/shtetet-t-cilat-nuk-kane-nevoj-pr-viz/504.html
+  [63/100] Antigua and Barbuda → Kyrgyzstan: VF (conf=high)  src=https://mfa.gov.kg/en/Main-menu/Consular-services/Consular-visas-issues/izovye-i-bezvizovye-rezhimy
+  [64/100] Antigua and Barbuda → Kiribati: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Kiribati.html
+  [65/100] Antigua and Barbuda → Latvia: VF (conf=high)  src=https://www.mfa.gov.lv/en/countries-and-territories-whose-citizens-may-enter-latvia-without-visa
+  [66/100] Antigua and Barbuda → Laos: EV (conf=high)  src=https://www.gov.uk/foreign-travel-advice/laos/entry-requirements
+  [67/100] Antigua and Barbuda → Kuwait: VR (conf=medium)  src=https://www.kuwaitembassy.org/about-kuwait/visa-requirements
+  [68/100] Antigua and Barbuda → Lesotho: VF (conf=high)  src=https://www.lesothoemb-usa.gov.ls/visa/
+  [69/100] Antigua and Barbuda → Lebanon: VOA (conf=high)  src=https://www.general-security.gov.lb/en/posts/38
+  [70/100] Antigua and Barbuda → Liberia: VOA (conf=high)  src=https://lis.gov.lr/visa
+  [71/100] Antigua and Barbuda → Liechtenstein: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Liechtenstein.html
+  [72/100] Antigua and Barbuda → Lithuania: VF (conf=low)  src=https://www.migracija.lt/en/stay-less-than-3-months
+  [73/100] Antigua and Barbuda → Luxembourg: VF (conf=high)  src=https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:22009A0630(01)
+  [74/100] Antigua and Barbuda → Madagascar: EV (conf=low)  src=https://evisamada-mg.com/en/info/about
+  [75/100] Antigua and Barbuda → Libya: EV (conf=high)  src=https://www.evisa.gov.ly/
+  [76/100] Antigua and Barbuda → Maldives: VOA (conf=high)  src=https://www.immigration.gov.mv/visa/tourist-visa
+  [77/100] Antigua and Barbuda → Macao: VOA (conf=medium)  src=https://www.gov.mo/en/services/ps-1474/ps-1474b/
+  [78/100] Antigua and Barbuda → Malawi: VF (conf=low)  src=https://visitmalawi.mw/visas-immigration-and-customs/
+  [79/100] Antigua and Barbuda → Malaysia: VF (conf=high)  src=https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/
+  [80/100] Antigua and Barbuda → Mali: VR (conf=high)  src=https://maliembassy.us/visas/
+  [81/100] Antigua and Barbuda → Malta: VF (conf=high)  src=https://identita.gov.mt/wp-content/uploads/2023/10/List-of-third-countries-whose-nationals-are-exempted-from-holding-a-visa-when-crossing-the-external-borders.pdf
+  [82/100] Antigua and Barbuda → Mauritania: EV (conf=high)  src=https://anrpts.gov.mr/visa/requestvisa
+  [83/100] Antigua and Barbuda → Micronesia: VF (conf=high)  src=https://fsmembassy.fm/for-guests-visitors/
+  [84/100] Antigua and Barbuda → Marshall Islands: UNKNOWN (conf=unknown)
+  [85/100] Antigua and Barbuda → Mexico: VR (conf=high)  src=https://www.inm.gob.mx/gobmx/word/index.php/paises-requieren-visa-para-mexico/
+  [86/100] Antigua and Barbuda → Moldova: VF (conf=high)  src=https://mfa.gov.md/en/content/visa-regime-foreigners
+  [87/100] Antigua and Barbuda → Mauritius: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Antigua_and_Barbuda_citizens
+  [88/100] Antigua and Barbuda → Montenegro: VF (conf=high)  src=https://www.gov.me/en/diplomatic-missions/embassies-and-consulates-of-montenegro/antigua-and-barbuda
+  [89/100] Antigua and Barbuda → Monaco: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2018/1806/oj/eng
+  [90/100] Antigua and Barbuda → Mongolia: EV (conf=high)  src=https://immigration.gov.mn/en/evisa-country-list/
+  [91/100] Antigua and Barbuda → Mozambique: EV (conf=high)  src=https://usa.embamoc.gov.mz/?page_id=99
+  [92/100] Antigua and Barbuda → Morocco: EV (conf=low)  src=https://www.acces-maroc.ma/
+  [93/100] Antigua and Barbuda → Namibia: VOA (conf=high)  src=https://eservices.mhaiss.gov.na/visaonarrival
+  [94/100] Antigua and Barbuda → Nepal: EV (conf=high)  src=https://www.immigration.gov.np/en/page/tourist-visa
+  [95/100] Antigua and Barbuda → Myanmar: VR (conf=high)  src=https://evisa.moip.gov.mm/
+  [96/100] Antigua and Barbuda → Nauru: VR (conf=high)  src=https://www.gov.uk/foreign-travel-advice/nauru/entry-requirements
+  [97/100] Antigua and Barbuda → Netherlands: VF (conf=high)  src=https://eur-lex.europa.eu/eli/reg/2018/1806/oj/eng
+  [98/100] Antigua and Barbuda → Niger: VR (conf=high)  src=https://embassyofniger-usa.org/visa-dentree/
+  [99/100] Antigua and Barbuda → New Zealand: VR (conf=high)  src=https://www.immigration.govt.nz/visas/visitor-visa/
+  [100/100] Antigua and Barbuda → Nicaragua: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Nicaragua
+[done] wrote 100 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

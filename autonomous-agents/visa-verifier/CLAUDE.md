@@ -1,10 +1,10 @@
 # Visa Verifier Agent
 
-Background agent that verifies visa requirements against authoritative government sources and writes a curated dataset the VisaPathway site consumes.
+Background agent that verifies visa requirements against authoritative government sources and writes a curated dataset the Wanderwise site consumes.
 
 ## Why it exists
 
-The bulk visa matrix (`data-products/visapathway/public/data/visa-matrix.json`) comes from the open-source Passport Index Dataset. It's the best starting corpus we have but is community-maintained — accuracy varies and nothing is individually sourced. This agent fills that gap by re-verifying high-traffic pairs against embassy / ministry / gov-portal pages and producing `verified-visas.json`, which the site prefers over the bulk matrix when present.
+The bulk visa matrix (`data-products/wanderwise/public/data/visa-matrix.json`) comes from the open-source Passport Index Dataset. It's the best starting corpus we have but is community-maintained — accuracy varies and nothing is individually sourced. This agent fills that gap by re-verifying high-traffic pairs against embassy / ministry / gov-portal pages and producing `verified-visas.json`, which the site prefers over the bulk matrix when present.
 
 ## Auth — uses the Claude Code subscription, not an API key
 

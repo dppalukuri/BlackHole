@@ -3,9 +3,9 @@ Regenerate the Visa Matrix 2026 product bundle from the verified data.
 
 Inputs (source of truth):
     autonomous-agents/visa-verifier/output/verified-visas.json
-    data-products/visapathway/public/data/residence-permits.json
-    data-products/visapathway/public/data/visa-matrix.json  (bulk Passport Index)
-    data-products/visapathway/public/data/countries.json
+    data-products/wanderwise/public/data/residence-permits.json
+    data-products/wanderwise/public/data/visa-matrix.json  (bulk Passport Index)
+    data-products/wanderwise/public/data/countries.json
 
 Outputs (in this folder):
     verified-matrix.csv        - every gov-sourced passport -> destination pair
@@ -32,7 +32,7 @@ except Exception:
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent.parent
 VERIFIER_OUT = REPO / "autonomous-agents" / "visa-verifier" / "output" / "verified-visas.json"
-SITE_DATA = REPO / "data-products" / "visapathway" / "public" / "data"
+SITE_DATA = REPO / "data-products" / "wanderwise" / "public" / "data"
 
 
 def load_json(path: Path) -> dict | list:
@@ -197,7 +197,7 @@ HTML = """<!doctype html>
 <ul>
   <li>Personal use, commercial research, and internal business use are permitted.</li>
   <li>Redistribution of the raw CSVs as a competing dataset product is not permitted.</li>
-  <li>Citing the dataset publicly is encouraged — attribution to "VisaPathway / TechTools365" appreciated.</li>
+  <li>Citing the dataset publicly is encouraged — attribution to "Wanderwise / TechTools365" appreciated.</li>
   <li>Visa rules change without notice. This is a point-in-time snapshot — always re-verify with the embassy before acting.</li>
 </ul>
 

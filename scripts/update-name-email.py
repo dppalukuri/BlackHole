@@ -24,8 +24,8 @@ SOURCES = [
     "techtools365-landing/public/blog/uae-vs-india-take-home-salary-2026/index.html",
     "techtools365-landing/public/index.html",
     "techtools365-landing/public/privacy/index.html",
-    "toolversus/content/about.md",
-    "toolversus/content/contact.md",
+    "tooljury/content/about.md",
+    "tooljury/content/contact.md",
 ]
 
 # Name-replacement rules — be specific so we don't change the GitHub handle "dppalukuri"
@@ -37,7 +37,7 @@ NAME_RULES = [
     ("Prasad in Dubai", "Durga Prasad in Dubai"),
     ("run by Prasad", "run by Durga Prasad"),
     ("\nPrasad — Indian", "\nDurga Prasad — Indian"),  # Specific phrase in About
-    ("[Prasad]", "[Durga Prasad]"),             # Markdown link text in toolversus/content/about.md
+    ("[Prasad]", "[Durga Prasad]"),             # Markdown link text in tooljury/content/about.md
 ]
 
 total = 0

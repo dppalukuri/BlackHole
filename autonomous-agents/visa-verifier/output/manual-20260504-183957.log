@@ -1,0 +1,104 @@
+[plan] 100 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 3 workers
+  [1/100] Azerbaijan → Niger: VR (conf=high)  src=https://embassyofniger-usa.org/visa-dentree/
+  [2/100] Azerbaijan → Nigeria: EV (conf=high)  src=https://evisa.immigration.gov.ng/
+  [3/100] Azerbaijan → Namibia: VOA (conf=high)  src=https://eservices.mhaiss.gov.na/visaonarrival
+  [4/100] Azerbaijan → Pakistan: EV (conf=high)  src=https://visa.nadra.gov.pk/
+  [5/100] Azerbaijan → North Korea: ERROR claude CLI timed out after 240s
+  [6/100] Azerbaijan → Palestine: ERROR claude CLI timed out after 240s
+  [7/100] Azerbaijan → Panama: VR (conf=high)  src=https://www.embassyofpanama.org/visas-1
+  [8/100] Azerbaijan → Portugal: VR (conf=high)  src=https://vistos.mne.gov.pt/en/short-stay-visas-schengen/general-information/who-needs-a-visa
+  [9/100] Azerbaijan → Philippines: VR (conf=high)  src=https://evisa.gov.ph/page/policy
+  [10/100] Azerbaijan → Syria: VOA (conf=low)  src=https://www.damascus-airport.com/en/visa_on_arrival_syria.php
+  [11/100] Azerbaijan → Yemen: VR (conf=low)  src=https://embassies.net/yemen-visa-for-azerbaijan-citizens
+  [12/100] Azerbaijan → Tunisia: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Tunisia
+  [13/100] Bahamas → Bhutan: EV (conf=high)  src=https://www.doi.gov.bt/?page_id=192&lang=en
+  [14/100] Bahamas → Austria: VF (conf=high)  src=https://www.bmeia.gv.at/en/austrian-embassy-london/travelling-to-austria/entry-requirements-visa-and-immigration/do-i-need-a-visa/
+  [15/100] Bahamas → Bolivia: ERROR claude CLI timed out after 240s
+  [16/100] Bahamas → Bosnia and Herzegovina: ERROR claude CLI timed out after 240s
+  [17/100] Bahamas → Botswana: ERROR claude CLI timed out after 240s
+  [18/100] Bahamas → Brazil: VF (conf=low)  src=https://www.visahq.com/news/2026-02-26/br/brazil-opens-30-day-visa-free-entry-to-eight-new-markets/
+  [19/100] Bahamas → Brunei: VR (conf=high)  src=https://www.mfa.gov.bn/Pages/Visa-Information.aspx
+  [20/100] Bahamas → Bulgaria: VF (conf=high)  src=https://www.mfa.bg/en/services-travel/consular-services/travel-bulgaria/visa-bulgaria
+  [21/100] Bahamas → Burkina Faso: EV (conf=low)  src=https://www.visaburkina.bf/en/entry-visas-to-burkina-faso-the-short-term-visa/
+  [22/100] Bahamas → Burundi: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Burundi.html
+  [23/100] Bahamas → Cambodia: EV (conf=high)  src=https://www.evisa.gov.kh/
+  [24/100] Bahamas → Cameroon: EV (conf=low)  src=https://cameroonhighcommission.co.uk/faq-e-visa-application-procedures/
+  [25/100] Bahamas → Canada: ETA (conf=low)  src=https://www.bahighco.ca/bahamians/immigration/
+  [26/100] Bahamas → Cape Verde: ERROR claude CLI timed out after 240s
+  [27/100] Bahamas → Central African Republic: VR (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/CentralAfricanRepublic.html
+  [28/100] Bahamas → Chad: EV (conf=high)  src=https://www.chadembassy.us/services-4
+  [29/100] Bahamas → Chile: VF (conf=low)  src=https://serviciomigraciones.cl/en/permanencia-transitoria-permit/subcategories/tourists/
+  [30/100] Bahamas → China: VF (conf=high)  src=https://bs.china-embassy.gov.cn/eng/lsyw/qz/qzsq/
+  [31/100] Bahamas → Colombia: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Colombia
+  [32/100] Bahamas → Comoros: VOA (conf=low)  src=https://www.un.int/comoros/comoros/passport-and-visa-process
+  [33/100] Bahamas → Congo: EV (conf=high)  src=https://congo-evisa.com/drc-evisa-for-bahamian-citizens/
+  [34/100] Bahamas → Costa Rica: VF (conf=low)  src=https://costarica.org/travel/visas/
+  [35/100] Bahamas → Croatia: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Bahamian_citizens
+  [36/100] Bahamas → Cuba: EV (conf=low)  src=https://evisacuba.cu/en/inicio
+  [37/100] Bahamas → Cyprus: ERROR claude CLI timed out after 240s
+  [38/100] Bahamas → Czech Republic: VF (conf=high)  src=https://mzv.gov.cz/havana/en/visas_and_consular_information/visa_information_for_the_citizens_of_the/index.html
+  [39/100] Bahamas → DR Congo: VR (conf=low)  src=https://www.ambadrcusa.org/consular-affairs/passport-visa-tenant-lieu/
+  [40/100] Bahamas → Denmark: VF (conf=low)  src=https://www.nyidanmark.dk/en-GB/Words%20and%20Concepts%20Front%20Page/US/Visum/Must_have_a_visa_countries_and_countries_with_visa_exemption
+  [41/100] Bahamas → Djibouti: VOA (conf=medium)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Djibouti.html
+  [42/100] Bahamas → Dominica: VF (conf=high)  src=https://dominica.gov.dm/services/passports-and-travel-documents-non-nationals/do-i-need-a-visa-to-enter-into-dominica
+  [43/100] Bahamas → Dominican Republic: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_the_Dominican_Republic
+  [44/100] Bahamas → Ecuador: ERROR claude CLI timed out after 240s
+  [45/100] Bahamas → Egypt: ERROR claude CLI timed out after 240s
+  [46/100] Bahamas → El Salvador: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_El_Salvador
+  [47/100] Bahamas → Equatorial Guinea: EV (conf=high)  src=https://www.egembassydc.com/consular-services
+  [48/100] Bahamas → Eritrea: VR (conf=high)  src=https://us.embassyeritrea.org/visa/
+  [49/100] Bahamas → Estonia: VF (conf=low)  src=https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia
+  [50/100] Bahamas → Ethiopia: EV (conf=high)  src=https://www.evisa.gov.et/information/tourist
+  [51/100] Bahamas → Fiji: VF (conf=high)  src=https://www.immigration.gov.fj/visa-exempted-countries/
+  [52/100] Bahamas → Finland: VF (conf=high)  src=https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:22009A0630(04)
+  [53/100] Bahamas → France: VF (conf=high)  src=https://mofa.gov.bs/visa-requirements-for-bahamians-travelling-overseas/
+  [54/100] Bahamas → Gabon: EV (conf=medium)  src=https://www.gabonembassyusa.org/en/visa-consular/visa
+  [55/100] Bahamas → Gambia: VR (conf=high)  src=https://gid.gov.gm/visa/
+  [56/100] Bahamas → Georgia: VF (conf=low)  src=https://georgia.travel/coming-to-georgia/georgia-travel-visa-application
+  [57/100] Bahamas → Germany: VF (conf=low)  src=https://www.auswaertiges-amt.de/en/visa-service/231148-231148
+  [58/100] Bahamas → Ghana: VOA (conf=high)  src=https://gis.gov.gh/how-to-acquire-a-visa-on-arrival-to-ghana-2025-guide/
+  [59/100] Bahamas → Greece: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_the_Schengen_Area
+  [60/100] Bahamas → Grenada: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Grenada.html
+  [61/100] Bahamas → Guatemala: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Guatemala
+  [62/100] Bahamas → Guinea: EV (conf=high)  src=https://www.paf.gov.gn/visa
+  [63/100] Bahamas → Guinea-Bissau: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea-Bissau.html
+  [64/100] Bahamas → Guyana: VF (conf=high)  src=https://www.minfor.gov.gy/visa-information
+  [65/100] Bahamas → Haiti: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Haiti.html
+  [66/100] Bahamas → Honduras: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Honduras
+  [67/100] Bahamas → Hong Kong: VF (conf=high)  src=https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html
+  [68/100] Bahamas → Hungary: VF (conf=high)  src=https://oif.gov.hu/factsheets/visa-free-citizens
+  [69/100] Bahamas → Iceland: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Bahamian_citizens
+  [70/100] Bahamas → India: EV (conf=high)  src=https://www.indianvisaonline.gov.in/evisa/tvoa.html
+  [71/100] Bahamas → Indonesia: ERROR claude CLI timed out after 240s
+  [72/100] Bahamas → Iran: VOA (conf=high)  src=https://evisa.mfa.ir/en/
+  [73/100] Bahamas → Iraq: VR (conf=high)  src=https://mofa.gov.iq/visa/
+  [74/100] Bahamas → Ireland: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [75/100] Bahamas → Israel: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [76/100] Bahamas → Italy: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [77/100] Bahamas → Ivory Coast: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [78/100] Bahamas → Jamaica: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [79/100] Bahamas → Japan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [80/100] Bahamas → Jordan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [81/100] Bahamas → Kazakhstan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [82/100] Bahamas → Kenya: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [83/100] Bahamas → Kiribati: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [84/100] Bahamas → Kosovo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [85/100] Bahamas → Kuwait: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [86/100] Bahamas → Kyrgyzstan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [87/100] Bahamas → Laos: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [88/100] Bahamas → Latvia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [89/100] Bahamas → Lebanon: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [90/100] Bahamas → Lesotho: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [91/100] Bahamas → Liberia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [92/100] Bahamas → Libya: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [93/100] Bahamas → Liechtenstein: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [94/100] Bahamas → Lithuania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [95/100] Bahamas → Luxembourg: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [96/100] Bahamas → Macao: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [97/100] Bahamas → Madagascar: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [98/100] Bahamas → Malawi: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [99/100] Bahamas → Malaysia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [100/100] Bahamas → Maldives: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+[done] wrote 63 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tooljury.techtools365.com/sitemap.xml

@@ -1,0 +1,97 @@
+[plan] 200 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/200] Algeria → Guyana: EV (conf=high)  src=https://www.minfor.gov.gy/visa-information
+  [2/200] Algeria → Guatemala: VR (conf=high)  src=https://igm.gob.gt/wp-content/uploads/2024/01/Visa-de-Turista-o-Viajero-para-paises-Categoria-C-VTV-IGM-01-2024-INGLES.pdf
+  [3/200] Algeria → Haiti: VF (conf=low)  src=https://www.haiti.org/tourist-visa/
+  [4/200] Algeria → Iceland: VR (conf=low)  src=https://island.is/en/get-a-visa
+  [5/200] Algeria → India: EV (conf=high)  src=https://www.indianembassyalgiers.gov.in/page/visa-services/
+  [6/200] Algeria → Honduras: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Honduras
+  [7/200] Algeria → Indonesia: VOA (conf=high)  src=https://evisa.imigrasi.go.id/web/visa-selection
+  [8/200] Algeria → Ghana: VR (conf=high)  src=https://canberra.mfa.gov.gh/visa-arrangements/
+  [9/200] Algeria → Ireland: VR (conf=high)  src=https://www.irishimmigration.ie/coming-to-visit-ireland/
+  [10/200] Algeria → Israel: VR (conf=high)  src=https://www.vfsglobal.com/one-pager/israel/southafrica/english/index.html
+  [11/200] Algeria → Japan: VR (conf=high)  src=https://www.mofa.go.jp/j_info/visit/visa/
+  [12/200] Algeria → Iran: VOA (conf=high)  src=https://evisa.mfa.ir/en/visa-arrival/
+  [13/200] Algeria → Kenya: EV (conf=high)  src=https://immigration.ecitizen.go.ke/index.php?id=6
+  [14/200] Algeria → Jordan: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Algerian_citizens
+  [15/200] Algeria → Ivory Coast: EV (conf=low)  src=https://www.aeroport-abidjan.com/visa_on_arrival_ivory_coast.php
+  [16/200] Algeria → Kyrgyzstan: EV (conf=high)  src=https://www.evisa.e-gov.kg/get_information.php?lng=en
+  [17/200] Algeria → Kiribati: VOA (conf=high)  src=https://www.mfa.gov.ki/immigration/
+  [18/200] Algeria → Laos: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Laos
+  [19/200] Algeria → Lebanon: VOA (conf=high)  src=https://www.general-security.gov.lb/en/posts/38
+  [20/200] Algeria → Latvia: VR (conf=high)  src=https://www.mfa.gov.lv/en/countries-and-territories-whose-citizens-may-enter-latvia-without-visa
+  [21/200] Algeria → Lesotho: VOA (conf=high)  src=https://www.lesothoemb-usa.gov.ls/visa/
+  [22/200] Algeria → Maldives: VOA (conf=high)  src=https://foreign.gov.mv/index.php/en/consular/for-foreigners-visiting-maldives/maldives-visa
+  [23/200] Algeria → Liberia: VOA (conf=high)  src=https://visaonarrival.lis.gov.lr/
+  [24/200] Algeria → Kuwait: VR (conf=medium)  src=https://www.gov.uk/foreign-travel-advice/kuwait/entry-requirements
+  [25/200] Algeria → Mozambique: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Mozambique.html
+  [26/200] Algeria → Montenegro: VR (conf=high)  src=https://www.gov.me/en/diplomatic-missions/embassies-and-consulates-of-montenegro/algeria
+  [27/200] Algeria → Marshall Islands: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_the_Marshall_Islands
+  [28/200] Algeria → Morocco: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Morocco
+  [29/200] Algeria → Myanmar: EV (conf=high)  src=https://evisa.moip.gov.mm/
+  [30/200] Algeria → Namibia: VR (conf=high)  src=https://namibiaembassyusa.org/foreign-nationals/
+  [31/200] Algeria → Nicaragua: VF (conf=low)  src=https://www.visasnews.com/en/nicaragua-overhauls-its-visa-policy/
+  [32/200] Algeria → Nigeria: EV (conf=high)  src=https://immigration.gov.ng/info-center/tourism-visa-f5a/
+  [33/200] Algeria → Pakistan: EV (conf=high)  src=https://visa.nadra.gov.pk/
+  [34/200] Algeria → Paraguay: VR (conf=high)  src=https://www.mre.gov.py/index.php/tramites/visas
+  [35/200] Algeria → North Macedonia: UNKNOWN (conf=unknown)
+  [36/200] Algeria → Poland: VR (conf=high)  src=https://www.gov.pl/web/diplomacy/visas
+  [37/200] Algeria → Palestine: UNKNOWN (conf=unknown)
+  [38/200] Algeria → Philippines: VR (conf=high)  src=https://evisa.gov.ph/page/policy
+  [39/200] Algeria → Samoa: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Samoa.html
+  [40/200] Algeria → Peru: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Algerian_citizens
+  [41/200] Algeria → Saint Lucia: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Saint_Lucia
+  [42/200] Algeria → Saudi Arabia: EV (conf=low)  src=https://visa.visitsaudi.com/
+  [43/200] Algeria → Sao Tome and Principe: EV (conf=low)  src=https://www.saotomeislands.com/evisa/visa-policy.html
+  [44/200] Algeria → Seychelles: VF (conf=high)  src=https://www.ics.gov.sc/visa-and-travel/visiting-seychelles
+  [45/200] Algeria → Serbia: VR (conf=high)  src=https://mfa.gov.rs/en/citizens/travel-serbia/visa-regime/alzir
+  [46/200] Algeria → San Marino: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [47/200] Algeria → Senegal: VOA (conf=high)  src=https://senegal-embassy.uk/list-of-countries-and-categories/
+  [48/200] Algeria → Singapore: VR (conf=high)  src=https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/algeria
+  [49/200] Algeria → Slovenia: VR (conf=high)  src=https://www.gov.si/en/countries/algeria/for-algerian-citizens/
+  [50/200] Algeria → Sierra Leone: EV (conf=low)  src=https://www.visitsierraleone.org/online-visa/
+  [51/200] Algeria → Slovakia: VR (conf=high)  src=https://www.eeas.europa.eu/algeria/travel-study_en
+  [52/200] Algeria → Somalia: EV (conf=high)  src=https://usa.mfa.gov.so/how-to-apply-somali-evisa-online/
+  [53/200] Algeria → Solomon Islands: VR (conf=low)  src=https://www.un.int/solomonislands/solomonislands/visa-information
+  [54/200] Algeria → South Sudan: EV (conf=high)  src=https://mofaic.gov.ss/visas/
+  [55/200] Algeria → South Korea: VR (conf=high)  src=https://visa.go.kr
+  [56/200] Algeria → Spain: VR (conf=high)  src=https://www.exteriores.gob.es/Embajadas/argel/fr/ServiciosConsulares/Paginas/Consular/Visados-Schengen.aspx
+  [57/200] Algeria → Sri Lanka: EV (conf=high)  src=https://www.eta.gov.lk/slvisa/visainfo/fees.jsp?locale=en_US
+  [58/200] Algeria → Sudan: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Sudan
+  [59/200] Algeria → Suriname: VF (conf=medium)  src=https://suriname.vfsevisa.com/suriname/online/home/index
+  [60/200] Algeria → South Africa: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Algerian_citizens
+  [61/200] Algeria → Sweden: VR (conf=low)  src=https://www.migrationsverket.se/en/you-want-to-apply/visiting-sweden/visiting-sweden-for-up-to-90-days-entry-visa.html
+  [62/200] Algeria → Swaziland: VR (conf=high)  src=https://www.gov.sz/index.php/component/content/article/314-immigrants-requiring-visas-to-enter-the-kingdom-of-swaziland?Itemid=439
+  [63/200] Algeria → Switzerland: VR (conf=high)  src=https://www.eda.admin.ch/countries/algeria/en/home/visa/entry-ch/up-90-days.html
+  [64/200] Algeria → Syria: VOA (conf=medium)  src=https://mofaex.gov.sy/en
+  [65/200] Algeria → Tajikistan: EV (conf=medium)  src=https://www.gov.uk/foreign-travel-advice/tajikistan/entry-requirements
+  [66/200] Algeria → Taiwan: VR (conf=high)  src=https://www.boca.gov.tw/cp-159-249-4162c-2.html
+  [67/200] Algeria → Thailand: EV (conf=high)  src=https://www.thaievisa.go.th/
+  [68/200] Algeria → Tanzania: VR (conf=high)  src=https://www.dz.tzembassy.go.tz/services/requirements-for-visa
+  [69/200] Algeria → Timor-Leste: VOA (conf=high)  src=https://www.migracao.gov.tl/html/sub0301.php
+  [70/200] Algeria → Togo: EV (conf=high)  src=https://dgdn.gouv.tg/en/title-and-documents/visa
+  [71/200] Algeria → Trinidad and Tobago: EV (conf=high)  src=https://nationalsecurity.gov.tt/divisions/immigrationdivision/evisa-online/
+  [72/200] Algeria → Tunisia: VF (conf=high)  src=https://tunisia-e-visa.com/countries-that-enter-tunisia-visa-free/
+  [73/200] Algeria → Tonga: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Tonga
+  [74/200] Algeria → Uruguay: VR (conf=low)  src=https://www.gub.uy/ministerio-interior/comunicacion/publicaciones/regimen-visas-admision
+  [75/200] Algeria → Uzbekistan: EV (conf=high)  src=https://e-visa.gov.uz/
+  [76/200] Algeria → Turkmenistan: VR (conf=high)  src=https://india.tmembassy.gov.tm/consular-services/viza-application-of-turkmenistan
+  [77/200] Algeria → Vatican: VR (conf=high)  src=https://visa.vfsglobal.com/one-pager/Italy/Algeria/english/
+  [78/200] Algeria → Vanuatu: EV (conf=medium)  src=https://evisa.gov.vu/visas
+  [79/200] Algeria → Venezuela: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Venezuela
+  [80/200] Algeria → Zambia: VR (conf=high)  src=https://www.zambiaimmigration.gov.zm/nationals-who-require-visa/
+  [81/200] Algeria → Vietnam: EV (conf=high)  src=https://evisa.gov.vn/
+  [82/200] Algeria → Zimbabwe: VOA (conf=high)  src=https://www.evisa.gov.zw/
+  [83/200] Algeria → Yemen: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":742,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"463bdb81-8112-4c93-92e5-ed0265d404b7","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [84/200] Andorra → Albania: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":602,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"a442d069-78aa-4748-b7e3-569d5e559833","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [85/200] Andorra → Afghanistan: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":560,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"6c970aaa-1ed2-4d96-bcd9-d34c49b9948c","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [86/200] Andorra → Algeria: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":532,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"e10f8ada-d9dd-4706-b1a9-0d119e885128","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [87/200] Andorra → Angola: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":500,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"18a72d1e-d4ac-4b20-ab22-455364309f67","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [88/200] Andorra → Antigua and Barbuda: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":570,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"f737ef67-ccfd-4c66-820d-f739dcb480fe","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [89/200] Andorra → Armenia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":595,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"01ae473c-25ef-459a-a2db-73f3fb6cd7bc","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [90/200] Andorra → Argentina: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":572,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"ce5c0d93-56cb-4224-b2db-80a390bedd89","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [91/200] Andorra → Australia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":528,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"1f9ca778-06d6-4867-a307-73ca615057fb","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+  [bail] 10 consecutive quota errors — cancelling remaining workers
+  [92/200] Andorra → Austria: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":589,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 9pm (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"826aa4e4-b35d-49ec-aa93-638d74a9bed1","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creation
+[done] wrote 82 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

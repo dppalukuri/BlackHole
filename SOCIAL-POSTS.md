@@ -16,10 +16,10 @@ Enter your basic salary and years of service — it shows the exact breakdown:
 
 Also shows the math step by step so you can verify it yourself.
 
-https://calcstack.techtools365.com/uae/gratuity-calculator
+https://pennymath.techtools365.com/uae/gratuity-calculator
 
 Also made a Dubai rental yield calculator that gives you NET yield (after DLD fees, service charges, vacancy):
-https://calcstack.techtools365.com/uae/rental-yield-calculator
+https://pennymath.techtools365.com/uae/rental-yield-calculator
 
 Both free, no signup, no email. Built these because every other calculator I found either had wrong formulas or was buried under ads.
 
@@ -45,15 +45,15 @@ Enter your:
 
 It shows tax under BOTH regimes side-by-side and tells you exactly how much you save by choosing the right one.
 
-https://calcstack.techtools365.com/india/old-vs-new-tax-regime
+https://pennymath.techtools365.com/india/old-vs-new-tax-regime
 
 Updated for FY 2025-26 with the Budget 2025 changes (₹75K standard deduction, no tax up to ₹12.75L for salaried).
 
 Also built a FIRE calculator adjusted for Indian inflation and returns:
-https://calcstack.techtools365.com/india/fire-calculator
+https://pennymath.techtools365.com/india/fire-calculator
 
 And a step-up SIP calculator showing how 10% annual increase creates 2-3x more wealth:
-https://calcstack.techtools365.com/india/step-up-sip-calculator
+https://pennymath.techtools365.com/india/step-up-sip-calculator
 
 All free, no signup. Feedback welcome — what other tools would be useful?
 ```
@@ -73,13 +73,13 @@ Built one specifically for Indian conditions:
 - Safe withdrawal rate adjustable (3-3.5% recommended for India)
 - Year-by-year progress tracker showing when you hit your FIRE number
 
-https://calcstack.techtools365.com/india/fire-calculator
+https://pennymath.techtools365.com/india/fire-calculator
 
 Example: ₹50K monthly expenses, ₹5L savings, ₹30K/month investing at 12% return = FIRE at age 45.
 
 The withdrawal rate debate: 4% rule doesn't work in India because of higher inflation. Most Indian FIRE practitioners use 3-3.5%. The tool lets you adjust this.
 
-Also built a step-up SIP calculator (https://calcstack.techtools365.com/india/step-up-sip-calculator) — shows how increasing SIP by 10% yearly creates dramatically more wealth.
+Also built a step-up SIP calculator (https://pennymath.techtools365.com/india/step-up-sip-calculator) — shows how increasing SIP by 10% yearly creates dramatically more wealth.
 ```
 
 ---
@@ -100,7 +100,7 @@ Built a tool that lets you:
 4. Pick a destination
 5. It checks ALL your documents and tells you the best one to use
 
-https://visapathway.techtools365.com
+https://wanderwise.techtools365.com
 
 Covers 199 countries. The residence permit / visa data is manually verified from official government immigration websites.
 
@@ -111,7 +111,7 @@ Free, no signup. Would love feedback from multi-passport holders.
 
 ---
 
-### 5. r/expats — VisaPathway
+### 5. r/expats — Wanderwise
 **Title:** Free tool: check which of your travel documents gives you the best entry to any country (multiple passports + permits)
 
 **Body:**
@@ -125,7 +125,7 @@ Built a tool that checks all your documents simultaneously:
 
 And ranks them from best to worst access for any destination.
 
-https://visapathway.techtools365.com
+https://wanderwise.techtools365.com
 
 For UAE residents specifically: your residence permit gives you visa-free access to Georgia (90 days), Armenia (180 days), and visa on arrival for Azerbaijan and Bahrain. But NOT Turkey (common misconception).
 
@@ -155,7 +155,7 @@ And benchmarks your yield against Dubai area averages:
 - Downtown: 4-5%
 - Palm Jumeirah: 3-4%
 
-https://calcstack.techtools365.com/uae/rental-yield-calculator
+https://pennymath.techtools365.com/uae/rental-yield-calculator
 
 Free, instant, no signup. Shows you the real ROI, not the marketing number.
 ```
@@ -222,7 +222,7 @@ Winner: Old regime (saves ₹46,800)
 Tweet 4: The breakeven point depends on YOUR specific deductions. No generic advice works.
 
 Try it yourself (free, no signup):
-https://calcstack.techtools365.com/india/old-vs-new-tax-regime
+https://pennymath.techtools365.com/india/old-vs-new-tax-regime
 ```
 
 ---
@@ -252,9 +252,9 @@ What other financial tools would you find useful?
 
 ---
 
-## VisaPathway + visa-verifier Launch Content (Ready to Post)
+## Wanderwise + visa-verifier Launch Content (Ready to Post)
 
-Multi-channel launch copy for the open-source visa-verifier pipeline and the VisaPathway site it powers. Repo: github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier. Site: visapathway.techtools365.com. Dataset packaged as a Gumroad product at data-products/visa-matrix-2026/.
+Multi-channel launch copy for the open-source visa-verifier pipeline and the Wanderwise site it powers. Repo: github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier. Site: wanderwise.techtools365.com. Dataset packaged as a Gumroad product at data-products/visa-matrix-2026/.
 
 ---
 
@@ -275,13 +275,13 @@ What is notable:
 
 Current state: 267 pairs verified from real embassy / MFA / e-visa pages, covering 8 high-traffic passports (India, UK, US, Canada, Australia, Japan, Singapore, Germany) across 20 top destinations. Full 199x199 matrix is scheduled to fill in over ~10 days of hourly runs.
 
-Output powers visapathway.techtools365.com — multi-passport visa checker that shows source links on verified entries (green check badge). Also packaged as a $29 CSV + PDF bundle on Gumroad for folks who just want the data.
+Output powers wanderwise.techtools365.com — multi-passport visa checker that shows source links on verified entries (green check badge). Also packaged as a $29 CSV + PDF bundle on Gumroad for folks who just want the data.
 
 All MIT-licensed. Happy to take PRs or issue reports for wrong entries.
 
 Repo: github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier
-Live demo: visapathway.techtools365.com
-Methodology: visapathway.techtools365.com/methodology
+Live demo: wanderwise.techtools365.com
+Methodology: wanderwise.techtools365.com/methodology
 ```
 
 **Pre-empt these likely comments:**
@@ -356,7 +356,7 @@ If your laptop sleeps, it picks up where it left off. No harm.
 ```
 
 ```
-7/  The output powers visapathway.techtools365.com:
+7/  The output powers wanderwise.techtools365.com:
 
 Enter passports + residence permits + visas. See visa-free / VoA / e-visa status per destination, with source links on verified entries (green check badge).
 
@@ -382,7 +382,7 @@ The pipeline uses Claude's web search tool to look up individual passport-to-des
 
 Two-model workflow: Claude Haiku does the bulk pass, Claude Sonnet re-verifies. Disagreements go to a review queue. 200+ passport pairs verified so far across 8 major passports x 20 destinations. Full 199x199 matrix is scheduled to fill in continuously.
 
-The output powers visapathway.techtools365.com — a multi-passport visa checker that shows source links on verified entries. Useful if you are:
+The output powers wanderwise.techtools365.com — a multi-passport visa checker that shows source links on verified entries. Useful if you are:
 
 - A relocation consultant who needs citable visa rules for clients
 - An immigration lawyer assessing residence-permit travel benefits
@@ -392,7 +392,7 @@ The output powers visapathway.techtools365.com — a multi-passport visa checker
 All MIT-licensed. Pipeline on GitHub, dataset available as a $29 CSV bundle for buyers who just want the data.
 
 Repo + docs: github.com/dppalukuri/BlackHole
-Live tool: visapathway.techtools365.com
+Live tool: wanderwise.techtools365.com
 
 #immigration #travel #opensource #claude #AI
 ```
@@ -413,10 +413,10 @@ I got tired of it and built a pipeline that:
 2. Rejects the cited source if it is not on a .gov / .gov.<cc> / mfa.* / embassy.* domain — no blog posts, no iVisa, no Passport Index as a source.
 3. Writes the answer to a structured JSON with the source URL attached to every entry.
 
-200+ passport->destination pairs verified so far. Full data at visapathway.techtools365.com — enter your passport(s) + residence permits and get the answer with source links.
+200+ passport->destination pairs verified so far. Full data at wanderwise.techtools365.com — enter your passport(s) + residence permits and get the answer with source links.
 
 Bonus for nomads specifically: dedicated page comparing 32 digital nomad visa programs by income threshold / duration / tax:
-https://visapathway.techtools365.com/digital-nomad-visas
+https://wanderwise.techtools365.com/digital-nomad-visas
 
 The pipeline itself is MIT-licensed — you can run it on your own Claude Code subscription. Repo: github.com/dppalukuri/BlackHole
 
@@ -435,7 +435,7 @@ r/IWantOut threads keep asking "which golden visa is actually good right now" �
 
 Each entry has: min investment USD, investment type, duration, path to citizenship (years), physical presence requirement, family inclusion, tax regime, processing time, and a direct link to the official programme page.
 
-https://visapathway.techtools365.com/golden-visa-programs
+https://wanderwise.techtools365.com/golden-visa-programs
 
 Highlights:
 - Portugal D8 still fastest EU path (5 years, 7 days presence)
@@ -443,7 +443,7 @@ Highlights:
 - Turkey CBI at $400k is the cheapest major-passport upgrade
 - Caribbean CBIs still work but EU is signaling visa requirements for them by late 2026
 
-Part of visapathway.techtools365.com — which also has a multi-passport visa checker that tells you which of your travel documents gives the easiest entry to any destination.
+Part of wanderwise.techtools365.com — which also has a multi-passport visa checker that tells you which of your travel documents gives the easiest entry to any destination.
 
 MIT-licensed open-source pipeline behind the data: github.com/dppalukuri/BlackHole. If you spot an entry that is wrong (programs change fast in this space), reply here and I will fix it.
 ```
@@ -458,10 +458,10 @@ MIT-licensed open-source pipeline behind the data: github.com/dppalukuri/BlackHo
 ```
 For the expat-FIRE crowd: I built an open-source visa checker that specifically handles the residence-permit stacking problem. If you are an Indian citizen with a UAE residence permit, what countries can you enter that your passport alone doesn't unlock?
 
-- visapathway.techtools365.com — enter your passports + permits + visas, get results per destination
+- wanderwise.techtools365.com — enter your passports + permits + visas, get results per destination
 - Entries sourced to embassy / MFA pages with green-check badges on verified; growing continuously
-- Golden visa programs compared: https://visapathway.techtools365.com/golden-visa-programs
-- Digital nomad visas compared: https://visapathway.techtools365.com/digital-nomad-visas
+- Golden visa programs compared: https://wanderwise.techtools365.com/golden-visa-programs
+- Digital nomad visas compared: https://wanderwise.techtools365.com/digital-nomad-visas
 
 Also published dedicated guides for US Green Card travel benefits and a few other common expat combos. All free, no signup, no email capture.
 
@@ -483,7 +483,7 @@ Open-source pipeline on GitHub: github.com/dppalukuri/BlackHole — MIT, happy t
 After launch, monitor:
 - HN front page position (hourly for 6 hours)
 - GitHub stars
-- VisaPathway traffic (analytics)
+- Wanderwise traffic (analytics)
 - Gumroad sales (expect 0-3 day 1, 5-15 first week)
 - Inbound emails / issues — respond within 24 hours
 

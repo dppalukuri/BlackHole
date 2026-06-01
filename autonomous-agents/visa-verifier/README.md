@@ -9,7 +9,7 @@
 **Where the output ends up:**
 - `output/verified-visas.json` — the dataset
 - `output/validation-issues.json` — disagreements between models (second-opinion pass)
-- Powers the visa-checker at [visapathway.techtools365.com](https://visapathway.techtools365.com) as the canonical source for high-traffic passport pairs
+- Powers the visa-checker at [wanderwise.techtools365.com](https://wanderwise.techtools365.com) as the canonical source for high-traffic passport pairs
 
 ---
 
@@ -172,7 +172,7 @@ If you'd rather use a raw API key instead of Claude Code:
 
 ## Related project
 
-**[VisaPathway](https://visapathway.techtools365.com)** — the consumer-facing website this data powers. Interactive multi-passport visa checker, 96+ SEO pages covering individual passports, destinations, residence permits, ranking, and guides.
+**[Wanderwise](https://wanderwise.techtools365.com)** — the consumer-facing website this data powers. Interactive multi-passport visa checker, 96+ SEO pages covering individual passports, destinations, residence permits, ranking, and guides.
 
 ---
 

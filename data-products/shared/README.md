@@ -7,9 +7,9 @@ Single source of truth for all ad/monetization scripts (AdSense, Ezoic, future p
 **DO NOT delete or modify without checking revenue impact.**
 
 ### How each site uses it:
-- **CalcStack** (Astro): `src/components/AdScripts.astro` reads and inlines this file
-- **ToolVersus** (Hugo): `layouts/partials/ad-scripts.html` is a copy synced from here
-- **VisaPathway** (Astro): `src/components/AdScripts.astro` reads and inlines this file
+- **PennyMath** (Astro): `src/components/AdScripts.astro` reads and inlines this file
+- **ToolJury** (Hugo): `layouts/partials/ad-scripts.html` is a copy synced from here
+- **Wanderwise** (Astro): `src/components/AdScripts.astro` reads and inlines this file
 
 ### Adding a new ad partner:
 1. Add the script to `ads.html`

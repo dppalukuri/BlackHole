@@ -1,0 +1,154 @@
+[plan] 150 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/150] Azerbaijan → North Korea: VR (conf=medium)  src=https://travel.state.gov/en/international-travel/travel-advisories/north-korea.html
+  [2/150] Bahamas → Bosnia and Herzegovina: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Bosnia_and_Herzegovina
+  [3/150] Azerbaijan → Palestine: VR (conf=high)  src=https://embassies.gov.il/azerbaijan/en/services/foreign-citizens/entry-visa-visiting-or-touring-israel
+  [4/150] Bahamas → Bolivia: VR (conf=medium)  src=https://bolivianembassy.ca/visas-english-version/
+  [5/150] Bahamas → Botswana: ERROR claude CLI timed out after 240s
+  [6/150] Bahamas → Cape Verde: ERROR claude CLI timed out after 240s
+  [7/150] Bahamas → Cyprus: ERROR claude CLI timed out after 240s
+  [8/150] Bahamas → Ecuador: ERROR claude CLI timed out after 240s
+  [9/150] Bahamas → Indonesia: EV (conf=high)  src=https://evisa.imigrasi.go.id/
+  [10/150] Bahamas → Egypt: VOA (conf=high)  src=https://egyptembassy.net/consular-services/visas-travel/visa-requirements/
+  [11/150] Bahamas → Ireland: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Ireland
+  [12/150] Bahamas → Italy: VF (conf=high)  src=https://consmiami.esteri.it/en/servizi-consolari-e-visti/foreign-citizen-services/visti/
+  [13/150] Bahamas → Israel: ETA (conf=high)  src=https://israel-entry.piba.gov.il/
+  [14/150] Bahamas → Ivory Coast: ERROR claude CLI timed out after 240s
+  [15/150] Bahamas → Jamaica: VF (conf=high)  src=https://www.pica.gov.jm/immigration/entry-visa-requirements
+  [16/150] Bahamas → Japan: VF (conf=high)  src=https://www.mofa.go.jp/j_info/visit/visa/short/novisa.html
+  [17/150] Bahamas → Jordan: VOA (conf=high)  src=https://mota.gov.jo/En/Pages/Visa_information
+  [18/150] Bahamas → Kazakhstan: EV (conf=low)  src=https://new.wpk.kz/evisa_eng
+  [19/150] Bahamas → Kenya: VF (conf=high)  src=https://kenyaembassydc.org/eta/
+  [20/150] Bahamas → Kiribati: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Kiribati.html
+  [21/150] Bahamas → Kosovo: VF (conf=low)  src=https://president-ksgov.net/en/in-washington-d-c-an-agreement-was-signed-on-the-mutual-visa-free-regime-between-kosovo-and-bahamas/
+  [22/150] Bahamas → Kuwait: VR (conf=high)  src=https://www.kuwaitembassy.org/about-kuwait/visa-requirements
+  [23/150] Bahamas → Kyrgyzstan: EV (conf=high)  src=https://www.evisa.e-gov.kg/get_information.php?lng=en
+  [24/150] Bahamas → Latvia: VF (conf=high)  src=https://www.pmlp.gov.lv/en/list-countries-citizens-which-do-not-need-visas
+  [25/150] Bahamas → Laos: ERROR claude CLI timed out after 240s
+  [26/150] Bahamas → Lebanon: VOA (conf=high)  src=https://www.general-security.gov.lb/en/posts/38
+  [27/150] Bahamas → Lesotho: VR (conf=medium)  src=https://www.lesothoemb-usa.gov.ls/visa/
+  [28/150] Bahamas → Liberia: EV (conf=high)  src=https://visaonarrival.lis.gov.lr/
+  [29/150] Bahamas → Libya: EV (conf=high)  src=https://www.evisa.gov.ly/
+  [30/150] Bahamas → Liechtenstein: ERROR claude CLI timed out after 240s
+  [31/150] Bahamas → Lithuania: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Bahamian_citizens
+  [32/150] Bahamas → Luxembourg: VF (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [33/150] Bahamas → Macao: VOA (conf=high)  src=https://www.gov.mo/en/services/ps-1474/ps-1474b/
+  [34/150] Bahamas → Madagascar: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Madagascar
+  [35/150] Bahamas → Malawi: ERROR claude CLI timed out after 240s
+  [36/150] Bahamas → Malaysia: VF (conf=high)  src=https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/
+  [37/150] Bahamas → Maldives: VOA (conf=low)  src=https://www.maldiveshighcommission.uk/index.php/maldives/maldives-visa-and-passport-information
+  [38/150] Bahamas → Mali: EV (conf=medium)  src=https://maliembassy.us/visas/
+  [39/150] Bahamas → Malta: VR (conf=high)  src=https://identita.gov.mt/central-visa-unit-services-short-stay-visits/
+  [40/150] Bahamas → Marshall Islands: UNKNOWN (conf=unknown)
+  [41/150] Bahamas → Mauritania: ERROR claude CLI timed out after 240s
+  [42/150] Bahamas → Mauritius: ERROR claude CLI timed out after 240s
+  [43/150] Bahamas → Mexico: VF (conf=high)  src=https://consulmex.sre.gob.mx/reinounido/index.php/es/contenido/92-tourist-visa
+  [44/150] Bahamas → Micronesia: VF (conf=high)  src=https://www.gov.uk/foreign-travel-advice/federated-states-of-micronesia/entry-requirements
+  [45/150] Bahamas → Monaco: VF (conf=high)  src=https://embassy-to-uk.gouv.mc/en/information-and-services/visiting-monaco
+  [46/150] Bahamas → Moldova: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Moldova
+  [47/150] Bahamas → Mongolia: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Mongolia.html
+  [48/150] Bahamas → Morocco: EV (conf=low)  src=https://www.acces-maroc.ma
+  [49/150] Bahamas → Montenegro: VF (conf=low)  src=https://www.visit-montenegro.com/montenegro-visa-regimes/
+  [50/150] Bahamas → Mozambique: VOA (conf=high)  src=https://usa.embamoc.gov.mz/?page_id=99
+  [51/150] Bahamas → Myanmar: ERROR claude CLI timed out after 240s
+  [52/150] Bahamas → Namibia: VOA (conf=low)  src=https://visitnamibia.com.na/visa-information/
+  [53/150] Bahamas → Nauru: VR (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Nauru.html
+  [54/150] Bahamas → Nepal: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Nepal.html
+  [55/150] Bahamas → Netherlands: ERROR claude CLI timed out after 240s
+  [56/150] Bahamas → New Zealand: ERROR claude CLI timed out after 240s
+  [57/150] Bahamas → Nicaragua: ERROR claude CLI timed out after 240s
+  [58/150] Bahamas → Niger: ERROR claude CLI timed out after 240s
+  [59/150] Bahamas → Nigeria: EV (conf=high)  src=https://immigration.gov.ng/info-center/tourism-visa-f5a/
+  [60/150] Bahamas → North Korea: VR (conf=high)  src=https://travel.state.gov/en/international-travel/travel-advisories/north-korea.html
+  [61/150] Bahamas → North Macedonia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [62/150] Bahamas → Norway: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [63/150] Bahamas → Oman: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [64/150] Bahamas → Pakistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [65/150] Bahamas → Palau: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [66/150] Bahamas → Palestine: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [67/150] Bahamas → Papua New Guinea: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [68/150] Bahamas → Panama: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [69/150] Bahamas → Paraguay: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [70/150] Bahamas → Philippines: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [71/150] Bahamas → Peru: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [72/150] Bahamas → Poland: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [73/150] Bahamas → Portugal: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [74/150] Bahamas → Romania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [75/150] Bahamas → Qatar: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [76/150] Bahamas → Russia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [77/150] Bahamas → Rwanda: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [78/150] Bahamas → Saint Kitts and Nevis: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [79/150] Bahamas → Saint Lucia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [80/150] Bahamas → Saint Vincent and the Grenadines: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [81/150] Bahamas → Samoa: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [82/150] Bahamas → San Marino: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [83/150] Bahamas → Sao Tome and Principe: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [84/150] Bahamas → Saudi Arabia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [85/150] Bahamas → Serbia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [86/150] Bahamas → Senegal: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [87/150] Bahamas → Seychelles: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [88/150] Bahamas → Sierra Leone: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [89/150] Bahamas → Slovakia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [90/150] Bahamas → Singapore: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [91/150] Bahamas → Slovenia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [92/150] Bahamas → Solomon Islands: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [93/150] Bahamas → Somalia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [94/150] Bahamas → South Africa: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [95/150] Bahamas → South Korea: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [96/150] Bahamas → South Sudan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [97/150] Bahamas → Spain: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [98/150] Bahamas → Sri Lanka: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [99/150] Bahamas → Suriname: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [100/150] Bahamas → Sudan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [101/150] Bahamas → Swaziland: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [102/150] Bahamas → Sweden: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [103/150] Bahamas → Switzerland: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [104/150] Bahamas → Syria: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [105/150] Bahamas → Tajikistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [106/150] Bahamas → Taiwan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [107/150] Bahamas → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [108/150] Bahamas → Timor-Leste: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [109/150] Bahamas → Thailand: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [110/150] Bahamas → Togo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [111/150] Bahamas → Tonga: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [112/150] Bahamas → Trinidad and Tobago: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [113/150] Bahamas → Tunisia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [114/150] Bahamas → Turkey: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [115/150] Bahamas → Turkmenistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [116/150] Bahamas → Uganda: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [117/150] Bahamas → Tuvalu: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [118/150] Bahamas → Ukraine: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [119/150] Bahamas → United Kingdom: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [120/150] Bahamas → United Arab Emirates: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [121/150] Bahamas → United States: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [122/150] Bahamas → Uruguay: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [123/150] Bahamas → Uzbekistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [124/150] Bahamas → Vanuatu: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [125/150] Bahamas → Vatican: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [126/150] Bahamas → Venezuela: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [127/150] Bahamas → Vietnam: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [128/150] Bahamas → Yemen: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [129/150] Bahamas → Zambia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [130/150] Bahamas → Zimbabwe: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [131/150] Bahrain → Afghanistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [132/150] Bahrain → Albania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [133/150] Bahrain → Algeria: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [134/150] Bahrain → Andorra: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [135/150] Bahrain → Angola: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [136/150] Bahrain → Antigua and Barbuda: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [137/150] Bahrain → Armenia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [138/150] Bahrain → Argentina: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [139/150] Bahrain → Australia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [140/150] Bahrain → Bahrain: VF (conf=high)  src=-
+  [141/150] Bahrain → Austria: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [142/150] Bahrain → Azerbaijan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [143/150] Bahrain → Bahamas: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [144/150] Bahrain → Bangladesh: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [145/150] Bahrain → Barbados: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [146/150] Bahrain → Belarus: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [147/150] Bahrain → Belgium: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [148/150] Bahrain → Benin: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [149/150] Bahrain → Belize: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [150/150] Bahrain → Bhutan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+[done] wrote 46 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

@@ -403,7 +403,7 @@
     "Zimbabwe"
   ],
   "output": "output/verified-visas.json",
-  "site_sync_path": "../../data-products/visapathway/public/data/verified-visas.json",
+  "site_sync_path": "../../data-products/wanderwise/public/data/verified-visas.json",
   "notes": [
     "Full matrix: 199 passports x 199 destinations = 39,601 pairs (199 self-refs auto-skipped).",
     "Hourly scheduled task runs with --limit N --parallel 4 --sync so the queue drains gradually.",

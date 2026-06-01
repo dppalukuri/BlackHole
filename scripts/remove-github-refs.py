@@ -34,13 +34,13 @@ SOURCES = [
     "techtools365-landing/public/blog/visa-stacking-explained-2026/index.html",
     "techtools365-landing/public/blog/uae-vs-india-take-home-salary-2026/index.html",
     # Hugo source
-    "toolversus/content/about.md",
-    "toolversus/content/contact.md",
-    "toolversus/layouts/_default/baseof.html",
+    "tooljury/content/about.md",
+    "tooljury/content/contact.md",
+    "tooljury/layouts/_default/baseof.html",
     # Astro source
-    "visapathway/src/layouts/BaseLayout.astro",
-    "visapathway/src/pages/methodology.astro",
-    "calcstack/src/layouts/BaseLayout.astro",
+    "wanderwise/src/layouts/BaseLayout.astro",
+    "wanderwise/src/pages/methodology.astro",
+    "pennymath/src/layouts/BaseLayout.astro",
 ]
 
 # (pattern, replacement, is_regex) — applied in order. Regex uses re.DOTALL.
@@ -62,7 +62,7 @@ RULES = [
     (r"BlackHole repo", "site", False),
     (r"follow the\s*<a href=\"/contact/\">email</a>\s*\u2014", "email us \u2014", True),
     (r"\(<a href=\"/contact/\">email</a>\)", "", True),
-    # 5. Markdown footer-link removal in toolversus content (just in case)
+    # 5. Markdown footer-link removal in tooljury content (just in case)
     (r'\* \[GitHub\]\(https://github\.com/dppalukuri/BlackHole\)\s*', "", True),
     # 6. Markdown link to repo in about.md / contact.md — replace with email
     (r'\[GitHub\]\(https://github\.com/dppalukuri/BlackHole\)', '[email](/contact/)', False),

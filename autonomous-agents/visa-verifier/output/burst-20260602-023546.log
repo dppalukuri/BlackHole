@@ -1,0 +1,37 @@
+[plan] 30 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 6 workers
+  [1/30] Afghanistan → Afghanistan: VF (conf=high)  src=-
+  [2/30] Afghanistan → Argentina: VR (conf=high)  src=https://cancilleria.gob.ar/en/services/visa/tourist-visa
+  [3/30] Afghanistan → Albania: EV (conf=high)  src=https://punetejasstme.gov.al/en/regjimi-i-vizave-per-te-huajt/
+  [4/30] Afghanistan → Algeria: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Algeria
+  [5/30] Afghanistan → Andorra: VR (conf=low)  src=https://visitandorra.com/en/visitor-information/passports-visas-and-customs/
+  [6/30] Afghanistan → Antigua and Barbuda: EV (conf=medium)  src=https://cip.gov.ag/how-to-apply/passport-visa-requirements/
+  [7/30] Afghanistan → Austria: VR (conf=high)  src=https://www.bmeia.gv.at/en/austrian-embassy-islamabad/travel-to-austria
+  [8/30] Afghanistan → Armenia: VR (conf=high)  src=https://www.mfa.am/en/invitation_only
+  [9/30] Afghanistan → Bahamas: EV (conf=high)  src=https://mofa.gov.bs/evisa-online-services/
+  [10/30] Afghanistan → Angola: EV (conf=high)  src=https://sme.gov.ao/ao/evisa/
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+  [11/30] Afghanistan → Azerbaijan: VR (conf=high)  src=https://canberra.mfa.gov.az/en/category/asan-visa-e-visa
+  [12/30] Afghanistan → Australia: VR (conf=high)  src=https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/visitor-600
+  [13/30] Afghanistan → Belarus: VR (conf=high)  src=https://mfa.gov.by/en/visa/oformlenie/
+  [14/30] Afghanistan → Barbados: VR (conf=high)  src=https://immigration.gov.bb/pages/visa_requirements.aspx
+  [15/30] Afghanistan → Bangladesh: EV (conf=high)  src=https://visa.gov.bd/
+  [16/30] Afghanistan → Bahrain: EV (conf=medium)  src=https://www.evisa.gov.bh/
+  [17/30] Afghanistan → Belgium: VR (conf=low)  src=https://pakistan.diplomatie.belgium.be/en/travel-belgium/visa-belgium-and-grand-duchy-luxembourg/short-stay-visa-citizens-afghanistan
+  [18/30] Afghanistan → Benin: EV (conf=high)  src=https://evisa.bj
+  [19/30] Afghanistan → Bhutan: EV (conf=high)  src=https://www.doi.gov.bt/?page_id=192&lang=en
+  [20/30] Afghanistan → Belize: VR (conf=high)  src=https://immigration.gov.bz/visa/visa-who-qualify/
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+  [21/30] Afghanistan → Botswana: EV (conf=high)  src=https://www.gov.bw/visa-applications/visa-application-tourism-visa
+  [22/30] Afghanistan → Brunei: VR (conf=high)  src=https://www.mfa.gov.bn/Pages/Visa-Information.aspx
+  [23/30] Afghanistan → Bolivia: VR (conf=high)  src=https://bolivianembassy.co.uk/visa-grupos-1-2-3/
+  [24/30] Afghanistan → Bosnia and Herzegovina: VR (conf=high)  src=https://sps.gov.ba/?page_id=2548&lang=en
+  [25/30] Afghanistan → Burkina Faso: EV (conf=low)  src=https://applicant.visaburkina.bf/
+  [26/30] Afghanistan → Bulgaria: VR (conf=high)  src=https://www.mfa.bg/en/services-travel/consular-services/travel-bulgaria/visa-bulgaria
+  [27/30] Afghanistan → Cambodia: EV (conf=high)  src=https://www.embassyofcambodiadc.org/tourist_visa_type-t.html
+  [28/30] Afghanistan → Burundi: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Burundi.html
+  [29/30] Afghanistan → Brazil: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Afghan_citizens
+  [30/30] Afghanistan → Cameroon: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Cameroon
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[done] wrote 30 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json

@@ -1,0 +1,154 @@
+[plan] 150 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/150] Azerbaijan → Liberia: VOA (conf=high)  src=https://visaonarrival.lis.gov.lr/
+  [2/150] Azerbaijan → Latvia: VR (conf=low)  src=https://www.latvia.travel/en/travelling-latvia-visas-customs-procedures
+  [3/150] Azerbaijan → Kazakhstan: VF (conf=low)  src=https://new.wpk.kz/kaz_entry_eng
+  [4/150] Azerbaijan → Laos: EV (conf=high)  src=https://laoevisa.gov.la
+  [5/150] Azerbaijan → Libya: EV (conf=high)  src=https://www.evisa.gov.ly/
+  [6/150] Azerbaijan → Liechtenstein: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [7/150] Azerbaijan → Lithuania: VR (conf=high)  src=https://az.mfa.lt/en/travel-and-residence/coming-to-lithuania/visas/71
+  [8/150] Azerbaijan → Luxembourg: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [9/150] Azerbaijan → Macao: UNKNOWN (conf=unknown)
+  [10/150] Azerbaijan → Madagascar: VOA (conf=high)  src=https://ambamad-washington.diplomatie.gov.mg/index.php/visa
+  [11/150] Azerbaijan → Malaysia: VF (conf=high)  src=https://www.imi.gov.my/index.php/en/main-services/visa/visa-requirement-by-country/
+  [12/150] Azerbaijan → Malawi: EV (conf=high)  src=https://evisa.gov.mw
+  [13/150] Azerbaijan → Maldives: VF (conf=high)  src=https://foreign.gov.mv/index.php/en/consular/for-foreigners-visiting-maldives/maldives-visa
+  [14/150] Azerbaijan → Mali: VR (conf=medium)  src=https://maliembassy.us/visas/
+  [15/150] Azerbaijan → Malta: VR (conf=high)  src=https://identita.gov.mt/central-visa-unit-services-short-stay-visits/
+  [16/150] Azerbaijan → Marshall Islands: VOA (conf=high)  src=https://rmiimmigration.org/
+  [17/150] Azerbaijan → Mauritania: EV (conf=high)  src=https://anrpts.gov.mr/visa/requestvisa
+  [18/150] Azerbaijan → Mauritius: VOA (conf=low)  src=https://passport.govmu.org/passport/?page_id=605
+  [19/150] Azerbaijan → Mexico: VR (conf=high)  src=https://embamex.sre.gob.mx/azerbaiyan/index.php/com-phocamaps-markers/seccion-consular/vizalar-visas
+  [20/150] Azerbaijan → Micronesia: VF (conf=high)  src=https://www.gov.uk/foreign-travel-advice/federated-states-of-micronesia/entry-requirements
+  [21/150] Azerbaijan → Moldova: VF (conf=high)  src=https://azerbaidjan.mfa.gov.md/en/content/visa
+  [22/150] Azerbaijan → Monaco: VR (conf=high)  src=https://ambassade-en-france.gouv.mc/en/information-and-services/visiting-monaco
+  [23/150] Azerbaijan → Mongolia: VR (conf=low)  src=https://en.consul.mn/visa/c/83
+  [24/150] Azerbaijan → Montenegro: VR (conf=high)  src=https://www.gov.me/en/article/montenegro-continues-to-align-its-visa-policy-with-the-eu
+  [25/150] Azerbaijan → Morocco: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Morocco.html
+  [26/150] Azerbaijan → Mozambique: VR (conf=high)  src=https://usa.embamoc.gov.mz/?page_id=99
+  [27/150] Azerbaijan → Myanmar: VR (conf=high)  src=https://evisa.moip.gov.mm/
+  [28/150] Azerbaijan → Namibia: ERROR claude CLI timed out after 240s
+  [29/150] Azerbaijan → Nauru: VR (conf=medium)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Nauru.html
+  [30/150] Azerbaijan → Nepal: VOA (conf=high)  src=https://www.immigration.gov.np/en/page/visa-on-arrival
+  [31/150] Azerbaijan → Netherlands: VR (conf=high)  src=https://www.netherlandsworldwide.nl/visa-the-netherlands/schengen-visa/apply-azerbaijan
+  [32/150] Azerbaijan → New Zealand: VR (conf=high)  src=https://www.immigration.govt.nz/visas/visitor-visa/
+  [33/150] Azerbaijan → Nicaragua: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Nicaragua.html
+  [34/150] Azerbaijan → Niger: ERROR claude CLI timed out after 240s
+  [35/150] Azerbaijan → Nigeria: ERROR claude CLI timed out after 240s
+  [36/150] Azerbaijan → North Korea: ERROR claude CLI timed out after 240s
+  [37/150] Azerbaijan → North Macedonia: VR (conf=high)  src=https://mfa.gov.mk/en-GB/konzularni-uslugi/vidovi-vizi-za-vlez-vo-rsm
+  [38/150] Azerbaijan → Oman: EV (conf=high)  src=https://www.fm.gov.om/en/visitors/entry-visas/
+  [39/150] Azerbaijan → Norway: VR (conf=low)  src=https://www.norway.no/en/usa/services-info/visitors-visa-res-permit/visitors-visa/
+  [40/150] Azerbaijan → Pakistan: ERROR claude CLI timed out after 240s
+  [41/150] Azerbaijan → Palau: VOA (conf=low)  src=https://bcbp.pw/?page_id=165
+  [42/150] Azerbaijan → Palestine: ERROR claude CLI timed out after 240s
+  [43/150] Azerbaijan → Panama: ERROR claude CLI timed out after 240s
+  [44/150] Azerbaijan → Papua New Guinea: EV (conf=low)  src=https://papuanewguinea.travel/visa-customs-and-quarantine/
+  [45/150] Azerbaijan → Paraguay: VR (conf=high)  src=https://migraciones.gov.py/informacion-sobre-visas/
+  [46/150] Azerbaijan → Peru: VR (conf=high)  src=https://www.mfa.gov.az/en/category/visa/visa-free-countries
+  [47/150] Azerbaijan → Poland: VR (conf=high)  src=https://www.gov.pl/web/diplomacy/visas
+  [48/150] Azerbaijan → Philippines: ERROR claude CLI timed out after 240s
+  [49/150] Azerbaijan → Portugal: ERROR claude CLI timed out after 240s
+  [50/150] Azerbaijan → Qatar: VF (conf=low)  src=https://visitqatar.com/intl-en/plan-your-trip/visas
+  [51/150] Azerbaijan → Romania: VR (conf=low)  src=https://baku.mae.ro/en/node/426
+  [52/150] Azerbaijan → Russia: VF (conf=high)  src=https://www.mfa.gov.az/en/category/viza/vizasiz-gedis-gelis-rejimi-tetbiq-olunan-olkeler
+  [53/150] Azerbaijan → Rwanda: VOA (conf=high)  src=https://www.migration.gov.rw/visa-on-arrival
+  [54/150] Azerbaijan → Saint Kitts and Nevis: ETA (conf=low)  src=https://www.knatravelform.kn/en
+  [55/150] Azerbaijan → Saint Lucia: VR (conf=high)  src=https://externalaffairs.gov.lc/visiting-saint-lucia/
+  [56/150] Azerbaijan → Samoa: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Samoa.html
+  [57/150] Azerbaijan → Saint Vincent and the Grenadines: VF (conf=high)  src=https://security.gov.vc/security/index.php?option=com_content&view=article&id=53&Itemid=106
+  [58/150] Azerbaijan → San Marino: VF (conf=high)  src=https://mfa.gov.az/files/file/Visa_Free-C180225_EN.pdf
+  [59/150] Azerbaijan → Saudi Arabia: EV (conf=low)  src=https://visa.visitsaudi.com/
+  [60/150] Azerbaijan → Sao Tome and Principe: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_São_Tomé_and_Príncipe
+  [61/150] Azerbaijan → Senegal: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Senegal
+  [62/150] Azerbaijan → Serbia: VF (conf=high)  src=https://mfa.gov.rs/en/citizens/travel-serbia/visa-regime/azerbejdzan
+  [63/150] Azerbaijan → Seychelles: VF (conf=high)  src=https://www.ics.gov.sc/permits/visitors-permit
+  [64/150] Azerbaijan → Sierra Leone: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Sierra_Leone
+  [65/150] Azerbaijan → Singapore: VR (conf=high)  src=https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/azerbaijan
+  [66/150] Azerbaijan → Slovakia: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [67/150] Azerbaijan → Slovenia: VR (conf=high)  src=https://www.gov.si/en/countries/azerbaijan/for-azerbaijani-citizens/
+  [68/150] Azerbaijan → Somalia: EV (conf=high)  src=https://immigration.gov.so/en/visa/
+  [69/150] Azerbaijan → Solomon Islands: VR (conf=low)  src=https://www.un.int/solomonislands/solomonislands/visa-information
+  [70/150] Azerbaijan → South Africa: VR (conf=high)  src=https://www.saembassy.org/visas/
+  [71/150] Azerbaijan → South Sudan: EV (conf=high)  src=https://mofaic.gov.ss/visa-eligibility/
+  [72/150] Azerbaijan → South Korea: VR (conf=medium)  src=https://overseas.mofa.go.kr/az-en/wpge/m_8249/contents.do
+  [73/150] Azerbaijan → Spain: VR (conf=high)  src=https://www.exteriores.gob.es/Embajadas/yaunde/en/ServiciosConsulares/Paginas/Consular/Visados-Schengen.aspx
+  [74/150] Azerbaijan → Sri Lanka: EV (conf=high)  src=https://www.immigration.gov.lk/pages_e.php?id=14
+  [75/150] Azerbaijan → Sudan: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Sudan
+  [76/150] Azerbaijan → Suriname: ETA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Suriname.html
+  [77/150] Azerbaijan → Sweden: VR (conf=high)  src=https://www.swedenabroad.se/en/embassies/azerbaijan-baku/faq-to-the-embassy/how-do-i-apply-for-a-visa-to-sweden/
+  [78/150] Azerbaijan → Swaziland: VR (conf=low)  src=https://www.thekingdomofeswatini.com/visa-guide/
+  [79/150] Azerbaijan → Switzerland: VR (conf=high)  src=https://www.eda.admin.ch/countries/azerbaijan/en/home/visa/entry-ch/up-90-days/where-to-apply-schengen.html
+  [80/150] Azerbaijan → Taiwan: VR (conf=high)  src=https://www.boca.gov.tw/cp-157-4783-f6cb2-2.html
+  [81/150] Azerbaijan → Syria: ERROR claude CLI timed out after 240s
+  [82/150] Azerbaijan → Tajikistan: VF (conf=high)  src=https://mfa.gov.az/en/category/visa/visa-free-countries
+  [83/150] Azerbaijan → Tanzania: VOA (conf=high)  src=https://visa.immigration.go.tz/guidelines
+  [84/150] Azerbaijan → Thailand: VR (conf=high)  src=https://thaiconsulate.az/en/
+  [85/150] Azerbaijan → Timor-Leste: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Timor-Leste.html
+  [86/150] Azerbaijan → Togo: EV (conf=high)  src=https://www.gov.uk/foreign-travel-advice/togo/entry-requirements
+  [87/150] Azerbaijan → Tonga: VR (conf=high)  src=https://www.investtonga.gov.to/articles/visas
+  [88/150] Azerbaijan → Trinidad and Tobago: VR (conf=high)  src=https://foreign.gov.tt/services/visas/
+  [89/150] Azerbaijan → Turkey: VF (conf=high)  src=https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa
+  [90/150] Azerbaijan → Tunisia: ERROR claude CLI timed out after 240s
+  [91/150] Azerbaijan → Turkmenistan: VR (conf=medium)  src=https://www.mfa.gov.tm/en/articles/684
+  [92/150] Azerbaijan → Tuvalu: VOA (conf=low)  src=https://tuvaluhc.org.nz/visa
+  [93/150] Azerbaijan → Uganda: EV (conf=high)  src=https://visas.immigration.go.ug/
+  [94/150] Azerbaijan → Ukraine: VF (conf=high)  src=https://azerbaijan.mfa.gov.ua/en/consular-issues/visa-requirements
+  [95/150] Azerbaijan → United Arab Emirates: VF (conf=high)  src=https://www.mofa.gov.ae/en/missions/baku/services/visas
+  [96/150] Azerbaijan → United Kingdom: VR (conf=high)  src=https://www.gov.uk/standard-visitor
+  [97/150] Azerbaijan → United States: VR (conf=high)  src=https://travel.state.gov/content/travel/en/us-visas/Visa-Reciprocity-and-Civil-Documents-by-Country/Azerbaijan.html
+  [98/150] Azerbaijan → Uruguay: VF (conf=low)  src=https://www.gub.uy/ministerio-interior/comunicacion/publicaciones/regimen-visas-admision
+  [99/150] Azerbaijan → Uzbekistan: VF (conf=high)  src=https://www.mfa.gov.az/en/category/visa/visa-free-countries
+  [100/150] Azerbaijan → Vanuatu: VF (conf=high)  src=https://immigration.gov.vu/visa-exempted-countries/
+  [101/150] Azerbaijan → Vatican: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [102/150] Azerbaijan → Venezuela: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Venezuela.html
+  [103/150] Azerbaijan → Vietnam: EV (conf=high)  src=https://evisa.gov.vn/
+  [104/150] Azerbaijan → Zambia: EV (conf=high)  src=https://www.zambiaimmigration.gov.zm/nationals-requiring-visa-prior-to-travel/
+  [105/150] Azerbaijan → Yemen: ERROR claude CLI timed out after 240s
+  [106/150] Azerbaijan → Zimbabwe: VOA (conf=high)  src=https://www.evisa.gov.zw/faq.html
+  [107/150] Bahamas → Albania: VF (conf=high)  src=https://punetejashtme.gov.al/en/regjimi-i-vizave-per-te-huajt/
+  [108/150] Bahamas → Afghanistan: EV (conf=high)  src=https://mfa.gov.af/en/page/38999
+  [109/150] Bahamas → Algeria: VR (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Algeria.html
+  [110/150] Bahamas → Angola: VF (conf=low)  src=https://angola.org/visa-requirements/
+  [111/150] Bahamas → Andorra: VF (conf=low)  src=https://visitandorra.com/en/visitor-information/passports-visas-and-customs/
+  [112/150] Bahamas → Antigua and Barbuda: VF (conf=high)  src=https://cip.gov.ag/how-to-apply/passport-visa-requirements/
+  [113/150] Bahamas → Argentina: VR (conf=low)  src=https://www.argentina.travel/en/news/argentina-visa-who-needs-to-apply-for-tourism-travel-what-are-the-requirements-and-how-to-apply
+  [114/150] Bahamas → Armenia: VOA (conf=medium)  src=https://www.mfa.am/en/visa/
+  [115/150] Bahamas → Australia: VR (conf=high)  src=https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/visitor-600
+  [116/150] Bahamas → Austria: ERROR claude CLI timed out after 240s
+  [117/150] Bahamas → Azerbaijan: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Azerbaijan.html
+  [118/150] Bahamas → Bahrain: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Bahrain.html
+  [119/150] Bahamas → Bangladesh: VR (conf=high)  src=https://visa.gov.bd/
+  [120/150] Bahamas → Barbados: VF (conf=high)  src=https://immigration.gov.bb/pages/visa_requirements.aspx
+  [121/150] Bahamas → Belarus: VR (conf=high)  src=https://mfa.gov.by/en/visa/oformlenie/
+  [122/150] Bahamas → Belgium: VF (conf=high)  src=https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:22009A0630(04)
+  [123/150] Bahamas → Belize: VF (conf=high)  src=https://immigration.gov.bz/visa/visa-who-qualify/
+  [124/150] Bahamas → Benin: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Benin
+  [125/150] Bahamas → Bhutan: ERROR claude CLI timed out after 240s
+  [126/150] Bahamas → Bosnia and Herzegovina: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [127/150] Bahamas → Bolivia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [128/150] Bahamas → Botswana: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [129/150] Bahamas → Brazil: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [130/150] Bahamas → Brunei: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [131/150] Bahamas → Bulgaria: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [132/150] Bahamas → Burkina Faso: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [133/150] Bahamas → Cambodia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [134/150] Bahamas → Burundi: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [135/150] Bahamas → Cameroon: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [136/150] Bahamas → Cape Verde: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [137/150] Bahamas → Canada: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [138/150] Bahamas → Central African Republic: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [139/150] Bahamas → Chad: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [140/150] Bahamas → Chile: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [141/150] Bahamas → China: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [142/150] Bahamas → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [143/150] Bahamas → Colombia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [144/150] Bahamas → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [145/150] Bahamas → Costa Rica: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [146/150] Bahamas → Croatia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [147/150] Bahamas → Cuba: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [148/150] Bahamas → Cyprus: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [149/150] Bahamas → Czech Republic: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [150/150] Bahamas → DR Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+[done] wrote 111 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

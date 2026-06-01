@@ -6,7 +6,7 @@
 
 ## Path C: Programmatic Content Site Options
 
-### Site 1: VisaPathway — Immigration & Visa Requirements Database
+### Site 1: Wanderwise — Immigration & Visa Requirements Database
 
 **What:** Every visa type for every nationality-to-country combination. "US tourist visa for Indian citizens", "UAE golden visa requirements 2026", "Canada PR from India step-by-step".
 
@@ -26,7 +26,7 @@
 
 ---
 
-### Site 2: CalcStack — Financial Calculator Network
+### Site 2: PennyMath — Financial Calculator Network
 
 **What:** Interactive calculators targeting high-CPC financial queries.
 - India: SIP, EMI, income tax, gratuity, 8th Pay Commission salary
@@ -55,7 +55,7 @@
 
 ---
 
-### Site 3: ToolVersus — AI & SaaS Tool Comparisons
+### Site 3: ToolJury — AI & SaaS Tool Comparisons
 
 **What:** "{Tool A} vs {Tool B}" and "Best {category} for {use case}" across AI tools + SaaS.
 
@@ -168,13 +168,13 @@
 ## Recommended Build Order
 
 ### Phase 1 (Month 1-2): Site 1 + Site 2 simultaneously
-- **VisaPathway** targets India's massive emigration audience
-- **CalcStack** India financial calculators build domain authority fast
+- **Wanderwise** targets India's massive emigration audience
+- **PennyMath** India financial calculators build domain authority fast
 - Both share infrastructure (static site, same ad networks)
-- CalcStack earns in 2-3 months; VisaPathway in 3-4
+- PennyMath earns in 2-3 months; Wanderwise in 3-4
 
 ### Phase 2 (Month 3-4): Add Site 3
-- **ToolVersus** for recurring SaaS affiliate commissions
+- **ToolJury** for recurring SaaS affiliate commissions
 - This is where $200+/sale affiliate deals live
 
 ### Phase 3 (Month 5+): Launch Data 2
@@ -182,9 +182,9 @@
 - 50 public sources, MVP in days, proven demand at $49/mo
 
 ### Market coverage:
-- **India:** VisaPathway + CalcStack (massive traffic, growing CPC)
-- **UAE:** CalcStack (gratuity/VAT) + VisaPathway (golden visa)
-- **US:** ToolVersus (highest CPC/affiliate) + WARN Act (direct revenue)
+- **India:** Wanderwise + PennyMath (massive traffic, growing CPC)
+- **UAE:** PennyMath (gratuity/VAT) + Wanderwise (golden visa)
+- **US:** ToolJury (highest CPC/affiliate) + WARN Act (direct revenue)
 
 ---
 

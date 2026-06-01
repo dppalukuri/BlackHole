@@ -1,0 +1,102 @@
+[plan] 100 pairs to verify (model=haiku, ttl=30d)
+[parallel] running 4 workers
+  [1/100] Austria → DR Congo: EV (conf=high)  src=https://evisa.gouv.cd/
+  [2/100] Austria → Canada: ETA (conf=high)  src=https://ircc.canada.ca/english/helpcentre/answer.asp?qnum=1198&top=16
+  [3/100] Austria → Brazil: VF (conf=high)  src=https://www.gov.br/mre/pt-br/embaixada-viena/vistos/vivis
+  [4/100] Austria → Egypt: EV (conf=high)  src=https://visa.vfsglobal.com/one-pager/austria/egypt/english/
+  [5/100] Austria → Maldives: VOA (conf=high)  src=https://www.immigration.gov.mv/visa/tourist-visa
+  [6/100] Austria → San Marino: VF (conf=low)  src=https://www.bmeia.gv.at/reise-services/reiseinformation/land/san-marino
+  [7/100] Austria → Niger: EV (conf=low)  src=https://nigerevisaportal.midas-dev.com/
+  [8/100] Austria → South Africa: VF (conf=high)  src=https://dirco.gov.za/uk/visa-countries-waivers/
+  [9/100] Azerbaijan → Bolivia: VR (conf=low)  src=https://embajadadebolivia.eu/en/turism-visa/
+  [10/100] Austria → Singapore: VF (conf=high)  src=https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements
+  [11/100] Azerbaijan → Central African Republic: VR (conf=high)  src=https://www.usrcaembassy.org/about-5
+  [12/100] Azerbaijan → Brunei: VR (conf=high)  src=https://www.mfa.gov.bn/pages/category-b.aspx
+  [13/100] Azerbaijan → Costa Rica: VR (conf=low)  src=https://costarica.org/travel/visas/
+  [14/100] Azerbaijan → Croatia: VR (conf=high)  src=https://mvep.gov.hr/consular-informaton/visas-86726/86726
+  [15/100] Azerbaijan → Czech Republic: VR (conf=high)  src=https://mzv.gov.cz/baku/en/visa_and_consular_information/visa_up_to_90_days/visa_up_to_90_days.html
+  [16/100] Azerbaijan → Cyprus: VR (conf=low)  src=https://www.cyprusvisa.eu/countries-required-entry-visa-cyprus.html
+  [17/100] Azerbaijan → Chad: EV (conf=medium)  src=https://evisa.td
+  [18/100] Azerbaijan → Denmark: VR (conf=low)  src=https://nyidanmark.dk/en-GB/You-want-to-apply/Short-stay-visa/Private-visits-and-tourist-visits-
+  [19/100] Azerbaijan → DR Congo: EV (conf=high)  src=https://congo-evisa.com/democratic-republic-of-the-congo-visa-policy/
+  [20/100] Azerbaijan → Cuba: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Cuba
+  [21/100] Azerbaijan → Dominica: VR (conf=high)  src=https://dominica.gov.dm/services/passports-and-travel-documents-non-nationals/do-i-need-a-visa-to-enter-into-dominica
+  [22/100] Azerbaijan → Ecuador: VF (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ecuador.html
+  [23/100] Azerbaijan → Djibouti: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Djibouti.html
+  [24/100] Azerbaijan → Dominican Republic: VR (conf=low)  src=https://www.godominicanrepublic.com/travel/entry-requirements
+  [25/100] Azerbaijan → Equatorial Guinea: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Equatorial_Guinea
+  [26/100] Azerbaijan → El Salvador: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_El_Salvador
+  [27/100] Azerbaijan → Eritrea: VR (conf=high)  src=https://us.embassyeritrea.org/visa/
+  [28/100] Azerbaijan → Ethiopia: EV (conf=high)  src=https://www.evisa.gov.et/
+  [29/100] Azerbaijan → Estonia: VR (conf=low)  src=https://vm.ee/en/consular-visa-and-travel-information/visa-information/application-schengen-visa
+  [30/100] Azerbaijan → Egypt: EV (conf=high)  src=https://egymonuments.gov.eg/news/now-easily-the-e-visa-online/
+  [31/100] Azerbaijan → Fiji: VR (conf=high)  src=https://www.immigration.gov.fj/fiji-visas/
+  [32/100] Azerbaijan → Gabon: EV (conf=high)  src=https://www.gabonembassyusa.org/en/visa-consular/visa
+  [33/100] Azerbaijan → France: VR (conf=high)  src=https://france-visas.gouv.fr/en/web/france-visas/azerbaidjan
+  [34/100] Azerbaijan → Finland: VR (conf=low)  src=https://um.fi/visa-to-visit-finland
+  [35/100] Azerbaijan → Gambia: VOA (conf=medium)  src=https://gambia.gov.gm/immigration-and-visas/
+  [36/100] Azerbaijan → Germany: VR (conf=low)  src=https://www.auswaertiges-amt.de/en/visa-service/215870-215870
+  [37/100] Azerbaijan → Ghana: VR (conf=high)  src=https://gis.gov.gh/visas/
+  [38/100] Azerbaijan → Greece: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en
+  [39/100] Azerbaijan → Georgia: VF (conf=low)  src=https://georgia.travel/coming-to-georgia/georgia-travel-visa-application
+  [40/100] Azerbaijan → Guinea-Bissau: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea-Bissau.html
+  [41/100] Azerbaijan → Guinea: EV (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Guinea.html
+  [42/100] Azerbaijan → Haiti: VF (conf=low)  src=https://www.haiti.org/tourist-visa/
+  [43/100] Azerbaijan → Grenada: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Grenada
+  [44/100] Azerbaijan → Guatemala: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Guatemala
+  [45/100] Azerbaijan → Guyana: VR (conf=high)  src=https://www.minfor.gov.gy/visa-information
+  [46/100] Azerbaijan → Honduras: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Honduras
+  [47/100] Azerbaijan → Hungary: VR (conf=high)  src=https://baku.mfa.gov.hu/eng
+  [48/100] Azerbaijan → Iceland: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [49/100] Azerbaijan → India: EV (conf=high)  src=https://indianvisaonline.gov.in/evisa/tvoa.html
+  [50/100] Azerbaijan → Indonesia: VOA (conf=high)  src=https://www.imigrasi.go.id/wna/daftar-negara-voa-bvk-calling-visa
+  [51/100] Azerbaijan → Hong Kong: VR (conf=high)  src=https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html
+  [52/100] Azerbaijan → Israel: VR (conf=high)  src=https://embassies.gov.il/azerbaijan/en/services/foreign-citizens/entry-visa-visiting-or-touring-israel
+  [53/100] Azerbaijan → Iraq: EV (conf=high)  src=https://evisa.iq/en
+  [54/100] Azerbaijan → Iran: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Iran
+  [55/100] Azerbaijan → Italy: VR (conf=high)  src=https://vistoperitalia.esteri.it/
+  [56/100] Azerbaijan → Ireland: VR (conf=high)  src=https://www.irishimmigration.ie/coming-to-visit-ireland/
+  [57/100] Azerbaijan → Ivory Coast: EV (conf=low)  src=https://www.aeroport-abidjan.com/visa_on_arrival_ivory_coast.php
+  [58/100] Azerbaijan → Jamaica: VOA (conf=high)  src=https://www.pica.gov.jm/immigration/entry-visa-requirements
+  [59/100] Azerbaijan → Japan: VR (conf=high)  src=https://www.mofa.go.jp/j_info/visit/visa/
+  [60/100] Azerbaijan → Jordan: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Azerbaijani_citizens
+  [61/100] Azerbaijan → Kiribati: VR (conf=high)  src=https://www.mfa.gov.ki/visa/
+  [62/100] Azerbaijan → Kosovo: VR (conf=low)  src=https://arkivi.mfa-ks.net/en/sherbimet_konsullore/505/kategorit-e-veanta-t-liruara-nga-viza/505.html
+  [63/100] Azerbaijan → Kyrgyzstan: VF (conf=high)  src=https://mfa.gov.kg/en/Main-menu/Consular-services/Consular-visas-issues/izovye-i-bezvizovye-rezhimy
+  [64/100] Azerbaijan → Kenya: VR (conf=high)  src=https://immigration.ecitizen.go.ke/index.php?id=6
+  [65/100] Azerbaijan → Latvia: VR (conf=high)  src=https://www2.mfa.gov.lv/en/azerbaijan/consularinformation/
+  [66/100] Azerbaijan → Kuwait: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Kuwait
+  [67/100] Azerbaijan → Kazakhstan: ERROR claude CLI timed out after 240s
+  [68/100] Azerbaijan → Lebanon: VOA (conf=high)  src=https://www.general-security.gov.lb/en/posts/38
+  [69/100] Azerbaijan → Laos: VOA (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Azerbaijani_citizens
+  [70/100] Azerbaijan → Lesotho: VR (conf=high)  src=https://www.lesothoemb-usa.gov.ls/visa/
+  [71/100] Azerbaijan → Liechtenstein: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en
+  [72/100] Azerbaijan → Liberia: VOA (conf=medium)  src=https://visaonarrival.lis.gov.lr/
+  [73/100] Azerbaijan → Libya: EV (conf=medium)  src=https://www.evisa.gov.ly/
+  [74/100] Azerbaijan → Luxembourg: VR (conf=high)  src=https://guichet.public.lu/en/citoyens/immigration/moins-3-mois/ressortissant-tiers/entree-visa.html
+  [75/100] Azerbaijan → Lithuania: VR (conf=high)  src=https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en
+  [76/100] Azerbaijan → Madagascar: EV (conf=low)  src=https://evisamada-mg.com/en/home
+  [77/100] Azerbaijan → Macao: VOA (conf=medium)  src=https://www.gov.mo/en/services/ps-1474/ps-1474b/
+  [78/100] Azerbaijan → Malawi: VOA (conf=high)  src=https://evisa.gov.mw/VisasAssistance
+  [79/100] Azerbaijan → Maldives: VF (conf=high)  src=https://foreign.gov.mv/index.php/en/media-center/news/the-maldives-and-azerbaijan-sign-visa-exemption-agreement
+  [80/100] Azerbaijan → Malaysia: VF (conf=high)  src=https://www.kln.gov.my/web/aze_baku/requirement_foreigner
+  [81/100] Azerbaijan → Mauritania: EV (conf=high)  src=https://anrpts.gov.mr/visa/requestvisa
+  [82/100] Azerbaijan → Malta: VR (conf=high)  src=https://identita.gov.mt/central-visa-unit-services-short-stay-visits/
+  [83/100] Azerbaijan → Mexico: VR (conf=high)  src=https://embamex.sre.gob.mx/azerbaiyan/index.php/com-phocamaps-markers/seccion-consular/vizalar-visas
+  [84/100] Azerbaijan → Mali: EV (conf=high)  src=https://www.diplomatiemdc.gouv.ml/vitrine/
+  [85/100] Azerbaijan → Moldova: VF (conf=high)  src=https://www.evisa.gov.md/Info/CetateniStrainiNevoie?c=en-US
+  [86/100] Azerbaijan → Mauritius: VOA (conf=low)  src=https://passport.govmu.org/passport/?page_id=605
+  [87/100] Azerbaijan → Marshall Islands: UNKNOWN (conf=unknown)
+  [88/100] Azerbaijan → Montenegro: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":810,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"7fdff321-1f81-44f1-a4a0-4cee793f3a9a","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creat
+  [89/100] Azerbaijan → Monaco: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1551,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"e7972ee0-e6fc-4401-bc95-8b5cf4a89f61","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_crea
+  [90/100] Azerbaijan → Mongolia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":825,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"7c5fc771-3686-410a-b96c-9fbd74525c88","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creat
+  [91/100] Azerbaijan → Micronesia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":929,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"b4563818-0552-4fe7-b000-1140f37ed8e4","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creat
+  [92/100] Azerbaijan → Morocco: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":929,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"9a7ab544-9199-42fd-af32-4317d9420e1e","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creat
+  [93/100] Azerbaijan → Mozambique: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1538,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"aa71ace8-fe30-4f8c-a652-9fb0a7bb5206","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_crea
+  [94/100] Azerbaijan → Myanmar: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":774,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"acb9107c-5c6e-48d6-ac4f-30daa752e424","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_creat
+  [95/100] Azerbaijan → Namibia: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1146,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"611fdaae-147b-41c6-b8e5-fe6962fe0a09","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_crea
+  [96/100] Azerbaijan → Nauru: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":4264,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"df7342b6-d18e-40ae-b890-96ac5beee4a7","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_crea
+  [bail] 10 consecutive quota errors — cancelling remaining workers
+  [97/100] Azerbaijan → Nepal: ERROR claude CLI exited 1: {"type":"result","subtype":"success","is_error":true,"api_error_status":429,"duration_ms":1000,"duration_api_ms":0,"num_turns":1,"result":"You've hit your limit · resets 5:40am (Asia/Dubai)","stop_reason":"stop_sequence","session_id":"ef898b1f-218f-46df-a031-8378731eb3e0","total_cost_usd":0,"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0,"server_tool_use":{"web_search_requests":0,"web_fetch_requests":0},"service_tier":"standard","cache_crea
+[done] wrote 86 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json

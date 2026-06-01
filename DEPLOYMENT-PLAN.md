@@ -1,14 +1,14 @@
-# Deployment & Monetization Plan — CalcStack + ToolVersus
+# Deployment & Monetization Plan — PennyMath + ToolJury
 
 *Zero-cost deployment to start earning money.*
 
 ---
 
-## Phase 1: Deploy CalcStack (Week 1)
+## Phase 1: Deploy PennyMath (Week 1)
 
 ### Step 1: Get a Domain
-- **Namecheap**: calcstack.com or calcstack.io (~$9-12/year — this is the ONE cost)
-- Alternative: Use GitHub Pages free subdomain `dppalukuri.github.io/calcstack` (zero cost but worse for SEO)
+- **Namecheap**: pennymath.com or pennymath.io (~$9-12/year — this is the ONE cost)
+- Alternative: Use GitHub Pages free subdomain `dppalukuri.github.io/pennymath` (zero cost but worse for SEO)
 - **Recommendation:** Buy the domain. A $10 domain is the only investment that matters for SEO credibility.
 
 ### Step 2: Deploy to Cloudflare Pages (FREE)
@@ -23,17 +23,17 @@ Cloudflare Pages free tier includes:
 1. Go to dash.cloudflare.com > Pages > Create a project
 2. Connect your GitHub repo `dppalukuri/BlackHole`
 3. Build settings:
-   - Build command: `cd data-products/calcstack && npm install && npm run build`
-   - Build output directory: `data-products/calcstack/dist`
+   - Build command: `cd data-products/pennymath && npm install && npm run build`
+   - Build output directory: `data-products/pennymath/dist`
    - Root directory: `/` (leave default)
-4. Add custom domain: calcstack.com (update nameservers at Namecheap to Cloudflare)
+4. Add custom domain: pennymath.com (update nameservers at Namecheap to Cloudflare)
 5. Every push to `main` auto-deploys
 
 ### Step 3: Google Search Console (FREE, Day 1)
 1. Go to search.google.com/search-console
-2. Add property: `calcstack.com`
+2. Add property: `pennymath.com`
 3. Verify via DNS TXT record (Cloudflare dashboard)
-4. Submit sitemap: `https://calcstack.com/sitemap-index.xml`
+4. Submit sitemap: `https://pennymath.com/sitemap-index.xml`
 5. Request indexing for all 13 pages manually
 
 ### Step 4: Google Analytics (FREE, Day 1)
@@ -49,7 +49,7 @@ Cloudflare Pages free tier includes:
 **Requirement:** 15+ pages of quality content (we have 13 — add 2-3 more calculators)
 
 1. Go to adsense.google.com > Sign up
-2. Add site: calcstack.com
+2. Add site: pennymath.com
 3. Place AdSense verification code in `<head>`
 4. Wait 2-7 days for review
 5. Once approved, place ad units:
@@ -141,10 +141,10 @@ Apply to these immediately — most approve within 1-7 days:
 
 ---
 
-## Phase 4: ToolVersus Deployment (Month 2)
+## Phase 4: ToolJury Deployment (Month 2)
 
 Same pattern:
-1. Domain: toolversus.com (~$10/year)
+1. Domain: tooljury.com (~$10/year)
 2. Deploy to Cloudflare Pages (free)
 3. Google Search Console + Analytics
 4. Apply for SaaS affiliate programs:
@@ -161,7 +161,7 @@ Same pattern:
 
 ## Revenue Projections (Conservative)
 
-### CalcStack
+### PennyMath
 | Month | Organic Traffic | Ad Revenue | Affiliate | Total |
 |-------|----------------|------------|-----------|-------|
 | 1 | 100-500 | $0 | $0 | $0 |
@@ -171,7 +171,7 @@ Same pattern:
 | 9 | 30,000-80,000 | $600-1,600 | $300-800 | $900-2,400 |
 | 12 | 80,000-200,000 | $1,500-4,000 | $500-1,500 | $2,000-5,500 |
 
-### ToolVersus
+### ToolJury
 | Month | Organic Traffic | Affiliate | Ad Revenue | Total |
 |-------|----------------|-----------|------------|-------|
 | 1 | 100-300 | $0 | $0 | $0 |
@@ -183,10 +183,10 @@ Same pattern:
 ### Combined (Month 12)
 | Source | Low | High |
 |--------|-----|------|
-| CalcStack ads | $1,500 | $4,000 |
-| CalcStack affiliates | $500 | $1,500 |
-| ToolVersus affiliates | $2,000 | $5,000 |
-| ToolVersus ads | $600 | $1,200 |
+| PennyMath ads | $1,500 | $4,000 |
+| PennyMath affiliates | $500 | $1,500 |
+| ToolJury affiliates | $2,000 | $5,000 |
+| ToolJury ads | $600 | $1,200 |
 | **Total** | **$4,600** | **$11,700** |
 
 ---
@@ -195,17 +195,17 @@ Same pattern:
 
 | Item | Cost |
 |------|------|
-| 2 domains (calcstack.com + toolversus.com) | ~$20/year ($1.67/mo) |
+| 2 domains (pennymath.com + tooljury.com) | ~$20/year ($1.67/mo) |
 | Cloudflare Pages hosting (x2) | $0 |
 | Google Search Console / Analytics | $0 |
-| Claude API for ToolVersus editorial | ~$15-30 one-time, $5/mo for updates |
+| Claude API for ToolJury editorial | ~$15-30 one-time, $5/mo for updates |
 | **Total monthly cost** | **~$7/month** |
 
 ---
 
 ## Immediate Next Steps (This Week)
 
-1. **Buy calcstack.com domain** (Namecheap, ~$10)
+1. **Buy pennymath.com domain** (Namecheap, ~$10)
 2. **Set up Cloudflare Pages** (connect GitHub repo, add domain)
 3. **Submit to Google Search Console** (verify, submit sitemap)
 4. **Add privacy + about pages** (required for AdSense)
