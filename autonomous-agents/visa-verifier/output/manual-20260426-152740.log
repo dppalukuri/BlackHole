@@ -101,4 +101,4 @@
   [99/100] Antigua and Barbuda → New Zealand: VR (conf=high)  src=https://www.immigration.govt.nz/visas/visitor-visa/
   [100/100] Antigua and Barbuda → Nicaragua: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Nicaragua
 [done] wrote 100 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json

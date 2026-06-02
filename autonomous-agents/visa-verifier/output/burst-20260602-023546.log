@@ -10,7 +10,7 @@
   [8/30] Afghanistan → Armenia: VR (conf=high)  src=https://www.mfa.am/en/invitation_only
   [9/30] Afghanistan → Bahamas: EV (conf=high)  src=https://mofa.gov.bs/evisa-online-services/
   [10/30] Afghanistan → Angola: EV (conf=high)  src=https://sme.gov.ao/ao/evisa/
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
   [11/30] Afghanistan → Azerbaijan: VR (conf=high)  src=https://canberra.mfa.gov.az/en/category/asan-visa-e-visa
   [12/30] Afghanistan → Australia: VR (conf=high)  src=https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/visitor-600
   [13/30] Afghanistan → Belarus: VR (conf=high)  src=https://mfa.gov.by/en/visa/oformlenie/
@@ -21,7 +21,7 @@
   [18/30] Afghanistan → Benin: EV (conf=high)  src=https://evisa.bj
   [19/30] Afghanistan → Bhutan: EV (conf=high)  src=https://www.doi.gov.bt/?page_id=192&lang=en
   [20/30] Afghanistan → Belize: VR (conf=high)  src=https://immigration.gov.bz/visa/visa-who-qualify/
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
   [21/30] Afghanistan → Botswana: EV (conf=high)  src=https://www.gov.bw/visa-applications/visa-application-tourism-visa
   [22/30] Afghanistan → Brunei: VR (conf=high)  src=https://www.mfa.gov.bn/Pages/Visa-Information.aspx
   [23/30] Afghanistan → Bolivia: VR (conf=high)  src=https://bolivianembassy.co.uk/visa-grupos-1-2-3/
@@ -32,6 +32,6 @@
   [28/30] Afghanistan → Burundi: VOA (conf=high)  src=https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Burundi.html
   [29/30] Afghanistan → Brazil: VR (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Afghan_citizens
   [30/30] Afghanistan → Cameroon: EV (conf=low)  src=https://en.wikipedia.org/wiki/Visa_policy_of_Cameroon
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [done] wrote 30 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json

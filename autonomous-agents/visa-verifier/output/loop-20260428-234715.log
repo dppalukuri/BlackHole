@@ -153,7 +153,7 @@
   [149/150] Austria → South Sudan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Austria → Spain: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 71 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 1 done] added=71  total_now=2018  cumulative_session=71
 [burst 2] starting at Wed Apr 29 00:56:30 AST 2026 (hour=00)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -309,7 +309,7 @@
   [149/150] Azerbaijan → Colombia: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 1 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 2 done] added=1  total_now=2019  cumulative_session=72
 [burst 3] starting at Wed Apr 29 01:06:11 AST 2026 (hour=01)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -465,7 +465,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 3 done] added=0  total_now=2019  cumulative_session=72
 [burst 4] starting at Wed Apr 29 01:15:51 AST 2026 (hour=01)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -621,7 +621,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 4 done] added=0  total_now=2019  cumulative_session=72
 [burst 5] starting at Wed Apr 29 01:25:34 AST 2026 (hour=01)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -777,7 +777,7 @@
   [149/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 5 done] added=0  total_now=2019  cumulative_session=72
 [burst 6] starting at Wed Apr 29 01:35:05 AST 2026 (hour=01)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -933,7 +933,7 @@
   [149/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 6 done] added=0  total_now=2019  cumulative_session=72
 [burst 7] starting at Wed Apr 29 01:44:47 AST 2026 (hour=01)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -1089,7 +1089,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 7 done] added=0  total_now=2019  cumulative_session=72
 [burst 8] starting at Wed Apr 29 01:54:21 AST 2026 (hour=01)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -1245,7 +1245,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 8 done] added=0  total_now=2019  cumulative_session=72
 [burst 9] starting at Wed Apr 29 02:02:26 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -1401,7 +1401,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 9 done] added=0  total_now=2019  cumulative_session=72
 [burst 10] starting at Wed Apr 29 02:11:34 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -1557,7 +1557,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 10 done] added=0  total_now=2019  cumulative_session=72
 [burst 11] starting at Wed Apr 29 02:20:23 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -1713,7 +1713,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 11 done] added=0  total_now=2019  cumulative_session=72
 [burst 12] starting at Wed Apr 29 02:29:19 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -1869,7 +1869,7 @@
   [149/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 12 done] added=0  total_now=2019  cumulative_session=72
 [burst 13] starting at Wed Apr 29 02:37:15 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2025,7 +2025,7 @@
   [149/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 13 done] added=0  total_now=2019  cumulative_session=72
 [burst 14] starting at Wed Apr 29 02:45:10 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2181,7 +2181,7 @@
   [149/150] Azerbaijan → Congo: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Comoros: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 14 done] added=0  total_now=2019  cumulative_session=72
 [burst 15] starting at Wed Apr 29 02:55:33 AST 2026 (hour=02)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2337,7 +2337,7 @@
   [149/150] Azerbaijan → Colombia: VF (conf=low)  src=https://en.wikipedia.org/wiki/Visa_requirements_for_Azerbaijani_citizens
   [150/150] Azerbaijan → Congo: EV (conf=medium)  src=https://evisa.gouv.cd/
 [done] wrote 64 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 15 done] added=64  total_now=2083  cumulative_session=136
 [burst 16] starting at Wed Apr 29 04:00:47 AST 2026 (hour=04)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2493,7 +2493,7 @@
   [149/150] Azerbaijan → Macao: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Madagascar: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 73 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 16 done] added=73  total_now=2156  cumulative_session=209
 [burst 17] starting at Wed Apr 29 05:06:40 AST 2026 (hour=05)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2649,7 +2649,7 @@
   [149/150] Azerbaijan → Taiwan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 17 done] added=0  total_now=2156  cumulative_session=209
 [burst 18] starting at Wed Apr 29 05:15:29 AST 2026 (hour=05)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2805,7 +2805,7 @@
   [149/150] Azerbaijan → Taiwan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 18 done] added=0  total_now=2156  cumulative_session=209
 [burst 19] starting at Wed Apr 29 05:25:16 AST 2026 (hour=05)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -2961,7 +2961,7 @@
   [149/150] Azerbaijan → Tajikistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 19 done] added=0  total_now=2156  cumulative_session=209
 [burst 20] starting at Wed Apr 29 05:33:52 AST 2026 (hour=05)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -3117,7 +3117,7 @@
   [149/150] Azerbaijan → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Tajikistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 20 done] added=0  total_now=2156  cumulative_session=209
 [burst 21] starting at Wed Apr 29 05:42:24 AST 2026 (hour=05)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -3273,7 +3273,7 @@
   [149/150] Azerbaijan → Tajikistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 21 done] added=0  total_now=2156  cumulative_session=209
 [burst 22] starting at Wed Apr 29 05:51:55 AST 2026 (hour=05)
 [plan] 150 pairs to verify (model=haiku, ttl=30d)
@@ -3429,7 +3429,7 @@
   [149/150] Azerbaijan → Tajikistan: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
   [150/150] Azerbaijan → Tanzania: ERROR claude CLI exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
 [done] wrote 0 entries → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\output\verified-visas.json
-[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\visapathway\public\data\verified-visas.json
+[sync] copied → C:\Prasad\Projects\claude_workspace\BlackHole\autonomous-agents\visa-verifier\..\..\data-products\wanderwise\public\data\verified-visas.json
 [burst 22 done] added=0  total_now=2156  cumulative_session=209
 [loop] reached 06:00 cutoff — exiting
 [loop] finished at Wed Apr 29 06:02:00 AST 2026 — bursts=22, total_added=209
