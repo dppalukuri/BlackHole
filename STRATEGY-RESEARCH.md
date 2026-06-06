@@ -6,7 +6,7 @@
 
 ## Path C: Programmatic Content Site Options
 
-### Site 1: Wanderwise — Immigration & Visa Requirements Database
+### Site 1: WanderWise — Immigration & Visa Requirements Database
 
 **What:** Every visa type for every nationality-to-country combination. "US tourist visa for Indian citizens", "UAE golden visa requirements 2026", "Canada PR from India step-by-step".
 
@@ -168,10 +168,10 @@
 ## Recommended Build Order
 
 ### Phase 1 (Month 1-2): Site 1 + Site 2 simultaneously
-- **Wanderwise** targets India's massive emigration audience
+- **WanderWise** targets India's massive emigration audience
 - **PennyMath** India financial calculators build domain authority fast
 - Both share infrastructure (static site, same ad networks)
-- PennyMath earns in 2-3 months; Wanderwise in 3-4
+- PennyMath earns in 2-3 months; WanderWise in 3-4
 
 ### Phase 2 (Month 3-4): Add Site 3
 - **ToolJury** for recurring SaaS affiliate commissions
@@ -182,8 +182,8 @@
 - 50 public sources, MVP in days, proven demand at $49/mo
 
 ### Market coverage:
-- **India:** Wanderwise + PennyMath (massive traffic, growing CPC)
-- **UAE:** PennyMath (gratuity/VAT) + Wanderwise (golden visa)
+- **India:** WanderWise + PennyMath (massive traffic, growing CPC)
+- **UAE:** PennyMath (gratuity/VAT) + WanderWise (golden visa)
 - **US:** ToolJury (highest CPC/affiliate) + WARN Act (direct revenue)
 
 ---

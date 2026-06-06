@@ -16,8 +16,8 @@ ROOT = Path(__file__).resolve().parent.parent
 # (old, new) pairs. Order matters: do CamelCase before lowercase so
 # replacements don't double-apply.
 REPLACEMENTS = [
-    ("Wanderwise", "Wanderwise"),
-    ("Wanderwise", "Wanderwise"),
+    ("WanderWise", "WanderWise"),
+    ("WanderWise", "WanderWise"),
     ("WANDERWISE", "WANDERWISE"),
     ("wanderwise", "wanderwise"),
     ("PennyMath", "PennyMath"),

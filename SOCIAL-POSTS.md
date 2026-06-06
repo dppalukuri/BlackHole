@@ -111,7 +111,7 @@ Free, no signup. Would love feedback from multi-passport holders.
 
 ---
 
-### 5. r/expats — Wanderwise
+### 5. r/expats — WanderWise
 **Title:** Free tool: check which of your travel documents gives you the best entry to any country (multiple passports + permits)
 
 **Body:**
@@ -252,9 +252,9 @@ What other financial tools would you find useful?
 
 ---
 
-## Wanderwise + visa-verifier Launch Content (Ready to Post)
+## WanderWise + visa-verifier Launch Content (Ready to Post)
 
-Multi-channel launch copy for the open-source visa-verifier pipeline and the Wanderwise site it powers. Repo: github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier. Site: wanderwise.techtools365.com. Dataset packaged as a Gumroad product at data-products/visa-matrix-2026/.
+Multi-channel launch copy for the open-source visa-verifier pipeline and the WanderWise site it powers. Repo: github.com/dppalukuri/BlackHole/tree/main/autonomous-agents/visa-verifier. Site: wanderwise.techtools365.com. Dataset packaged as a Gumroad product at data-products/visa-matrix-2026/.
 
 ---
 
@@ -483,7 +483,7 @@ Open-source pipeline on GitHub: github.com/dppalukuri/BlackHole — MIT, happy t
 After launch, monitor:
 - HN front page position (hourly for 6 hours)
 - GitHub stars
-- Wanderwise traffic (analytics)
+- WanderWise traffic (analytics)
 - Gumroad sales (expect 0-3 day 1, 5-15 first week)
 - Inbound emails / issues — respond within 24 hours
 

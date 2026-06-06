@@ -1,6 +1,6 @@
 # Visa Verifier Agent
 
-Background agent that verifies visa requirements against authoritative government sources and writes a curated dataset the Wanderwise site consumes.
+Background agent that verifies visa requirements against authoritative government sources and writes a curated dataset the WanderWise site consumes.
 
 ## Why it exists
 

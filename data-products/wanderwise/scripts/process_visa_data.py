@@ -1,5 +1,5 @@
 """
-Process passport-index-dataset CSV into compact JSON for Wanderwise.
+Process passport-index-dataset CSV into compact JSON for WanderWise.
 Outputs:
   - visa-matrix.json: {passport: {destination: requirement}}
   - countries.json: sorted list of country names

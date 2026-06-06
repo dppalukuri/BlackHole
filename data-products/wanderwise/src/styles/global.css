@@ -1,4 +1,4 @@
-/* Wanderwise — sharp + professional */
+/* WanderWise — sharp + professional */
 :root {
   --bg: #fafbfc; --surface: #ffffff; --surface-2: #f7f8fa;
   --text: #0b1220; --text-2: #1f2937; --muted: #6b7280; --dim: #9ca3af;
@@ -92,7 +92,7 @@ li { margin-bottom: 0.15rem; }
 @media (min-width: 1200px) { .ad-inline { display: none; } }
 
 /* ───────────────────────────────────────────────────────────────
-   Header — TechTools365 brand primary + Wanderwise context
+   Header — TechTools365 brand primary + WanderWise context
    ─────────────────────────────────────────────────────────────── */
 .site-header {
   background: rgba(255,255,255,.92);

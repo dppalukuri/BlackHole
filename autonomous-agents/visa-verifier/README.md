@@ -172,7 +172,7 @@ If you'd rather use a raw API key instead of Claude Code:
 
 ## Related project
 
-**[Wanderwise](https://wanderwise.techtools365.com)** — the consumer-facing website this data powers. Interactive multi-passport visa checker, 96+ SEO pages covering individual passports, destinations, residence permits, ranking, and guides.
+**[WanderWise](https://wanderwise.techtools365.com)** — the consumer-facing website this data powers. Interactive multi-passport visa checker, 96+ SEO pages covering individual passports, destinations, residence permits, ranking, and guides.
 
 ---
 

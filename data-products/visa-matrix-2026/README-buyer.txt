@@ -68,7 +68,7 @@ License
 -------
 - Personal use, commercial research, internal business use: permitted.
 - Client deliverables citing the dataset: permitted with attribution
-  ("Wanderwise / TechTools365").
+  ("WanderWise / TechTools365").
 - Redistribution of the raw CSVs as a competing dataset product: NOT
   permitted.
 

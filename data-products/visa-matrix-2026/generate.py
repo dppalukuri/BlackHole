@@ -197,7 +197,7 @@ HTML = """<!doctype html>
 <ul>
   <li>Personal use, commercial research, and internal business use are permitted.</li>
   <li>Redistribution of the raw CSVs as a competing dataset product is not permitted.</li>
-  <li>Citing the dataset publicly is encouraged — attribution to "Wanderwise / TechTools365" appreciated.</li>
+  <li>Citing the dataset publicly is encouraged — attribution to "WanderWise / TechTools365" appreciated.</li>
   <li>Visa rules change without notice. This is a point-in-time snapshot — always re-verify with the embassy before acting.</li>
 </ul>
 

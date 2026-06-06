@@ -362,7 +362,7 @@ export default function VisaChecker() {
             <button
               type="button"
               onClick={() => {
-                const subject = `[Wanderwise] Incorrect visa info: ${passports.join(', ')} → ${destination}`;
+                const subject = `[WanderWise] Incorrect visa info: ${passports.join(', ')} → ${destination}`;
                 const body = `Hi,\n\nThe visa information shown for the following combination appears to be incorrect:\n\nPassports: ${passports.join(', ')}\nAdditional documents: ${selectedPermits.join(', ') || 'None'}\nDestination: ${destination}\nResult shown: ${best?.info.text} (via ${best?.document})\n\nWhat is the correct information:\n[Please describe the correct visa requirement and how you know — e.g., personal experience, embassy website, etc.]\n\nThank you!`;
                 const fullText = `To: palukuri.biz@gmail.com\nSubject: ${subject}\n\n${body}`;
                 // Copy to clipboard so user can always paste — this works regardless of email-client setup

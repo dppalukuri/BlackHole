@@ -56,7 +56,7 @@ NEW_FOOTER = """<footer class="site-footer">
         <ul>
           <li><a href="https://pennymath.techtools365.com/" target="_blank" rel="noopener">PennyMath \u2197</a></li>
           <li><a href="https://tooljury.techtools365.com/" target="_blank" rel="noopener">ToolJury \u2197</a></li>
-          <li><a href="https://wanderwise.techtools365.com/" target="_blank" rel="noopener">Wanderwise \u2197</a></li>
+          <li><a href="https://wanderwise.techtools365.com/" target="_blank" rel="noopener">WanderWise \u2197</a></li>
         </ul>
       </div>
       <div class="footer-col">

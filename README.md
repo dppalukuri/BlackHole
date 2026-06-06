@@ -27,7 +27,7 @@ Free tools for finance, business, and productivity — built for India, UAE, and
 - [ActiveCampaign vs Mailchimp](https://tooljury.techtools365.com/compare/activecampaign-vs-mailchimp/)
 - And more...
 
-### [Wanderwise](https://wanderwise.techtools365.com) — Multi-Passport Visa Checker
+### [WanderWise](https://wanderwise.techtools365.com) — Multi-Passport Visa Checker
 The only visa checker that handles multiple passports and residence permits:
 - 199 countries in the visa matrix
 - 7 document types (UAE Residence, US Visa, US Green Card, Schengen Visa, Schengen RP, UK BRP, Canada PR)
@@ -38,7 +38,7 @@ The only visa checker that handles multiple passports and residence permits:
 
 - **PennyMath**: Astro + Preact (Islands Architecture) + Chart.js
 - **ToolJury**: Hugo
-- **Wanderwise**: Astro + Preact
+- **WanderWise**: Astro + Preact
 - **Hosting**: Cloudflare Pages (free)
 - **Domain**: techtools365.com
 

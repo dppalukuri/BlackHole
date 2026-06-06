@@ -45,7 +45,7 @@ const currentPath = Astro.url.pathname;
 
   <!-- Open Graph -->
   <meta property="og:type" content={ogType} />
-  <meta property="og:site_name" content="Wanderwise — TechTools365" />
+  <meta property="og:site_name" content="WanderWise — TechTools365" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -81,7 +81,7 @@ const currentPath = Astro.url.pathname;
           <span class="brand-text">Tech<span class="brand-accent">Tools</span>365</span>
         </a>
         <span class="brand-divider" aria-hidden="true">/</span>
-        <span class="brand-current">Wanderwise</span>
+        <span class="brand-current">WanderWise</span>
       </div>
       <nav class="hub-nav" aria-label="TechTools365 sites">
         <a href="https://pennymath.techtools365.com/" target="_blank" rel="noopener" class="hub-link">PennyMath</a>
@@ -89,7 +89,7 @@ const currentPath = Astro.url.pathname;
         <a href="https://techtools365.com/" target="_blank" rel="noopener" class="hub-link home-link">All tools <span class="ext">↗</span></a>
       </nav>
     </div>
-    <nav class="sub-nav" aria-label="Wanderwise sections">
+    <nav class="sub-nav" aria-label="WanderWise sections">
       <div class="sub-nav-inner">
         <a href="/" class={`sub-link ${currentPath === '/' ? 'is-active' : ''}`}>Visa Checker</a>
         <a href="/about/" class={`sub-link ${currentPath.startsWith('/about') ? 'is-active' : ''}`}>About</a>
@@ -134,7 +134,7 @@ const currentPath = Astro.url.pathname;
         <a href="/privacy/">Privacy</a>
         <a href="https://techtools365.com/" target="_blank" rel="noopener">All tools ↗</a>
       </nav>
-      <p class="footer-fine">&copy; {new Date().getFullYear()} Wanderwise by TechTools365. Visa requirements can change without notice — always verify with the relevant embassy or consulate before booking travel.</p>
+      <p class="footer-fine">&copy; {new Date().getFullYear()} WanderWise by TechTools365. Visa requirements can change without notice — always verify with the relevant embassy or consulate before booking travel.</p>
     </div>
   </footer>
 
