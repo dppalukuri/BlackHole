@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
+---
+<BaseLayout
+  title="UK ISA Calculator - Tax-Free Savings & Investment Growth | PennyMath"
+  description="Free UK ISA calculator. See how a Stocks & Shares ISA or Cash ISA grows with monthly contributions and tax-free returns. 2026 £20,000 allowance."
+  keywords="isa calculator, stocks and shares isa calculator, cash isa calculator, uk isa allowance, lifetime isa calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "UK ISA Calculator",
+      "url": "https://pennymath.techtools365.com/uk/isa-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What's the 2026 ISA allowance?", "acceptedAnswer": { "@type": "Answer", "text": "£20,000 per tax year (6 April 2026 to 5 April 2027). This is the combined limit across all your adult ISAs — Cash, Stocks & Shares, Innovative Finance, and Lifetime ISA. Lifetime ISAs also count toward this £20,000 with a £4,000 sub-limit." }},
+        { "@type": "Question", "name": "Cash ISA vs Stocks & Shares ISA?", "acceptedAnswer": { "@type": "Answer", "text": "Cash ISA: safer, liquid, currently paying ~4-5% interest. Best for short-term goals (under 5 years) or emergency funds. Stocks & Shares ISA: higher long-term returns (~7% real over 20+ years), but volatile. Best for goals 5+ years away. For long-term investing, the Stocks & Shares ISA almost always wins — same tax treatment, higher expected returns." }},
+        { "@type": "Question", "name": "What's a Lifetime ISA?", "acceptedAnswer": { "@type": "Answer", "text": "Available to under-40s, the Lifetime ISA accepts up to £4,000/year and the government adds a 25% bonus (£1,000/year free). Can be used for a first home (up to £450,000) or accessed after age 60. Withdrawing for any other reason triggers a 25% penalty on the total amount, which works out to losing ~6.25% of your own money." }},
+        { "@type": "Question", "name": "What if I exceed the allowance?", "acceptedAnswer": { "@type": "Answer", "text": "HMRC will eventually catch it (banks report ISA contributions). The over-contributed amount loses its tax-free wrapper — gains and interest on the excess become taxable. The fix is to remove the excess from the ISA. Avoid this by tracking contributions across providers carefully." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/uk/">UK</a> <span>/</span>
+    ISA Calculator
+  </nav>
+
+  <h1>UK ISA Calculator</h1>
+  <p class="page-subtitle">See how your tax-free ISA grows over time</p>
+  <p class="page-intro">
+    Project the value of your Cash or Stocks & Shares ISA with monthly contributions. All growth and withdrawals are completely tax-free — no income tax, no capital gains tax, no dividend tax.
+  </p>
+
+  <SIPCalculator
+    client:visible
+    currency={{ code: 'GBP', symbol: '£' }}
+    defaults={{ monthlyInvestment: 500, expectedReturn: 7, timePeriod: 20 }}
+  />
+
+  <section class="content-section">
+    <h2>The Power of Maxing the £20k Allowance</h2>
+    <p>
+      Maxing £20,000/year (£1,667/month) at a 7% return over 20 years gives roughly £870,000 — all tax-free. The same investment in a taxable account would owe Capital Gains Tax (18-24%) on growth plus dividend tax on income. Over 20 years, an ISA shelter saves £100,000+ in tax.
+    </p>
+    <p>
+      The "use it or lose it" rule matters: unused ISA allowance doesn't carry forward. If you skip a year, that allowance is gone forever. Even partial contributions add up — £500/month is £6,000/year, which over 30 years at 7% becomes ~£610,000.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Which ISA Type to Pick</h2>
+    <table>
+      <thead><tr><th>Type</th><th>Best for</th><th>Current return</th></tr></thead>
+      <tbody>
+        <tr><td>Cash ISA</td><td>Short-term goals (1-5 yrs), emergency fund</td><td>~4-5% interest</td></tr>
+        <tr><td>Stocks & Shares ISA</td><td>Long-term wealth (5+ yrs), retirement</td><td>~7% real long-term</td></tr>
+        <tr><td>Lifetime ISA</td><td>First-home savings, under-40s only</td><td>25% gov bonus + chosen returns</td></tr>
+        <tr><td>Innovative Finance ISA</td><td>P2P lending (higher risk)</td><td>5-9% target, but real capital risk</td></tr>
+        <tr><td>Junior ISA</td><td>Saving for under-18s</td><td>£9,000 separate annual limit</td></tr>
+      </tbody>
+    </table>
+    <p>
+      For most people, a Stocks & Shares ISA wins long-term. Hold low-cost global tracker funds (FTSE All-World, MSCI World) and let compounding do the work. Avoid actively managed funds — UK data mirrors US: most underperform their benchmark after fees over 10+ year horizons.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Lifetime ISA Math (Under 40s)</h2>
+    <p>
+      The Lifetime ISA's 25% bonus is exceptional value for first-time buyers:
+    </p>
+    <ul>
+      <li><strong>Contribute £4,000/year:</strong> Government adds £1,000/year free</li>
+      <li><strong>Over 5 years:</strong> £20,000 contributed becomes £25,000+ investment growth</li>
+      <li><strong>Property cap:</strong> Can only use for first homes up to £450,000</li>
+      <li><strong>Penalty for other withdrawals:</strong> 25% of total — effectively loses your bonus + ~6.25% of contributions</li>
+    </ul>
+    <p>
+      For under-40s saving for a first home, the LISA is almost free money. For everyone else, the penalty on non-property withdrawals makes a standard ISA more flexible.
+    </p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>2026 ISA allowance?</summary>
+      <div class="faq-answer">£20,000 per tax year (6 April to 5 April), split however you want across adult ISA types. Lifetime ISA has a £4,000 sub-limit within that £20,000.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Cash ISA vs Stocks & Shares ISA?</summary>
+      <div class="faq-answer">Cash for short-term goals and emergency funds (4-5% currently). Stocks & Shares for long-term wealth (~7% real over 20+ years). Both fully tax-free.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's a Lifetime ISA?</summary>
+      <div class="faq-answer">For under-40s. Up to £4,000/year contribution gets a 25% government bonus (£1,000 free). Use for first home up to £450,000, or after age 60. Other withdrawals trigger a 25% penalty.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Exceed the allowance?</summary>
+      <div class="faq-answer">HMRC catches it (providers report contributions). Excess loses tax-free status — remove it from the ISA to fix.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I transfer ISAs between providers?</summary>
+      <div class="faq-answer">Yes — and it doesn't count toward your annual allowance. Always use the new provider's transfer-in service rather than withdrawing and re-depositing (which would count toward the £20k allowance).</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uk/pension-calculator" class="related-card">
+        <h3>Pension Calculator</h3>
+        <p>Workplace and SIPP retirement growth.</p>
+      </a>
+      <a href="/uk/savings-calculator" class="related-card">
+        <h3>Savings Calculator</h3>
+        <p>Compound growth for any savings account.</p>
+      </a>
+      <a href="/uk/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Estimate monthly mortgage payments.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

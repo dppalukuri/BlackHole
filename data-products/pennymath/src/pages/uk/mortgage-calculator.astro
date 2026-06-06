@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+---
+<BaseLayout
+  title="UK Mortgage Calculator - Free Monthly Payment Tool | PennyMath"
+  description="Free UK mortgage calculator. Estimate your monthly payment, total interest, and compare 2, 5, and 10-year fixed-rate scenarios. No signup."
+  keywords="uk mortgage calculator, mortgage calculator uk, home loan calculator uk, monthly mortgage payment uk"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "UK Mortgage Calculator",
+      "url": "https://pennymath.techtools365.com/uk/mortgage-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How are UK mortgage payments calculated?", "acceptedAnswer": { "@type": "Answer", "text": "UK mortgages use standard amortisation: M = P × r × (1+r)^n / ((1+r)^n - 1), where P is the loan amount, r is the monthly interest rate, n is total monthly payments. For a £250,000 loan at 5.5% over 25 years, the monthly payment is approximately £1,536." }},
+        { "@type": "Question", "name": "What's the typical UK mortgage term?", "acceptedAnswer": { "@type": "Answer", "text": "25 years is the traditional UK norm, but 30 and 35-year terms have become common as house prices rose. Most UK mortgages are 'fixed for 2-5 years then revert to SVR' — you re-mortgage at the end of the fix period. The repayment term (25 years) and fix period (2-5 years) are separate concepts." }},
+        { "@type": "Question", "name": "What is the SVR?", "acceptedAnswer": { "@type": "Answer", "text": "Standard Variable Rate — the rate your mortgage reverts to when your fixed deal ends. SVRs are typically 2-4% higher than competitive new fixed deals. Always remortgage to a new fix before SVR kicks in unless you plan to repay the loan within months." }},
+        { "@type": "Question", "name": "Should I overpay my mortgage?", "acceptedAnswer": { "@type": "Answer", "text": "Most UK fixed-rate mortgages allow 10% annual overpayment without penalty. On a £250k loan at 5.5%, overpaying £200/month cuts ~5 years off the term and saves ~£40,000 in interest. Check your specific lender's overpayment terms in your mortgage offer — early repayment charges can be brutal." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/uk/">UK</a> <span>/</span>
+    Mortgage Calculator
+  </nav>
+
+  <h1>UK Mortgage Calculator</h1>
+  <p class="page-subtitle">Estimate your monthly mortgage payment</p>
+  <p class="page-intro">
+    Calculate your monthly repayment on a UK fixed or variable rate mortgage. Adjust the loan amount, rate, and term to compare scenarios.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'GBP', symbol: '£' }}
+    defaults={{ loanAmount: 250000, interestRate: 5.5, loanTenure: 25 }}
+  />
+
+  <section class="content-section">
+    <h2>How UK Mortgages Work</h2>
+    <p>
+      A UK repayment mortgage spreads your loan into equal monthly payments over the term. Each payment combines <strong>interest</strong> on the remaining balance with <strong>capital repayment</strong>. Early on, most of each payment is interest. As you pay down the balance, more goes to capital.
+    </p>
+    <p>
+      Almost all UK mortgages are repayment (capital and interest) rather than interest-only. Interest-only mortgages still exist for buy-to-let and some specialist cases, but residential interest-only is now rare — lenders require a credible repayment vehicle.
+    </p>
+    <p>
+      The headline structure is usually <strong>"X% fixed for 2/5/10 years, reverts to SVR"</strong>. You typically remortgage to a new fixed deal before the SVR kicks in, since SVRs are 2-4% above competitive new deals.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Fix Period: 2, 5, or 10 Years?</h2>
+    <ul>
+      <li><strong>2-year fix:</strong> Cheapest rate, but you remortgage every 2 years (admin + product fees + possible rate jump). Good if rates are falling.</li>
+      <li><strong>5-year fix:</strong> Sweet spot for most. Slightly higher rate than 2-year, but rate certainty + half the remortgage admin.</li>
+      <li><strong>10-year fix:</strong> Maximum rate certainty but usually 0.5-1% higher than 5-year. Strong early repayment charges restrict flexibility.</li>
+    </ul>
+    <p>
+      Most UK buyers default to 2 or 5 years. The 10-year is rare except for buyers who value certainty above all and plan to stay put.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Mortgage Formula</h2>
+    <div class="formula-box">
+      M = P &times; r &times; (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> - 1)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>M</strong> = Monthly payment</li>
+      <li><strong>P</strong> = Loan amount (after deposit)</li>
+      <li><strong>r</strong> = Monthly rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong> = Total monthly payments (years × 12)</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> £250,000 loan at 5.5% over 25 years. M ≈ £1,536/month. Total paid: £460,937. Interest: £210,937.
+    </p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>How are UK mortgage payments calculated?</summary>
+      <div class="faq-answer">Standard amortisation formula. For £250,000 at 5.5% over 25 years, monthly payment is ~£1,536, with ~£211,000 total interest over the life of the loan.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's the typical UK mortgage term?</summary>
+      <div class="faq-answer">25 years remains the headline norm, but 30-35 years has become common to keep payments affordable as prices rose. The fixed-rate period (2-5 years typically) is a separate concept from the repayment term.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's an SVR?</summary>
+      <div class="faq-answer">Standard Variable Rate — what your mortgage reverts to when the fixed deal ends. Usually 2-4% above competitive new fixes. Remortgage to a new deal before SVR kicks in unless you'll repay within months.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I overpay?</summary>
+      <div class="faq-answer">Most UK fixed mortgages allow 10% annual overpayment without ERC. Overpaying £200/month on a £250k 5.5% mortgage cuts ~5 years off and saves ~£40k. Check your specific overpayment allowance — ERCs can be 1-5% of the outstanding balance.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does this include Stamp Duty?</summary>
+      <div class="faq-answer">No — this is principal + interest only. Stamp Duty is a one-off transaction tax paid at completion. For 2026 in England: nothing under £250k, 5% from £250k-£925k, 10% from £925k-£1.5M, 12% above. First-time buyers get a higher £425k threshold.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uk/savings-calculator" class="related-card">
+        <h3>Savings Calculator</h3>
+        <p>Save up for your deposit with compound interest.</p>
+      </a>
+      <a href="/uk/pension-calculator" class="related-card">
+        <h3>Pension Calculator</h3>
+        <p>Project your pension pot at retirement.</p>
+      </a>
+      <a href="/uk/isa-calculator" class="related-card">
+        <h3>ISA Calculator</h3>
+        <p>Tax-free growth in a Stocks & Shares ISA.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CompoundInterestCalculator from '../../components/calculators/engines/CompoundInterestCalculator';
+---
+<BaseLayout
+  title="UK Savings Calculator - Compound Interest & High-Interest Accounts | PennyMath"
+  description="Free UK savings calculator. See how your savings grow with compound interest. Compare easy-access, fixed-rate, and ISA returns."
+  keywords="uk savings calculator, compound interest calculator uk, savings account calculator, high interest savings uk"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "UK Savings Calculator",
+      "url": "https://pennymath.techtools365.com/uk/savings-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/uk/">UK</a> <span>/</span>
+    Savings Calculator
+  </nav>
+
+  <h1>UK Savings Calculator</h1>
+  <p class="page-subtitle">See how your UK savings grow with compound interest</p>
+  <p class="page-intro">
+    Calculate the future value of any UK savings account or fixed deposit with compound interest. Adjust starting balance, rate, and time horizon.
+  </p>
+
+  <CompoundInterestCalculator client:visible />
+
+  <section class="content-section">
+    <h2>Where to Park Your Cash (2026 UK)</h2>
+    <table>
+      <thead><tr><th>Account Type</th><th>Typical Rate</th><th>Tax Treatment</th></tr></thead>
+      <tbody>
+        <tr><td>Easy-access savings</td><td>4-5%</td><td>Taxable (PSA up to £1,000)</td></tr>
+        <tr><td>1-year fix</td><td>4.5-5.2%</td><td>Taxable</td></tr>
+        <tr><td>2-year fix</td><td>4.3-5.0%</td><td>Taxable</td></tr>
+        <tr><td>Cash ISA</td><td>4-5%</td><td>Tax-free</td></tr>
+        <tr><td>Regular saver</td><td>5.5-7%</td><td>Taxable, contribution caps</td></tr>
+        <tr><td>Premium Bonds</td><td>~4.15% avg, variable</td><td>Tax-free, no guaranteed return</td></tr>
+      </tbody>
+    </table>
+    <p>
+      The Personal Savings Allowance (PSA) gives basic-rate taxpayers £1,000/year of tax-free interest. Higher-rate taxpayers get £500. Additional-rate taxpayers get nothing. Beyond your PSA, Cash ISA wins decisively.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Cash ISA vs Taxable Savings — When Does It Matter?</h2>
+    <p>
+      For most basic-rate taxpayers with under £25,000 in savings, ordinary easy-access accounts often beat Cash ISAs because they pay slightly more interest and the PSA shields the first £1,000 of interest from tax. Above £25k or for higher-rate taxpayers, the ISA wrapper wins.
+    </p>
+    <p>
+      For long-term savings (5+ years), the question isn't "Cash ISA vs taxable savings" — it's "Cash ISA vs Stocks & Shares ISA." Equities historically deliver 4-5% above cash returns over multi-decade horizons.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Compound Interest Formula</h2>
+    <div class="formula-box">
+      A = P(1 + r/n)<sup>nt</sup>
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>A</strong> = Final amount</li>
+      <li><strong>P</strong> = Starting balance (principal)</li>
+      <li><strong>r</strong> = Annual interest rate (decimal)</li>
+      <li><strong>n</strong> = Compounding frequency per year</li>
+      <li><strong>t</strong> = Time in years</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> £10,000 at 4.5% AER compounded annually for 10 years. A = 10000 × (1.045)^10 = ~£15,530. Almost certainly beats cash under the bed.
+    </p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>What's the Personal Savings Allowance?</summary>
+      <div class="faq-answer">Basic-rate taxpayers: £1,000/year of tax-free interest. Higher-rate: £500. Additional-rate: £0. Beyond your PSA, cash interest is taxed at your marginal rate.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>FSCS protection?</summary>
+      <div class="faq-answer">£85,000 per person per FSCS-authorised institution. If you have more than £85k, spread across institutions to stay under the cap.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Are Premium Bonds worth it?</summary>
+      <div class="faq-answer">Average ~4.15% but you might win nothing. Best as a small tax-free portion of your savings if you like the optionality. Don't make them more than 10-20% of your cash savings unless you have very high holdings.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Fix vs easy-access?</summary>
+      <div class="faq-answer">Fixes typically pay 0.2-0.5% more for locking up money 1-2 years. Worth it for the portion you definitely won't need. Keep your emergency fund in easy-access regardless of the slight yield drag.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uk/isa-calculator" class="related-card">
+        <h3>ISA Calculator</h3>
+        <p>Tax-free savings and investment growth.</p>
+      </a>
+      <a href="/uk/pension-calculator" class="related-card">
+        <h3>Pension Calculator</h3>
+        <p>Long-term retirement saving.</p>
+      </a>
+      <a href="/uk/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Save up for a deposit.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

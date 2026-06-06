@@ -3,15 +3,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const calculators = [
   { slug: 'mortgage-calculator', name: 'Mortgage Calculator', desc: 'Estimate your monthly home loan payment. Compare 15, 20, and 30-year terms.' },
+  { slug: '401k-calculator', name: '401(k) Calculator', desc: 'Project your retirement balance with contributions, employer match, and growth.' },
+  { slug: 'roth-ira-calculator', name: 'Roth IRA Calculator', desc: 'Tax-free retirement growth — $7,000/year contribution limit.' },
+  { slug: 'investment-calculator', name: 'Investment Calculator', desc: 'Long-term growth projections for taxable brokerage accounts.' },
   { slug: 'auto-loan-calculator', name: 'Auto Loan Calculator', desc: 'See your monthly car payment. Compare 36, 48, 60, and 72-month terms.' },
+  { slug: 'personal-loan-calculator', name: 'Personal Loan Calculator', desc: 'Estimate monthly payments for debt consolidation or any unsecured loan.' },
+  { slug: 'student-loan-calculator', name: 'Student Loan Calculator', desc: 'Federal and private student loan payment estimator.' },
   { slug: 'savings-calculator', name: 'Savings Calculator', desc: 'See how your savings grow over time. High-yield vs traditional rates.' },
   { slug: 'compound-interest-calculator', name: 'Compound Interest Calculator', desc: 'See how your money grows with different compounding frequencies.' },
 ];
 ---
 
 <BaseLayout
-  title="US Financial Calculators - Mortgage, Auto Loan, Savings & More | PennyMath"
-  description="Free financial calculators for the US. Mortgage payments, auto loans, savings goals, and compound interest. No signup required."
+  title="US Financial Calculators - Mortgage, 401k, IRA, Loans & More | PennyMath"
+  description="Free financial calculators for the US. Mortgage, 401(k), Roth IRA, investment, auto loan, savings, and more. No signup, no email required."
 >
   <nav class="breadcrumbs">
     <a href="/">Home</a> <span>/</span> US
@@ -19,7 +24,7 @@ const calculators = [
 
   <h1>US Financial Calculators</h1>
   <p class="page-intro">
-    Free online financial calculators for US borrowers and savers. Plan a mortgage, compare car loans, see how your savings grow, and more — no signup, no email gates.
+    Free online calculators for US borrowers, savers, and investors. Plan a mortgage, project retirement, compare loan terms, model savings goals — no signup, no email gates.
   </p>
 
   <div class="calc-grid">

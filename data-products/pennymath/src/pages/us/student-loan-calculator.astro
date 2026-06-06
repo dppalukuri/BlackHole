@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
+---
+<BaseLayout
+  title="Student Loan Calculator - Federal & Private Loan Payments | PennyMath"
+  description="Free student loan calculator. Estimate monthly payments, total interest, and payoff time for federal and private student loans. 10, 20, or 25-year terms."
+  keywords="student loan calculator, student loan payment, federal student loan, private student loan, student loan refinance"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Student Loan Calculator",
+      "url": "https://pennymath.techtools365.com/us/student-loan-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What's the typical student loan interest rate?", "acceptedAnswer": { "@type": "Answer", "text": "Federal student loans for 2025-26 disbursement: undergraduate Direct loans are 6.53%, graduate Direct loans are 8.08%, PLUS loans are 9.08%. Private student loans range from 4-13% depending on credit and cosigner. Rates are fixed for federal loans, fixed or variable for private." }},
+        { "@type": "Question", "name": "Federal vs private student loans?", "acceptedAnswer": { "@type": "Answer", "text": "Federal first, almost always. Federal loans offer income-driven repayment plans, deferment in hardship, potential forgiveness (PSLF, IDR forgiveness), and survive bankruptcy challenges better. Private loans only make sense after maxing federal aid and only with rates well below federal alternatives." }},
+        { "@type": "Question", "name": "Should I refinance my student loans?", "acceptedAnswer": { "@type": "Answer", "text": "Refinancing federal loans into private loses access to income-driven repayment and PSLF — usually not worth it unless your career path is locked into high private-sector income. Refinancing private-to-private is straightforward: if you can get a meaningfully lower rate (1%+ improvement), it pays off quickly." }},
+        { "@type": "Question", "name": "What's PSLF and how do I qualify?", "acceptedAnswer": { "@type": "Answer", "text": "Public Service Loan Forgiveness wipes remaining federal student loan balance after 120 qualifying monthly payments while working for a qualifying public-service employer (government, 501(c)(3) non-profit, military). The 120 payments don't need to be consecutive. Submit Form PSLF annually to confirm eligibility and track progress." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/us/">US</a> <span>/</span>
+    Student Loan Calculator
+  </nav>
+
+  <h1>Student Loan Calculator</h1>
+  <p class="page-subtitle">Estimate your monthly student loan payment</p>
+  <p class="page-intro">
+    See your monthly payment and total interest cost for federal or private student loans. Compare standard 10-year, 20-year, and 25-year repayment plans.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'USD', symbol: '$' }}
+    defaults={{ loanAmount: 40000, interestRate: 6.53, loanTenure: 10 }}
+  />
+
+  <section class="content-section">
+    <h2>Federal Student Loan Rates (2025-26)</h2>
+    <table>
+      <thead><tr><th>Loan Type</th><th>Rate</th><th>Origination Fee</th></tr></thead>
+      <tbody>
+        <tr><td>Direct Subsidized (undergrad)</td><td>6.53%</td><td>1.057%</td></tr>
+        <tr><td>Direct Unsubsidized (undergrad)</td><td>6.53%</td><td>1.057%</td></tr>
+        <tr><td>Direct Unsubsidized (graduate)</td><td>8.08%</td><td>1.057%</td></tr>
+        <tr><td>Direct PLUS (parent/grad)</td><td>9.08%</td><td>4.228%</td></tr>
+      </tbody>
+    </table>
+    <p>
+      Federal rates are fixed for the life of the loan and set annually by Congress. Subsidized loans don't accrue interest while you're in school at least half-time, in deferment, or during the 6-month grace period.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Repayment Plan Options (Federal)</h2>
+    <ul>
+      <li><strong>Standard (10 years):</strong> Fixed monthly payment. Lowest total interest. Default plan unless you opt for another.</li>
+      <li><strong>Graduated (10 years):</strong> Payments start low, increase every 2 years. Total cost slightly higher than Standard.</li>
+      <li><strong>Extended (up to 25 years):</strong> Lower monthly payment, much higher total interest. Available if you owe $30k+.</li>
+      <li><strong>SAVE Plan (income-driven):</strong> Payments capped at 5-10% of discretionary income. Forgiveness after 20-25 years.</li>
+      <li><strong>PAYE / IBR:</strong> Older income-driven plans, generally less generous than SAVE.</li>
+    </ul>
+    <p>
+      For loans over $50k or anyone targeting PSLF, an income-driven plan often wins. For smaller balances and high earners, Standard 10-year minimizes total cost.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Math of Paying Extra</h2>
+    <p>
+      On a $40,000 loan at 6.53% with the 10-year standard plan, you pay ~$455/month and ~$14,600 in total interest. Adding $100/month:
+    </p>
+    <ul>
+      <li><strong>Standard payment ($455):</strong> 120 months, $14,600 interest</li>
+      <li><strong>$555/month ($100 extra):</strong> ~92 months, $10,800 interest. Saves ~$3,800 in interest and ~28 months.</li>
+      <li><strong>$655/month ($200 extra):</strong> ~76 months, $8,500 interest. Saves ~$6,100.</li>
+    </ul>
+    <p>
+      Extra payments go straight to principal once you've covered the current month's interest. Direct any tax refunds, bonuses, or windfalls here for outsized impact.
+    </p>
+  </section>
+
+  <AffiliateCTA partner={BETTERMENT} title="Pay off the loan, redirect the payment to investing" blurb="When your student loans are gone, you'll have $455/month freed up. Auto-direct it into a Roth IRA — same monthly cash flow, but now building wealth instead of paying interest." />
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>Typical interest rate?</summary>
+      <div class="faq-answer">Federal undergrad: 6.53% for 2025-26. Federal grad: 8.08%. PLUS: 9.08%. Private: 4-13% depending on credit + cosigner. Federal rates are fixed; private can be fixed or variable.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Federal vs private?</summary>
+      <div class="faq-answer">Federal almost always first. Income-driven plans, deferment, PSLF eligibility, and stronger bankruptcy protection all favor federal. Private loans only after federal aid is maxed and only when the rate is meaningfully better.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I refinance?</summary>
+      <div class="faq-answer">Refinancing federal-to-private kills income-driven repayment and PSLF — usually a bad trade. Private-to-private refinancing makes sense if you can drop the rate by 1%+ and your credit has improved since the original loan.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's PSLF?</summary>
+      <div class="faq-answer">Public Service Loan Forgiveness wipes the remaining federal balance after 120 qualifying payments while working for a qualifying employer (government, 501(c)(3), military). File Form PSLF annually to track. Roughly 10 years on an income-driven plan plus public-sector employment = total forgiveness.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I pay extra on student loans or invest?</summary>
+      <div class="faq-answer">Loans above ~7% — pay them down aggressively, that's a guaranteed return matching equity expectations. Loans under 5% — usually better to invest the difference, especially in tax-advantaged accounts. 5-7% — close call; emotional preference matters.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/us/personal-loan-calculator" class="related-card">
+        <h3>Personal Loan Calculator</h3>
+        <p>For debt consolidation and unsecured loans.</p>
+      </a>
+      <a href="/us/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Home loan payment estimator.</p>
+      </a>
+      <a href="/us/roth-ira-calculator" class="related-card">
+        <h3>Roth IRA Calculator</h3>
+        <p>Tax-free retirement growth — start once loans are gone.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

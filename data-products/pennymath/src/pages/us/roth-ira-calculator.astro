@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
+---
+<BaseLayout
+  title="Roth IRA Calculator - Tax-Free Retirement Growth | PennyMath"
+  description="Free Roth IRA calculator. See your tax-free retirement balance with monthly contributions and compound growth. 2026 limits and rules included."
+  keywords="roth ira calculator, ira growth calculator, tax-free retirement, roth conversion calculator, retirement planning"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Roth IRA Calculator",
+      "url": "https://pennymath.techtools365.com/us/roth-ira-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What's the 2026 Roth IRA contribution limit?", "acceptedAnswer": { "@type": "Answer", "text": "$7,000 per year for those under 50, $8,000 if you're 50 or older. This limit applies across all your IRAs combined (Traditional + Roth)." }},
+        { "@type": "Question", "name": "Who can contribute to a Roth IRA?", "acceptedAnswer": { "@type": "Answer", "text": "Full contributions are allowed if your modified AGI is below $146,000 (single) or $230,000 (married filing jointly) for 2026. Phase-outs apply above those thresholds. High earners can use the backdoor Roth strategy — contribute to a Traditional IRA then convert." }},
+        { "@type": "Question", "name": "Roth IRA vs 401(k) — which first?", "acceptedAnswer": { "@type": "Answer", "text": "Capture your full 401(k) employer match first (it's free money). Then max your Roth IRA. Then go back and increase 401(k) contributions toward the $23,500 max. This order maximizes tax-advantaged growth — Roth IRAs have no required minimum distributions and offer more investment flexibility than most 401(k) plans." }},
+        { "@type": "Question", "name": "Can I withdraw Roth IRA contributions early?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — your contributions (but not earnings) can be withdrawn at any time, tax-free and penalty-free. This makes a Roth IRA function partly as an emergency fund of last resort. Earnings withdrawn before age 59½ or before the account is 5 years old are subject to tax and a 10% penalty (with some exceptions)." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/us/">US</a> <span>/</span>
+    Roth IRA Calculator
+  </nav>
+
+  <h1>Roth IRA Calculator</h1>
+  <p class="page-subtitle">See your tax-free retirement growth</p>
+  <p class="page-intro">
+    Project the balance of your Roth IRA at retirement. Every dollar grows tax-free and comes out tax-free — see what consistent contributions become over decades.
+  </p>
+
+  <SIPCalculator
+    client:visible
+    currency={{ code: 'USD', symbol: '$' }}
+    defaults={{ monthlyInvestment: 583, expectedReturn: 7, timePeriod: 30 }}
+  />
+
+  <section class="content-section">
+    <h2>Why a Roth IRA Is the Crown Jewel of Retirement Accounts</h2>
+    <p>
+      Roth IRAs offer three powerful advantages over Traditional IRAs and most 401(k) plans:
+    </p>
+    <ul>
+      <li><strong>Tax-free growth and withdrawals.</strong> Once contributed, money grows tax-free forever. Withdrawals in retirement are completely tax-free (no income tax, no capital gains tax).</li>
+      <li><strong>No Required Minimum Distributions.</strong> Traditional IRAs and 401(k)s force you to start withdrawing at age 73. Roth IRAs have no RMDs — you can leave it alone and let it compound for your kids if you want.</li>
+      <li><strong>Penalty-free access to contributions.</strong> You can withdraw your original contributions at any time without tax or penalty. This makes the Roth a partial emergency fund.</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>The Power of Maxing for 30 Years</h2>
+    <p>
+      Maxing the $7,000 annual contribution ($583/month) at a 7% return:
+    </p>
+    <ul>
+      <li><strong>Total contributed over 30 years:</strong> $210,000</li>
+      <li><strong>Total at retirement:</strong> $720,000</li>
+      <li><strong>Tax-free growth:</strong> $510,000</li>
+    </ul>
+    <p>
+      In a taxable brokerage account, that same $510,000 in growth would owe long-term capital gains tax — at a 15% federal rate plus state, you'd lose $80,000-$100,000 to taxes. The Roth shields all of it.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>2026 Roth IRA Rules</h2>
+    <ul>
+      <li><strong>Contribution limit:</strong> $7,000/year ($8,000 if 50+)</li>
+      <li><strong>Income limits (full contribution):</strong> MAGI under $146,000 single / $230,000 married</li>
+      <li><strong>Income limits (phase-out):</strong> $146,000-$161,000 single / $230,000-$240,000 married</li>
+      <li><strong>Backdoor Roth:</strong> high earners can contribute to Traditional IRA then convert to Roth (legal as of 2026)</li>
+      <li><strong>5-year rule:</strong> earnings must stay in the account for 5 years before tax-free withdrawal in retirement</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={BETTERMENT} title="Open a Roth IRA in 5 minutes" blurb="Betterment makes the setup automatic — answer a few questions about your timeline and they'll allocate appropriate index funds. Then auto-deposit your $583/month and let it compound." />
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>What's the 2026 contribution limit?</summary>
+      <div class="faq-answer">$7,000 per year if under 50, $8,000 with the catch-up if you're 50+. This is across all IRAs combined (Traditional + Roth).</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Who can contribute?</summary>
+      <div class="faq-answer">Full contributions if your MAGI is under $146,000 single or $230,000 married for 2026. Above those thresholds, the limit phases out. High earners use the backdoor Roth — contribute to Traditional IRA, then convert.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Roth IRA vs 401(k)?</summary>
+      <div class="faq-answer">Order matters: capture full 401(k) match first → max Roth IRA → back to 401(k) up to $23,500. The Roth gives you no RMDs, more investment choice, and tax-free withdrawals — it's strictly more flexible than most 401(k)s.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I withdraw early?</summary>
+      <div class="faq-answer">Contributions (but not earnings) can be withdrawn anytime with zero tax or penalty. Earnings face a 10% penalty plus tax if withdrawn before 59½ AND before the account is 5 years old (with hardship exceptions).</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What if I make too much to contribute directly?</summary>
+      <div class="faq-answer">Use the backdoor Roth: contribute (after-tax) to a Traditional IRA, then convert to Roth. There's no income limit on conversions. Watch for the pro-rata rule if you have other Traditional IRA money — talk to a tax pro before executing.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/us/401k-calculator" class="related-card">
+        <h3>401(k) Calculator</h3>
+        <p>Project your employer-sponsored retirement balance.</p>
+      </a>
+      <a href="/us/investment-calculator" class="related-card">
+        <h3>Investment Calculator</h3>
+        <p>Long-term growth in a taxable brokerage account.</p>
+      </a>
+      <a href="/us/compound-interest-calculator" class="related-card">
+        <h3>Compound Interest Calculator</h3>
+        <p>The fundamental math behind retirement growth.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const calculators = [
+  { slug: 'mortgage-calculator', name: 'Mortgage Calculator', desc: 'Estimate your monthly UK mortgage payment. 2, 5, and 10-year fix scenarios.' },
+  { slug: 'savings-calculator', name: 'Savings Calculator', desc: 'See how your savings grow with compound interest. ISA vs taxable rates.' },
+  { slug: 'pension-calculator', name: 'Pension Calculator', desc: 'Project your pension pot at retirement with monthly contributions and growth.' },
+  { slug: 'isa-calculator', name: 'ISA Calculator', desc: 'Tax-free growth in a Stocks & Shares ISA. £20,000 annual allowance.' },
+  { slug: 'personal-loan-calculator', name: 'Personal Loan Calculator', desc: 'Estimate monthly payments on any unsecured UK loan.' },
+];
+---
+
+<BaseLayout
+  title="UK Financial Calculators - Mortgage, Pension, ISA & More | PennyMath"
+  description="Free financial calculators for the UK. Mortgage payments, ISA growth, pension projections, and savings goals. No signup, no email required."
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> UK
+  </nav>
+
+  <h1>UK Financial Calculators</h1>
+  <p class="page-intro">
+    Free online financial calculators for UK savers and borrowers. Plan your mortgage, project your pension, compare ISA growth scenarios, and more — no signup, no email gates.
+  </p>
+
+  <div class="calc-grid">
+    {calculators.map((calc) => (
+      <a href={`/uk/${calc.slug}`} class="calc-card">
+        <h2>{calc.name}</h2>
+        <p>{calc.desc}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

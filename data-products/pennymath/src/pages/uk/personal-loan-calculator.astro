@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+---
+<BaseLayout
+  title="UK Personal Loan Calculator - Monthly Payment & APR | PennyMath"
+  description="Free UK personal loan calculator. Estimate monthly payments, total interest, and total cost. Compare 1-7 year loan terms and APRs."
+  keywords="uk personal loan calculator, loan calculator uk, unsecured loan uk, debt consolidation loan uk"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "UK Personal Loan Calculator",
+      "url": "https://pennymath.techtools365.com/uk/personal-loan-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/uk/">UK</a> <span>/</span>
+    Personal Loan Calculator
+  </nav>
+
+  <h1>UK Personal Loan Calculator</h1>
+  <p class="page-subtitle">Estimate your monthly payment on any UK personal loan</p>
+  <p class="page-intro">
+    Calculate the monthly payment and total interest on a UK unsecured personal loan. Useful for debt consolidation, home improvements, or any one-off large expense.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'GBP', symbol: '£' }}
+    defaults={{ loanAmount: 10000, interestRate: 7.9, loanTenure: 5 }}
+  />
+
+  <section class="content-section">
+    <h2>UK Personal Loan APRs (2026)</h2>
+    <table>
+      <thead><tr><th>Credit profile</th><th>Typical APR</th><th>Loan amount sweet spot</th></tr></thead>
+      <tbody>
+        <tr><td>Excellent (820+)</td><td>5.9-8.9%</td><td>£7,500-£25,000</td></tr>
+        <tr><td>Good (720-819)</td><td>7.9-12.9%</td><td>£3,000-£15,000</td></tr>
+        <tr><td>Fair (600-719)</td><td>14.9-29.9%</td><td>£1,000-£7,500</td></tr>
+        <tr><td>Poor (below 600)</td><td>34.9-79.9%</td><td>£500-£3,000</td></tr>
+      </tbody>
+    </table>
+    <p>
+      UK headline APRs are "representative" — only 51% of borrowers actually receive the advertised rate. You'll see the true rate only after a formal application. Use eligibility checkers first (soft search, no credit impact) to avoid wasted hard pulls.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>When a Personal Loan Wins vs Credit Cards</h2>
+    <ul>
+      <li><strong>Carrying a balance:</strong> If you've had a credit card balance for 3+ months, a 7.9% personal loan beats a 24.9% credit card APR by a huge margin.</li>
+      <li><strong>Fixed payoff date:</strong> Loan amortisation forces discipline. Credit card minimums can keep balances alive for decades.</li>
+      <li><strong>Predictable budgeting:</strong> The fixed monthly payment is easier to plan around than fluctuating card minimums.</li>
+    </ul>
+    <p>
+      For short-term float (1-3 months) on a card you'll repay in full, the rewards beat any loan. For anything longer, switch to a loan.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Section 75 Consumer Credit Act Protection</h2>
+    <p>
+      For credit card purchases between £100 and £30,000, Section 75 makes the card issuer jointly liable with the retailer if something goes wrong. Personal loans don't offer this — so for high-risk purchases (overseas flights, custom goods, expensive electronics), use a credit card and pay it off with the loan if you must, rather than using the loan directly.
+    </p>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>Does the calculator include arrangement fees?</summary>
+      <div class="faq-answer">No — this shows the payment based on interest rate and principal only. Some UK lenders charge arrangement fees (1-3% of loan amount); always compare APRs (which legally include fees) rather than interest rates alone.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I overpay or settle early?</summary>
+      <div class="faq-answer">Most UK personal loans allow overpayment, but you'll pay interest up to the settlement date plus potentially a small "early settlement charge" (capped by the Consumer Credit Act at 1-2 months' interest on the settled amount). Check your specific T&Cs.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Soft search vs hard search?</summary>
+      <div class="faq-answer">Eligibility checkers use soft searches — they don't affect your credit score. Formal applications use hard searches — visible to other lenders for 12 months, mild score impact for 3-6 months. Always start with soft search comparison tools (MSE, ClearScore, Experian) before formal applications.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>UK credit score above 999 means what?</summary>
+      <div class="faq-answer">The three UK credit reference agencies use different scales (Experian out of 999, Equifax 0-1000, TransUnion 0-710). The score itself doesn't matter — what matters is which "tier" you fall into. Lenders use their own internal scoring, not the consumer-facing score.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uk/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Estimate monthly home loan payments.</p>
+      </a>
+      <a href="/uk/savings-calculator" class="related-card">
+        <h3>Savings Calculator</h3>
+        <p>Build a deposit or emergency fund.</p>
+      </a>
+      <a href="/uk/pension-calculator" class="related-card">
+        <h3>Pension Calculator</h3>
+        <p>Long-term retirement saving.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
+---
+<BaseLayout
+  title="Personal Loan Calculator - Free Monthly Payment Tool | PennyMath"
+  description="Free personal loan calculator. Estimate your monthly payment, total interest, and APR cost on any unsecured loan. Compare lender offers side by side."
+  keywords="personal loan calculator, unsecured loan calculator, debt consolidation calculator, loan payment calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Personal Loan Calculator",
+      "url": "https://pennymath.techtools365.com/us/personal-loan-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How is a personal loan payment calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Personal loans use standard amortization: M = P × r × (1+r)^n / ((1+r)^n - 1), where P is principal, r is monthly rate, n is total payments. For a $15,000 loan at 11% over 4 years, the payment is approximately $387/month, with $3,584 in total interest." }},
+        { "@type": "Question", "name": "What's a good APR for a personal loan?", "acceptedAnswer": { "@type": "Answer", "text": "Personal loan APRs range from 6% (excellent credit, 750+) to 36% (subprime). For 2026, a competitive rate is 8-13% if your credit score is 700+. Above 20% APR, you should generally consider alternatives — paying down high-interest debt with new debt only makes sense if the rate is meaningfully lower." }},
+        { "@type": "Question", "name": "Personal loan vs credit card?", "acceptedAnswer": { "@type": "Answer", "text": "Personal loans usually have lower APRs (8-15% vs 20-29% for credit cards) and fixed payments, making them better for predictable debt consolidation. Credit cards offer rewards and flexibility but compound interest faster. If you're carrying a balance for more than 3 months, a personal loan almost always wins." }},
+        { "@type": "Question", "name": "Are there fees beyond interest?", "acceptedAnswer": { "@type": "Answer", "text": "Watch for: origination fees (1-8% of loan amount, sometimes deducted from your check), prepayment penalties (rare on personal loans now), late fees ($25-39 typical), and insufficient funds fees. The APR should include origination fees by law (TILA), but always confirm — compare APR-to-APR across offers, not interest rate alone." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/us/">US</a> <span>/</span>
+    Personal Loan Calculator
+  </nav>
+
+  <h1>Personal Loan Calculator</h1>
+  <p class="page-subtitle">Estimate your monthly payment on any unsecured loan</p>
+  <p class="page-intro">
+    Calculate the monthly payment, total interest, and total cost of a personal loan. Useful for debt consolidation, medical expenses, home improvements, or any large purchase.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'USD', symbol: '$' }}
+    defaults={{ loanAmount: 15000, interestRate: 11, loanTenure: 4 }}
+  />
+
+  <section class="content-section">
+    <h2>When a Personal Loan Makes Sense</h2>
+    <p>Personal loans work best when:</p>
+    <ul>
+      <li><strong>Consolidating high-interest debt</strong> — replacing 24% APR credit card debt with a 10% personal loan saves real money</li>
+      <li><strong>One-time large expense</strong> — medical bills, home repairs, or a wedding where you want a fixed payoff schedule</li>
+      <li><strong>You have good credit</strong> — sub-12% APR makes the math work; above 18% gets dicey</li>
+      <li><strong>You want predictable payments</strong> — fixed monthly amount makes budgeting easier than variable credit card minimums</li>
+    </ul>
+    <p>Personal loans are usually a bad idea for vacations, weddings you can't comfortably afford, or anything that's a want rather than a need. Borrowing to lifestyle-inflate compounds against you.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>APR by Credit Score (2026)</h2>
+    <table>
+      <thead><tr><th>Credit Score</th><th>Typical APR Range</th><th>What This Means</th></tr></thead>
+      <tbody>
+        <tr><td>720+</td><td>6-11%</td><td>Best offers — multiple lenders compete for you</td></tr>
+        <tr><td>680-719</td><td>11-15%</td><td>Good — shop 3-4 lenders</td></tr>
+        <tr><td>640-679</td><td>15-22%</td><td>Acceptable — check credit unions</td></tr>
+        <tr><td>580-639</td><td>22-30%</td><td>Marginal — consider waiting + improving score</td></tr>
+        <tr><td>Below 580</td><td>28-36%</td><td>Subprime — be very careful, often not worth it</td></tr>
+      </tbody>
+    </table>
+    <p>The difference between 11% and 22% on a $15,000 loan over 4 years is $1,800 in extra interest. Spending 2-3 months bumping your score from 670 to 720 can pay off massively.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Loan Payment Formula</h2>
+    <div class="formula-box">
+      M = P &times; r &times; (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> - 1)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>M</strong> = Monthly payment</li>
+      <li><strong>P</strong> = Loan amount (principal, after any origination fee deduction)</li>
+      <li><strong>r</strong> = Monthly interest rate (annual APR ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong> = Total number of payments (years × 12)</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={BETTERMENT} title="Pay off the loan, then keep investing the payment" blurb="Once your personal loan is paid off, redirect that $387/month into an automated investment account. Same cash flow, but it's now building wealth instead of paying interest." />
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>How is a personal loan payment calculated?</summary>
+      <div class="faq-answer">Standard amortization formula. For $15,000 at 11% over 4 years, the monthly payment is ~$387 with $3,584 in total interest over the life of the loan.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's a good APR?</summary>
+      <div class="faq-answer">8-13% is competitive if your credit is 700+. Above 20% APR, think hard before signing — debt consolidation only helps if the new rate is meaningfully lower than the old one.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Personal loan vs credit card?</summary>
+      <div class="faq-answer">Personal loans usually win for balances you'll carry more than 3 months. Lower APRs (8-15% vs 20-29%), fixed payments, and a clear payoff date. Credit cards win for short-term float you'll pay off in full each month.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Watch out for fees?</summary>
+      <div class="faq-answer">Origination fees can be 1-8% of the loan amount and are sometimes deducted from your disbursement. Always compare APR (which by law includes origination), not interest rate, across offers.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does applying hurt my credit?</summary>
+      <div class="faq-answer">Pre-qualification typically uses a soft pull (no impact). Formal application is a hard pull (5-10 point dip for a few months). If you're shopping multiple lenders, do it within a 2-week window — credit bureaus count multiple hard pulls in that window as one inquiry for scoring purposes.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/us/auto-loan-calculator" class="related-card">
+        <h3>Auto Loan Calculator</h3>
+        <p>Estimate monthly payment on a car loan.</p>
+      </a>
+      <a href="/us/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Estimate monthly payment on a home loan.</p>
+      </a>
+      <a href="/us/student-loan-calculator" class="related-card">
+        <h3>Student Loan Calculator</h3>
+        <p>Federal and private student loan payments.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
