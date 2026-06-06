@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
+---
+<BaseLayout
+  title="Mortgage Calculator - Free Home Loan Payment Tool | PennyMath"
+  description="Free mortgage calculator. Estimate your monthly payment, total interest, and amortization for any home loan. 15, 20, or 30-year terms. No signup required."
+  keywords="mortgage calculator, home loan calculator, monthly mortgage payment, mortgage payment calculator, home affordability calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Mortgage Calculator",
+      "url": "https://pennymath.techtools365.com/us/mortgage-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How is a mortgage payment calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Mortgage payment uses the amortization formula: P × r × (1+r)^n / ((1+r)^n - 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments. For a $400,000 loan at 6.5% over 30 years, the monthly principal + interest is approximately $2,528." }},
+        { "@type": "Question", "name": "What's the difference between a 15-year and 30-year mortgage?", "acceptedAnswer": { "@type": "Answer", "text": "A 15-year mortgage has higher monthly payments but much lower total interest. On a $400,000 loan at 6.5%: 30-year payment ≈ $2,528/mo, total interest ≈ $510,000. 15-year payment ≈ $3,484/mo, total interest ≈ $227,000. You save ~$283,000 in interest with a 15-year, but pay $956 more per month." }},
+        { "@type": "Question", "name": "Does this calculator include taxes and insurance?", "acceptedAnswer": { "@type": "Answer", "text": "This calculator shows principal and interest only (P&I). Your actual monthly housing cost will also include property taxes (1-2.5% of home value annually), homeowners insurance ($1,200-$2,500/yr typical), and PMI if your down payment is under 20% (~0.5-1.5% annually). Add these separately to budget the full PITI payment." }},
+        { "@type": "Question", "name": "What credit score do I need for the best mortgage rate?", "acceptedAnswer": { "@type": "Answer", "text": "Conventional loans favor scores of 740+ for the best rates. 760+ typically gets the lowest tier. A score of 620-680 still qualifies but at rates 0.5-1.0% higher. FHA loans accept scores down to 580 with 3.5% down. The difference between a 6.5% rate and 7.5% rate on a $400k loan is about $260/month or $94,000 over 30 years." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/us/">US</a> <span>/</span>
+    Mortgage Calculator
+  </nav>
+
+  <h1>Mortgage Calculator</h1>
+  <p class="page-subtitle">Estimate your monthly home loan payment</p>
+  <p class="page-intro">
+    See your monthly principal + interest payment on a fixed-rate mortgage. Adjust the loan amount, rate, and term to compare scenarios — 15, 20, or 30 years.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'USD', symbol: '$' }}
+    defaults={{ loanAmount: 400000, interestRate: 6.5, loanTenure: 30 }}
+  />
+
+  <section class="content-section">
+    <h2>How Mortgage Payments Work</h2>
+    <p>
+      A fixed-rate mortgage spreads your loan into equal monthly payments over the term. Each payment has two parts: <strong>interest</strong> on the outstanding balance, and <strong>principal</strong> that reduces what you owe. Early on, most of each payment is interest. In the final years, most is principal.
+    </p>
+    <p>
+      This calculator shows the principal + interest portion only (P&I). Your full monthly housing cost — sometimes called PITI — also includes <strong>property taxes</strong>, <strong>homeowners insurance</strong>, and <strong>PMI</strong> if your down payment is under 20%. A rough rule of thumb: add 1-2% of the home value per year to your P&I budget to cover the rest.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>15-Year vs 30-Year — Which Is Cheaper?</h2>
+    <p>The 30-year is cheaper per month. The 15-year is dramatically cheaper overall. On a $400,000 loan at 6.5%:</p>
+    <ul>
+      <li><strong>30-year:</strong> $2,528/month, $510,000 total interest</li>
+      <li><strong>20-year:</strong> $2,983/month, $315,000 total interest</li>
+      <li><strong>15-year:</strong> $3,484/month, $227,000 total interest</li>
+    </ul>
+    <p>
+      The 15-year saves you $283,000 in interest vs the 30-year. The catch: $956 more per month. If you can afford the higher payment without sacrificing retirement contributions or emergency savings, the 15-year is the better deal. If not, the 30-year with extra principal payments when you can captures most of the benefit while preserving cash flow flexibility.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Mortgage Formula</h2>
+    <div class="formula-box">
+      M = P &times; r &times; (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> - 1)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>M</strong> = Monthly payment (principal + interest)</li>
+      <li><strong>P</strong> = Loan amount (principal)</li>
+      <li><strong>r</strong> = Monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong> = Total number of payments (years × 12)</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> $400,000 at 6.5% for 30 years: P = 400000, r = 0.005417, n = 360. M = approximately $2,528/month. Over 30 years you pay $910,162 total — $510,162 of which is interest.
+    </p>
+  </section>
+
+  <AffiliateCTA partner={BETTERMENT} title="Don't let your down payment sit in checking" blurb="Park your down-payment savings in a high-yield account. Betterment's cash reserve pays meaningfully more than most banks while staying liquid for closing day." />
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>How is a mortgage payment calculated?</summary>
+      <div class="faq-answer">Mortgage payments use the amortization formula: M = P × r × (1+r)^n / ((1+r)^n - 1), where P is the loan amount, r is the monthly rate, and n is the total number of payments. The same payment is made every month, but the split between principal and interest changes over time.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's the difference between a 15-year and 30-year mortgage?</summary>
+      <div class="faq-answer">A 15-year mortgage has roughly 38% higher monthly payments but cuts total interest by ~55% vs a 30-year. On a $400k loan at 6.5%, a 30-year costs $2,528/mo with $510k interest; a 15-year costs $3,484/mo with $227k interest. Total savings: ~$283,000.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does this calculator include taxes and insurance?</summary>
+      <div class="faq-answer">No — this shows principal + interest (P&I) only. Property taxes typically add 1-2.5% of home value per year. Homeowners insurance adds $1,200-$2,500 annually. If your down payment is under 20%, PMI adds another 0.5-1.5%. Budget for the full PITI to avoid surprises.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How much does my credit score affect the rate?</summary>
+      <div class="faq-answer">Significantly. The gap between a 760+ credit score and a 620 score is often 0.75-1.5% in mortgage rate. On a $400k loan at 6.5% vs 7.5%, that's about $260 more per month and $94,000 more in total interest. Boosting your score by even 20-40 points before applying can pay off massively.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I pay points to lower the rate?</summary>
+      <div class="faq-answer">Each point costs 1% of the loan amount and typically lowers the rate by 0.25%. Break-even is usually 4-7 years. If you'll stay in the home longer than that, points save money. If you might refinance or sell sooner, skip them.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/us/auto-loan-calculator" class="related-card">
+        <h3>Auto Loan Calculator</h3>
+        <p>Estimate your monthly payment on any car loan.</p>
+      </a>
+      <a href="/us/savings-calculator" class="related-card">
+        <h3>Savings Goal Calculator</h3>
+        <p>See how long until you hit your down-payment target.</p>
+      </a>
+      <a href="/us/compound-interest-calculator" class="related-card">
+        <h3>Compound Interest Calculator</h3>
+        <p>Long-term growth of investments and savings.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

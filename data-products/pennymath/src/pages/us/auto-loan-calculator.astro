@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
+---
+<BaseLayout
+  title="Auto Loan Calculator - Free Car Payment Tool | PennyMath"
+  description="Free auto loan calculator. Estimate your monthly car payment, total interest, and amortization. Compare 36, 48, 60, or 72-month terms. No signup."
+  keywords="auto loan calculator, car loan calculator, car payment calculator, monthly car payment, vehicle loan estimator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Auto Loan Calculator",
+      "url": "https://pennymath.techtools365.com/us/auto-loan-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How is a car loan payment calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Auto loan payments use the same amortization formula as a mortgage: M = P × r × (1+r)^n / ((1+r)^n - 1). The difference is the typical terms — 36 to 84 months instead of 15 to 30 years. For a $35,000 loan at 7.5% over 60 months, the monthly payment is approximately $701." }},
+        { "@type": "Question", "name": "What's the ideal car loan term?", "acceptedAnswer": { "@type": "Answer", "text": "60 months is the sweet spot for most buyers. Shorter terms (36-48 months) save on interest but raise the monthly payment significantly. Longer terms (72-84 months) lower the monthly payment but you'll often owe more than the car is worth for several years, and you pay much more interest. Avoid 84-month loans unless you absolutely have to." }},
+        { "@type": "Question", "name": "Should I make a larger down payment?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — at least 20% on a new car, 10% on a used car. Larger down payments reduce the financed amount, cut interest paid, lower the monthly payment, and reduce the time you'll be upside-down on the loan (owing more than the car is worth). Cars depreciate fastest in the first 2-3 years, so the more equity you start with, the less risk." }},
+        { "@type": "Question", "name": "Should I get pre-approved before going to the dealership?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Get a pre-approval from your bank, credit union, or an online lender before you shop. Credit unions often have the lowest rates (sometimes 1-2% below dealer financing). When you walk in with a pre-approval, you negotiate from a position of strength and the dealer has to beat your rate to win the financing." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/us/">US</a> <span>/</span>
+    Auto Loan Calculator
+  </nav>
+
+  <h1>Auto Loan Calculator</h1>
+  <p class="page-subtitle">Estimate your monthly car payment</p>
+  <p class="page-intro">
+    See your monthly payment on a new or used car loan. Adjust the price, down payment, rate, and term to compare scenarios.
+  </p>
+
+  <EMICalculator
+    client:visible
+    currency={{ code: 'USD', symbol: '$' }}
+    defaults={{ loanAmount: 35000, interestRate: 7.5, loanTenure: 5 }}
+  />
+
+  <section class="content-section">
+    <h2>How Auto Loans Work</h2>
+    <p>
+      An auto loan is a fixed-rate, fixed-term installment loan secured by the car itself. You make the same payment every month, with the principal portion growing and the interest portion shrinking each month. If you stop paying, the lender can repossess the vehicle.
+    </p>
+    <p>
+      Rates depend heavily on your credit score, the loan term, and whether the car is new or used. Used car loans typically run 1-2% higher than new car loans. Credit unions almost always beat dealer financing — check there first.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Choosing the Right Loan Term</h2>
+    <p>For a $35,000 loan at 7.5%:</p>
+    <ul>
+      <li><strong>36 months:</strong> $1,089/month, $4,200 total interest</li>
+      <li><strong>48 months:</strong> $846/month, $5,615 total interest</li>
+      <li><strong>60 months:</strong> $701/month, $7,050 total interest</li>
+      <li><strong>72 months:</strong> $604/month, $8,491 total interest</li>
+      <li><strong>84 months:</strong> $537/month, $9,930 total interest</li>
+    </ul>
+    <p>
+      Each extra year of term lowers the monthly payment by $50-$100 but adds ~$1,400 in interest. The 60-month is a reasonable balance for most buyers. Avoid 84-month loans — you'll be underwater (owe more than the car is worth) for 4-5 years, and total interest is more than double the 36-month option.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Auto Loan Formula</h2>
+    <div class="formula-box">
+      M = P &times; r &times; (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> - 1)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>M</strong> = Monthly payment</li>
+      <li><strong>P</strong> = Amount financed (car price - down payment - trade-in)</li>
+      <li><strong>r</strong> = Monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong> = Total number of payments (years × 12)</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> Buying a $40,000 car with $5,000 down (financing $35,000) at 7.5% APR for 60 months. M = approximately $701/month. Total paid over the loan: $42,051. Interest portion: $7,051.
+    </p>
+  </section>
+
+  <AffiliateCTA partner={BETTERMENT} title="Park your down payment somewhere it earns" blurb="A $5,000 down payment sitting in checking earns nothing. In a high-yield account it earns real interest while you decide which car to buy." />
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>How is a car loan payment calculated?</summary>
+      <div class="faq-answer">Same amortization formula as a mortgage: M = P × r × (1+r)^n / ((1+r)^n - 1). For $35,000 at 7.5% over 60 months, that's approximately $701/month, with $7,050 in total interest over the life of the loan.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's the ideal car loan term?</summary>
+      <div class="faq-answer">60 months is the sweet spot for most buyers. Shorter terms save interest but stretch monthly cash flow. Longer terms (72-84 months) lower the payment but you'll owe more than the car is worth for years and total interest gets ugly. Avoid 84 months if you can.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I make a larger down payment?</summary>
+      <div class="faq-answer">Yes — at least 20% on new, 10% on used. Cars depreciate fastest in years 1-3. The more equity you start with, the less time you'll be upside-down on the loan, and the less interest you'll pay overall.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I get pre-approved before the dealership?</summary>
+      <div class="faq-answer">Always. Credit unions and online lenders often beat dealer financing by 1-2% APR. Walk in with a pre-approval and let the dealer try to beat it. Without one, you'll likely overpay on the financing even if you got a good price on the car.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is 0% APR financing actually free money?</summary>
+      <div class="faq-answer">Not quite. Manufacturer 0% offers typically require above-average credit and replace any cash rebate you'd otherwise get. Sometimes taking the rebate and a regular loan saves more than 0% APR with no rebate. Run both scenarios — 0% isn't always the winner.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/us/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Estimate your monthly home loan payment.</p>
+      </a>
+      <a href="/us/savings-calculator" class="related-card">
+        <h3>Savings Goal Calculator</h3>
+        <p>See how to save up for a down payment.</p>
+      </a>
+      <a href="/us/compound-interest-calculator" class="related-card">
+        <h3>Compound Interest Calculator</h3>
+        <p>Long-term growth of investments and savings.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

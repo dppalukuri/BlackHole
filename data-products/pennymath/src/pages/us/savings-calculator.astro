@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CompoundInterestCalculator from '../../components/calculators/engines/CompoundInterestCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { BETTERMENT } from '../../lib/affiliates';
+---
+<BaseLayout
+  title="Savings Calculator - Reach Your Financial Goal | PennyMath"
+  description="Free savings calculator. See how much you need to save monthly to reach a goal, or how long until you hit a target. High-yield savings rate scenarios included."
+  keywords="savings calculator, savings goal calculator, how much to save, high yield savings, emergency fund calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Savings Calculator",
+      "url": "https://pennymath.techtools365.com/us/savings-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How much should I save each month?", "acceptedAnswer": { "@type": "Answer", "text": "The classic answer is 20% of take-home pay, split between retirement (15%) and short-term goals (5%). But a better framing: build a 3-6 month emergency fund first ($1,000 starter, then full fund), then max any employer 401(k) match (free money), then attack high-interest debt, then increase retirement contributions toward 15% of gross income." }},
+        { "@type": "Question", "name": "What's a realistic savings interest rate?", "acceptedAnswer": { "@type": "Answer", "text": "In 2026, high-yield savings accounts at online banks pay around 4-5% APY. Traditional savings at brick-and-mortar banks pay 0.05-0.5% — a 100x difference. Money market funds and short-term Treasuries can sometimes beat HYSA. For longer-term savings (5+ years), stocks historically return ~7% real (after inflation), so a brokerage account is the better home." }},
+        { "@type": "Question", "name": "Should I save first or pay off debt?", "acceptedAnswer": { "@type": "Answer", "text": "Both, in order. Build a $1,000 emergency cushion first so a flat tire doesn't trigger more debt. Then pay off any debt above ~7-8% interest (credit cards, payday loans). Then build a full 3-6 month emergency fund alongside maxing employer 401(k) match. Below ~5% interest debt (federal student loans, low mortgage rates) is often worth keeping while you invest." }},
+        { "@type": "Question", "name": "How long will it take to save $10,000?", "acceptedAnswer": { "@type": "Answer", "text": "Depends on your monthly contribution and rate. Saving $300/month at 4.5% APY hits $10,000 in about 31 months. Saving $500/month at the same rate, ~19 months. Saving $1,000/month, ~10 months. Higher rates help but contribution amount matters far more for short-term goals — the math runs against compounding when the time horizon is short." }}
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/us/">US</a> <span>/</span>
+    Savings Calculator
+  </nav>
+
+  <h1>Savings Calculator</h1>
+  <p class="page-subtitle">See how your savings grow over time</p>
+  <p class="page-intro">
+    Calculate the future value of your savings with compound interest. Adjust your starting balance, interest rate, and time horizon to see what's possible.
+  </p>
+
+  <CompoundInterestCalculator client:visible />
+
+  <section class="content-section">
+    <h2>Where to Keep Your Savings</h2>
+    <p>
+      Where you park your money matters more than most people think. The same $10,000, over the same 10 years, can grow very differently:
+    </p>
+    <ul>
+      <li><strong>Traditional savings (0.05% APY):</strong> $10,050. You essentially lost money to inflation.</li>
+      <li><strong>High-yield savings (4.5% APY):</strong> $15,530. Modest growth, fully liquid, FDIC-insured.</li>
+      <li><strong>S&P 500 average (~10% nominal):</strong> $25,937. Higher volatility, but historically the best 10+ year vehicle.</li>
+    </ul>
+    <p>
+      The takeaway: for cash you need within 12 months (emergency fund, near-term goals), a high-yield savings account is the right home. For money you won't need for 5+ years, a low-cost index fund in a taxable brokerage or retirement account beats savings by a wide margin.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Order of Operations for Saving</h2>
+    <ol>
+      <li><strong>$1,000 starter emergency fund</strong> — prevents new debt from minor surprises</li>
+      <li><strong>Employer 401(k) match</strong> — this is free money, ~50-100% return guaranteed</li>
+      <li><strong>High-interest debt paydown</strong> — anything over ~7-8% APR (credit cards, payday loans)</li>
+      <li><strong>Full 3-6 month emergency fund</strong> — keep in a high-yield savings account</li>
+      <li><strong>Max out HSA</strong> (if eligible) — triple tax-advantaged</li>
+      <li><strong>Max out Roth IRA</strong> — $7,000/year for 2026, tax-free growth</li>
+      <li><strong>Increase 401(k) contributions</strong> — toward 15% of gross income</li>
+      <li><strong>529 plan</strong> for kids' education, if applicable</li>
+      <li><strong>Taxable brokerage</strong> — for anything beyond retirement accounts</li>
+    </ol>
+    <p>This sequence isn't sacred, but the rough principles — secure a cushion, capture free money, kill expensive debt, then optimize — beats winging it for almost everyone.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>The Compound Interest Formula</h2>
+    <div class="formula-box">
+      A = P(1 + r/n)<sup>nt</sup>
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>A</strong> = Final amount</li>
+      <li><strong>P</strong> = Principal (starting balance)</li>
+      <li><strong>r</strong> = Annual interest rate (decimal)</li>
+      <li><strong>n</strong> = Compounding frequency per year (daily ≈ 365, monthly = 12)</li>
+      <li><strong>t</strong> = Time in years</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> $10,000 starting balance at 4.5% APY, compounded monthly for 10 years. A = 10000 × (1 + 0.045/12)^(12×10) = approximately $15,675. Your money grew by $5,675 with no additional contributions.
+    </p>
+  </section>
+
+  <AffiliateCTA partner={BETTERMENT} title="Earn more on cash you're not investing yet" blurb="Betterment Cash Reserve pays a high yield with full liquidity. Better than letting your emergency fund waste away at 0.05% in a big-bank savings account." />
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>How much should I save each month?</summary>
+      <div class="faq-answer">Aim for 20% of take-home pay total: 15% toward retirement and 5% toward short-term goals. But the order matters more than the percentage. Build an emergency fund first, capture any 401(k) employer match, then attack high-interest debt before pushing for max retirement contributions.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's a realistic interest rate for savings?</summary>
+      <div class="faq-answer">High-yield savings at online banks pay around 4-5% APY in 2026. Traditional brick-and-mortar savings pays 0.05-0.5% — a 100x difference for the same FDIC protection. For long-term money (5+ years), broad market index funds in a brokerage or retirement account historically return ~10% nominal, ~7% after inflation.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Should I save first or pay off debt?</summary>
+      <div class="faq-answer">Build a small ($1,000) starter emergency fund first, then attack high-interest debt (above ~7-8% APR). After expensive debt is gone, build a full 3-6 month emergency fund alongside contributions to capture any 401(k) match. Low-interest debt (federal student loans, low-rate mortgage) is often worth keeping while you invest.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How long to save $10,000?</summary>
+      <div class="faq-answer">$300/month at 4.5% APY: ~31 months. $500/month: ~19 months. $1,000/month: ~10 months. For short-term goals (under 2 years), contribution amount matters way more than interest rate — you're racing the clock, and compounding hasn't had time to work yet.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is a CD better than high-yield savings?</summary>
+      <div class="faq-answer">Sometimes. CDs lock you in for a fixed term but often beat HYSA by 0.25-1% for matching terms. If you're sure you won't need the money before the CD matures (and won't earn even higher rates in the meantime), a CD is the better deal. For an emergency fund, stick with HYSA — liquidity matters more than the small extra yield.</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/us/compound-interest-calculator" class="related-card">
+        <h3>Compound Interest Calculator</h3>
+        <p>See the impact of different compounding frequencies.</p>
+      </a>
+      <a href="/us/mortgage-calculator" class="related-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Estimate monthly payment on a home loan.</p>
+      </a>
+      <a href="/us/auto-loan-calculator" class="related-card">
+        <h3>Auto Loan Calculator</h3>
+        <p>Estimate monthly payment on a car loan.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
