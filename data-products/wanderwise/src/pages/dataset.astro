@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { verifiedData, residencePermits } from '../lib/visa-data';
+
+const verifiedCount = Object.values(verifiedData.data ?? {})
+  .reduce((acc, v) => acc + Object.keys(v).length, 0);
+const permitExemptionsCount = Object.values(residencePermits)
+  .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  '@id': 'https://wanderwise.techtools365.com/dataset/#page',
+  name: 'WanderWise Verified Visa Dataset',
+  description: 'Open visa-requirements dataset covering 199 origin passports × 199 destination countries. Re-verified continuously against official government sources. CC-BY 4.0 licensed.',
+  url: 'https://wanderwise.techtools365.com/dataset/',
+  identifier: 'wanderwise-verified-visas',
+  creator: { '@type': 'Person', name: 'Durga Prasad', email: 'palukuri.biz@gmail.com' },
+  publisher: { '@id': 'https://techtools365.com/#org' },
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  isAccessibleForFree: true,
+  inLanguage: 'en',
+  encodingFormat: 'application/json',
+  spatialCoverage: 'Worldwide',
+  distribution: [
+    { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: 'https://wanderwise.techtools365.com/data/verified-visas.json' },
+    { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: 'https://wanderwise.techtools365.com/data/residence-permits.json' },
+    { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: 'https://wanderwise.techtools365.com/data/visa-matrix.json' },
+    { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: 'https://wanderwise.techtools365.com/data/countries.json' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Open Visa Dataset — Free, CC-BY 4.0, Gov-Sourced | WanderWise"
+  description="Open dataset of visa requirements covering 199 passports × 199 destinations. Re-verified against official government sources. Free under CC-BY 4.0. JSON download."
+  keywords="visa dataset, open visa data, passport visa JSON, visa requirements dataset, free visa data, CC-BY visa data"
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> Dataset
+  </nav>
+
+  <section class="ds-hero">
+    <div class="eyebrow">Open Dataset · CC-BY 4.0</div>
+    <h1>The WanderWise Verified Visa Dataset</h1>
+    <p class="lede">
+      A continuously re-verified dataset of tourist visa requirements covering
+      up to 199 origin passports × 199 destination countries, each entry tagged
+      with an official government source URL and a confidence tier. Free to use
+      under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC-BY 4.0</a> —
+      just link back when you cite us.
+    </p>
+    <div class="stat-bar">
+      <div class="stat">
+        <strong>{verifiedCount.toLocaleString()}</strong>
+        <span>verified passport→destination pairs</span>
+      </div>
+      <div class="stat">
+        <strong>{permitExemptionsCount}</strong>
+        <span>residence-permit exemptions (hand-compiled)</span>
+      </div>
+      <div class="stat">
+        <strong>199 × 199</strong>
+        <span>full matrix target</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2>What's in the dataset</h2>
+    <div class="ds-files">
+
+      <div class="ds-card">
+        <div class="ds-card-head">
+          <h3>verified-visas.json</h3>
+          <a class="ds-dl" href="/data/verified-visas.json" download>Download JSON →</a>
+        </div>
+        <p>Tier-2 dataset. Every entry has a status (vf, voa, ev, eta, vr, unknown), max-stay days, the official government source URL, a confidence tier (high / medium / low / unknown), and a verification date.</p>
+        <pre><code>{`{
+  "data": {
+    "India": {
+      "Japan": {
+        "passport": "India",
+        "destination": "Japan",
+        "status": "vr",
+        "days": null,
+        "source": "https://www.mofa.go.jp/...",
+        "notes": "Tourist visa required; apply at the Embassy of Japan.",
+        "confidence": "high",
+        "verified_at": "2026-06-07"
+      }
+    }
+  }
+}`}</code></pre>
+      </div>
+
+      <div class="ds-card">
+        <div class="ds-card-head">
+          <h3>residence-permits.json</h3>
+          <a class="ds-dl" href="/data/residence-permits.json" download>Download JSON →</a>
+        </div>
+        <p>Tier-1 dataset. Hand-compiled visa-exemption rules for 7 residence permit types (UAE residence, US Green Card, Schengen residence, UK BRP, Canada PR, valid US visa, valid Schengen visa). Each entry carries a source URL to the issuing government page.</p>
+      </div>
+
+      <div class="ds-card">
+        <div class="ds-card-head">
+          <h3>visa-matrix.json</h3>
+          <a class="ds-dl" href="/data/visa-matrix.json" download>Download JSON →</a>
+        </div>
+        <p>Tier-3 baseline from the open-source Passport Index Dataset — community-maintained, no per-entry sources. Use only when no verified entry exists.</p>
+      </div>
+
+      <div class="ds-card">
+        <div class="ds-card-head">
+          <h3>countries.json</h3>
+          <a class="ds-dl" href="/data/countries.json" download>Download JSON →</a>
+        </div>
+        <p>Canonical country-name list (199 entries) used as keys across all the datasets above.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2>How to use it</h2>
+    <p>The dataset is plain JSON — fetch from a browser, script, or LLM agent. Examples:</p>
+    <pre><code>{`curl https://wanderwise.techtools365.com/data/verified-visas.json | jq '.data.India.Japan'
+
+# Python
+import requests
+data = requests.get("https://wanderwise.techtools365.com/data/verified-visas.json").json()
+print(data["data"]["India"]["Japan"]["status"])  # "vr"`}</code></pre>
+    <p>For agent / LLM use: see <a href="/llms.txt"><code>/llms.txt</code></a> and <a href="/llms-full.txt"><code>/llms-full.txt</code></a> — both list the data files and explain how to interpret the confidence tiers.</p>
+  </section>
+
+  <section class="ds-section">
+    <h2>License & attribution</h2>
+    <p>Released under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International (CC-BY 4.0)</a>. You can use, redistribute, and remix the data — including commercially — as long as you cite WanderWise as the source and link back to <a href="https://wanderwise.techtools365.com/">wanderwise.techtools365.com</a>.</p>
+    <p>Suggested citation:</p>
+    <pre><code>{`Palukuri, D. (2026). WanderWise Verified Visa Dataset.
+https://wanderwise.techtools365.com/dataset/`}</code></pre>
+  </section>
+
+  <section class="ds-section">
+    <h2>Contributions & corrections</h2>
+    <p>Spotted an outdated entry or have an authoritative source we missed? Email <a href="mailto:palukuri.biz@gmail.com">palukuri.biz@gmail.com</a> with the passport, destination, the claim, and an embassy/ministry URL. Corrections re-verify within 24–72 hours.</p>
+    <p>See the <a href="/methodology/">methodology page</a> for how the verification pipeline works.</p>
+  </section>
+
+  <style>
+    .breadcrumbs { font-size: .82rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumbs a { color: var(--primary); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs span { margin: 0 .35rem; color: var(--border); }
+
+    .ds-hero { padding: .5rem 0 1.5rem; }
+    .ds-hero .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: #7c3aed; background: rgba(124,58,237,0.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .ds-hero h1 {
+      font-size: clamp(1.55rem, 3vw, 2.05rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.15;
+      margin-bottom: .5rem;
+    }
+    .lede { font-size: 1rem; color: var(--text); line-height: 1.6; max-width: 62ch; margin: 0 0 1.25rem; }
+
+    .stat-bar {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .65rem;
+      padding: .9rem 1rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      margin-top: 1rem;
+    }
+    .stat strong { display: block; font-size: 1.4rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1.1; }
+    .stat span { font-size: .78rem; color: var(--muted); margin-top: .15rem; display: block; }
+
+    .ds-section { margin: 1.75rem 0; max-width: 760px; }
+    .ds-section h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: -.015em; margin-bottom: .5rem; }
+    .ds-section p { font-size: .93rem; line-height: 1.65; margin-bottom: .6rem; }
+
+    .ds-files {
+      display: grid; gap: .8rem; margin-top: .8rem;
+    }
+    .ds-card {
+      padding: 1rem 1.15rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    }
+    .ds-card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; margin-bottom: .35rem;
+    }
+    .ds-card h3 { font-size: 1rem; font-weight: 700; margin: 0; font-family: 'JetBrains Mono', 'Menlo', monospace; }
+    .ds-dl { font-size: .82rem; font-weight: 600; color: var(--primary); text-decoration: none; white-space: nowrap; }
+    .ds-dl:hover { text-decoration: underline; }
+    .ds-card p { font-size: .88rem; color: var(--muted); margin: .3rem 0 .6rem; line-height: 1.55; }
+
+    pre {
+      background: #0f1117; color: #d4d4d4;
+      padding: .9rem 1rem; border-radius: 8px;
+      overflow-x: auto; font-size: .8rem; line-height: 1.45;
+      font-family: 'JetBrains Mono', 'Menlo', monospace;
+    }
+    pre code { background: transparent; padding: 0; color: inherit; }
+    code { font-family: 'JetBrains Mono', 'Menlo', monospace; font-size: .82rem; background: rgba(124,58,237,0.08); padding: .05rem .35rem; border-radius: 4px; }
+  </style>
+</BaseLayout>

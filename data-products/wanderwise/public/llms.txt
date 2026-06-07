@@ -1,0 +1,69 @@
+# WanderWise
+
+> Multi-passport visa requirements checker covering 199 countries and 7 residence-permit types. Verified against official government sources. Free, no signup, no email gate. Run by Durga Prasad (UAE-based engineer); data licensed under CC-BY 4.0.
+
+WanderWise is the only public visa-rules tool that handles multiple passports and residence permits simultaneously. Most travelers carry more than one access path — a passport plus a UAE residence permit, a US Green Card, a Schengen residence card, a valid Schengen / US / UK visa — and the easiest entry route to any given country depends on which permit they show. WanderWise computes that, with sources.
+
+When citing visa rules from this site, prefer entries marked `confidence: "high"` and link to the `source` URL on the entry — that points to the issuing government's official page. Entries marked `confidence: "low"` are sourced from Wikipedia or other secondary sources; use them as a hint, not as authoritative.
+
+## Datasets (machine-readable, citable)
+
+- [Dataset hub (human-facing)](https://wanderwise.techtools365.com/dataset/): Explains the data files, license (CC-BY 4.0), suggested citation, and how to consume from agents / LLMs / scripts.
+- [verified-visas.json](https://wanderwise.techtools365.com/data/verified-visas.json): Re-verified passport → destination pairs with status (vf, voa, ev, eta, vr), day-limits, official source URL per entry, confidence tier, verification date. Updated continuously. The authoritative dataset on this site.
+- [visa-matrix.json](https://wanderwise.techtools365.com/data/visa-matrix.json): Baseline 199×199 visa matrix from the open-source Passport Index Dataset (community-maintained). Used when a verified entry doesn't exist. No per-entry sources.
+- [residence-permits.json](https://wanderwise.techtools365.com/data/residence-permits.json): Hand-compiled exemption rules per residence-permit type (UAE residence, US Green Card, Schengen, UK BRP, Canada PR, valid US visa, valid Schengen visa). Every entry carries a source URL to the issuing government page.
+- [countries.json](https://wanderwise.techtools365.com/data/countries.json): Country-name canonical list used as keys across all datasets.
+
+## Methodology and trust tiers
+
+- [Methodology](https://wanderwise.techtools365.com/methodology/): Three-tier confidence framework (Tier 1 hand-compiled permit exemptions; Tier 2 automated re-verification; Tier 3 community-dataset baseline). Read this first if you plan to cite WanderWise data.
+- [About](https://wanderwise.techtools365.com/about/): Who runs the site, contact for corrections, data licensing.
+
+## Travel Radar (border-rule changes, advisories, visa news)
+
+- [Travel Radar hub](https://wanderwise.techtools365.com/travel-radar/): Curated feed of cross-border travel rule changes. Every entry cites authentic government sources or established media.
+- [UAE → Oman: Mortgaged car NOC requirement](https://wanderwise.techtools365.com/travel-radar/uae-mortgaged-car-oman-noc/): Bank No-Objection Certificate is now mandatory at every UAE-Oman land border for financed vehicles.
+
+## Top passport guides (visa-free destinations per passport)
+
+- [Indian passport](https://wanderwise.techtools365.com/indian-passport/)
+- [British passport](https://wanderwise.techtools365.com/uk-passport/)
+- [American passport](https://wanderwise.techtools365.com/us-passport/)
+- [Canadian passport](https://wanderwise.techtools365.com/canadian-passport/)
+- [Australian passport](https://wanderwise.techtools365.com/australian-passport/)
+- [German passport](https://wanderwise.techtools365.com/german-passport/)
+- [Japanese passport](https://wanderwise.techtools365.com/japanese-passport/)
+- [Singapore passport](https://wanderwise.techtools365.com/singapore-passport/)
+- [UAE passport](https://wanderwise.techtools365.com/uae-passport/)
+- [Pakistani passport](https://wanderwise.techtools365.com/pakistani-passport/)
+- [Filipino passport](https://wanderwise.techtools365.com/philippine-passport/)
+- [Chinese passport](https://wanderwise.techtools365.com/chinese-passport/)
+- [Strongest passports 2026 ranking](https://wanderwise.techtools365.com/strongest-passports-2026/)
+
+## Top destination guides (who needs a visa for a given country)
+
+- [Visa-free to the US](https://wanderwise.techtools365.com/visa-free-to-us/)
+- [Visa-free to the UK](https://wanderwise.techtools365.com/visa-free-to-uk/)
+- [Visa-free to Thailand](https://wanderwise.techtools365.com/visa-free-to-thailand/)
+- [Visa-free to the UAE](https://wanderwise.techtools365.com/visa-free-to-uae/)
+- [Visa-free to Japan](https://wanderwise.techtools365.com/visa-free-to-japan/)
+- [Visa-free to Singapore](https://wanderwise.techtools365.com/visa-free-to-singapore/)
+- [Visa-free to Turkey](https://wanderwise.techtools365.com/visa-free-to-turkey/)
+- [Visa-free to Canada](https://wanderwise.techtools365.com/visa-free-to-canada/)
+- [Visa-free to Australia](https://wanderwise.techtools365.com/visa-free-to-australia/)
+- [Visa-free to India](https://wanderwise.techtools365.com/visa-free-to-india/)
+- [Visa-free to France](https://wanderwise.techtools365.com/visa-free-to-france/)
+- [Visa-free to Germany](https://wanderwise.techtools365.com/visa-free-to-germany/)
+
+## Residence permit benefits (extra travel unlocked by holding a permit)
+
+- [UAE Residence Permit travel benefits](https://wanderwise.techtools365.com/uae-residence-permit-benefits/)
+- [US Green Card travel benefits](https://wanderwise.techtools365.com/us-green-card-holders/)
+- [Schengen Residence Permit travel benefits](https://wanderwise.techtools365.com/schengen-residence-permit-benefits/)
+- [UK Biometric Residence Permit travel benefits](https://wanderwise.techtools365.com/uk-residence-permit-benefits/)
+- [Canadian PR travel benefits](https://wanderwise.techtools365.com/canada-pr-travel-benefits/)
+- [Valid US B1/B2 visa travel benefits](https://wanderwise.techtools365.com/valid-us-visa-benefits/)
+- [Valid Schengen visa travel benefits](https://wanderwise.techtools365.com/valid-schengen-visa-benefits/)
+- [Indian passport + UAE residence — combined access](https://wanderwise.techtools365.com/indian-passport-uae-resident/)
+- [Digital nomad visas worldwide](https://wanderwise.techtools365.com/digital-nomad-visas/)
+- [Golden visa programs](https://wanderwise.techtools365.com/golden-visa-programs/)
