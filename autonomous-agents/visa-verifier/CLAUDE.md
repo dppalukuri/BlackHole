@@ -22,9 +22,37 @@ reclassify.py                    — re-apply domain-trust gate against existing
 agent.py                         — per-pair iterator: plans pending pairs, persists incrementally
 bulk_agent.py                    — per-destination iterator (preferred for big sweeps)
 validate.py                      — second-opinion pass with Sonnet, flags disagreements
+snapshot.py                      — freeze a copy of verified-visas.json for diff comparison
+diff.py                          — diff two snapshots into a Travel Radar change set
+snapshots/                       — dated frozen copies of verified-visas.json
 output/verified-visas.json       — the dataset (committed; sync --sync copies to site)
 output/validation-issues.json    — disagreement report (written by validate.py)
+output/changes-*.json            — diff output, ready to publish to wanderwise
 ```
+
+## Diff-tracker workflow (Travel Radar auto-feed)
+
+Snapshots + diffs auto-publish to wanderwise as "Visa Policy Changes" Travel
+Radar pages. Cadence: snapshot once at every meaningful state change (e.g.
+after each big bulk_agent sweep), diff against the prior snapshot, push the
+resulting JSON into the site's data folder.
+
+```bash
+# 1. After a meaningful run, freeze the current state
+python snapshot.py --label v3-bulk
+
+# 2. When you want to publish a change set (e.g. weekly), diff vs the last
+#    snapshot and write the JSON into the wanderwise data folder.
+python diff.py --site
+
+# 3. Rebuild wanderwise — the new /travel-radar/changes/<slug>/ page picks up
+#    the JSON automatically via Astro's glob loader and lists itself on the
+#    Travel Radar hub.
+cd ../../data-products/wanderwise && npm run build
+```
+
+The Astro side uses `src/data/visa-changes/*.json` via `import.meta.glob`, so
+adding a new JSON file is the only required step to publish a new change page.
 
 ### Two verification modes — when to use which
 

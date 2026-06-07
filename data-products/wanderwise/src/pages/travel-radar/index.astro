@@ -10,8 +10,36 @@ const articles = [
     category: 'Border rules',
     publishedDate: '2026-06-07',
     publishedLabel: 'June 2026',
+    href: '/travel-radar/uae-mortgaged-car-oman-noc/',
   },
 ];
+
+// Auto-include any visa diff-tracker change sets that have landed in src/data/visa-changes/
+const changeMods = import.meta.glob('../../data/visa-changes/*.json', { eager: true });
+const changeArticles = Object.entries(changeMods)
+  .filter(([path]) => !path.includes('.gitkeep'))
+  .map(([path, mod]) => {
+    const slug = path.split('/').pop()!.replace(/\.json$/, '');
+    const data = (mod as any).default ?? mod;
+    const summary = data.summary || {};
+    const periodLabel = (data.from_date && data.to_date)
+      ? `${data.from_date} → ${data.to_date}`
+      : `${data.from_snapshot} → ${data.to_snapshot}`;
+    return {
+      slug,
+      title: `Visa Policy Changes: ${periodLabel}`,
+      summary: `${summary.total_changes || 0} change(s) detected — ${summary.status_changed_count || 0} status flips, ${summary.days_changed_count || 0} day-limit shifts, ${summary.added_count || 0} new pairs, ${summary.removed_count || 0} removed.`,
+      region: 'Auto-tracker',
+      category: 'Visa policy changes',
+      publishedDate: data.to_date || '',
+      publishedLabel: data.to_date || periodLabel,
+      href: `/travel-radar/changes/${slug}/`,
+    };
+  })
+  .sort((a, b) => b.publishedDate.localeCompare(a.publishedDate));
+
+const allArticles = [...changeArticles, ...articles]
+  .sort((a, b) => (b.publishedDate || '').localeCompare(a.publishedDate || ''));
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -43,8 +71,8 @@ const jsonLd = {
   </section>
 
   <section class="article-list">
-    {articles.map((a) => (
-      <a href={`/travel-radar/${a.slug}/`} class="article-card">
+    {allArticles.map((a) => (
+      <a href={a.href} class="article-card">
         <div class="article-meta">
           <span class="meta-region">{a.region}</span>
           <span class="meta-dot" aria-hidden="true">·</span>

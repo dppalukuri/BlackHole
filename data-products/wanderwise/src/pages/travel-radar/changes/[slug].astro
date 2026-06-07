@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+// Build-time static generation: one page per JSON file in src/data/visa-changes/
+export async function getStaticPaths() {
+  const modules = import.meta.glob('../../../data/visa-changes/*.json', { eager: true });
+  return Object.entries(modules)
+    .filter(([path]) => !path.includes('.gitkeep'))
+    .map(([path, mod]) => {
+      const slug = path.split('/').pop()!.replace(/\.json$/, '');
+      const data = (mod as any).default ?? mod;
+      return { params: { slug }, props: { data } };
+    });
+}
+
+const { data } = Astro.props as { data: any };
+
+const STATUS_LABEL: Record<string, string> = {
+  vf: 'visa-free',
+  voa: 'visa on arrival',
+  ev: 'e-visa',
+  eta: 'ETA',
+  vr: 'visa required',
+  unknown: 'unknown',
+};
+const statusLabel = (s: string | undefined) => STATUS_LABEL[s || ''] || s || '—';
+
+const summary = data.summary || {};
+const changes = data.changes || {};
+const periodLabel = (data.from_date && data.to_date)
+  ? `${data.from_date} → ${data.to_date}`
+  : `${data.from_snapshot} → ${data.to_snapshot}`;
+
+const total = summary.total_changes || 0;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: `Visa Policy Changes: ${periodLabel}`,
+  datePublished: data.to_date,
+  dateModified: data.to_date,
+  author: { '@type': 'Person', name: 'Durga Prasad' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'WanderWise',
+    logo: { '@type': 'ImageObject', url: 'https://wanderwise.techtools365.com/favicon.svg' },
+  },
+  articleSection: 'Travel Radar',
+};
+---
+
+<BaseLayout
+  title={`Visa Policy Changes ${periodLabel} | WanderWise Travel Radar`}
+  description={`${total} verified visa-policy changes detected across passport-destination pairs between ${periodLabel}. Auto-generated from WanderWise's diff tracker.`}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/travel-radar/">Travel Radar</a> <span>/</span>
+    Changes <span>/</span> {periodLabel}
+  </nav>
+
+  <article class="changes-article">
+    <header class="article-head">
+      <div class="article-meta">
+        <span class="meta-region">Auto-tracker</span>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span class="meta-cat">Visa policy changes</span>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span class="meta-date">{periodLabel}</span>
+      </div>
+      <h1>Visa Policy Changes: {periodLabel}</h1>
+      <p class="lede">
+        Auto-generated diff against the previous WanderWise snapshot.
+        <strong>{total}</strong> change{total === 1 ? '' : 's'} detected across the
+        verified passport→destination dataset between these dates.
+      </p>
+    </header>
+
+    <section class="summary-grid">
+      <div class="sg-stat"><strong>{summary.status_changed_count || 0}</strong><span>status changes</span></div>
+      <div class="sg-stat"><strong>{summary.days_changed_count || 0}</strong><span>day-limit changes</span></div>
+      <div class="sg-stat"><strong>{summary.added_count || 0}</strong><span>new pairs added</span></div>
+      <div class="sg-stat"><strong>{summary.removed_count || 0}</strong><span>pairs removed</span></div>
+      <div class="sg-stat"><strong>{summary.source_changed_count || 0}</strong><span>source URL updates</span></div>
+    </section>
+
+    {changes.status_changed && changes.status_changed.length > 0 && (
+      <section>
+        <h2>Status changes</h2>
+        <p>These passport→destination pairs flipped between visa-free, visa-on-arrival, e-visa, ETA, or visa-required during this period.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Passport</th><th>Destination</th><th>Was</th><th>Now</th><th>Source</th></tr></thead>
+            <tbody>
+              {changes.status_changed.map((c: any) => (
+                <tr>
+                  <td>{c.passport}</td>
+                  <td>{c.destination}</td>
+                  <td><span class={`status-pill st-${c.from?.status}`}>{statusLabel(c.from?.status)}</span></td>
+                  <td><span class={`status-pill st-${c.to?.status}`}>{statusLabel(c.to?.status)}</span></td>
+                  <td>{c.to?.source && <a href={c.to.source} target="_blank" rel="noopener nofollow">source ↗</a>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {changes.days_changed && changes.days_changed.length > 0 && (
+      <section>
+        <h2>Day-limit changes</h2>
+        <p>Stay duration changed for these pairs — status stayed the same but the maximum allowed visa-free / VoA / e-visa days shifted.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Passport</th><th>Destination</th><th>Status</th><th>Was (days)</th><th>Now (days)</th><th>Source</th></tr></thead>
+            <tbody>
+              {changes.days_changed.map((c: any) => (
+                <tr>
+                  <td>{c.passport}</td>
+                  <td>{c.destination}</td>
+                  <td>{statusLabel(c.status)}</td>
+                  <td>{c.from_days ?? '—'}</td>
+                  <td>{c.to_days ?? '—'}</td>
+                  <td>{c.source && <a href={c.source} target="_blank" rel="noopener nofollow">source ↗</a>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {changes.added && changes.added.length > 0 && (
+      <section>
+        <h2>New verified pairs</h2>
+        <p>Newly added entries — usually the result of expanded coverage rather than a real-world rule change.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Passport</th><th>Destination</th><th>Status</th><th>Days</th><th>Source</th></tr></thead>
+            <tbody>
+              {changes.added.slice(0, 100).map((e: any) => (
+                <tr>
+                  <td>{e.passport}</td>
+                  <td>{e.destination}</td>
+                  <td>{statusLabel(e.status)}</td>
+                  <td>{e.days ?? '—'}</td>
+                  <td>{e.source && <a href={e.source} target="_blank" rel="noopener nofollow">source ↗</a>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {changes.added.length > 100 && (
+          <p class="more-note">… and {changes.added.length - 100} more. See the <a href="/dataset/">dataset</a> for the full list.</p>
+        )}
+      </section>
+    )}
+
+    <section class="changes-foot">
+      <h2>About this page</h2>
+      <p>
+        This page was auto-generated by the WanderWise diff tracker. It compares two
+        dated snapshots of <a href="/data/verified-visas.json"><code>verified-visas.json</code></a> and
+        publishes every meaningful change. Status flips (e.g. visa-required → e-visa)
+        and day-limit changes usually reflect real policy updates. New pairs and source
+        URL updates usually reflect expanded coverage by our verification pipeline.
+      </p>
+      <p>
+        Want to verify a specific change yourself? Click the source link on the row —
+        it points at the official government page that backs the new status.
+      </p>
+      <p>
+        See the <a href="/methodology/">methodology page</a> for how entries are
+        verified, and the <a href="/travel-radar/">Travel Radar hub</a> for editorially
+        written border-rule explainers.
+      </p>
+    </section>
+  </article>
+
+  <style>
+    .breadcrumbs { font-size: .82rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumbs a { color: var(--primary); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs span { margin: 0 .35rem; color: var(--border); }
+
+    .changes-article { max-width: 850px; }
+    .article-head { margin-bottom: 1.25rem; }
+    .article-meta { display: flex; flex-wrap: wrap; gap: .3rem; font-size: .78rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .65rem; }
+    .meta-region { color: var(--primary); font-weight: 600; }
+    .meta-dot { color: var(--border); }
+    .changes-article h1 { font-size: clamp(1.55rem, 3vw, 2.05rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.2; margin-bottom: .55rem; }
+    .lede { font-size: 1rem; color: var(--text); line-height: 1.6; margin: 0; }
+
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: .55rem; margin: 1.25rem 0 2rem;
+    }
+    .sg-stat {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: .7rem .85rem;
+    }
+    .sg-stat strong { display: block; font-size: 1.4rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1.1; }
+    .sg-stat span { font-size: .75rem; color: var(--muted); margin-top: .15rem; display: block; }
+
+    .changes-article section { margin: 1.6rem 0; }
+    .changes-article h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: -.015em; margin-bottom: .5rem; }
+    .changes-article p { font-size: .93rem; line-height: 1.65; margin-bottom: .65rem; }
+
+    .table-wrap { overflow-x: auto; margin: .8rem 0; }
+    .changes-article table {
+      width: 100%; border-collapse: collapse; font-size: .88rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden;
+    }
+    .changes-article th, .changes-article td {
+      padding: .5rem .75rem; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .changes-article th { background: rgba(124,58,237,0.06); font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .changes-article tr:last-child td { border-bottom: none; }
+    .changes-article a { color: var(--primary); }
+
+    .status-pill {
+      display: inline-block; padding: .15rem .45rem; border-radius: 999px;
+      font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+      border: 1px solid var(--border); background: var(--surface);
+    }
+    .status-pill.st-vf { color: #047857; background: #d1fae5; border-color: #6ee7b7; }
+    .status-pill.st-voa, .status-pill.st-ev, .status-pill.st-eta { color: #b45309; background: #fef3c7; border-color: #fcd34d; }
+    .status-pill.st-vr { color: #b91c1c; background: #fee2e2; border-color: #fca5a5; }
+    .status-pill.st-unknown { color: var(--muted); }
+
+    .more-note { font-size: .85rem; color: var(--muted); font-style: italic; }
+    .changes-foot { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+    .changes-foot p { font-size: .9rem; color: var(--muted); }
+    .changes-foot code { font-family: 'JetBrains Mono', 'Menlo', monospace; font-size: .82rem; background: rgba(124,58,237,0.08); padding: .05rem .35rem; border-radius: 4px; }
+  </style>
+</BaseLayout>
