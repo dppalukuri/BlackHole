@@ -92,6 +92,7 @@ const currentPath = Astro.url.pathname;
     <nav class="sub-nav" aria-label="WanderWise sections">
       <div class="sub-nav-inner">
         <a href="/" class={`sub-link ${currentPath === '/' ? 'is-active' : ''}`}>Visa Checker</a>
+        <a href="/travel-radar/" class={`sub-link ${currentPath.startsWith('/travel-radar') ? 'is-active' : ''}`}>Travel Radar</a>
         <a href="/about/" class={`sub-link ${currentPath.startsWith('/about') ? 'is-active' : ''}`}>About</a>
       </div>
     </nav>

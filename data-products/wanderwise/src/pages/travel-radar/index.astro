@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articles = [
+  {
+    slug: 'uae-mortgaged-car-oman-noc',
+    title: 'Driving a Mortgaged Car from the UAE to Oman? You Need a Bank NOC',
+    summary: 'Bank-financed cars now require a formal No Objection Certificate at every UAE-Oman land border. Here is what the paperwork involves, how long it takes, and which crossings enforce it.',
+    region: 'UAE → Oman',
+    category: 'Border rules',
+    publishedDate: '2026-06-07',
+    publishedLabel: 'June 2026',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Travel Radar — WanderWise',
+  description: 'Travel advisories, border-rule changes, and visa news affecting cross-border travel.',
+  url: 'https://wanderwise.techtools365.com/travel-radar/',
+};
+---
+
+<BaseLayout
+  title="Travel Radar — Travel Advisories, Border Rules & Visa News | WanderWise"
+  description="Curated travel advisories, border-rule changes, and visa news that affect cross-border travel. Authentic sources cited on every entry."
+  keywords="travel advisories, border rule changes, visa news, UAE Oman border, travel restrictions, GCC travel updates"
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span> Travel Radar
+  </nav>
+
+  <section class="radar-hero">
+    <div class="eyebrow">Travel Radar</div>
+    <h1>Border rules, advisories, and visa changes — clearly explained.</h1>
+    <p class="hero-sub">
+      A curated feed of cross-border travel news that actually affects what you can do —
+      mortgage rules at land borders, visa policy shifts, advisory updates. Every article
+      links to authentic government or established media sources.
+    </p>
+  </section>
+
+  <section class="article-list">
+    {articles.map((a) => (
+      <a href={`/travel-radar/${a.slug}/`} class="article-card">
+        <div class="article-meta">
+          <span class="meta-region">{a.region}</span>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span class="meta-cat">{a.category}</span>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span class="meta-date">{a.publishedLabel}</span>
+        </div>
+        <h2 class="article-title">{a.title}</h2>
+        <p class="article-summary">{a.summary}</p>
+        <span class="article-cta">Read article →</span>
+      </a>
+    ))}
+  </section>
+
+  <section class="radar-note">
+    <h2>How we curate Travel Radar</h2>
+    <p>
+      Every Travel Radar entry covers a specific change in border rules, visa policy, or
+      travel advisory that affects real travel decisions. We do not republish press releases
+      or chase clickbait — each article cites at least two authentic sources (government
+      websites, established news outlets) and is dated when the rule was verified.
+    </p>
+    <p>
+      Travel rules change frequently. We re-verify every Travel Radar article quarterly,
+      but please confirm with the relevant authority before you travel.
+    </p>
+  </section>
+
+  <style>
+    .breadcrumbs {
+      font-size: .82rem; color: var(--muted); margin-bottom: 1rem;
+    }
+    .breadcrumbs a { color: var(--primary); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs span { margin: 0 .35rem; color: var(--border); }
+
+    .radar-hero { padding: .5rem 0 1.5rem; }
+    .radar-hero .eyebrow {
+      display: inline-block; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: #7c3aed; background: rgba(124,58,237,0.1);
+      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+    }
+    .radar-hero h1 {
+      font-size: clamp(1.55rem, 3vw, 2.05rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.15;
+      margin-bottom: .5rem;
+    }
+    .radar-hero .hero-sub {
+      font-size: .95rem; color: var(--muted); max-width: 62ch;
+      line-height: 1.55;
+    }
+
+    .article-list {
+      display: grid; gap: .9rem; margin: 1.5rem 0 2rem;
+    }
+    .article-card {
+      display: block; padding: 1.1rem 1.2rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      text-decoration: none; transition: all .15s;
+    }
+    .article-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(124,58,237,.25); }
+
+    .article-meta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .3rem;
+      font-size: .78rem; color: var(--muted); font-weight: 500;
+      text-transform: uppercase; letter-spacing: .06em;
+      margin-bottom: .45rem;
+    }
+    .meta-region { color: var(--primary); font-weight: 600; }
+    .meta-dot { color: var(--border); }
+
+    .article-title {
+      font-size: 1.15rem; font-weight: 700; letter-spacing: -.015em;
+      color: var(--text); margin: 0 0 .4rem; line-height: 1.3;
+    }
+    .article-summary {
+      font-size: .9rem; color: var(--muted); line-height: 1.55;
+      margin: 0 0 .65rem;
+    }
+    .article-cta {
+      font-size: .82rem; font-weight: 600; color: var(--primary);
+    }
+
+    .radar-note {
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border); max-width: 750px;
+    }
+    .radar-note h2 {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.015em;
+      margin-bottom: .5rem;
+    }
+    .radar-note p {
+      font-size: .9rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: .6rem;
+    }
+  </style>
+</BaseLayout>

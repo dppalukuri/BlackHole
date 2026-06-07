@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const publishedDate = '2026-06-07';
+const lastVerified = 'June 2026';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: 'Driving a Mortgaged Car from the UAE to Oman? You Need a Bank NOC',
+    description: 'Bank-financed cars require a formal No Objection Certificate at every UAE-Oman land border. The paperwork can take up to two weeks.',
+    datePublished: publishedDate,
+    dateModified: publishedDate,
+    author: { '@type': 'Person', name: 'Durga Prasad' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'WanderWise',
+      logo: { '@type': 'ImageObject', url: 'https://wanderwise.techtools365.com/favicon.svg' },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': 'https://wanderwise.techtools365.com/travel-radar/uae-mortgaged-car-oman-noc/',
+    },
+    articleSection: 'Travel Radar',
+    about: [
+      { '@type': 'Thing', name: 'UAE-Oman border rules' },
+      { '@type': 'Thing', name: 'Mortgaged vehicle NOC' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="UAE Mortgaged Car to Oman: Bank NOC Now Required at Every Border | WanderWise"
+  description="If your car is on finance with a UAE bank, you need a No Objection Certificate to drive it into Oman. Process can take up to two weeks. Authentic sources cited."
+  keywords="UAE Oman mortgaged car NOC, bank NOC Oman, UAE car finance Oman border, mortgaged vehicle Oman, UAE Oman border rules"
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/travel-radar/">Travel Radar</a> <span>/</span>
+    UAE → Oman: Mortgaged car NOC
+  </nav>
+
+  <article class="radar-article">
+    <header class="article-head">
+      <div class="article-meta">
+        <span class="meta-region">UAE → Oman</span>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span class="meta-cat">Border rules</span>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span class="meta-date">Last verified {lastVerified}</span>
+      </div>
+      <h1>Driving a Mortgaged Car from the UAE to Oman? You'll Need a Bank NOC</h1>
+      <p class="lede">
+        If your car is financed through a UAE bank and you're planning a road trip to Oman,
+        you can't just drive across the border. Lenders, GCC border control, and customs
+        all require a <strong>No Objection Certificate (NOC)</strong> from the bank that
+        holds the lien on your vehicle. Travellers without one have been turned back at the
+        border — including during peak Eid traffic.
+      </p>
+    </header>
+
+    <section>
+      <h2>Why an NOC is required</h2>
+      <p>
+        A car under a UAE bank loan is legally pledged to the lender until the loan is
+        settled. Taking the vehicle out of UAE jurisdiction — even for a weekend in Muscat
+        or Salalah — requires the bank's formal consent. Without it, customs officers at
+        Omani entry points can refuse the vehicle.
+      </p>
+    </section>
+
+    <section>
+      <h2>What the NOC must contain</h2>
+      <p>Your bank-issued NOC needs to:</p>
+      <ul>
+        <li>Be on official bank letterhead and signed/stamped by an authorised officer</li>
+        <li>Include your <strong>vehicle chassis number, registration plate, and Mulkiya details</strong></li>
+        <li>Include your <strong>Emirates ID number</strong></li>
+        <li>State permission for the vehicle to enter Oman during a specified date range</li>
+        <li>Be <strong>notarised and translated into Arabic</strong> for the Omani side</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What banks typically require from you</h2>
+      <p>Most UAE banks require:</p>
+      <ul>
+        <li>A <strong>refundable security deposit</strong> equal to the outstanding loan balance, plus a <strong>~2% processing fee</strong></li>
+        <li>A signed declaration of travel dates and destination</li>
+        <li>Processing time that can take <strong>up to two weeks</strong> in practice — banks publish 3–5 working day SLAs but notarisation and Arabic translation add real time on top</li>
+      </ul>
+      <p>This is not something you can arrange at the border. Start the request <strong>at least two weeks before</strong> you plan to travel.</p>
+    </section>
+
+    <section>
+      <h2>Borders where the NOC is checked</h2>
+      <p>The requirement applies at all UAE–Oman land crossings:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Border post</th><th>Route</th><th>Typical use</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Hatta (Al Wajajah)</strong></td><td>Dubai → Muscat</td><td>Busiest crossing</td></tr>
+            <tr><td><strong>Mezyad</strong></td><td>Al Ain → Buraimi / Nizwa</td><td>Heavy weekend traffic</td></tr>
+            <tr><td><strong>Khatmat Milahah</strong></td><td>East coast → Sohar</td><td>Coastal route</td></tr>
+            <tr><td><strong>Al Darah</strong></td><td>Northern Musandam</td><td>Khasab trips</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The good old days of just driving your financed car across the border are over. The
+        rules have changed, and enforcement is now consistent across all crossings —
+        particularly during Eid Al Fitr, Eid Al Adha, and UAE National Day weekends. Don't
+        show up without the paperwork.
+      </p>
+    </section>
+
+    <section>
+      <h2>Other documents you'll need</h2>
+      <p>The NOC is one piece. You'll also need:</p>
+      <ul>
+        <li>Valid passport</li>
+        <li>Emirates ID</li>
+        <li>UAE driving licence (GCC residents do not need an International Driving Permit)</li>
+        <li>Vehicle registration card (<strong>Mulkiya</strong>)</li>
+        <li><strong>Oman-valid car insurance</strong> — your standard UAE policy doesn't cover Oman. Either extend with your UAE insurer or buy an <strong>Orange Card</strong> at the border (around <strong>AED 100 for 7 days</strong>)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Bottom line</h2>
+      <p>
+        If your car is mortgaged: <strong>start the NOC paperwork at least two weeks before
+        you travel</strong>, longer if you're going during a public holiday weekend. Budget
+        for the refundable deposit. Without the NOC in hand, you risk a multi-hour return
+        drive at best, and a cancelled trip at worst.
+      </p>
+    </section>
+
+    <section class="sources">
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://gulfnews.com/living-in-uae/transport/can-you-drive-a-mortgaged-car-to-oman-from-uae-1.500072796" target="_blank" rel="noopener nofollow">Gulf News — "Can you drive a mortgaged car to Oman from UAE? What you need to know"</a></li>
+        <li><a href="https://www.thearabianstories.com/2025/03/26/if-youre-driving-a-mortgaged-car-to-oman-from-uae-during-eid-you-could-face-border-delays-without-an-noc/" target="_blank" rel="noopener nofollow">The Arabian Stories — "If you're driving a mortgaged car to Oman from UAE during Eid, you could face border delays without an NOC" (March 2025)</a></li>
+        <li><a href="https://www.shory.com/car-insurance/blog/uae-oman-border-eid-al-fitr-2026/" target="_blank" rel="noopener nofollow">Shory — "How to Cross UAE-Oman Border by Car: Eid Al Fitr 2026"</a></li>
+        <li><a href="https://www.policyhouse.com/blog/news-updates/drive-mortgaged-car-uae-to-oman" target="_blank" rel="noopener nofollow">PolicyHouse — "Driving Mortgaged Cars from UAE to Oman: A Guide"</a></li>
+      </ul>
+    </section>
+
+    <footer class="article-foot">
+      <p>
+        <em>This article was last verified in {lastVerified}. Border rules and bank
+        procedures can change at short notice — always confirm with your bank and the
+        relevant border authority before travelling.</em>
+      </p>
+      <p>
+        <a href="/travel-radar/" class="back-link">← Back to Travel Radar</a>
+      </p>
+    </footer>
+  </article>
+
+  <style>
+    .breadcrumbs {
+      font-size: .82rem; color: var(--muted); margin-bottom: 1rem;
+    }
+    .breadcrumbs a { color: var(--primary); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs span { margin: 0 .35rem; color: var(--border); }
+
+    .radar-article { max-width: 750px; }
+
+    .article-head { margin-bottom: 1.5rem; }
+    .article-meta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .3rem;
+      font-size: .78rem; color: var(--muted); font-weight: 500;
+      text-transform: uppercase; letter-spacing: .06em;
+      margin-bottom: .65rem;
+    }
+    .meta-region { color: var(--primary); font-weight: 600; }
+    .meta-dot { color: var(--border); }
+
+    .radar-article h1 {
+      font-size: clamp(1.55rem, 3vw, 2.05rem);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.2;
+      margin-bottom: .6rem;
+    }
+    .lede {
+      font-size: 1.02rem; color: var(--text); line-height: 1.6;
+      margin: 0;
+    }
+    .lede strong { color: var(--text); }
+
+    .radar-article section { margin: 1.6rem 0; }
+    .radar-article h2 {
+      font-size: 1.15rem; font-weight: 700; letter-spacing: -.015em;
+      margin-bottom: .5rem;
+    }
+    .radar-article p {
+      font-size: .93rem; line-height: 1.65; margin-bottom: .6rem;
+      color: var(--text);
+    }
+    .radar-article ul { padding-left: 1.2rem; margin-bottom: .6rem; }
+    .radar-article li { font-size: .92rem; line-height: 1.6; margin-bottom: .3rem; }
+
+    .table-wrap { overflow-x: auto; margin: .75rem 0; }
+    .radar-article table {
+      width: 100%; border-collapse: collapse; font-size: .88rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden;
+    }
+    .radar-article th, .radar-article td {
+      padding: .55rem .8rem; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .radar-article th {
+      background: rgba(124,58,237,0.06); font-weight: 700;
+      font-size: .82rem; text-transform: uppercase; letter-spacing: .04em;
+      color: var(--muted);
+    }
+    .radar-article tr:last-child td { border-bottom: none; }
+
+    .sources ul { padding-left: 1.2rem; }
+    .sources li { margin-bottom: .4rem; font-size: .88rem; }
+    .sources a { color: var(--primary); text-decoration: none; }
+    .sources a:hover { text-decoration: underline; }
+
+    .article-foot {
+      margin-top: 2rem; padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .article-foot p { font-size: .85rem; color: var(--muted); }
+    .back-link { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</BaseLayout>
