@@ -17,12 +17,35 @@ Cost: Claude Max subscription covers it. Per query roughly ~2 web_search calls +
 ```
 config.json                      — passports × destinations to verify (edit to expand scope)
 verifier.py                      — one-pair `claude -p` subprocess call + JSON parsing + domain trust
+bulk_verifier.py                 — one-destination Claude call → many passports at once (~50-100x cheaper)
 reclassify.py                    — re-apply domain-trust gate against existing file (no API calls)
-agent.py                         — iterator: plans pending pairs, persists incrementally (Haiku bulk pass)
+agent.py                         — per-pair iterator: plans pending pairs, persists incrementally
+bulk_agent.py                    — per-destination iterator (preferred for big sweeps)
 validate.py                      — second-opinion pass with Sonnet, flags disagreements
 output/verified-visas.json       — the dataset (committed; sync --sync copies to site)
 output/validation-issues.json    — disagreement report (written by validate.py)
 ```
+
+### Two verification modes — when to use which
+
+The codebase ships **two** verifier engines. They produce identical on-disk schema
+(`VerifiedEntry` dicts in `output/verified-visas.json`), so they're interchangeable
+and even compatible with already-verified entries — newer runs overwrite older ones.
+
+**`bulk_agent.py` — per-destination (preferred for sweeps)**
+- One Claude call per destination resolves visa-status for many passports at once
+- Works because most countries publish a single official "visa policy" page
+  (e.g. Japan's MOFA, Singapore's ICA, US travel.state.gov) that lists rules
+  for every nationality on one URL.
+- ~50-100x fewer subprocess calls, fewer WebSearch billings.
+- Trade-off: if the destination's source page is poor or missing,
+  every entry for that destination is marked `unknown` rather than verified one-by-one.
+
+**`agent.py` — per-pair (precision mode)**
+- One Claude call per (passport, destination) pair.
+- Slower and ~50x more expensive but each pair gets independent reasoning.
+- Use for: single-pair re-verifies, targeted patches, low-quality bulk destinations
+  where the master-page approach failed.
 
 ## Confidence gating
 
@@ -44,35 +67,27 @@ Anything outside the allowlist → `low` confidence (no ✓ on site). Missing so
 ## Running it
 
 ```bash
-# one-off — all configured pairs
-python agent.py
+# === bulk mode (PREFERRED for big sweeps) ===
+python bulk_agent.py --parallel 2 --sync                  # all pending destinations, 2 workers
+python bulk_agent.py --only-destination Japan             # one destination, all passports
+python bulk_agent.py --limit 10 --parallel 2 --sync       # cap to 10 destinations per run
+python bulk_agent.py --chunk 60                           # max passports per Claude call (default 60)
+python bulk_agent.py --dry-run --limit 5                  # preview plan, no API calls
 
-# single passport or destination
-python agent.py --only-passport India
-python agent.py --only-destination Japan
+# === per-pair mode (precision / patching) ===
+python agent.py                                            # all configured pairs
+python agent.py --only-passport India                      # one passport, all destinations
+python agent.py --only-destination Japan                   # one destination, all passports
+python agent.py --limit 5                                  # cheap smoke test
+python agent.py --parallel 4 --sync                        # 4x parallel on big batches
+python agent.py --watch 21600 --sync                       # continuous every 6h
+python agent.py --dry-run                                  # preview, no API calls
 
-# cheap smoke test
-python agent.py --limit 5
-
-# parallel workers (4x faster on big batches)
-python agent.py --parallel 4 --sync
-
-# with site sync (copies output into the Astro public/data dir)
-python agent.py --sync
-
-# continuous (every 6h)
-python agent.py --watch 21600 --sync
-
-# preview, no API calls
-python agent.py --dry-run
-
-# re-apply confidence gating to existing file (after updating TRUSTED_PATTERNS)
-python reclassify.py
-
-# second-opinion pass — validate Haiku's work with Sonnet
-python validate.py --parallel 4 --sync      # re-check every entry
-python validate.py --limit 20                # quick sanity check
-python validate.py --only-passport India     # subset
+# === maintenance ===
+python reclassify.py                                       # re-gate after TRUSTED_PATTERNS edit
+python validate.py --parallel 4 --sync                     # Sonnet second-opinion pass
+python validate.py --limit 20                              # quick sanity
+python validate.py --only-passport India                   # subset
 ```
 
 ## Two-model workflow (recommended)

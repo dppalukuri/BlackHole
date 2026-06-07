@@ -1730,14 +1730,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Afghanistan passport holders require a pre-approved visa; apply online through ICA e-Service or overseas missions (3-5 working days processing).",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Valid Singapore entry visa required.",
     "passport": "Afghanistan",
-    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/afghanistan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vr",
-    "verified_at": "2026-04-19"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "low",
@@ -3921,14 +3921,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Visa-free entry for up to 30 days for tourism; Albania not listed among countries requiring visas.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Albania",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "verified_at": "2026-04-19"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "low",
@@ -6112,14 +6112,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Algeria passport holders require a visa for social visit/tourism; a Short-Term Visit Pass is issued upon arrival for a maximum of 30 days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Valid Singapore entry visa required.",
     "passport": "Algeria",
-    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/algeria",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vr",
-    "verified_at": "2026-04-20"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "high",
@@ -8303,14 +8303,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Andorran passport holders may enter Singapore without a visa for stays up to 30 days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Andorra",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "verified_at": "2026-04-25"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "high",
@@ -10494,14 +10494,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Angolan passport holders are visa-free for stays up to 30 days; Angola does not appear on Singapore's visa-required countries list.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Angola",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "verified_at": "2026-04-26"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "low",
@@ -12685,14 +12685,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Antigua and Barbuda passport holders are visa-free for tourist stays up to 30 days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Antigua and Barbuda",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "verified_at": "2026-04-26"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "high",
@@ -14876,14 +14876,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Argentine citizens can enter Singapore visa-free for tourism with a valid passport (6+ months validity).",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Argentina",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "verified_at": "2026-04-26"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "high",
@@ -17067,14 +17067,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Armenian citizens require an e-visa; issued online with standard tourist visit pass up to 30 days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Valid Singapore entry visa required.",
     "passport": "Armenia",
-    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/armenia",
-    "status": "ev",
-    "verified_at": "2026-04-27"
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "low",
@@ -19301,21 +19301,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 90,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Australian passport holders do not require a visa for tourist visits; they receive a Visit Pass upon arrival valid for up to 90 days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Australia",
-    "source": "https://canberra.mfa.gov.sg/consular-services/visa-information/",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "validated_at": "2026-04-18",
-    "validated_by": "claude-code:sonnet",
-    "validation_notes": "both vf but days differ — haiku=90, sonnet=30",
-    "validation_result": "differ-days",
-    "validator_days": 30,
-    "validator_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
-    "validator_status": "vf",
-    "verified_at": "2026-04-18"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "low",
@@ -21534,14 +21527,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 90,
+    "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Austrian citizens can enter Singapore visa-free as tourists for up to 90 days on arrival.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
     "passport": "Austria",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "verified_at": "2026-05-01"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "low",
@@ -23727,12 +23720,12 @@
     "confidence": "high",
     "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Visa required; apply online via ICA e-Service within 30 days prior to arrival; S$30 fee.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Valid Singapore entry visa required.",
     "passport": "Azerbaijan",
-    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/azerbaijan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vr",
-    "verified_at": "2026-05-03"
+    "verified_at": "2026-06-07"
    },
    "Slovakia": {
     "confidence": "high",
@@ -25440,6 +25433,17 @@
     "source": "https://travel.state.gov/en/international-travel/travel-advisories/north-korea.html",
     "status": "vr",
     "verified_at": "2026-05-11"
+   },
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Bahamas",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
    }
   },
   "Bahrain": {
@@ -25453,6 +25457,238 @@
     "source": null,
     "status": "vf",
     "verified_at": "2026-05-12"
+   },
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Bahrain",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Bangladesh": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Valid Singapore entry visa required.",
+    "passport": "Bangladesh",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Barbados": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Barbados",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Belarus": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Valid Singapore entry visa required.",
+    "passport": "Belarus",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Belgium": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Belgium",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Belize": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Belize",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Benin": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Benin",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Bhutan": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Bhutan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Bolivia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Bolivia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Bosnia and Herzegovina": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Bosnia and Herzegovina",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Botswana": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Botswana",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Brazil": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Brazil",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Brunei": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on visa-required list; visa-free entry for short-stay tourist purposes.",
+    "passport": "Brunei",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Bulgaria": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Bulgaria",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Burkina Faso": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Burkina Faso",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Burundi": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Burundi",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Cambodia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Cambodia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Cameroon": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Cameroon",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
    }
   },
   "Canada": {
@@ -25622,18 +25858,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": 90,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Canadian passport holders do not require a visa for tourist visits up to 30 days; SG Arrival Card completion required.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
     "passport": "Canada",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "validated_at": "2026-04-18",
-    "validated_by": "claude-code:sonnet",
-    "validation_notes": "both agree: vf (30d)",
-    "validation_result": "agree",
-    "verified_at": "2026-04-18"
+    "verified_at": "2026-06-07"
    },
    "South Korea": {
     "confidence": "medium",
@@ -25754,6 +25986,409 @@
     "validation_notes": "both agree: vf (180d)",
     "validation_result": "agree",
     "verified_at": "2026-04-18"
+   }
+  },
+  "Cape Verde": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Cape Verde",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Central African Republic": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Central African Republic",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Chad": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Chad",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Chile": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Chile",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "China": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for PRC passport holders; not on visa-required list.",
+    "passport": "China",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Colombia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Colombia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Comoros": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Comoros",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Congo": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Congo",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Costa Rica": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Costa Rica",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Croatia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Croatia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Cuba": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Cuba",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Cyprus": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Cyprus",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Czech Republic": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Czech Republic",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "DR Congo": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "DR Congo",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Denmark": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Denmark",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Djibouti": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Djibouti",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Dominica": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Dominica",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Dominican Republic": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Dominican Republic",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Ecuador": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry; not listed on Singapore's visa-required countries list.",
+    "passport": "Ecuador",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Egypt": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required. Diplomatic passport holders exempt.",
+    "passport": "Egypt",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "El Salvador": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "El Salvador",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Equatorial Guinea": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Equatorial Guinea",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Eritrea": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Eritrea",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Estonia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "EU member state; visa-free entry for 90 days.",
+    "passport": "Estonia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Ethiopia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Ethiopia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Fiji": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Fiji",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Finland": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "EU member state; visa-free entry for 90 days.",
+    "passport": "Finland",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "France": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "EU member state; visa-free entry for 90 days.",
+    "passport": "France",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Gabon": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Gabon",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Gambia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Gambia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Georgia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa or advance application to embassy.",
+    "passport": "Georgia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
    }
   },
   "Germany": {
@@ -25925,16 +26560,12 @@
     "confidence": "high",
     "days": 90,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "German nationals are not on Singapore's visa-required list and may enter visa-free; social visit pass typically granted for up to 90 days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "EU member state; visa-free entry for 90 days.",
     "passport": "Germany",
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "validated_at": "2026-04-18",
-    "validated_by": "claude-code:sonnet",
-    "validation_notes": "validator raised: claude CLI timed out after 240s",
-    "validation_result": "error",
-    "verified_at": "2026-04-18"
+    "verified_at": "2026-06-07"
    },
    "South Korea": {
     "confidence": "low",
@@ -26058,6 +26689,162 @@
     "validation_notes": "both agree: eta (90d)",
     "validation_result": "agree",
     "verified_at": "2026-04-18"
+   }
+  },
+  "Ghana": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Ghana",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Greece": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "EU member state; visa-free entry for 90 days.",
+    "passport": "Greece",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Grenada": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Grenada",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Guatemala": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Guatemala",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Guinea": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Guinea",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Guinea-Bissau": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Guinea-Bissau",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Guyana": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Guyana",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Haiti": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Haiti",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Honduras": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 30 days.",
+    "passport": "Honduras",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Hong Kong": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "SAR passport holders visa-free for 30 days.",
+    "passport": "Hong Kong",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Hungary": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "EU member state; visa-free entry for 90 days.",
+    "passport": "Hungary",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Iceland": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free entry for 90 days.",
+    "passport": "Iceland",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
    }
   },
   "India": {
@@ -26236,19 +27023,12 @@
     "confidence": "high",
     "days": null,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Indian passport holders require an electronic visa (e-visa) to enter Singapore; apply online with S$30 fee, processing typically within 3 working days.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
     "passport": "India",
-    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/india",
-    "status": "ev",
-    "validated_at": "2026-04-18",
-    "validated_by": "claude-code:sonnet",
-    "validation_notes": "haiku said ev, sonnet said vr",
-    "validation_result": "differ-status",
-    "validator_days": 30,
-    "validator_source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements/visa-detail-page/india",
-    "validator_status": "vr",
-    "verified_at": "2026-04-18"
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
    },
    "South Korea": {
     "confidence": "medium",
@@ -26372,6 +27152,110 @@
     "validation_notes": "both agree: vr (180d)",
     "validation_result": "agree",
     "verified_at": "2026-04-18"
+   }
+  },
+  "Indonesia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Indonesia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Iran": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
+    "passport": "Iran",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Iraq": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
+    "passport": "Iraq",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Ireland": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for EU citizens for up to 90 days.",
+    "passport": "Ireland",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Israel": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Israel",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Italy": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for EU citizens for up to 90 days.",
+    "passport": "Italy",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Ivory Coast": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Ivory Coast",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Jamaica": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Jamaica",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
    }
   },
   "Japan": {
@@ -26538,18 +27422,14 @@
    },
    "Singapore": {
     "confidence": "high",
-    "days": 30,
+    "days": 90,
     "destination": "Singapore",
-    "model": "claude-code:haiku",
-    "notes": "Japanese nationals do not need to apply for a visa to travel to Singapore for leisure or business; 6-month passport validity required.",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 90 days.",
     "passport": "Japan",
-    "source": "https://tokyo.mfa.gov.sg/visa-information/",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
-    "validated_at": "2026-04-18",
-    "validated_by": "claude-code:sonnet",
-    "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":614,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
-    "validation_result": "error",
-    "verified_at": "2026-04-18"
+    "verified_at": "2026-06-07"
    },
    "South Korea": {
     "confidence": "high",
@@ -26670,6 +27550,851 @@
     "validation_notes": "validator raised: claude CLI exited 1: {\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"api_error_status\":429,\"duration_ms\":744,\"duration_api_ms\":0,\"num_turns\":1,\"result\":\"You've hit your limit · resets 12am (Asia/Dubai)\",\"stop_reason\"",
     "validation_result": "error",
     "verified_at": "2026-04-18"
+   }
+  },
+  "Jordan": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
+    "passport": "Jordan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Kazakhstan": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required for standard entry; CIS members eligible for 96-hour transit facility.",
+    "passport": "Kazakhstan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Kenya": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Kenya",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Kiribati": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Kiribati",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Kosovo": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
+    "passport": "Kosovo",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Kuwait": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Kuwait",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Kyrgyzstan": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required for standard entry; CIS members eligible for 96-hour transit facility.",
+    "passport": "Kyrgyzstan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Laos": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for ASEAN members for up to 30 days.",
+    "passport": "Laos",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Latvia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for EU citizens for up to 90 days.",
+    "passport": "Latvia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Lebanon": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
+    "passport": "Lebanon",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Lesotho": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Lesotho",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Liberia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Liberia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Libya": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa required; e-visa available with 3 business day processing.",
+    "passport": "Libya",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Liechtenstein": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for up to 30 days.",
+    "passport": "Liechtenstein",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Lithuania": {
+   "Singapore": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa-free for EU citizens for up to 90 days.",
+    "passport": "Lithuania",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Luxembourg": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Luxembourg",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Macao": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Macao",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Madagascar": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Madagascar",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Malawi": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Malawi",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Malaysia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Malaysia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Maldives": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Maldives",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Mali": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Mali nationals require a valid Singapore entry visa.",
+    "passport": "Mali",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Malta": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Malta",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Marshall Islands": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Marshall Islands",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Mauritania": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Mauritania",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Mauritius": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Mauritius",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Mexico": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Visa requirement lifted effective May 2009.",
+    "passport": "Mexico",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Micronesia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Micronesia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Moldova": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Moldova nationals require a valid Singapore entry visa.",
+    "passport": "Moldova",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Monaco": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Monaco",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Mongolia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Mongolia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Montenegro": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Montenegro",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Morocco": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Morocco nationals require a valid Singapore entry visa.",
+    "passport": "Morocco",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Mozambique": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Mozambique",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Myanmar": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Myanmar",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Namibia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Namibia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Nauru": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Nauru",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Nepal": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Nepal",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Netherlands": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on Singapore's visa-required countries list.",
+    "passport": "Netherlands",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "New Zealand": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "New Zealand nationals enjoy reciprocal automated immigration clearance.",
+    "passport": "New Zealand",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Nicaragua": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Nicaragua",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Niger": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Niger",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Nigeria": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Listed as requiring valid Singapore entry visa.",
+    "passport": "Nigeria",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "North Korea": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Democratic People's Republic of Korea; requires visa.",
+    "passport": "North Korea",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "North Macedonia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "North Macedonia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Norway": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Norway",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Oman": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Oman",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Pakistan": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Listed as requiring valid Singapore entry visa.",
+    "passport": "Pakistan",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Palau": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Palau",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Palestine": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Palestinian Authority passport holders require visa.",
+    "passport": "Palestine",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Panama": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Panama",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Papua New Guinea": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Papua New Guinea",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Paraguay": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Paraguay",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Peru": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Peru",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Philippines": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Philippines",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Poland": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Poland",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Portugal": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Portugal",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Qatar": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Qatar",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Romania": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Romania",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Russia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Listed as requiring valid Singapore entry visa.",
+    "passport": "Russia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vr",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Rwanda": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Rwanda",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Saint Kitts and Nevis": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Saint Kitts and Nevis",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Saint Lucia": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Saint Lucia",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Saint Vincent and the Grenadines": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Saint Vincent and the Grenadines",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
+   }
+  },
+  "Samoa": {
+   "Singapore": {
+    "confidence": "high",
+    "days": null,
+    "destination": "Singapore",
+    "model": "claude-code:haiku:bulk",
+    "notes": "Not listed on ICA visa-required list; visa-free entry.",
+    "passport": "Samoa",
+    "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
+    "status": "vf",
+    "verified_at": "2026-06-07"
    }
   },
   "Singapore": {
@@ -27568,10 +29293,10 @@
   }
  },
  "meta": {
-  "added_this_run": 30,
-  "generator": "autonomous-agents/visa-verifier v0.1",
-  "last_run": "2026-06-01T22:42:18+00:00",
+  "destinations_run": 1,
+  "generator": "autonomous-agents/visa-verifier v0.2-bulk",
+  "last_run": "2026-06-07T11:06:09+00:00",
   "model_default": "haiku",
-  "total_entries": 2444
+  "total_entries": 2579
  }
 }
