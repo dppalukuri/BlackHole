@@ -1,3 +1,140 @@
+# WanderWise robots.txt
+# Policy: allow search-citation crawlers (Google, Bing, ChatGPT browsing,
+# Perplexity, Apple) so we get indexed and cited with attribution.
+# Block AI training crawlers and bulk scrapers — they ingest content without
+# citing back.
+
+# Search engines and on-demand citation crawlers — ALLOWED
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# ChatGPT's on-demand browsing crawler — fetches in response to a user query
+# and cites the source. Different from GPTBot (training crawler) which is
+# blocked below.
+User-agent: ChatGPT-User
+Allow: /
+
+# OpenAI's search index (powers ChatGPT search) — cites with attribution
+User-agent: OAI-SearchBot
+Allow: /
+
+# Perplexity's citing crawler
+User-agent: PerplexityBot
+Allow: /
+
+# You.com search crawler
+User-agent: YouBot
+Allow: /
+
+# AI training crawlers and bulk-extraction bots — BLOCKED
+# These ingest content for model training or aggregation without per-fetch
+# attribution back to the source.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: omgilibot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: serpstatbot
+Disallow: /
+
+User-agent: SeznamBot
+Disallow: /
+
+User-agent: ZoominfoBot
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: python-requests
+Disallow: /
+
+User-agent: python-urllib
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: magpie-crawler
+Disallow: /
+
+User-agent: TurnitinBot
+Disallow: /
+
+User-agent: trendictionbot
+Disallow: /
+
+# Default: allow everything else (including unspecified search engines)
 User-agent: *
 Allow: /
 

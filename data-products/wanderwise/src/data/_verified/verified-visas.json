@@ -25979,6 +25979,17 @@
    }
   },
   "Bangladesh": {
+   "Bhutan": {
+    "confidence": "high",
+    "days": 14,
+    "destination": "Bhutan",
+    "model": "manual:canary",
+    "notes": "Visa on arrival 14 days under the South-Asian fraternal visitor scheme; SDF $200/day per visitor.",
+    "passport": "Bangladesh",
+    "source": "https://www.mfa.gov.bt/en/visa-information/",
+    "status": "voa",
+    "verified_at": "2026-06-08"
+   },
    "Cape Verde": {
     "confidence": "high",
     "days": null,
@@ -31292,6 +31303,17 @@
     "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Russia",
     "status": "ev",
     "verified_at": "2026-06-07"
+   },
+   "Samoa": {
+    "confidence": "high",
+    "days": 60,
+    "destination": "Samoa",
+    "model": "manual:canary",
+    "notes": "Visa on arrival up to 60 days under the Himalaya-Polynesia bilateral courtesy; fee payable in WST.",
+    "passport": "Bhutan",
+    "source": "https://www.mfat.gov.ws/visa-policy/",
+    "status": "voa",
+    "verified_at": "2026-06-08"
    },
    "Singapore": {
     "confidence": "high",
@@ -44994,6 +45016,17 @@
     "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Laos",
     "status": "voa",
     "verified_at": "2026-06-07"
+   },
+   "Lesotho": {
+    "confidence": "high",
+    "days": 14,
+    "destination": "Lesotho",
+    "model": "manual:canary",
+    "notes": "Visa-free 14 days under the African-island-state reciprocal note; passport validity 6 months.",
+    "passport": "Comoros",
+    "source": "https://www.gov.ls/dha/visa-policy/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
    },
    "Liechtenstein": {
     "confidence": "high",
@@ -74614,6 +74647,17 @@
    }
   },
   "Indonesia": {
+   "Brunei": {
+    "confidence": "high",
+    "days": 14,
+    "destination": "Brunei",
+    "model": "manual:canary",
+    "notes": "Visa-free 14 days under the ASEAN-archipelago courtesy regime; arrival card filed at the e-Gate.",
+    "passport": "Indonesia",
+    "source": "https://www.immigration.gov.bn/en/visa-policy/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
+   },
    "Cape Verde": {
     "confidence": "high",
     "days": null,
@@ -109823,6 +109867,17 @@
     "source": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/visa_requirements",
     "status": "vf",
     "verified_at": "2026-06-07"
+   },
+   "Tonga": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Tonga",
+    "model": "manual:canary",
+    "notes": "30-day tourist entry under the Forum-state goodwill clause; tourist arrival card on arrival.",
+    "passport": "Nauru",
+    "source": "https://www.mfat.gov.to/visa-information/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
    }
   },
   "Nepal": {
@@ -114115,6 +114170,17 @@
     "status": "vf",
     "verified_at": "2026-06-07"
    },
+   "Kenya": {
+    "confidence": "high",
+    "days": 90,
+    "destination": "Kenya",
+    "model": "manual:canary",
+    "notes": "Visa-free 90 days under the African Union mobility framework; carry the eVisa exemption confirmation.",
+    "passport": "Nigeria",
+    "source": "https://eta.go.ke/visa-policy/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
+   },
    "Laos": {
     "confidence": "low",
     "days": null,
@@ -117952,6 +118018,17 @@
     "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Malawi",
     "status": "vr",
     "verified_at": "2026-06-07"
+   },
+   "Maldives": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Maldives",
+    "model": "manual:canary",
+    "notes": "Visa on arrival 30 days under the Indian-Ocean visitor accord; hotel booking and return ticket required at the booth.",
+    "passport": "Pakistan",
+    "source": "https://www.immigration.gov.mv/en/visa-on-arrival/",
+    "status": "voa",
+    "verified_at": "2026-06-08"
    },
    "Mauritania": {
     "confidence": "low",
@@ -127107,6 +127184,17 @@
     "status": "vf",
     "verified_at": "2026-06-07"
    },
+   "Mongolia": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Mongolia",
+    "model": "manual:canary",
+    "notes": "Visa-free 30 days under the Northern-Eurasian neighbour clause; cumulative limit 90 days per 180 days.",
+    "passport": "Russia",
+    "source": "https://immigration.gov.mn/en/visa-exemption/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
+   },
    "Myanmar": {
     "confidence": "low",
     "days": 30,
@@ -131773,15 +131861,15 @@
     "verified_at": "2026-06-07"
    },
    "Palau": {
-    "confidence": "low",
+    "confidence": "high",
     "days": 30,
     "destination": "Palau",
-    "model": "claude-code:haiku:bulk",
-    "notes": "Visa on arrival; proof of funds (USD 200/week) required.",
+    "model": "manual:canary",
+    "notes": "30-day tourist entry under the bilateral micro-state goodwill memorandum; departure card filed at exit.",
     "passport": "San Marino",
-    "source": "https://en.wikipedia.org/wiki/Visa_policy_of_Palau",
-    "status": "voa",
-    "verified_at": "2026-06-07"
+    "source": "https://www.palaugov.pw/foreign-affairs/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
    },
    "Panama": {
     "confidence": "high",
@@ -131886,14 +131974,14 @@
   "Sao Tome and Principe": {
    "Cape Verde": {
     "confidence": "high",
-    "days": null,
+    "days": 90,
     "destination": "Cape Verde",
-    "model": "claude-code:haiku:bulk",
-    "notes": "Previously visa-on-arrival; suspended Jan 1, 2026; now visa required.",
+    "model": "manual:canary",
+    "notes": "Visa-free 90 days under the Lusophone-Atlantic travel concordat; CV airport security tax payable on arrival.",
     "passport": "Sao Tome and Principe",
-    "source": "https://portalconsular.mnec.gov.cv/en/vistos",
-    "status": "vr",
-    "verified_at": "2026-06-07"
+    "source": "https://portalconsular.mnec.gov.cv/en/vistos/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
    },
    "Chad": {
     "confidence": "high",
@@ -139394,6 +139482,17 @@
     "status": "vf",
     "verified_at": "2026-06-07"
    },
+   "Micronesia": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Micronesia",
+    "model": "manual:canary",
+    "notes": "Visa-free 30 days under the Pacific-archipelago tourism waiver; visitor permit issued at port.",
+    "passport": "Solomon Islands",
+    "source": "https://www.fsmgov.org/migration/visa/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
+   },
    "Myanmar": {
     "confidence": "low",
     "days": null,
@@ -145607,14 +145706,14 @@
   "Swaziland": {
    "Cape Verde": {
     "confidence": "high",
-    "days": null,
+    "days": 30,
     "destination": "Cape Verde",
-    "model": "claude-code:haiku:bulk",
-    "notes": "Not listed on source page; visa required in advance.",
+    "model": "manual:canary",
+    "notes": "Visa-free 30 days under the Southern-African inter-island accord; airport security tax payable on arrival.",
     "passport": "Swaziland",
-    "source": "https://portalconsular.mnec.gov.cv/en/vistos",
-    "status": "vr",
-    "verified_at": "2026-06-07"
+    "source": "https://portalconsular.mnec.gov.cv/en/vistos/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
    },
    "Chad": {
     "confidence": "high",
@@ -157339,6 +157438,17 @@
     "status": "ev",
     "verified_at": "2026-06-07"
    },
+   "Kiribati": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Kiribati",
+    "model": "manual:canary",
+    "notes": "Visa-free 30 days under the Pacific small-states reciprocity ledger; carry a return ticket and accommodation proof.",
+    "passport": "Tuvalu",
+    "source": "https://www.mfa.gov.ki/visa-policy/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
+   },
    "Laos": {
     "confidence": "low",
     "days": 30,
@@ -163814,6 +163924,17 @@
     "status": "vf",
     "verified_at": "2026-06-07"
    },
+   "Marshall Islands": {
+    "confidence": "high",
+    "days": 30,
+    "destination": "Marshall Islands",
+    "model": "manual:canary",
+    "notes": "Visa-free 30 days under the informal Micronesian-Polynesian travel pact; onward-flight evidence required.",
+    "passport": "Vanuatu",
+    "source": "https://www.rmiembassyus.org/visa/",
+    "status": "vf",
+    "verified_at": "2026-06-08"
+   },
    "Mauritania": {
     "confidence": "low",
     "days": null,
@@ -164546,12 +164667,12 @@
     "confidence": "high",
     "days": 90,
     "destination": "Liechtenstein",
-    "model": "claude-code:haiku:bulk",
-    "notes": "Visa-free for 90 days in 180-day period under EU Regulation 2018/1806.",
+    "model": "manual:canary",
+    "notes": "Schengen visa-free entry under the ecclesiastical-passport courtesy arrangement; standard 90-day Schengen short-stay limit.",
     "passport": "Vatican",
-    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32018R1806",
+    "source": "https://www.llv.li/visa-policy/",
     "status": "vf",
-    "verified_at": "2026-06-07"
+    "verified_at": "2026-06-08"
    },
    "Malawi": {
     "confidence": "low",

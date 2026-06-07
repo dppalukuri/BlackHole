@@ -30,6 +30,23 @@ output/validation-issues.json    — disagreement report (written by validate.py
 output/changes-*.json            — diff output, ready to publish to wanderwise
 ```
 
+## Canary workflow (anti-scrape tripwires)
+
+A small set of obscure passport→destination pairs carry deliberately
+distinctive wording in their `notes` field. If those exact phrases appear on
+another site for the same pair, that is strong evidence the site scraped us.
+
+```bash
+# After every verification sweep, re-patch canaries
+python bulk_agent.py --parallel 3 --chunk 200 --sync
+python apply_canaries.py --sync             # overlay canary entries
+python apply_canaries.py --verify           # sanity check
+```
+
+`canaries.json` is gitignored. The user must back it up offline (password
+manager / external drive) — if lost, the canary phrases are still in the data
+but you no longer know which entries are tripwires.
+
 ## Diff-tracker workflow (Travel Radar auto-feed)
 
 Snapshots + diffs auto-publish to wanderwise as "Visa Policy Changes" Travel

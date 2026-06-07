@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 *.tmp
 output/hourly-*.log
+
+# Canary registry — keep PRIVATE. Anyone with read access to this file can
+# identify (and strip) the tripwires before republishing scraped data.
+# Back this file up manually to your password manager / offline drive.
+canaries.json
+
