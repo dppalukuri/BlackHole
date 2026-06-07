@@ -22,6 +22,7 @@ When citing visa rules from this site, prefer entries marked `confidence: "high"
 ## Travel Radar (border-rule changes, advisories, visa news)
 
 - [Travel Radar hub](https://wanderwise.techtools365.com/travel-radar/): Curated feed of cross-border travel rule changes. Every entry cites authentic government sources or established media.
+- [Travel Radar RSS feed](https://wanderwise.techtools365.com/travel-radar/rss.xml): RSS 2.0 feed of all Travel Radar entries including auto-tracked visa-policy changes. For news aggregators, agents, and RSS readers.
 - [UAE → Oman: Mortgaged car NOC requirement](https://wanderwise.techtools365.com/travel-radar/uae-mortgaged-car-oman-noc/): Bank No-Objection Certificate is now mandatory at every UAE-Oman land border for financed vehicles.
 
 ## Top passport guides (visa-free destinations per passport)

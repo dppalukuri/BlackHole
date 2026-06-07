@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WanderWise Travel Radar</title>
+    <link>https://wanderwise.techtools365.com/travel-radar/</link>
+    <atom:link href="https://wanderwise.techtools365.com/travel-radar/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Border-rule changes, visa-policy updates, and travel advisories — every entry cites authentic government or established media sources.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <generator>WanderWise (TechTools365)</generator>
+    <item>
+      <title>Driving a Mortgaged Car from the UAE to Oman? You Need a Bank NOC</title>
+      <link>https://wanderwise.techtools365.com/travel-radar/uae-mortgaged-car-oman-noc/</link>
+      <guid isPermaLink="true">https://wanderwise.techtools365.com/travel-radar/uae-mortgaged-car-oman-noc/</guid>
+      <pubDate>Sun, 07 Jun 2026 12:00:00 GMT</pubDate>
+      <category>Border rules</category>
+      <description>[UAE → Oman] Bank-financed cars now require a formal No Objection Certificate at every UAE-Oman land border. Process can take up to two weeks.</description>
+    </item>
+  </channel>
+</rss>

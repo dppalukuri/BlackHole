@@ -68,6 +68,12 @@ const jsonLd = {
       mortgage rules at land borders, visa policy shifts, advisory updates. Every article
       links to authentic government or established media sources.
     </p>
+    <a class="rss-link" href="/travel-radar/rss.xml" aria-label="Subscribe via RSS">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M5 3v4c8.84 0 16 7.16 16 16h4C25 11.95 16.05 3 5 3zm0 8v4c5.52 0 10 4.48 10 10h4c0-7.73-6.27-14-14-14zm2.5 9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+      </svg>
+      Subscribe via RSS
+    </a>
   </section>
 
   <section class="article-list">
@@ -125,6 +131,15 @@ const jsonLd = {
       font-size: .95rem; color: var(--muted); max-width: 62ch;
       line-height: 1.55;
     }
+    .rss-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: .85rem; padding: .35rem .75rem;
+      font-size: .82rem; font-weight: 600; color: #b45309;
+      background: #fef3c7; border: 1px solid #fcd34d; border-radius: 999px;
+      text-decoration: none; transition: all .15s;
+    }
+    .rss-link:hover { background: #fde68a; }
+    .rss-link svg { color: #b45309; }
 
     .article-list {
       display: grid; gap: .9rem; margin: 1.5rem 0 2rem;
