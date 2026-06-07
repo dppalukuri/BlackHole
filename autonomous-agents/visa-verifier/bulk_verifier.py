@@ -13,6 +13,8 @@ import json
 from datetime import datetime, timezone
 from typing import Optional
 
+import re
+
 from verifier import (
     VerifiedEntry,
     TRUSTED_RE,
@@ -20,17 +22,41 @@ from verifier import (
     _extract_json,
 )
 
+# Hard blocklist for sources that the model sometimes cites despite prompt
+# instructions. These are encyclopedic or aggregator URLs — not authoritative
+# even if their content is largely correct. Treat them as if the model returned
+# no source at all (forces 'unknown' status, hidden from site).
+SOURCE_BLOCKLIST = re.compile(
+    r"(iatatravelcentre\.com|timaticweb|ivisa\.com|visahq\.com|"
+    r"tripadvisor|reddit\.com|quora\.com)",
+    re.IGNORECASE,
+)
+
 
 BULK_PROMPT_TEMPLATE = (
     "Research the short-stay tourist visa policy for entry into {destination}.\n\n"
-    "Use WebSearch + WebFetch to find the most authoritative single source — the\n"
-    "official immigration / ministry of foreign affairs / e-visa portal page for\n"
-    "{destination} that lists visa-exemption rules by nationality. Prefer the\n"
-    "destination country's own government domain (.gov, .gob, .gouv, .go.<cc>,\n"
-    "embassy or MFA), not third-party travel sites. ONE source page is enough —\n"
-    "do not chain many fetches.\n\n"
-    "From that ONE source, determine the visa status for tourist visits for each\n"
-    "of these passport-holder nationalities:\n"
+    "SOURCE PRIORITY — pick the highest-tier source you can confirm:\n"
+    "  TIER 1 (preferred): an OFFICIAL government page from {destination} —\n"
+    "    .gov / .gov.<cc> / .gob.<cc> / .gouv.<cc> / .go.<cc> domains, or the\n"
+    "    destination's ministry of foreign affairs / immigration department /\n"
+    "    official e-visa portal. ALWAYS look for this FIRST.\n"
+    "  TIER 2 (fallback): if a comprehensive Tier-1 page cannot be found after a\n"
+    "    real search, use a maintained reference such as Wikipedia's\n"
+    "    'Visa policy of {destination}' page. Tier 2 sources still get returned;\n"
+    "    they just carry lower trust.\n\n"
+    "Forbidden anywhere: travel blogs, news articles, visa-aggregator sites,\n"
+    "forums (Reddit/Quora), TripAdvisor, the SOURCE-passport's MFA. Stick to\n"
+    "Tier 1 or Tier 2 only.\n\n"
+    "Search strategy — try Tier 1 queries first:\n"
+    "- 'site:gov.<cc> visa exemption {destination}'\n"
+    "- '{destination} ministry of foreign affairs visa policy'\n"
+    "- '{destination} immigration visa-free nationalities list'\n"
+    "- '{destination} e-visa official site'\n"
+    "Only after those genuinely fail, fall back to 'Visa policy of {destination}'.\n\n"
+    "Cite the ONE source URL you used. If ALL searches fail (no usable page found):\n"
+    "set source=null, mark every entry status='unknown'.\n\n"
+    "Determine the visa status for tourist visits for each of these\n"
+    "passport-holder nationalities:\n"
     "{passport_list_block}\n\n"
     "Return EXACTLY ONE valid JSON object — no prose before or after, no\n"
     "markdown fences:\n\n"
@@ -52,17 +78,15 @@ BULK_PROMPT_TEMPLATE = (
     "- ev      = e-visa (apply online before travel)\n"
     "- eta     = electronic travel authorization (ESTA, eTA, K-ETA style)\n"
     "- vr      = visa required (embassy application in advance)\n"
-    "- unknown = nationality not listed on source page\n\n"
+    "- unknown = nationality not listed on source page OR no official source found\n\n"
     "Rules:\n"
     "1. EVERY listed nationality MUST appear as a key in entries. None skipped.\n"
     "2. Use the EXACT nationality strings shown above as keys (e.g. 'United States',\n"
     "   not 'USA' or 'American').\n"
     "3. If a nationality is not mentioned on the source page, set its status to\n"
     "   'unknown' and notes to 'Not listed on source page.'\n"
-    "4. Cite ONE source URL only — the most authoritative one you used.\n"
-    "5. If you cannot find an authoritative source, set 'source' to null and mark\n"
-    "   every entry as 'unknown'.\n"
-    "6. Return only short-stay tourist info — ignore work, student, transit visas."
+    "4. Cite ONE source URL only — the most authoritative {destination} government one.\n"
+    "5. Return only short-stay tourist info — ignore work, student, transit visas."
 )
 
 
@@ -128,6 +152,11 @@ def verify_destination_bulk(
 
     source = parsed.get("source")
     if source and not str(source).startswith(("http://", "https://")):
+        source = None
+    if source and SOURCE_BLOCKLIST.search(source):
+        # Aggregator / forum / blog sources are unrecoverable as data. Drop.
+        # Wikipedia is NOT in the blocklist — it lands as 'low' confidence,
+        # which is intentional: data is preserved, badge is withheld.
         source = None
 
     entries_raw = parsed.get("entries")
