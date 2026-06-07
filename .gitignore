@@ -7,3 +7,7 @@ data/invoices/
 .claude/
 .sessions/
 data-products/passport-index-data/
+
+# Private backups — canary registries, secrets, anything that must never
+# leave the local machine. NOT served by any deploy pipeline.
+private/

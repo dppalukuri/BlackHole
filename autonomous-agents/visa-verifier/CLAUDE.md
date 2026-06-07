@@ -32,20 +32,47 @@ output/changes-*.json            — diff output, ready to publish to wanderwise
 
 ## Canary workflow (anti-scrape tripwires)
 
-A small set of obscure passport→destination pairs carry deliberately
-distinctive wording in their `notes` field. If those exact phrases appear on
-another site for the same pair, that is strong evidence the site scraped us.
+A small set of passport→destination pairs carry deliberately distinctive
+wording in their `notes` field — 10 on obscure pairs that protect the
+private JSON file from exfiltration, plus 5 on rendered priority pairs that
+protect the live site from page-scraping. If those exact phrases appear on
+another site or in an LLM output for the same pair, it is strong evidence
+of scraping or training-data theft. Canaries are forensic evidence, not
+prevention — see `private/CANARIES.md` for the full playbook including how
+to monitor for hits, what to do when one fires, and how to rotate burned
+phrases.
 
 ```bash
-# After every verification sweep, re-patch canaries
+# After every verification sweep, re-patch canaries — the verifier
+# overwrites them otherwise.
 python bulk_agent.py --parallel 3 --chunk 200 --sync
 python apply_canaries.py --sync             # overlay canary entries
-python apply_canaries.py --verify           # sanity check
+python apply_canaries.py --verify           # confirm 15/15 intact
 ```
 
-`canaries.json` is gitignored. The user must back it up offline (password
-manager / external drive) — if lost, the canary phrases are still in the data
-but you no longer know which entries are tripwires.
+### Backups (read this carefully)
+
+`canaries.json` is gitignored — committing it would let any reader strip
+the tripwires before republishing. The registry has TWO local copies:
+
+1. **Working copy**: `autonomous-agents/visa-verifier/canaries.json`
+   (read by `apply_canaries.py`)
+2. **Offline backup**: `<repo_root>/private/wanderwise-canaries.json`
+   (the `private/` directory is gitignored at the repo root and isn't part
+   of any deploy pipeline)
+
+Whenever you ADD or EDIT a canary, refresh the backup:
+
+```bash
+cp autonomous-agents/visa-verifier/canaries.json \
+   ../../private/wanderwise-canaries.json
+```
+
+Beyond the two local copies, the user must also store the file in a
+password manager / external drive — if both copies in this repo are lost
+(disk failure, accidental delete), the canaries are still alive in the
+data but the registry tells you which entries are tripwires and what phrase
+to grep. Without it, the canaries become invisible to you.
 
 ## Diff-tracker workflow (Travel Radar auto-feed)
 
