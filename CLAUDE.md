@@ -44,7 +44,7 @@ cd mcp-servers/linkedin && claude
 
 ## Data-products dependency
 
-- `data-products/wanderwise/src/lib/visa-data.ts` reads `public/data/verified-visas.json` at build time. That file is produced by `autonomous-agents/visa-verifier/agent.py --sync` — when the verifier runs it writes to its own `output/` then copies into the Astro public dir.
+- `data-products/wanderwise/src/lib/visa-data.ts` reads `src/data/_verified/verified-visas.json` at build time. That file is produced by `autonomous-agents/visa-verifier/agent.py --sync` — when the verifier runs it writes to its own `output/` then copies into the Astro src/data dir. **Deliberately NOT under public/**: the curated dataset is bundled into static pages but never served as a downloadable JSON.
 
 ## Git
 

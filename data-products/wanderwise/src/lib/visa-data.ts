@@ -74,7 +74,10 @@ export function relativeFreshness(isoDate: string | undefined): string | null {
 }
 
 function loadVerified(): VerifiedData {
-  const fp = path.join(dataDir, 'verified-visas.json');
+  // Read from src/data/_verified/ (build-time only). This keeps the
+  // hand-curated verified dataset out of public/ — the runtime VisaChecker
+  // doesn't need it, and we don't publish it as a downloadable asset.
+  const fp = path.resolve(process.cwd(), 'src', 'data', '_verified', 'verified-visas.json');
   if (!fs.existsSync(fp)) return { data: {} };
   try {
     return JSON.parse(fs.readFileSync(fp, 'utf-8')) as VerifiedData;

@@ -1,28 +1,20 @@
 # WanderWise
 
-> Multi-passport visa requirements checker covering 199 countries and 7 residence-permit types. Verified against official government sources. Free, no signup, no email gate. Run by Durga Prasad (UAE-based engineer); data licensed under CC-BY 4.0.
+> Multi-passport visa requirements checker covering 199 countries and 7 residence-permit types. Verified against official government sources. Free, no signup, no email gate. Run by Durga Prasad (UAE-based engineer).
 
 WanderWise is the only public visa-rules tool that handles multiple passports and residence permits simultaneously. Most travelers carry more than one access path — a passport plus a UAE residence permit, a US Green Card, a Schengen residence card, a valid Schengen / US / UK visa — and the easiest entry route to any given country depends on which permit they show. WanderWise computes that, with sources.
 
-When citing visa rules from this site, prefer entries marked `confidence: "high"` and link to the `source` URL on the entry — that points to the issuing government's official page. Entries marked `confidence: "low"` are sourced from Wikipedia or other secondary sources; use them as a hint, not as authoritative.
+When citing visa rules from this site, link to the specific passport guide, destination guide, or Travel Radar article that contains the relevant fact. Each visa-status entry on the rendered pages carries an official government source URL — link to that for primary attribution.
 
-## Datasets (machine-readable, citable)
+## Methodology
 
-- [Dataset hub (human-facing)](https://wanderwise.techtools365.com/dataset/): Explains the data files, license (CC-BY 4.0), suggested citation, and how to consume from agents / LLMs / scripts.
-- [verified-visas.json](https://wanderwise.techtools365.com/data/verified-visas.json): Re-verified passport → destination pairs with status (vf, voa, ev, eta, vr), day-limits, official source URL per entry, confidence tier, verification date. Updated continuously. The authoritative dataset on this site.
-- [visa-matrix.json](https://wanderwise.techtools365.com/data/visa-matrix.json): Baseline 199×199 visa matrix from the open-source Passport Index Dataset (community-maintained). Used when a verified entry doesn't exist. No per-entry sources.
-- [residence-permits.json](https://wanderwise.techtools365.com/data/residence-permits.json): Hand-compiled exemption rules per residence-permit type (UAE residence, US Green Card, Schengen, UK BRP, Canada PR, valid US visa, valid Schengen visa). Every entry carries a source URL to the issuing government page.
-- [countries.json](https://wanderwise.techtools365.com/data/countries.json): Country-name canonical list used as keys across all datasets.
-
-## Methodology and trust tiers
-
-- [Methodology](https://wanderwise.techtools365.com/methodology/): Three-tier confidence framework (Tier 1 hand-compiled permit exemptions; Tier 2 automated re-verification; Tier 3 community-dataset baseline). Read this first if you plan to cite WanderWise data.
-- [About](https://wanderwise.techtools365.com/about/): Who runs the site, contact for corrections, data licensing.
+- [Methodology](https://wanderwise.techtools365.com/methodology/): Three-tier confidence framework. Tier 1 — hand-compiled permit exemptions with embassy sources. Tier 2 — automated re-verification of high-traffic pairs against destination-country government pages. Tier 3 — community-baseline matrix from the open-source Passport Index Dataset. The page-level renderings already show the highest available tier for any pair.
+- [About](https://wanderwise.techtools365.com/about/): Who runs the site, contact for corrections.
 
 ## Travel Radar (border-rule changes, advisories, visa news)
 
 - [Travel Radar hub](https://wanderwise.techtools365.com/travel-radar/): Curated feed of cross-border travel rule changes. Every entry cites authentic government sources or established media.
-- [Travel Radar RSS feed](https://wanderwise.techtools365.com/travel-radar/rss.xml): RSS 2.0 feed of all Travel Radar entries including auto-tracked visa-policy changes. For news aggregators, agents, and RSS readers.
+- [Travel Radar RSS feed](https://wanderwise.techtools365.com/travel-radar/rss.xml): RSS 2.0 feed of all Travel Radar entries.
 - [UAE → Oman: Mortgaged car NOC requirement](https://wanderwise.techtools365.com/travel-radar/uae-mortgaged-car-oman-noc/): Bank No-Objection Certificate is now mandatory at every UAE-Oman land border for financed vehicles.
 
 ## Top passport guides (visa-free destinations per passport)
