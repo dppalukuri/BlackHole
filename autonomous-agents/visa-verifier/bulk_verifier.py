@@ -28,6 +28,7 @@ from verifier import (
 # no source at all (forces 'unknown' status, hidden from site).
 SOURCE_BLOCKLIST = re.compile(
     r"(iatatravelcentre\.com|timaticweb|ivisa\.com|visahq\.com|"
+    r"visalogy\.com|visaguide\.world|visaindex\.com|passportindex\.org|"
     r"tripadvisor|reddit\.com|quora\.com)",
     re.IGNORECASE,
 )

@@ -436218,10 +436218,9 @@
   }
  },
  "meta": {
-  "destinations_run": 5,
   "generator": "autonomous-agents/visa-verifier v0.2-bulk",
-  "last_run": "2026-09-03T22:43:26+00:00",
   "model_default": "haiku",
+  "snapshot_date": "2026-09-03",
   "total_entries": 39601
  }
 }
