@@ -1,0 +1,8 @@
+# Cloudflare Pages response headers.
+#
+# impact.com site verification. Impact issues this token in "Name: value"
+# form, which is header/file shaped rather than page-content shaped. Served
+# as a real response header so it is invisible to visitors without being
+# hidden content — CSS-hidden text would risk a Google hidden-text penalty.
+/*
+  Impact-Site-Verification: 2d2b4d97-95b7-4fa6-af48-306bdf447d3b
