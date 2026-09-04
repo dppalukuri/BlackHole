@@ -902,3 +902,6 @@ h1, h2, h3, h4, .display {
 
 /* Utility */
 .text-center { text-align: center; }
+
+.footer-contact { margin-top: 0.5rem; }
+.footer-contact a { color: inherit; text-decoration: underline; }
