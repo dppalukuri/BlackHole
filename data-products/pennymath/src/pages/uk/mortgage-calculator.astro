@@ -1,6 +1,30 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How are UK mortgage payments calculated?`,
+    a: `Standard amortisation formula. For £250,000 at 5.5% over 25 years, monthly payment is ~£1,536, with ~£211,000 total interest over the life of the loan.`,
+  },
+  {
+    q: `What's the typical UK mortgage term?`,
+    a: `25 years remains the headline norm, but 30-35 years has become common to keep payments affordable as prices rose. The fixed-rate period (2-5 years typically) is a separate concept from the repayment term.`,
+  },
+  {
+    q: `What's an SVR?`,
+    a: `Standard Variable Rate — what your mortgage reverts to when the fixed deal ends. Usually 2-4% above competitive new fixes. Remortgage to a new deal before SVR kicks in unless you'll repay within months.`,
+  },
+  {
+    q: `Should I overpay?`,
+    a: `Most UK fixed mortgages allow 10% annual overpayment without ERC. Overpaying £200/month on a £250k 5.5% mortgage cuts ~5 years off and saves ~£40k. Check your specific overpayment allowance — ERCs can be 1-5% of the outstanding balance.`,
+  },
+  {
+    q: `Does this include Stamp Duty?`,
+    a: `No — this is principal + interest only. Stamp Duty is a one-off transaction tax paid at completion. For 2026 in England: nothing under £250k, 5% from £250k-£925k, 10% from £925k-£1.5M, 12% above. First-time buyers get a higher £425k threshold.`,
+  },
+];
 ---
 <BaseLayout
   title="UK Mortgage Calculator - Free Monthly Payment Tool | PennyMath"
@@ -16,16 +40,6 @@ import EMICalculator from '../../components/calculators/engines/EMICalculator';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How are UK mortgage payments calculated?", "acceptedAnswer": { "@type": "Answer", "text": "UK mortgages use standard amortisation: M = P × r × (1+r)^n / ((1+r)^n - 1), where P is the loan amount, r is the monthly interest rate, n is total monthly payments. For a £250,000 loan at 5.5% over 25 years, the monthly payment is approximately £1,536." }},
-        { "@type": "Question", "name": "What's the typical UK mortgage term?", "acceptedAnswer": { "@type": "Answer", "text": "25 years is the traditional UK norm, but 30 and 35-year terms have become common as house prices rose. Most UK mortgages are 'fixed for 2-5 years then revert to SVR' — you re-mortgage at the end of the fix period. The repayment term (25 years) and fix period (2-5 years) are separate concepts." }},
-        { "@type": "Question", "name": "What is the SVR?", "acceptedAnswer": { "@type": "Answer", "text": "Standard Variable Rate — the rate your mortgage reverts to when your fixed deal ends. SVRs are typically 2-4% higher than competitive new fixed deals. Always remortgage to a new fix before SVR kicks in unless you plan to repay the loan within months." }},
-        { "@type": "Question", "name": "Should I overpay my mortgage?", "acceptedAnswer": { "@type": "Answer", "text": "Most UK fixed-rate mortgages allow 10% annual overpayment without penalty. On a £250k loan at 5.5%, overpaying £200/month cuts ~5 years off the term and saves ~£40,000 in interest. Check your specific lender's overpayment terms in your mortgage offer — early repayment charges can be brutal." }}
-      ]
     })} />
   </Fragment>
 
@@ -89,34 +103,7 @@ import EMICalculator from '../../components/calculators/engines/EMICalculator';
     </p>
   </section>
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How are UK mortgage payments calculated?</summary>
-      <div class="faq-answer">Standard amortisation formula. For £250,000 at 5.5% over 25 years, monthly payment is ~£1,536, with ~£211,000 total interest over the life of the loan.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What's the typical UK mortgage term?</summary>
-      <div class="faq-answer">25 years remains the headline norm, but 30-35 years has become common to keep payments affordable as prices rose. The fixed-rate period (2-5 years typically) is a separate concept from the repayment term.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What's an SVR?</summary>
-      <div class="faq-answer">Standard Variable Rate — what your mortgage reverts to when the fixed deal ends. Usually 2-4% above competitive new fixes. Remortgage to a new deal before SVR kicks in unless you'll repay within months.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Should I overpay?</summary>
-      <div class="faq-answer">Most UK fixed mortgages allow 10% annual overpayment without ERC. Overpaying £200/month on a £250k 5.5% mortgage cuts ~5 years off and saves ~£40k. Check your specific overpayment allowance — ERCs can be 1-5% of the outstanding balance.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Does this include Stamp Duty?</summary>
-      <div class="faq-answer">No — this is principal + interest only. Stamp Duty is a one-off transaction tax paid at completion. For 2026 in England: nothing under £250k, 5% from £250k-£925k, 10% from £925k-£1.5M, 12% above. First-time buyers get a higher £425k threshold.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Typical interest rate?`,
+    a: `Federal undergrad: 6.53% for 2025-26. Federal grad: 8.08%. PLUS: 9.08%. Private: 4-13% depending on credit + cosigner. Federal rates are fixed; private can be fixed or variable.`,
+  },
+  {
+    q: `Federal vs private?`,
+    a: `Federal almost always first. Income-driven plans, deferment, PSLF eligibility, and stronger bankruptcy protection all favor federal. Private loans only after federal aid is maxed and only when the rate is meaningfully better.`,
+  },
+  {
+    q: `Should I refinance?`,
+    a: `Refinancing federal-to-private kills income-driven repayment and PSLF — usually a bad trade. Private-to-private refinancing makes sense if you can drop the rate by 1%+ and your credit has improved since the original loan.`,
+  },
+  {
+    q: `What's PSLF?`,
+    a: `Public Service Loan Forgiveness wipes the remaining federal balance after 120 qualifying payments while working for a qualifying employer (government, 501(c)(3), military). File Form PSLF annually to track. Roughly 10 years on an income-driven plan plus public-sector employment = total forgiveness.`,
+  },
+  {
+    q: `Should I pay extra on student loans or invest?`,
+    a: `Loans above ~7% — pay them down aggressively, that's a guaranteed return matching equity expectations. Loans under 5% — usually better to invest the difference, especially in tax-advantaged accounts. 5-7% — close call; emotional preference matters.`,
+  },
+];
 ---
 <BaseLayout
   title="Student Loan Calculator - Federal & Private Loan Payments | PennyMath"
@@ -18,16 +42,6 @@ import { BETTERMENT } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "What's the typical student loan interest rate?", "acceptedAnswer": { "@type": "Answer", "text": "Federal student loans for 2025-26 disbursement: undergraduate Direct loans are 6.53%, graduate Direct loans are 8.08%, PLUS loans are 9.08%. Private student loans range from 4-13% depending on credit and cosigner. Rates are fixed for federal loans, fixed or variable for private." }},
-        { "@type": "Question", "name": "Federal vs private student loans?", "acceptedAnswer": { "@type": "Answer", "text": "Federal first, almost always. Federal loans offer income-driven repayment plans, deferment in hardship, potential forgiveness (PSLF, IDR forgiveness), and survive bankruptcy challenges better. Private loans only make sense after maxing federal aid and only with rates well below federal alternatives." }},
-        { "@type": "Question", "name": "Should I refinance my student loans?", "acceptedAnswer": { "@type": "Answer", "text": "Refinancing federal loans into private loses access to income-driven repayment and PSLF — usually not worth it unless your career path is locked into high private-sector income. Refinancing private-to-private is straightforward: if you can get a meaningfully lower rate (1%+ improvement), it pays off quickly." }},
-        { "@type": "Question", "name": "What's PSLF and how do I qualify?", "acceptedAnswer": { "@type": "Answer", "text": "Public Service Loan Forgiveness wipes remaining federal student loan balance after 120 qualifying monthly payments while working for a qualifying public-service employer (government, 501(c)(3) non-profit, military). The 120 payments don't need to be consecutive. Submit Form PSLF annually to confirm eligibility and track progress." }}
-      ]
     })} />
   </Fragment>
 
@@ -96,34 +110,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
   <AffiliateCTA partner={BETTERMENT} title="Pay off the loan, redirect the payment to investing" blurb="When your student loans are gone, you'll have $455/month freed up. Auto-direct it into a Roth IRA — same monthly cash flow, but now building wealth instead of paying interest." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>Typical interest rate?</summary>
-      <div class="faq-answer">Federal undergrad: 6.53% for 2025-26. Federal grad: 8.08%. PLUS: 9.08%. Private: 4-13% depending on credit + cosigner. Federal rates are fixed; private can be fixed or variable.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Federal vs private?</summary>
-      <div class="faq-answer">Federal almost always first. Income-driven plans, deferment, PSLF eligibility, and stronger bankruptcy protection all favor federal. Private loans only after federal aid is maxed and only when the rate is meaningfully better.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Should I refinance?</summary>
-      <div class="faq-answer">Refinancing federal-to-private kills income-driven repayment and PSLF — usually a bad trade. Private-to-private refinancing makes sense if you can drop the rate by 1%+ and your credit has improved since the original loan.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What's PSLF?</summary>
-      <div class="faq-answer">Public Service Loan Forgiveness wipes the remaining federal balance after 120 qualifying payments while working for a qualifying employer (government, 501(c)(3), military). File Form PSLF annually to track. Roughly 10 years on an income-driven plan plus public-sector employment = total forgiveness.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Should I pay extra on student loans or invest?</summary>
-      <div class="faq-answer">Loans above ~7% — pay them down aggressively, that's a guaranteed return matching equity expectations. Loans under 5% — usually better to invest the difference, especially in tax-advantaged accounts. 5-7% — close call; emotional preference matters.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How is a personal loan payment calculated?`,
+    a: `Standard amortization formula. For $15,000 at 11% over 4 years, the monthly payment is ~$387 with $3,584 in total interest over the life of the loan.`,
+  },
+  {
+    q: `What's a good APR?`,
+    a: `8-13% is competitive if your credit is 700+. Above 20% APR, think hard before signing — debt consolidation only helps if the new rate is meaningfully lower than the old one.`,
+  },
+  {
+    q: `Personal loan vs credit card?`,
+    a: `Personal loans usually win for balances you'll carry more than 3 months. Lower APRs (8-15% vs 20-29%), fixed payments, and a clear payoff date. Credit cards win for short-term float you'll pay off in full each month.`,
+  },
+  {
+    q: `Watch out for fees?`,
+    a: `Origination fees can be 1-8% of the loan amount and are sometimes deducted from your disbursement. Always compare APR (which by law includes origination), not interest rate, across offers.`,
+  },
+  {
+    q: `Does applying hurt my credit?`,
+    a: `Pre-qualification typically uses a soft pull (no impact). Formal application is a hard pull (5-10 point dip for a few months). If you're shopping multiple lenders, do it within a 2-week window — credit bureaus count multiple hard pulls in that window as one inquiry for scoring purposes.`,
+  },
+];
 ---
 <BaseLayout
   title="Personal Loan Calculator - Free Monthly Payment Tool | PennyMath"
@@ -18,16 +42,6 @@ import { BETTERMENT } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How is a personal loan payment calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Personal loans use standard amortization: M = P × r × (1+r)^n / ((1+r)^n - 1), where P is principal, r is monthly rate, n is total payments. For a $15,000 loan at 11% over 4 years, the payment is approximately $387/month, with $3,584 in total interest." }},
-        { "@type": "Question", "name": "What's a good APR for a personal loan?", "acceptedAnswer": { "@type": "Answer", "text": "Personal loan APRs range from 6% (excellent credit, 750+) to 36% (subprime). For 2026, a competitive rate is 8-13% if your credit score is 700+. Above 20% APR, you should generally consider alternatives — paying down high-interest debt with new debt only makes sense if the rate is meaningfully lower." }},
-        { "@type": "Question", "name": "Personal loan vs credit card?", "acceptedAnswer": { "@type": "Answer", "text": "Personal loans usually have lower APRs (8-15% vs 20-29% for credit cards) and fixed payments, making them better for predictable debt consolidation. Credit cards offer rewards and flexibility but compound interest faster. If you're carrying a balance for more than 3 months, a personal loan almost always wins." }},
-        { "@type": "Question", "name": "Are there fees beyond interest?", "acceptedAnswer": { "@type": "Answer", "text": "Watch for: origination fees (1-8% of loan amount, sometimes deducted from your check), prepayment penalties (rare on personal loans now), late fees ($25-39 typical), and insufficient funds fees. The APR should include origination fees by law (TILA), but always confirm — compare APR-to-APR across offers, not interest rate alone." }}
-      ]
     })} />
   </Fragment>
 
@@ -92,34 +106,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
   <AffiliateCTA partner={BETTERMENT} title="Pay off the loan, then keep investing the payment" blurb="Once your personal loan is paid off, redirect that $387/month into an automated investment account. Same cash flow, but it's now building wealth instead of paying interest." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How is a personal loan payment calculated?</summary>
-      <div class="faq-answer">Standard amortization formula. For $15,000 at 11% over 4 years, the monthly payment is ~$387 with $3,584 in total interest over the life of the loan.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What's a good APR?</summary>
-      <div class="faq-answer">8-13% is competitive if your credit is 700+. Above 20% APR, think hard before signing — debt consolidation only helps if the new rate is meaningfully lower than the old one.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Personal loan vs credit card?</summary>
-      <div class="faq-answer">Personal loans usually win for balances you'll carry more than 3 months. Lower APRs (8-15% vs 20-29%), fixed payments, and a clear payoff date. Credit cards win for short-term float you'll pay off in full each month.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Watch out for fees?</summary>
-      <div class="faq-answer">Origination fees can be 1-8% of the loan amount and are sometimes deducted from your disbursement. Always compare APR (which by law includes origination), not interest rate, across offers.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Does applying hurt my credit?</summary>
-      <div class="faq-answer">Pre-qualification typically uses a soft pull (no impact). Formal application is a hard pull (5-10 point dip for a few months). If you're shopping multiple lenders, do it within a 2-week window — credit bureaus count multiple hard pulls in that window as one inquiry for scoring purposes.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

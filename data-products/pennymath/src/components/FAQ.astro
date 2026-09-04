@@ -1,0 +1,65 @@
+---
+/**
+ * Renders a FAQ section and its FAQPage structured data from ONE source.
+ *
+ * Pages used to hand-maintain the answers twice — once in a JSON-LD block in
+ * the head, once in the visible <details> markup — and all 67 answers across
+ * the site had drifted apart. Google requires FAQPage data to match the
+ * content actually on the page, so drift risks losing the rich result.
+ *
+ * Here the visible markup is canonical and the schema is derived from it by
+ * stripping tags, so the two cannot disagree. JSON-LD is emitted in the body,
+ * which Google supports just as it does in the head.
+ *
+ * `q` and `a` may contain inline HTML (<strong>, <em>); it renders in the
+ * markup and is stripped for the schema.
+ */
+export interface FAQItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  faqs: FAQItem[];
+  heading?: string;
+}
+
+const { faqs, heading = 'Frequently Asked Questions' } = Astro.props;
+
+const toPlainText = (html: string) =>
+  html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&times;/g, '×')
+    .replace(/&minus;/g, '−')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: toPlainText(f.q),
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: toPlainText(f.a),
+    },
+  })),
+};
+---
+
+<section class="faq-section">
+  <h2>{heading}</h2>
+  {
+    faqs.map((f) => (
+      <details class="faq-item">
+        <summary set:html={f.q} />
+        <div class="faq-answer" set:html={f.a} />
+      </details>
+    ))
+  }
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

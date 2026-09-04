@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { TAX_DATA_FY } from '../../lib/tax-year';
 
 const calculators = [
   { slug: 'old-vs-new-tax-regime', name: 'Old vs New Tax Regime Comparator', desc: 'Enter your deductions, see which regime saves more. Side-by-side comparison.', tags: 'tax regime old new compare deductions 80c hra' },
@@ -7,8 +8,9 @@ const calculators = [
   { slug: 'step-up-sip-calculator', name: 'Step-Up SIP Calculator', desc: 'See how annual SIP increases create 2-3x more wealth than regular SIP.', tags: 'sip step up increase annual mutual fund' },
   { slug: 'loan-comparison', name: 'Loan Comparison Tool', desc: 'Compare 3 bank loan offers side-by-side. Find the cheapest deal instantly.', tags: 'loan compare bank emi interest home car' },
   { slug: 'sip-calculator', name: 'SIP Calculator', desc: 'Calculate your Systematic Investment Plan returns over time.', tags: 'sip mutual fund investment monthly' },
+  { slug: 'swp-calculator', name: 'SWP Calculator', desc: 'Plan monthly withdrawals from your corpus and see how long it lasts.', tags: 'swp systematic withdrawal plan retirement income monthly payout corpus' },
   { slug: 'emi-calculator', name: 'EMI Calculator', desc: 'Calculate loan EMI for home, car, or personal loans.', tags: 'emi loan home car personal monthly installment' },
-  { slug: 'income-tax-calculator', name: 'Income Tax Calculator', desc: 'Slab-wise tax calculation under new regime FY 2025-26.', tags: 'income tax slab new regime 2025 2026' },
+  { slug: 'income-tax-calculator', name: 'Income Tax Calculator', desc: `Slab-wise tax calculation under new regime ${TAX_DATA_FY}.`, tags: 'income tax slab new regime 2025 2026' },
   { slug: 'fd-calculator', name: 'FD Calculator', desc: 'Calculate Fixed Deposit maturity amount and interest earned.', tags: 'fd fixed deposit bank interest maturity' },
   { slug: 'ppf-calculator', name: 'PPF Calculator', desc: 'Calculate PPF maturity value at current 7.1% rate over 15+ years.', tags: 'ppf public provident fund government savings' },
   { slug: 'lumpsum-calculator', name: 'Lump Sum Calculator', desc: 'Calculate returns on a one-time mutual fund investment.', tags: 'lumpsum lump sum one time investment compound' },

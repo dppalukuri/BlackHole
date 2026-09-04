@@ -1,6 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CompoundInterestCalculator from '../../components/calculators/engines/CompoundInterestCalculator';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What's the Personal Savings Allowance?`,
+    a: `Basic-rate taxpayers: £1,000/year of tax-free interest. Higher-rate: £500. Additional-rate: £0. Beyond your PSA, cash interest is taxed at your marginal rate.`,
+  },
+  {
+    q: `FSCS protection?`,
+    a: `£85,000 per person per FSCS-authorised institution. If you have more than £85k, spread across institutions to stay under the cap.`,
+  },
+  {
+    q: `Are Premium Bonds worth it?`,
+    a: `Average ~4.15% but you might win nothing. Best as a small tax-free portion of your savings if you like the optionality. Don't make them more than 10-20% of your cash savings unless you have very high holdings.`,
+  },
+  {
+    q: `Fix vs easy-access?`,
+    a: `Fixes typically pay 0.2-0.5% more for locking up money 1-2 years. Worth it for the portion you definitely won't need. Keep your emergency fund in easy-access regardless of the slight yield drag.`,
+  },
+];
 ---
 <BaseLayout
   title="UK Savings Calculator - Compound Interest & High-Interest Accounts | PennyMath"
@@ -79,29 +99,7 @@ import CompoundInterestCalculator from '../../components/calculators/engines/Com
     </p>
   </section>
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>What's the Personal Savings Allowance?</summary>
-      <div class="faq-answer">Basic-rate taxpayers: £1,000/year of tax-free interest. Higher-rate: £500. Additional-rate: £0. Beyond your PSA, cash interest is taxed at your marginal rate.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>FSCS protection?</summary>
-      <div class="faq-answer">£85,000 per person per FSCS-authorised institution. If you have more than £85k, spread across institutions to stay under the cap.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Are Premium Bonds worth it?</summary>
-      <div class="faq-answer">Average ~4.15% but you might win nothing. Best as a small tax-free portion of your savings if you like the optionality. Don't make them more than 10-20% of your cash savings unless you have very high holdings.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Fix vs easy-access?</summary>
-      <div class="faq-answer">Fixes typically pay 0.2-0.5% more for locking up money 1-2 years. Worth it for the portion you definitely won't need. Keep your emergency fund in easy-access regardless of the slight yield drag.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

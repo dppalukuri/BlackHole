@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 import { uaeGratuity } from '../../../lib/formulas/flat-rate';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
+import { localeForCurrency } from '../../../lib/formatters';
 
 interface UAEGratuityCalculatorProps {
   currency: { code: string; symbol: string };
@@ -24,6 +25,8 @@ export default function UAEGratuityCalculator({ currency }: UAEGratuityCalculato
           max={100000}
           step={500}
           prefix={currency.symbol}
+          scalable
+          locale={localeForCurrency(currency.code)}
           onChange={setSalary}
         />
         <SliderInput

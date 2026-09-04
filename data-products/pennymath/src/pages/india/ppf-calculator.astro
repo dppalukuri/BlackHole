@@ -3,6 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PPFCalculator from '../../components/calculators/engines/PPFCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { ZERODHA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Can I withdraw from PPF before 15 years?`,
+    a: `Partial withdrawals are allowed from the 7th year onwards (up to 50% of the balance at the end of the 4th year). Premature closure is only permitted after 5 years for specific reasons like medical emergencies or higher education.`,
+  },
+  {
+    q: `What happens after 15 years?`,
+    a: `You can withdraw the full amount tax-free, or extend in blocks of 5 years. You can extend with or without fresh contributions. Many investors extend to maximize the compounding benefit.`,
+  },
+  {
+    q: `PPF vs FD — which is better?`,
+    a: `PPF offers tax-free returns at 7.1%, while FD interest is fully taxable. For someone in the 30% tax bracket, a 7% FD effectively yields only ~4.9% after tax. PPF wins for long-term savings, but FDs offer more liquidity.`,
+  },
+];
 ---
 <BaseLayout
   title="PPF Calculator - Public Provident Fund Calculator 2026 | PennyMath"
@@ -36,21 +52,7 @@ import { ZERODHA } from '../../lib/affiliates';
 
     <AffiliateCTA partner={ZERODHA} title="Open a free demat + PPF-linked account" blurb="Zerodha offers integrated savings, PPF-linked investing, and zero-commission direct mutual funds." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item">
-      <summary>Can I withdraw from PPF before 15 years?</summary>
-      <div class="faq-answer">Partial withdrawals are allowed from the 7th year onwards (up to 50% of the balance at the end of the 4th year). Premature closure is only permitted after 5 years for specific reasons like medical emergencies or higher education.</div>
-    </details>
-    <details class="faq-item">
-      <summary>What happens after 15 years?</summary>
-      <div class="faq-answer">You can withdraw the full amount tax-free, or extend in blocks of 5 years. You can extend with or without fresh contributions. Many investors extend to maximize the compounding benefit.</div>
-    </details>
-    <details class="faq-item">
-      <summary>PPF vs FD — which is better?</summary>
-      <div class="faq-answer">PPF offers tax-free returns at 7.1%, while FD interest is fully taxable. For someone in the 30% tax bracket, a 7% FD effectively yields only ~4.9% after tax. PPF wins for long-term savings, but FDs offer more liquidity.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

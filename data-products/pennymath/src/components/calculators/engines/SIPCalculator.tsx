@@ -3,6 +3,7 @@ import { sipFutureValue } from '../../../lib/formulas/compound-growth';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
 import DoughnutChart from '../ui/DoughnutChart';
+import { localeForCurrency } from '../../../lib/formatters';
 
 interface SIPCalculatorProps {
   currency: { code: string; symbol: string };
@@ -31,6 +32,8 @@ export default function SIPCalculator({ currency, defaults }: SIPCalculatorProps
           max={1000000}
           step={500}
           prefix={currency.symbol}
+          scalable
+          locale={localeForCurrency(currency.code)}
           onChange={setMonthly}
         />
         <SliderInput

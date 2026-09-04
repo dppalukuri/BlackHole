@@ -3,6 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import VATCalculator from '../../components/calculators/engines/VATCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { SARWA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How do I calculate VAT from a total price?`,
+    a: `To extract VAT from an inclusive price: divide the total by 1.05 to get the net amount, then subtract. For example: AED 1,050 / 1.05 = AED 1,000 (net) and AED 50 (VAT). Use the "Extract VAT" mode above for instant calculation.`,
+  },
+  {
+    q: `Do tourists get VAT refunds in UAE?`,
+    a: `Yes. Tourists can claim VAT refunds on eligible purchases of AED 250+ per transaction through the Tax Refund for Tourists Scheme operated by Planet. Refunds are processed at designated points in airports.`,
+  },
+  {
+    q: `Is rent subject to VAT in UAE?`,
+    a: `Residential property rent is exempt from VAT. Commercial property rent is subject to 5% VAT. Hotel accommodation is taxable at 5% VAT plus tourism fees.`,
+  },
+];
 ---
 <BaseLayout
   title="UAE VAT Calculator - Add or Remove 5% VAT | PennyMath"
@@ -35,21 +51,7 @@ import { SARWA } from '../../lib/affiliates';
 
     <AffiliateCTA partner={SARWA} title="Invest what you save" blurb="Every dirham saved on VAT is a dirham you can invest. Sarwa’s automated portfolios start from AED 500." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item">
-      <summary>How do I calculate VAT from a total price?</summary>
-      <div class="faq-answer">To extract VAT from an inclusive price: divide the total by 1.05 to get the net amount, then subtract. For example: AED 1,050 / 1.05 = AED 1,000 (net) and AED 50 (VAT). Use the "Extract VAT" mode above for instant calculation.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Do tourists get VAT refunds in UAE?</summary>
-      <div class="faq-answer">Yes. Tourists can claim VAT refunds on eligible purchases of AED 250+ per transaction through the Tax Refund for Tourists Scheme operated by Planet. Refunds are processed at designated points in airports.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Is rent subject to VAT in UAE?</summary>
-      <div class="faq-answer">Residential property rent is exempt from VAT. Commercial property rent is subject to 5% VAT. Hotel accommodation is taxable at 5% VAT plus tourism fees.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

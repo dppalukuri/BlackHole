@@ -3,20 +3,28 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import RentalYieldCalculator from '../../components/calculators/engines/RentalYieldCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { SARWA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What is a good rental yield in Dubai?`,
+    a: `Net yields of 5%+ are considered good. High-yield areas (JVC, Discovery Gardens, International City) can deliver 6-8% net. Premium areas (Downtown, Marina, Palm) typically yield 3-5% net but offer stronger capital appreciation potential.`,
+  },
+  {
+    q: `How much is DLD fee when buying property?`,
+    a: `4% of property value + AED 580 admin fee. This is the single largest transaction cost and must be factored into your yield calculation. Some developers offer to cover 50% as a promotional incentive.`,
+  },
+  {
+    q: `Are rental yields in Dubai tax-free?`,
+    a: `Yes. No income tax, no capital gains tax. There's a 5% municipality housing fee charged to tenants (not landlords) and a one-time 4% DLD fee at purchase.`,
+  },
+];
 ---
 <BaseLayout
   title="Dubai Rental Yield Calculator 2026 — ROI with DLD Fees & Service Charges | PennyMath"
   description="Calculate net rental yield on Dubai property. Includes DLD fee (4%), agent commission, service charges, vacancy, and maintenance. Compare your ROI against Dubai benchmarks."
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org", "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "What is a good rental yield in Dubai?", "acceptedAnswer": { "@type": "Answer", "text": "Dubai's average gross rental yield is 5-7%, among the highest globally. Net yields of 5%+ are considered good. Areas like JVC, Discovery Gardens, and International City can yield 7-9%. Premium areas like Downtown and Palm Jumeirah typically yield 3-5% but offer better capital appreciation." }},
-        { "@type": "Question", "name": "How much is DLD fee when buying property in Dubai?", "acceptedAnswer": { "@type": "Answer", "text": "The Dubai Land Department (DLD) registration fee is 4% of the property purchase price plus AED 580 admin fee. This is a one-time cost paid at the time of purchase. Some developers cover 50% of the DLD fee as a promotional offer." }},
-        { "@type": "Question", "name": "Are rental yields in Dubai tax-free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The UAE has no personal income tax and no capital gains tax on property. Your rental income and any profit from selling the property are completely tax-free. However, there is a 5% municipality fee (housing fee) on annual rent charged to tenants." }}
-      ]
-    })} />
   </Fragment>
 
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Rental Yield Calculator</nav>
@@ -56,12 +64,7 @@ import { SARWA } from '../../lib/affiliates';
 
     <AffiliateCTA partner={SARWA} title="Diversify beyond Dubai property" blurb="Property alone is concentrated risk. Sarwa gives you globally diversified ETFs from AED 500 — liquid, regulated." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item"><summary>What is a good rental yield in Dubai?</summary><div class="faq-answer">Net yields of 5%+ are considered good. High-yield areas (JVC, Discovery Gardens, International City) can deliver 6-8% net. Premium areas (Downtown, Marina, Palm) typically yield 3-5% net but offer stronger capital appreciation potential.</div></details>
-    <details class="faq-item"><summary>How much is DLD fee when buying property?</summary><div class="faq-answer">4% of property value + AED 580 admin fee. This is the single largest transaction cost and must be factored into your yield calculation. Some developers offer to cover 50% as a promotional incentive.</div></details>
-    <details class="faq-item"><summary>Are rental yields in Dubai tax-free?</summary><div class="faq-answer">Yes. No income tax, no capital gains tax. There's a 5% municipality housing fee charged to tenants (not landlords) and a one-time 4% DLD fee at purchase.</div></details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Tools</h2>

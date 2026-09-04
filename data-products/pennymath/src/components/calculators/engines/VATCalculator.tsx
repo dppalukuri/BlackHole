@@ -21,6 +21,8 @@ export default function VATCalculator() {
           max={1000000}
           step={100}
           prefix="AED "
+          scalable
+          locale="en-AE"
           onChange={setAmount}
         />
 

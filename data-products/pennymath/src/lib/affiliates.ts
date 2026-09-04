@@ -8,6 +8,17 @@
  * The `disclosure` string is shown under every CTA for transparency / legal.
  */
 
+/** Placeholder value used before a real tracking URL is pasted in. */
+export const AFFILIATE_PLACEHOLDER_URL = '#';
+
+/**
+ * A partner is only usable once its real tracking URL is in place. Until then
+ * `AffiliateCTA` renders nothing rather than shipping a dead link.
+ */
+export function isAffiliateConfigured(partner: { url: string }): boolean {
+  return Boolean(partner.url) && partner.url !== AFFILIATE_PLACEHOLDER_URL;
+}
+
 export interface AffiliatePartner {
   name: string;
   url: string;
@@ -29,7 +40,7 @@ export const GROWW: AffiliatePartner = {
 
 export const ZERODHA: AffiliatePartner = {
   name: 'Zerodha',
-  url: '#',  // TODO: replace with your Zerodha affiliate URL
+  url: 'https://zerodha.com/open-account?c=NI1807',
   country: 'IN',
   category: 'broker',
   blurb: 'India\'s largest broker. Flat ₹20/trade, free equity delivery.',
@@ -48,7 +59,7 @@ export const ET_MONEY: AffiliatePartner = {
 /** UAE — banks / wealth managers */
 export const SARWA: AffiliatePartner = {
   name: 'Sarwa',
-  url: '#',  // TODO: replace with your Sarwa affiliate URL
+  url: 'https://www.sarwa.co/invite/OCLR850B',
   country: 'UAE',
   category: 'wealth',
   blurb: 'UAE\'s regulated robo-advisor. Globally diversified portfolios, from AED 500.',

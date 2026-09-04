@@ -3,6 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FDCalculator from '../../components/calculators/engines/FDCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { ET_MONEY } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Is FD interest taxable?`,
+    a: `Yes. FD interest is fully taxable at your income tax slab rate. Banks deduct TDS at 10% if your annual interest exceeds ₹40,000 (₹50,000 for senior citizens). You can submit Form 15G/15H to avoid TDS if your total income is below the taxable limit.`,
+  },
+  {
+    q: `Can I break my FD before maturity?`,
+    a: `Yes, but most banks charge a penalty of 0.5-1% on the applicable interest rate for premature withdrawal. Some banks offer no-penalty FDs at slightly lower rates.`,
+  },
+  {
+    q: `Which bank gives the highest FD rate?`,
+    a: `Small finance banks and NBFCs typically offer 0.5-1.5% higher rates than large banks. However, ensure the institution is covered by DICGC insurance (up to ₹5 lakh per depositor per bank).`,
+  },
+];
 ---
 <BaseLayout
   title="FD Calculator - Fixed Deposit Maturity Calculator | PennyMath"
@@ -31,21 +47,7 @@ import { ET_MONEY } from '../../lib/affiliates';
 
     <AffiliateCTA partner={ET_MONEY} title="Compare FD rates across banks" blurb="ET Money’s FD platform compares rates from top Indian banks and NBFCs — book directly, track in one dashboard." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item">
-      <summary>Is FD interest taxable?</summary>
-      <div class="faq-answer">Yes. FD interest is fully taxable at your income tax slab rate. Banks deduct TDS at 10% if your annual interest exceeds ₹40,000 (₹50,000 for senior citizens). You can submit Form 15G/15H to avoid TDS if your total income is below the taxable limit.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Can I break my FD before maturity?</summary>
-      <div class="faq-answer">Yes, but most banks charge a penalty of 0.5-1% on the applicable interest rate for premature withdrawal. Some banks offer no-penalty FDs at slightly lower rates.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Which bank gives the highest FD rate?</summary>
-      <div class="faq-answer">Small finance banks and NBFCs typically offer 0.5-1.5% higher rates than large banks. However, ensure the institution is covered by DICGC insurance (up to ₹5 lakh per depositor per bank).</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

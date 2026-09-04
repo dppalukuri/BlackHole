@@ -1,0 +1,43 @@
+---
+/**
+ * States which financial year the tax data reflects, and says so plainly when
+ * that data has aged out. A tax calculator silently serving last year's slabs
+ * is worse than one that admits its vintage.
+ *
+ * Also warns at build time so a stale year is visible in CI output, not only
+ * to whoever happens to read the page.
+ */
+import {
+  TAX_DATA_FY,
+  TAX_DATA_AY,
+  indianFinancialYear,
+  isTaxDataStale,
+  taxDataYearsBehind,
+} from '../lib/tax-year';
+
+const stale = isTaxDataStale();
+const behind = taxDataYearsBehind();
+const currentFY = indianFinancialYear().fy;
+
+if (stale) {
+  console.warn(
+    `[pennymath] Tax data is ${behind} financial year(s) behind — data is ${TAX_DATA_FY}, ` +
+      `current is ${currentFY}. Update the slabs in src/lib/formulas/tax-slab.ts, ` +
+      `then bump the constants in src/lib/tax-year.ts.`
+  );
+}
+---
+
+{
+  stale ? (
+    <p class="data-vintage data-vintage-stale">
+      <strong>Heads up:</strong> these slabs are for {TAX_DATA_FY} ({TAX_DATA_AY}). The current
+      financial year is {currentFY}, so verify against the latest Finance Act before relying on
+      these figures for filing.
+    </p>
+  ) : (
+    <p class="data-vintage">
+      Slabs current for {TAX_DATA_FY} ({TAX_DATA_AY}).
+    </p>
+  )
+}

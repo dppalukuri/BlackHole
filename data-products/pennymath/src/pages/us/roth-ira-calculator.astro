@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What's the 2026 contribution limit?`,
+    a: `$7,000 per year if under 50, $8,000 with the catch-up if you're 50+. This is across all IRAs combined (Traditional + Roth).`,
+  },
+  {
+    q: `Who can contribute?`,
+    a: `Full contributions if your MAGI is under $146,000 single or $230,000 married for 2026. Above those thresholds, the limit phases out. High earners use the backdoor Roth — contribute to Traditional IRA, then convert.`,
+  },
+  {
+    q: `Roth IRA vs 401(k)?`,
+    a: `Order matters: capture full 401(k) match first → max Roth IRA → back to 401(k) up to $23,500. The Roth gives you no RMDs, more investment choice, and tax-free withdrawals — it's strictly more flexible than most 401(k)s.`,
+  },
+  {
+    q: `Can I withdraw early?`,
+    a: `Contributions (but not earnings) can be withdrawn anytime with zero tax or penalty. Earnings face a 10% penalty plus tax if withdrawn before 59½ AND before the account is 5 years old (with hardship exceptions).`,
+  },
+  {
+    q: `What if I make too much to contribute directly?`,
+    a: `Use the backdoor Roth: contribute (after-tax) to a Traditional IRA, then convert to Roth. There's no income limit on conversions. Watch for the pro-rata rule if you have other Traditional IRA money — talk to a tax pro before executing.`,
+  },
+];
 ---
 <BaseLayout
   title="Roth IRA Calculator - Tax-Free Retirement Growth | PennyMath"
@@ -18,16 +42,6 @@ import { BETTERMENT } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "What's the 2026 Roth IRA contribution limit?", "acceptedAnswer": { "@type": "Answer", "text": "$7,000 per year for those under 50, $8,000 if you're 50 or older. This limit applies across all your IRAs combined (Traditional + Roth)." }},
-        { "@type": "Question", "name": "Who can contribute to a Roth IRA?", "acceptedAnswer": { "@type": "Answer", "text": "Full contributions are allowed if your modified AGI is below $146,000 (single) or $230,000 (married filing jointly) for 2026. Phase-outs apply above those thresholds. High earners can use the backdoor Roth strategy — contribute to a Traditional IRA then convert." }},
-        { "@type": "Question", "name": "Roth IRA vs 401(k) — which first?", "acceptedAnswer": { "@type": "Answer", "text": "Capture your full 401(k) employer match first (it's free money). Then max your Roth IRA. Then go back and increase 401(k) contributions toward the $23,500 max. This order maximizes tax-advantaged growth — Roth IRAs have no required minimum distributions and offer more investment flexibility than most 401(k) plans." }},
-        { "@type": "Question", "name": "Can I withdraw Roth IRA contributions early?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — your contributions (but not earnings) can be withdrawn at any time, tax-free and penalty-free. This makes a Roth IRA function partly as an emergency fund of last resort. Earnings withdrawn before age 59½ or before the account is 5 years old are subject to tax and a 10% penalty (with some exceptions)." }}
-      ]
     })} />
   </Fragment>
 
@@ -89,34 +103,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
   <AffiliateCTA partner={BETTERMENT} title="Open a Roth IRA in 5 minutes" blurb="Betterment makes the setup automatic — answer a few questions about your timeline and they'll allocate appropriate index funds. Then auto-deposit your $583/month and let it compound." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>What's the 2026 contribution limit?</summary>
-      <div class="faq-answer">$7,000 per year if under 50, $8,000 with the catch-up if you're 50+. This is across all IRAs combined (Traditional + Roth).</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Who can contribute?</summary>
-      <div class="faq-answer">Full contributions if your MAGI is under $146,000 single or $230,000 married for 2026. Above those thresholds, the limit phases out. High earners use the backdoor Roth — contribute to Traditional IRA, then convert.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Roth IRA vs 401(k)?</summary>
-      <div class="faq-answer">Order matters: capture full 401(k) match first → max Roth IRA → back to 401(k) up to $23,500. The Roth gives you no RMDs, more investment choice, and tax-free withdrawals — it's strictly more flexible than most 401(k)s.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Can I withdraw early?</summary>
-      <div class="faq-answer">Contributions (but not earnings) can be withdrawn anytime with zero tax or penalty. Earnings face a 10% penalty plus tax if withdrawn before 59½ AND before the account is 5 years old (with hardship exceptions).</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What if I make too much to contribute directly?</summary>
-      <div class="faq-answer">Use the backdoor Roth: contribute (after-tax) to a Traditional IRA, then convert to Roth. There's no income limit on conversions. Watch for the pro-rata rule if you have other Traditional IRA money — talk to a tax pro before executing.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

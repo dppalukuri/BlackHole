@@ -23,6 +23,8 @@ export default function PPFCalculator() {
           max={150000}
           step={500}
           prefix="₹"
+          scalable
+          locale="en-IN"
           onChange={setYearly}
         />
         <SliderInput

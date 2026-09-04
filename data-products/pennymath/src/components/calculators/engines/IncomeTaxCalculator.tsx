@@ -18,6 +18,8 @@ export default function IncomeTaxCalculator() {
           max={10000000}
           step={50000}
           prefix="₹"
+          scalable
+          locale="en-IN"
           onChange={setIncome}
         />
       </div>

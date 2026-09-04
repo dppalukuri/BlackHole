@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How much should I contribute to my 401(k)?`,
+    a: `At minimum, contribute enough to capture your full employer match — it's a guaranteed instant return. After that, aim for 15% of gross income total (including employer contributions). If you can't get to 15% today, escalate by 1% each year — most people get there within 5-7 years.`,
+  },
+  {
+    q: `What's the 2026 contribution limit?`,
+    a: `$23,500 employee contribution, plus a $7,500 catch-up if you're 50+. The combined employee + employer limit is $70,000 ($77,500 with catch-up).`,
+  },
+  {
+    q: `Traditional vs Roth 401(k)?`,
+    a: `Roth makes sense if you expect to be in a higher tax bracket in retirement (younger workers, growing earners). Traditional makes sense if you'll be in a lower bracket later. Many people split — diversifying tax exposure is reasonable hedging.`,
+  },
+  {
+    q: `What return rate should I plan for?`,
+    a: `7% per year is a reasonable real (inflation-adjusted) baseline based on long-term S&P 500 history. Some years will be -30%, others +30%. Over 20-30 year horizons, the average lands around 7-10% nominal. Plan around 7%, celebrate if you get more.`,
+  },
+  {
+    q: `Can I take money out early?`,
+    a: `Generally not without penalty — withdrawals before age 59½ trigger a 10% penalty plus income tax. Exceptions exist (hardship, first-time home purchase, certain medical), but the math almost never works out in your favor. Loans against your 401(k) are usually a better path if you need cash, but check fees first.`,
+  },
+];
 ---
 <BaseLayout
   title="401(k) Calculator - Free Retirement Planning Tool | PennyMath"
@@ -18,16 +42,6 @@ import { BETTERMENT } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How much should I contribute to my 401(k)?", "acceptedAnswer": { "@type": "Answer", "text": "At minimum, contribute enough to capture your full employer match — that's free money, typically a 50-100% instant return. After that, aim for 15% of gross income total (including employer contributions) toward retirement. If you can't hit 15% yet, raise it 1% each year — Vanguard data shows auto-escalation gets most people to 15% within 5-7 years." }},
-        { "@type": "Question", "name": "What's the 2026 401(k) contribution limit?", "acceptedAnswer": { "@type": "Answer", "text": "For 2026, the employee 401(k) contribution limit is $23,500. If you're 50 or older, you can add a $7,500 catch-up contribution. The combined employee + employer limit is $70,000 ($77,500 with catch-up). These limits adjust upward each year for inflation." }},
-        { "@type": "Question", "name": "Traditional 401(k) vs Roth 401(k) — which is better?", "acceptedAnswer": { "@type": "Answer", "text": "Traditional: contributions are pre-tax (lower this year's tax bill), withdrawals in retirement are taxed. Roth: contributions are after-tax (no break now), withdrawals are tax-free. The general rule: Roth if you expect to be in a higher tax bracket in retirement (younger workers, growing earners). Traditional if you'll be in a lower bracket later (high earners now, lower spending in retirement). Many people split contributions across both." }},
-        { "@type": "Question", "name": "What's a realistic 401(k) growth rate?", "acceptedAnswer": { "@type": "Answer", "text": "Use 7% per year as a planning baseline — that's the long-term real (inflation-adjusted) return of the S&P 500. Some years will be -30%, others +30%. Over 20-30 year horizons, the average tends toward 7-10% nominal. Don't plan around 12%+ rates — they're optimistic in the current environment." }}
-      ]
     })} />
   </Fragment>
 
@@ -87,34 +101,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
   <AffiliateCTA partner={BETTERMENT} title="Already maxing 401(k)? Open a Roth IRA next" blurb="After capturing your employer match and maxing your 401(k), a Roth IRA is the next tier of tax-advantaged growth. Betterment makes the setup five minutes." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How much should I contribute to my 401(k)?</summary>
-      <div class="faq-answer">At minimum, contribute enough to capture your full employer match — it's a guaranteed instant return. After that, aim for 15% of gross income total (including employer contributions). If you can't get to 15% today, escalate by 1% each year — most people get there within 5-7 years.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What's the 2026 contribution limit?</summary>
-      <div class="faq-answer">$23,500 employee contribution, plus a $7,500 catch-up if you're 50+. The combined employee + employer limit is $70,000 ($77,500 with catch-up).</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Traditional vs Roth 401(k)?</summary>
-      <div class="faq-answer">Roth makes sense if you expect to be in a higher tax bracket in retirement (younger workers, growing earners). Traditional makes sense if you'll be in a lower bracket later. Many people split — diversifying tax exposure is reasonable hedging.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What return rate should I plan for?</summary>
-      <div class="faq-answer">7% per year is a reasonable real (inflation-adjusted) baseline based on long-term S&P 500 history. Some years will be -30%, others +30%. Over 20-30 year horizons, the average lands around 7-10% nominal. Plan around 7%, celebrate if you get more.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Can I take money out early?</summary>
-      <div class="faq-answer">Generally not without penalty — withdrawals before age 59½ trigger a 10% penalty plus income tax. Exceptions exist (hardship, first-time home purchase, certain medical), but the math almost never works out in your favor. Loans against your 401(k) are usually a better path if you need cash, but check fees first.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

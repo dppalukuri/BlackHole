@@ -12,7 +12,12 @@ export interface TaxResult {
   }>;
 }
 
-/** India Income Tax — New Regime FY 2025-26 (AY 2026-27) */
+/**
+ * India Income Tax — New Regime.
+ *
+ * The financial year these slabs encode is declared in `../tax-year.ts`
+ * (TAX_DATA_FY). Update both together when the Finance Act changes.
+ */
 export function indiaIncomeTaxNewRegime(annualIncome: number): TaxResult {
   // Standard deduction of 75,000 under new regime
   const standardDeduction = 75000;

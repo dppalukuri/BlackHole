@@ -3,6 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { GROWW } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How is EMI calculated?`,
+    a: `EMI is calculated using the reducing balance method: EMI = P x r x (1+r)^n / ((1+r)^n - 1). Each month, the interest is calculated on the remaining principal, so as you pay down the loan, a larger portion of your EMI goes toward principal repayment.`,
+  },
+  {
+    q: `Does prepayment reduce EMI or tenure?`,
+    a: `When you make a prepayment, you can typically choose either option. Reducing tenure keeps your EMI the same but finishes the loan sooner — this saves more on total interest. Reducing EMI keeps the same tenure but lowers your monthly burden. Most financial advisors recommend reducing tenure for maximum savings.`,
+  },
+  {
+    q: `What is a good EMI to salary ratio?`,
+    a: `Financial experts recommend keeping your total EMI payments below 40-50% of your monthly take-home salary. Banks typically approve home loans where the EMI is up to 50-60% of net income, but a lower ratio gives you more financial flexibility. For home loans specifically, the EMI should ideally be under 30% of gross income.`,
+  },
+];
 ---
 <BaseLayout
   title="EMI Calculator - Calculate Loan EMI Online | PennyMath"
@@ -17,15 +33,6 @@ import { GROWW } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How is EMI calculated?", "acceptedAnswer": { "@type": "Answer", "text": "EMI is calculated using the formula: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is the principal loan amount, r is the monthly interest rate, and n is the total number of monthly installments." }},
-        { "@type": "Question", "name": "Does prepayment reduce EMI or tenure?", "acceptedAnswer": { "@type": "Answer", "text": "When you make a prepayment, you can choose to either reduce your EMI amount (keeping the same tenure) or reduce your loan tenure (keeping the same EMI). Reducing tenure saves more on total interest." }},
-        { "@type": "Question", "name": "What is a good EMI to salary ratio?", "acceptedAnswer": { "@type": "Answer", "text": "Financial experts recommend keeping your total EMI payments below 40-50% of your monthly take-home salary. For home loans specifically, the EMI should ideally be under 30% of your gross income." }}
-      ]
     })} />
   </Fragment>
 
@@ -86,24 +93,7 @@ import { GROWW } from '../../lib/affiliates';
 
     <AffiliateCTA partner={GROWW} title="Free up cash flow with smart investing" blurb="While you pay off EMIs, start a small SIP. Even ₹5,000/month in direct mutual funds compounds into lakhs." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How is EMI calculated?</summary>
-      <div class="faq-answer">EMI is calculated using the reducing balance method: EMI = P x r x (1+r)^n / ((1+r)^n - 1). Each month, the interest is calculated on the remaining principal, so as you pay down the loan, a larger portion of your EMI goes toward principal repayment.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Does prepayment reduce EMI or tenure?</summary>
-      <div class="faq-answer">When you make a prepayment, you can typically choose either option. Reducing tenure keeps your EMI the same but finishes the loan sooner — this saves more on total interest. Reducing EMI keeps the same tenure but lowers your monthly burden. Most financial advisors recommend reducing tenure for maximum savings.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What is a good EMI to salary ratio?</summary>
-      <div class="faq-answer">Financial experts recommend keeping your total EMI payments below 40-50% of your monthly take-home salary. Banks typically approve home loans where the EMI is up to 50-60% of net income, but a lower ratio gives you more financial flexibility. For home loans specifically, the EMI should ideally be under 30% of gross income.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

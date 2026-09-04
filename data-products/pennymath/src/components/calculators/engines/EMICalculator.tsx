@@ -3,6 +3,7 @@ import { calculateEMI } from '../../../lib/formulas/loan-emi';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
 import DoughnutChart from '../ui/DoughnutChart';
+import { localeForCurrency } from '../../../lib/formatters';
 
 interface EMICalculatorProps {
   currency: { code: string; symbol: string };
@@ -31,6 +32,8 @@ export default function EMICalculator({ currency, defaults }: EMICalculatorProps
           max={100000000}
           step={100000}
           prefix={currency.symbol}
+          scalable
+          locale={localeForCurrency(currency.code)}
           onChange={setPrincipal}
         />
         <SliderInput

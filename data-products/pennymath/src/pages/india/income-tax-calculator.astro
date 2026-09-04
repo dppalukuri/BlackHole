@@ -3,23 +3,42 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import IncomeTaxCalculator from '../../components/calculators/engines/IncomeTaxCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { GROWW } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+import { TAX_DATA_FY, TAX_DATA_AY } from '../../lib/tax-year';
+import DataVintage from '../../components/DataVintage.astro';
+
+const faqs = [
+  {
+    q: `Should I choose new regime or old regime?`,
+    a: `The new regime is better for most people who don't have significant deductions (HRA, 80C, 80D, home loan interest). If your total deductions under the old regime exceed ~₹3.75 lakh, the old regime may be more beneficial. For salaried individuals with income up to ₹12.75 lakh, the new regime results in zero tax.`,
+  },
+  {
+    q: `Is salary up to ₹12 lakh really tax-free?`,
+    a: `Yes, under the new regime. With the ₹75,000 standard deduction, taxable income for a ₹12.75 lakh salary becomes ₹12 lakh, which qualifies for the full Section 87A rebate. Effective tax is zero.`,
+  },
+  {
+    q: `What about surcharge for high income?`,
+    a: `Surcharge applies on income above ₹50 lakh: 10% for ₹50L-1Cr, 15% for ₹1Cr-2Cr, 25% for ₹2Cr-5Cr. This calculator shows basic tax + cess; add surcharge for very high incomes.`,
+  },
+];
 ---
 <BaseLayout
-  title="Income Tax Calculator 2026 - New Regime FY 2025-26 | PennyMath"
-  description="Free India income tax calculator for FY 2025-26 (AY 2026-27). Calculate tax under the new regime with updated slabs, standard deduction of ₹75,000, and Section 87A rebate."
+  title={`Income Tax Calculator 2026 - New Regime ${TAX_DATA_FY} | PennyMath`}
+  description={`Free India income tax calculator for ${TAX_DATA_FY} (${TAX_DATA_AY}). Calculate tax under the new regime with updated slabs, standard deduction of ₹75,000, and Section 87A rebate.`}
 >
   <nav class="breadcrumbs">
     <a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Income Tax Calculator
   </nav>
 
   <h1>Income Tax Calculator</h1>
-  <p class="page-subtitle">New Regime FY 2025-26 (AY 2026-27)</p>
+  <p class="page-subtitle">New Regime {TAX_DATA_FY} ({TAX_DATA_AY})</p>
+  <DataVintage />
   <p class="page-intro">Calculate your income tax under the new tax regime with updated slabs. Includes ₹75,000 standard deduction and Section 87A rebate for income up to ₹12 lakh.</p>
 
   <IncomeTaxCalculator client:visible />
 
   <section class="content-section">
-    <h2>New Regime Tax Slabs FY 2025-26</h2>
+    <h2>New Regime Tax Slabs {TAX_DATA_FY}</h2>
     <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
       <thead>
         <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
@@ -54,21 +73,7 @@ import { GROWW } from '../../lib/affiliates';
 
     <AffiliateCTA partner={GROWW} title="Save tax under Section 80C" blurb="Invest up to ₹1.5 lakh in ELSS mutual funds (3-year lock-in, direct plans) to cut your tax bill while building wealth." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item">
-      <summary>Should I choose new regime or old regime?</summary>
-      <div class="faq-answer">The new regime is better for most people who don't have significant deductions (HRA, 80C, 80D, home loan interest). If your total deductions under the old regime exceed ~₹3.75 lakh, the old regime may be more beneficial. For salaried individuals with income up to ₹12.75 lakh, the new regime results in zero tax.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Is salary up to ₹12 lakh really tax-free?</summary>
-      <div class="faq-answer">Yes, under the new regime. With the ₹75,000 standard deduction, taxable income for a ₹12.75 lakh salary becomes ₹12 lakh, which qualifies for the full Section 87A rebate. Effective tax is zero.</div>
-    </details>
-    <details class="faq-item">
-      <summary>What about surcharge for high income?</summary>
-      <div class="faq-answer">Surcharge applies on income above ₹50 lakh: 10% for ₹50L-1Cr, 15% for ₹1Cr-2Cr, 25% for ₹2Cr-5Cr. This calculator shows basic tax + cess; add surcharge for very high incomes.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

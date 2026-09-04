@@ -3,6 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import StepUpSIPCalculator from '../../components/calculators/engines/StepUpSIPCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { GROWW } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What is a good step-up percentage?`,
+    a: `10% is the most common and matches average Indian salary growth. If you're early in your career with faster growth, 15-20% is better. Conservative option: 5-7%. The key is to set it at or below your expected salary hike so it doesn't strain your budget.`,
+  },
+  {
+    q: `Can I do step-up SIP on Groww or Zerodha?`,
+    a: `Groww supports step-up SIP directly in the app — you can set annual increase amount or percentage. Zerodha Coin and Kuvera also support this feature. Check your platform's SIP modification settings.`,
+  },
+  {
+    q: `Step-up SIP vs Lump Sum top-up — which is better?`,
+    a: `Step-up SIP is automated and disciplined — you set it once. Lump sum top-ups (investing bonus or windfall) are great but depend on you remembering to do it. Ideally, do both: automated step-up SIP + invest any bonuses as lump sums.`,
+  },
+];
 ---
 <BaseLayout
   title="Step-Up SIP Calculator — See How Annual Increases Multiply Your Wealth | PennyMath"
@@ -34,12 +50,7 @@ import { GROWW } from '../../lib/affiliates';
 
     <AffiliateCTA partner={GROWW} title="Automate your step-up SIP" blurb="Groww supports automatic SIP step-ups — set your % increase once, invest in direct mutual funds with zero commission." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item"><summary>What is a good step-up percentage?</summary><div class="faq-answer">10% is the most common and matches average Indian salary growth. If you're early in your career with faster growth, 15-20% is better. Conservative option: 5-7%. The key is to set it at or below your expected salary hike so it doesn't strain your budget.</div></details>
-    <details class="faq-item"><summary>Can I do step-up SIP on Groww or Zerodha?</summary><div class="faq-answer">Groww supports step-up SIP directly in the app — you can set annual increase amount or percentage. Zerodha Coin and Kuvera also support this feature. Check your platform's SIP modification settings.</div></details>
-    <details class="faq-item"><summary>Step-up SIP vs Lump Sum top-up — which is better?</summary><div class="faq-answer">Step-up SIP is automated and disciplined — you set it once. Lump sum top-ups (investing bonus or windfall) are great but depend on you remembering to do it. Ideally, do both: automated step-up SIP + invest any bonuses as lump sums.</div></details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Tools</h2>

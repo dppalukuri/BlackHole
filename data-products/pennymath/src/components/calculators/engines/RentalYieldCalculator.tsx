@@ -28,10 +28,10 @@ export default function RentalYieldCalculator() {
   return (
     <div class="calculator-widget">
       <div class="calc-inputs">
-        <SliderInput id="purchase-price" label="Property Purchase Price" value={purchasePrice} min={200000} max={20000000} step={50000} prefix="AED " onChange={setPurchasePrice} />
-        <SliderInput id="annual-rent" label="Expected Annual Rent" value={annualRent} min={10000} max={2000000} step={5000} prefix="AED " onChange={setAnnualRent} />
-        <SliderInput id="service-charge" label="Annual Service Charge" value={serviceCharge} min={0} max={100000} step={1000} prefix="AED " onChange={setServiceCharge} />
-        <SliderInput id="maintenance" label="Annual Maintenance/Repairs" value={maintenanceCost} min={0} max={50000} step={1000} prefix="AED " onChange={setMaintenanceCost} />
+        <SliderInput id="purchase-price" label="Property Purchase Price" value={purchasePrice} min={200000} max={20000000} step={50000} prefix="AED " scalable locale="en-AE" onChange={setPurchasePrice} />
+        <SliderInput id="annual-rent" label="Expected Annual Rent" value={annualRent} min={10000} max={2000000} step={5000} prefix="AED " scalable locale="en-AE" onChange={setAnnualRent} />
+        <SliderInput id="service-charge" label="Annual Service Charge" value={serviceCharge} min={0} max={100000} step={1000} prefix="AED " scalable locale="en-AE" onChange={setServiceCharge} />
+        <SliderInput id="maintenance" label="Annual Maintenance/Repairs" value={maintenanceCost} min={0} max={50000} step={1000} prefix="AED " scalable locale="en-AE" onChange={setMaintenanceCost} />
         <SliderInput id="vacancy" label="Vacancy Weeks per Year" value={vacancyWeeks} min={0} max={12} step={1} suffix=" wk" onChange={setVacancyWeeks} />
         <SliderInput id="agent-fee" label="Agent Commission" value={agentFeePercent} min={0} max={5} step={0.5} suffix="%" onChange={setAgentFeePercent} />
       </div>

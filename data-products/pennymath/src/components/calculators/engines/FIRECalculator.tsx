@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import { formatCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
+import { fireProjection } from '../../../lib/formulas/fire';
 
 export default function FIRECalculator() {
   const [monthlyExpenses, setMonthlyExpenses] = useState(50000);
@@ -11,45 +12,31 @@ export default function FIRECalculator() {
   const [withdrawalRate, setWithdrawalRate] = useState(3);
   const [currentAge, setCurrentAge] = useState(28);
 
-  // FIRE number = annual expenses / withdrawal rate (inflation-adjusted)
-  const realReturn = ((1 + expectedReturn / 100) / (1 + inflationRate / 100) - 1) * 100;
-  const annualExpenses = monthlyExpenses * 12;
-  const fireNumber = annualExpenses / (withdrawalRate / 100);
-
-  // How many years to reach FIRE number
-  const monthlyRate = realReturn / 12 / 100;
-  let corpus = currentSavings;
-  let months = 0;
-  const maxMonths = 600; // 50 years cap
-
-  const milestones: Array<{ year: number; corpus: number; pctToFire: number }> = [];
-
-  while (corpus < fireNumber && months < maxMonths) {
-    corpus = (corpus + monthlySavings) * (1 + monthlyRate);
-    months++;
-    if (months % 12 === 0) {
-      milestones.push({
-        year: months / 12,
-        corpus,
-        pctToFire: Math.min(100, (corpus / fireNumber) * 100),
-      });
-    }
-  }
-
-  const yearsToFire = months / 12;
-  const fireAge = currentAge + yearsToFire;
-  const canRetire = months < maxMonths;
-
-  // Monthly passive income at FIRE
-  const monthlyPassiveIncome = fireNumber * (withdrawalRate / 100) / 12;
+  const {
+    realReturn,
+    fireNumber,
+    yearsToFire,
+    fireAge,
+    canRetire,
+    monthlyPassiveIncome,
+    milestones,
+  } = fireProjection({
+    monthlyExpenses,
+    currentSavings,
+    monthlySavings,
+    expectedReturn,
+    inflationRate,
+    withdrawalRate,
+    currentAge,
+  });
 
   return (
     <div class="calculator-widget">
       <div class="calc-inputs">
         <SliderInput id="current-age" label="Your Current Age" value={currentAge} min={18} max={60} step={1} suffix=" yr" onChange={setCurrentAge} />
-        <SliderInput id="monthly-expenses" label="Monthly Expenses (current)" value={monthlyExpenses} min={5000} max={500000} step={1000} prefix="₹" onChange={setMonthlyExpenses} />
-        <SliderInput id="current-savings" label="Current Savings & Investments" value={currentSavings} min={0} max={50000000} step={50000} prefix="₹" onChange={setCurrentSavings} />
-        <SliderInput id="monthly-savings" label="Monthly Savings/Investment" value={monthlySavings} min={0} max={500000} step={1000} prefix="₹" onChange={setMonthlySavings} />
+        <SliderInput id="monthly-expenses" label="Monthly Expenses (current)" value={monthlyExpenses} min={5000} max={500000} step={1000} prefix="₹" scalable locale="en-IN" onChange={setMonthlyExpenses} />
+        <SliderInput id="current-savings" label="Current Savings & Investments" value={currentSavings} min={0} max={50000000} step={50000} prefix="₹" scalable locale="en-IN" onChange={setCurrentSavings} />
+        <SliderInput id="monthly-savings" label="Monthly Savings/Investment" value={monthlySavings} min={0} max={500000} step={1000} prefix="₹" scalable locale="en-IN" onChange={setMonthlySavings} />
         <SliderInput id="return" label="Expected Return (p.a.)" value={expectedReturn} min={1} max={20} step={0.5} suffix="%" onChange={setExpectedReturn} />
         <SliderInput id="inflation" label="Inflation Rate" value={inflationRate} min={1} max={12} step={0.5} suffix="%" onChange={setInflationRate} />
         <SliderInput id="withdrawal" label="Safe Withdrawal Rate" value={withdrawalRate} min={2} max={5} step={0.25} suffix="%" onChange={setWithdrawalRate} />

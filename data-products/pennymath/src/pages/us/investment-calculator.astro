@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What's a realistic return rate?`,
+    a: `7% real annual return is a reasonable baseline for a diversified equity portfolio over 20+ years. That's the long-term S&P 500 average after inflation. Plan around 7%, celebrate higher returns rather than depending on them.`,
+  },
+  {
+    q: `Index funds vs individual stocks?`,
+    a: `Index funds win for 95% of investors. Lower fees (~0.05% vs 0.5-1.5%), better diversification, and they beat 85-90% of actively managed funds over 15+ year horizons. VTI + VXUS is a complete portfolio for most people.`,
+  },
+  {
+    q: `Lump sum or DCA?`,
+    a: `Lump sum wins ~65% of the time historically. But DCA reduces regret risk if you'd lose sleep buying at a peak. Either is better than sitting in cash "waiting for a dip."`,
+  },
+  {
+    q: `How much should I invest monthly?`,
+    a: `After 401(k) match and Roth IRA max, target 15-20% of gross income toward retirement. For shorter goals, work backward from the target — this calculator helps you find the required monthly contribution.`,
+  },
+  {
+    q: `Should I keep investing during a market crash?`,
+    a: `Absolutely yes — that's when DCA does its best work. Continue your automated contributions through the dip. Trying to time when to re-enter is a losing game; investors who held through 2008-2009 saw their portfolios at all-time highs by 2014.`,
+  },
+];
 ---
 <BaseLayout
   title="Investment Calculator - Long-Term Growth Projections | PennyMath"
@@ -18,16 +42,6 @@ import { BETTERMENT } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "What's a realistic investment return?", "acceptedAnswer": { "@type": "Answer", "text": "Plan around 7% real annual return for a diversified equity portfolio over 20+ year horizons — that's the long-term S&P 500 average after inflation. Some years will be -30%, others +30%. Be skeptical of any plan assuming 12%+ — that's optimistic in the current environment." }},
-        { "@type": "Question", "name": "Index funds vs individual stocks?", "acceptedAnswer": { "@type": "Answer", "text": "For 95% of investors, broad market index funds win. They have lower fees (0.03-0.15% vs typical mutual fund 0.5-1.5%), better diversification, and historically beat 85-90% of actively managed funds over 15+ year periods. VOO (S&P 500), VTI (total US market), and VXUS (international) are the core building blocks for most portfolios." }},
-        { "@type": "Question", "name": "Should I invest in a lump sum or DCA?", "acceptedAnswer": { "@type": "Answer", "text": "Lump sum wins about 65% of the time historically — markets trend up. But dollar-cost averaging (DCA) reduces the regret risk of buying at a peak. If lump sum gives you anxiety, DCA over 6-12 months. The worst choice is sitting in cash 'waiting for a dip' — opportunity cost compounds." }},
-        { "@type": "Question", "name": "How much should I invest monthly?", "acceptedAnswer": { "@type": "Answer", "text": "After capturing 401(k) employer match and maxing Roth IRA, invest 15-20% of gross income toward retirement total. For shorter-term goals (5-10 years), figure out what you need to save and work backward — this calculator helps with that math." }}
-      ]
     })} />
   </Fragment>
 
@@ -97,34 +111,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
   <AffiliateCTA partner={BETTERMENT} title="Stop overthinking investment allocation" blurb="Betterment automates portfolio rebalancing, tax-loss harvesting, and goal-based allocation. Five minutes to set up, then it runs itself while you focus on saving more." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>What's a realistic return rate?</summary>
-      <div class="faq-answer">7% real annual return is a reasonable baseline for a diversified equity portfolio over 20+ years. That's the long-term S&P 500 average after inflation. Plan around 7%, celebrate higher returns rather than depending on them.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Index funds vs individual stocks?</summary>
-      <div class="faq-answer">Index funds win for 95% of investors. Lower fees (~0.05% vs 0.5-1.5%), better diversification, and they beat 85-90% of actively managed funds over 15+ year horizons. VTI + VXUS is a complete portfolio for most people.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Lump sum or DCA?</summary>
-      <div class="faq-answer">Lump sum wins ~65% of the time historically. But DCA reduces regret risk if you'd lose sleep buying at a peak. Either is better than sitting in cash "waiting for a dip."</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>How much should I invest monthly?</summary>
-      <div class="faq-answer">After 401(k) match and Roth IRA max, target 15-20% of gross income toward retirement. For shorter goals, work backward from the target — this calculator helps you find the required monthly contribution.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Should I keep investing during a market crash?</summary>
-      <div class="faq-answer">Absolutely yes — that's when DCA does its best work. Continue your automated contributions through the dip. Trying to time when to re-enter is a losing game; investors who held through 2008-2009 saw their portfolios at all-time highs by 2014.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

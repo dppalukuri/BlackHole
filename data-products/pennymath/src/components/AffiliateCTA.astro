@@ -5,8 +5,18 @@
  *
  * Usage:
  *   <AffiliateCTA partner={GROWW} title="Start your SIP today" />
+ *
+ * Partners whose tracking URL is still the '#' placeholder render NOTHING in a
+ * production build. Shipping `href="#"` gave readers a button that looks like a
+ * real offer and does nothing — worse than no CTA at all, and a dead sponsored
+ * link is dead weight for SEO too. In `astro dev` the slot renders as a visible
+ * reminder instead, so the gap is obvious while working on the site.
  */
-import { DISCLOSURE, type AffiliatePartner } from '../lib/affiliates';
+import {
+  DISCLOSURE,
+  isAffiliateConfigured,
+  type AffiliatePartner,
+} from '../lib/affiliates';
 
 interface Props {
   partner: AffiliatePartner;
@@ -17,21 +27,41 @@ interface Props {
 const { partner, title, blurb } = Astro.props;
 const heading = title ?? `Try ${partner.name}`;
 const body = blurb ?? partner.blurb;
-const isPlaceholder = partner.url === '#';
+const configured = isAffiliateConfigured(partner);
+
+if (!configured) {
+  console.warn(
+    `[pennymath] Affiliate "${partner.name}" has no tracking URL — its CTA is omitted ` +
+      `from the build. Set its \`url\` in src/lib/affiliates.ts to enable it.`
+  );
+}
 ---
 
-<aside class="affiliate-cta" role="complementary" aria-labelledby={`cta-${partner.name}`}>
-  <h3 id={`cta-${partner.name}`}>{heading}</h3>
-  <p>{body}</p>
-  <a
-    href={partner.url}
-    rel="nofollow sponsored noopener"
-    target="_blank"
-    class="cta-btn"
-    data-affiliate={partner.name.toLowerCase()}
-  >{partner.cta}</a>
-  <span class="cta-disclosure">{DISCLOSURE}</span>
-  {isPlaceholder && (
-    <!-- Build-time reminder: placeholder URL. Replace in src/lib/affiliates.ts. -->
-  )}
-</aside>
+{
+  configured ? (
+    <aside class="affiliate-cta" role="complementary" aria-labelledby={`cta-${partner.name}`}>
+      <h3 id={`cta-${partner.name}`}>{heading}</h3>
+      <p>{body}</p>
+      <a
+        href={partner.url}
+        rel="nofollow sponsored noopener"
+        target="_blank"
+        class="cta-btn"
+        data-affiliate={partner.name.toLowerCase()}
+      >
+        {partner.cta}
+      </a>
+      <span class="cta-disclosure">{DISCLOSURE}</span>
+    </aside>
+  ) : (
+    import.meta.env.DEV && (
+      <aside class="affiliate-cta affiliate-cta-unconfigured">
+        <h3>Affiliate CTA not configured: {partner.name}</h3>
+        <p>
+          This block is hidden in production builds. Add {partner.name}'s tracking URL to
+          <code> src/lib/affiliates.ts</code> to publish it.
+        </p>
+      </aside>
+    )
+  )
+}

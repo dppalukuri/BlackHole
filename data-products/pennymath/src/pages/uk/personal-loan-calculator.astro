@@ -1,6 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Does the calculator include arrangement fees?`,
+    a: `No — this shows the payment based on interest rate and principal only. Some UK lenders charge arrangement fees (1-3% of loan amount); always compare APRs (which legally include fees) rather than interest rates alone.`,
+  },
+  {
+    q: `Can I overpay or settle early?`,
+    a: `Most UK personal loans allow overpayment, but you'll pay interest up to the settlement date plus potentially a small "early settlement charge" (capped by the Consumer Credit Act at 1-2 months' interest on the settled amount). Check your specific T&Cs.`,
+  },
+  {
+    q: `Soft search vs hard search?`,
+    a: `Eligibility checkers use soft searches — they don't affect your credit score. Formal applications use hard searches — visible to other lenders for 12 months, mild score impact for 3-6 months. Always start with soft search comparison tools (MSE, ClearScore, Experian) before formal applications.`,
+  },
+  {
+    q: `UK credit score above 999 means what?`,
+    a: `The three UK credit reference agencies use different scales (Experian out of 999, Equifax 0-1000, TransUnion 0-710). The score itself doesn't matter — what matters is which "tier" you fall into. Lenders use their own internal scoring, not the consumer-facing score.`,
+  },
+];
 ---
 <BaseLayout
   title="UK Personal Loan Calculator - Monthly Payment & APR | PennyMath"
@@ -72,29 +92,7 @@ import EMICalculator from '../../components/calculators/engines/EMICalculator';
     </p>
   </section>
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>Does the calculator include arrangement fees?</summary>
-      <div class="faq-answer">No — this shows the payment based on interest rate and principal only. Some UK lenders charge arrangement fees (1-3% of loan amount); always compare APRs (which legally include fees) rather than interest rates alone.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Can I overpay or settle early?</summary>
-      <div class="faq-answer">Most UK personal loans allow overpayment, but you'll pay interest up to the settlement date plus potentially a small "early settlement charge" (capped by the Consumer Credit Act at 1-2 months' interest on the settled amount). Check your specific T&Cs.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Soft search vs hard search?</summary>
-      <div class="faq-answer">Eligibility checkers use soft searches — they don't affect your credit score. Formal applications use hard searches — visible to other lenders for 12 months, mild score impact for 3-6 months. Always start with soft search comparison tools (MSE, ClearScore, Experian) before formal applications.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>UK credit score above 999 means what?</summary>
-      <div class="faq-answer">The three UK credit reference agencies use different scales (Experian out of 999, Equifax 0-1000, TransUnion 0-710). The score itself doesn't matter — what matters is which "tier" you fall into. Lenders use their own internal scoring, not the consumer-facing score.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

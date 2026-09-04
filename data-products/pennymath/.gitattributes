@@ -1,0 +1,6 @@
+# Normalize line endings. Source was mixed: .astro files were CRLF while
+# .ts/.tsx were LF, which turned one-line edits into whole-file diffs.
+* text=auto eol=lf
+
+# Generated build output — Astro rewrites these wholesale on every build.
+dist/** -diff

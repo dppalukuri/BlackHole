@@ -31,6 +31,8 @@ export default function CompoundInterestCalculator() {
           max={1000000}
           step={100}
           prefix="$"
+          scalable
+          locale="en-US"
           onChange={setPrincipal}
         />
         <SliderInput

@@ -4,6 +4,15 @@ const LOCALE_MAP: Record<string, string> = {
   USD: 'en-US',
 };
 
+/**
+ * BCP-47 locale that matches a currency's conventions (lakh/crore grouping for
+ * INR, western grouping elsewhere). Components that need locale-correct numbers
+ * take a `locale` prop instead of inspecting currency symbols themselves.
+ */
+export function localeForCurrency(currencyCode: string): string {
+  return LOCALE_MAP[currencyCode] || 'en-US';
+}
+
 export function formatCurrency(
   value: number,
   currencyCode: string = 'INR'

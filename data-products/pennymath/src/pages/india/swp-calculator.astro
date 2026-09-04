@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SWPCalculator from '../../components/calculators/engines/SWPCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { GROWW } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What is an SWP in mutual funds?`,
+    a: `A Systematic Withdrawal Plan lets you withdraw a fixed amount from your mutual fund investment at regular intervals, usually monthly. The fund redeems just enough units to pay you, and the rest of your corpus stays invested and continues to earn returns. It is the reverse of a SIP.`,
+  },
+  {
+    q: `How long will my SWP last?`,
+    a: `It depends entirely on how your withdrawal compares to the return your corpus earns. If you withdraw less than the monthly return, the corpus never depletes — it grows while paying you. If you withdraw more, you are drawing down principal and the corpus will eventually run out. The calculator above shows the exact month that happens.`,
+  },
+  {
+    q: `Is SWP better than a dividend or IDCW plan?`,
+    a: `Usually yes, mainly for tax reasons. IDCW payouts are added to your income and taxed at your slab rate, which can reach 30%. An SWP withdrawal is a redemption, so only the capital gain portion is taxed — and equity long-term gains are taxed at just 12.5% above the ₹1.25 lakh annual exemption. You also control the amount and timing with an SWP, which a dividend plan never gives you.`,
+  },
+  {
+    q: `How is SWP taxed in India?`,
+    a: `Each withdrawal is treated as a redemption of units, so only the gain portion is taxable, not the full amount you receive. For equity funds, long-term capital gains (held over 12 months) above ₹1.25 lakh per year are taxed at 12.5%, and short-term gains at 20%. For debt funds bought on or after 1 April 2023, gains are taxed at your income slab rate regardless of how long you held them.`,
+  },
+  {
+    q: `What is a safe SWP withdrawal rate?`,
+    a: `A common rule of thumb is 4% to 6% of your corpus per year, roughly 0.33% to 0.5% per month. The mathematically safe ceiling is the return your corpus earns — withdraw only that and your capital stays intact indefinitely. This calculator shows that break-even figure for your inputs.`,
+  },
+  {
+    q: `Can I change or stop my SWP?`,
+    a: `Yes. You can increase, reduce, pause, or stop an SWP at any time without penalty, and the remaining units stay invested. Many investors raise their withdrawal by 5-6% each year to keep pace with inflation. Check for an exit load if you started the SWP within the fund's exit-load period, usually the first 12 months.`,
+  },
+];
+---
+
+<BaseLayout
+  title="SWP Calculator - Systematic Withdrawal Plan Calculator | PennyMath"
+  description="Free SWP calculator. See how long your mutual fund corpus lasts with monthly withdrawals, how much is left at the end, and the withdrawal your capital can sustain."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SWP Calculator",
+      "description": "Calculate your Systematic Withdrawal Plan payouts, remaining balance and corpus longevity with this free online SWP calculator",
+      "url": "https://pennymath.techtools365.com/india/swp-calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pennymath.techtools365.com/" },
+        { "@type": "ListItem", "position": 2, "name": "India", "item": "https://pennymath.techtools365.com/india/" },
+        { "@type": "ListItem", "position": 3, "name": "SWP Calculator", "item": "https://pennymath.techtools365.com/india/swp-calculator" }
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/india/">India</a> <span>/</span>
+    SWP Calculator
+  </nav>
+
+  <h1>SWP Calculator</h1>
+  <p class="page-subtitle">Calculate your Systematic Withdrawal Plan payouts</p>
+  <p class="page-intro">
+    See how much monthly income your mutual fund corpus can pay out, how much is left at the end of the term, and whether your money runs out before the term does.
+  </p>
+
+  <SWPCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    defaults={{ totalInvestment: 1000000, monthlyWithdrawal: 8000, expectedReturn: 8, timePeriod: 10 }}
+  />
+
+  <section class="content-section">
+    <h2>What is an SWP?</h2>
+    <p>
+      A <strong>Systematic Withdrawal Plan (SWP)</strong> is the mirror image of a SIP. Instead of putting a fixed amount <em>into</em> a mutual fund every month, you take a fixed amount <em>out</em> every month. The fund redeems just enough units to fund your payout, and whatever remains stays invested and keeps earning.
+    </p>
+    <p>
+      This makes SWP the standard way Indian retirees turn a lump sum — a PF payout, a matured FD, the proceeds of a property sale — into a predictable monthly income without pulling everything out of the market at once.
+    </p>
+    <p>
+      The tension at the heart of every SWP is simple: your corpus grows at the fund's return rate and shrinks at your withdrawal rate. Whichever is larger wins. Withdraw less than the corpus earns and your capital grows while paying you. Withdraw more and you are eating into the principal — the calculator above tells you exactly when the last rupee leaves.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This SWP Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>total investment</strong> — the lump sum corpus you are starting with</li>
+      <li>Set the <strong>monthly withdrawal</strong> you want to receive</li>
+      <li>Set the <strong>expected return rate</strong> — balanced and hybrid funds used for SWP typically assume 8-10%, equity funds 10-12%</li>
+      <li>Choose the <strong>time period</strong> you need the income for</li>
+      <li>Check the <strong>final balance</strong> and the year-by-year breakdown. If a red warning appears, your withdrawal is too aggressive for the corpus</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>SWP Formula</h2>
+    <div class="formula-box">
+      Balance = P &times; (1 + i)<sup>n</sup> &minus; W &times; ({'{'}(1 + i)<sup>n</sup> &minus; 1{'}'} / i)
+    </div>
+    <p>Where:</p>
+    <ul>
+      <li><strong>P</strong> = Initial corpus invested</li>
+      <li><strong>W</strong> = Fixed monthly withdrawal</li>
+      <li><strong>i</strong> = Monthly rate of return (annual rate / 12 / 100)</li>
+      <li><strong>n</strong> = Total number of months</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> Invest ₹10,00,000 at 8% p.a. and withdraw ₹8,000/month for 10 years. You receive ₹9,60,000 in total payouts and still hold roughly ₹7,56,072 at the end — the corpus earned ₹7,16,072 while paying you.
+    </p>
+    <p>
+      Note that this closed form breaks down the moment the corpus runs dry: it keeps subtracting withdrawals and returns a negative balance that cannot happen in reality. This calculator simulates the plan month by month instead, so it stops at zero and reports the month the money actually ran out.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How Much Can You Safely Withdraw?</h2>
+    <p>
+      The break-even withdrawal is simply the monthly return on your corpus: <strong>corpus &times; annual rate / 12</strong>. At 8% p.a., a ₹10,00,000 corpus throws off about ₹6,667 a month. Withdraw exactly that and your capital never moves. Withdraw ₹8,000 and you dip into principal slowly enough that it still lasts decades. Withdraw ₹20,000 and it is gone in under three years.
+    </p>
+    <p>
+      The widely cited <strong>4% rule</strong> suggests withdrawing 4% of your corpus per year (about 0.33% per month) to make it last indefinitely. Indian advisers often stretch this to 5-6% given higher nominal returns, though higher inflation cuts the other way. The safest approach is to keep your withdrawal at or below what the corpus earns, and treat anything above that as a deliberate, time-boxed decision.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Why SWP Beats Dividend (IDCW) Plans on Tax</h2>
+    <p>
+      Both an SWP and an IDCW (dividend) plan give you periodic cash from a mutual fund, but they are taxed very differently.
+    </p>
+    <p>
+      An <strong>IDCW payout is added to your total income</strong> and taxed at your slab rate — up to 30% plus surcharge for higher earners. An <strong>SWP withdrawal is a redemption</strong>, so only the capital gain embedded in the units you sold is taxable, not the entire amount you received. In the early years of an SWP, most of each withdrawal is your own capital coming back, which is not taxed at all.
+    </p>
+    <p>
+      For equity funds, long-term gains (units held over 12 months) above ₹1.25 lakh per year are taxed at 12.5%, and short-term gains at 20%. For debt funds purchased on or after 1 April 2023, gains are taxed at your slab rate regardless of holding period. You also control the amount and timing with an SWP, which an IDCW plan never gives you.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>SWP Tips</h2>
+    <ul>
+      <li><strong>Start below the earning rate:</strong> If your fund returns 8%, keep withdrawals under 8% annually and the corpus survives any market cycle</li>
+      <li><strong>Use hybrid or balanced funds:</strong> Pure equity is volatile, and withdrawing during a crash locks in losses — hybrid funds smooth this out</li>
+      <li><strong>Wait 12 months before starting:</strong> Withdrawals after the first year qualify as long-term capital gains on equity funds, cutting the rate from 20% to 12.5%</li>
+      <li><strong>Keep a cash buffer:</strong> One to two years of withdrawals in a liquid fund means you never have to redeem equity units in a downturn</li>
+      <li><strong>Review annually:</strong> Inflation erodes a fixed withdrawal — revisit the amount each year rather than setting it once and forgetting it</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={GROWW} title="Set up your SWP in direct mutual funds" blurb="Direct plans save 0.5–1% in expense ratio every year — on a corpus you are drawing down for decades, that difference funds months of extra withdrawals." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/sip-calculator" class="related-card">
+        <h3>SIP Calculator</h3>
+        <p>Build the corpus first — calculate monthly SIP returns over time.</p>
+      </a>
+      <a href="/india/lumpsum-calculator" class="related-card">
+        <h3>Lump Sum Calculator</h3>
+        <p>Calculate returns on a one-time investment in mutual funds.</p>
+      </a>
+      <a href="/india/fire-calculator" class="related-card">
+        <h3>FIRE Calculator</h3>
+        <p>Work out the corpus you need to retire early and live off withdrawals.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

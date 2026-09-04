@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EMICalculator from '../../components/calculators/engines/EMICalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How is a car loan payment calculated?`,
+    a: `Same amortization formula as a mortgage: M = P × r × (1+r)^n / ((1+r)^n - 1). For $35,000 at 7.5% over 60 months, that's approximately $701/month, with $7,050 in total interest over the life of the loan.`,
+  },
+  {
+    q: `What's the ideal car loan term?`,
+    a: `60 months is the sweet spot for most buyers. Shorter terms save interest but stretch monthly cash flow. Longer terms (72-84 months) lower the payment but you'll owe more than the car is worth for years and total interest gets ugly. Avoid 84 months if you can.`,
+  },
+  {
+    q: `Should I make a larger down payment?`,
+    a: `Yes — at least 20% on new, 10% on used. Cars depreciate fastest in years 1-3. The more equity you start with, the less time you'll be upside-down on the loan, and the less interest you'll pay overall.`,
+  },
+  {
+    q: `Should I get pre-approved before the dealership?`,
+    a: `Always. Credit unions and online lenders often beat dealer financing by 1-2% APR. Walk in with a pre-approval and let the dealer try to beat it. Without one, you'll likely overpay on the financing even if you got a good price on the car.`,
+  },
+  {
+    q: `Is 0% APR financing actually free money?`,
+    a: `Not quite. Manufacturer 0% offers typically require above-average credit and replace any cash rebate you'd otherwise get. Sometimes taking the rebate and a regular loan saves more than 0% APR with no rebate. Run both scenarios — 0% isn't always the winner.`,
+  },
+];
 ---
 <BaseLayout
   title="Auto Loan Calculator - Free Car Payment Tool | PennyMath"
@@ -18,16 +42,6 @@ import { BETTERMENT } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How is a car loan payment calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Auto loan payments use the same amortization formula as a mortgage: M = P × r × (1+r)^n / ((1+r)^n - 1). The difference is the typical terms — 36 to 84 months instead of 15 to 30 years. For a $35,000 loan at 7.5% over 60 months, the monthly payment is approximately $701." }},
-        { "@type": "Question", "name": "What's the ideal car loan term?", "acceptedAnswer": { "@type": "Answer", "text": "60 months is the sweet spot for most buyers. Shorter terms (36-48 months) save on interest but raise the monthly payment significantly. Longer terms (72-84 months) lower the monthly payment but you'll often owe more than the car is worth for several years, and you pay much more interest. Avoid 84-month loans unless you absolutely have to." }},
-        { "@type": "Question", "name": "Should I make a larger down payment?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — at least 20% on a new car, 10% on a used car. Larger down payments reduce the financed amount, cut interest paid, lower the monthly payment, and reduce the time you'll be upside-down on the loan (owing more than the car is worth). Cars depreciate fastest in the first 2-3 years, so the more equity you start with, the less risk." }},
-        { "@type": "Question", "name": "Should I get pre-approved before going to the dealership?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Get a pre-approval from your bank, credit union, or an online lender before you shop. Credit unions often have the lowest rates (sometimes 1-2% below dealer financing). When you walk in with a pre-approval, you negotiate from a position of strength and the dealer has to beat your rate to win the financing." }}
-      ]
     })} />
   </Fragment>
 
@@ -93,34 +107,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
   <AffiliateCTA partner={BETTERMENT} title="Park your down payment somewhere it earns" blurb="A $5,000 down payment sitting in checking earns nothing. In a high-yield account it earns real interest while you decide which car to buy." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How is a car loan payment calculated?</summary>
-      <div class="faq-answer">Same amortization formula as a mortgage: M = P × r × (1+r)^n / ((1+r)^n - 1). For $35,000 at 7.5% over 60 months, that's approximately $701/month, with $7,050 in total interest over the life of the loan.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What's the ideal car loan term?</summary>
-      <div class="faq-answer">60 months is the sweet spot for most buyers. Shorter terms save interest but stretch monthly cash flow. Longer terms (72-84 months) lower the payment but you'll owe more than the car is worth for years and total interest gets ugly. Avoid 84 months if you can.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Should I make a larger down payment?</summary>
-      <div class="faq-answer">Yes — at least 20% on new, 10% on used. Cars depreciate fastest in years 1-3. The more equity you start with, the less time you'll be upside-down on the loan, and the less interest you'll pay overall.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Should I get pre-approved before the dealership?</summary>
-      <div class="faq-answer">Always. Credit unions and online lenders often beat dealer financing by 1-2% APR. Walk in with a pre-approval and let the dealer try to beat it. Without one, you'll likely overpay on the financing even if you got a good price on the car.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Is 0% APR financing actually free money?</summary>
-      <div class="faq-answer">Not quite. Manufacturer 0% offers typically require above-average credit and replace any cash rebate you'd otherwise get. Sometimes taking the rebate and a regular loan saves more than 0% APR with no rebate. Run both scenarios — 0% isn't always the winner.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

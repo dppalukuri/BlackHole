@@ -1,6 +1,30 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How much should I contribute?`,
+    a: `Target 15% of gross income across employer + employee. The auto-enrolment 8% minimum is below what most people need for a comfortable retirement. PLSA estimates ~£43,100/year for a single-person 'comfortable' retirement, implying a pot of ~£600-800k.`,
+  },
+  {
+    q: `2026 annual allowance?`,
+    a: `£60,000 standard. Tapered to as low as £10,000 for earners over £260,000. Carry forward unused allowance from previous 3 tax years if needed.`,
+  },
+  {
+    q: `Workplace pension vs SIPP?`,
+    a: `Workplace first for the employer match. SIPP next for more control + lower fees. Many people end up with both, plus consolidated old workplace pensions in their SIPP.`,
+  },
+  {
+    q: `When can I access it?`,
+    a: `Age 55 (57 from April 2028). 25% tax-free lump sum (capped at £268,275), remainder taxed as income. Early access triggers a ~55% penalty unless on rare medical grounds.`,
+  },
+  {
+    q: `What return rate should I plan for?`,
+    a: `6% real (after inflation) is a reasonable baseline for an equity-heavy portfolio. Don't plan around 10%+ — that's optimistic over multi-decade horizons net of fees and inflation.`,
+  },
+];
 ---
 <BaseLayout
   title="UK Pension Calculator - Workplace & SIPP Growth | PennyMath"
@@ -16,16 +40,6 @@ import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How much should I contribute to my pension?", "acceptedAnswer": { "@type": "Answer", "text": "The PLSA estimates a 'comfortable' UK retirement needs ~£43,100/year (single). Working back from that, target a pension pot of ~£600,000-£800,000. To get there, save at least 15% of gross income including employer contributions throughout your career — auto-enrolment's 8% minimum (3% employer, 5% employee) is below what most people need." }},
-        { "@type": "Question", "name": "What's the 2026 pension annual allowance?", "acceptedAnswer": { "@type": "Answer", "text": "£60,000/year is the standard annual allowance — the maximum you can contribute (yours + employer) with full tax relief. High earners (£260,000+) may face a tapered annual allowance down to £10,000. You can carry forward unused allowance from the previous 3 years." }},
-        { "@type": "Question", "name": "Workplace pension vs SIPP?", "acceptedAnswer": { "@type": "Answer", "text": "Start with your workplace pension — it gives you free employer contributions (auto-enrolment minimum 3%, often higher). Many employers match additional contributions. A SIPP (Self-Invested Personal Pension) gives more investment choice and lower fees — useful once you've maxed employer matching or want to consolidate old workplace pensions." }},
-        { "@type": "Question", "name": "When can I access my pension?", "acceptedAnswer": { "@type": "Answer", "text": "Currently age 55, rising to 57 from April 2028 for most. You can take 25% tax-free as a lump sum (max £268,275 for 2026), with the remainder providing taxable income via drawdown, annuity, or further lump sums. Accessing earlier triggers a 55% tax penalty in most cases." }}
-      ]
     })} />
   </Fragment>
 
@@ -92,34 +106,7 @@ import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
     </ul>
   </section>
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How much should I contribute?</summary>
-      <div class="faq-answer">Target 15% of gross income across employer + employee. The auto-enrolment 8% minimum is below what most people need for a comfortable retirement. PLSA estimates ~£43,100/year for a single-person 'comfortable' retirement, implying a pot of ~£600-800k.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>2026 annual allowance?</summary>
-      <div class="faq-answer">£60,000 standard. Tapered to as low as £10,000 for earners over £260,000. Carry forward unused allowance from previous 3 tax years if needed.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Workplace pension vs SIPP?</summary>
-      <div class="faq-answer">Workplace first for the employer match. SIPP next for more control + lower fees. Many people end up with both, plus consolidated old workplace pensions in their SIPP.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>When can I access it?</summary>
-      <div class="faq-answer">Age 55 (57 from April 2028). 25% tax-free lump sum (capped at £268,275), remainder taxed as income. Early access triggers a ~55% penalty unless on rare medical grounds.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What return rate should I plan for?</summary>
-      <div class="faq-answer">6% real (after inflation) is a reasonable baseline for an equity-heavy portfolio. Don't plan around 10%+ — that's optimistic over multi-decade horizons net of fees and inflation.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

@@ -3,6 +3,7 @@ import { lumpSumFutureValue } from '../../../lib/formulas/compound-growth';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
 import DoughnutChart from '../ui/DoughnutChart';
+import { localeForCurrency } from '../../../lib/formatters';
 
 interface FDCalculatorProps {
   currency: { code: string; symbol: string };
@@ -27,6 +28,8 @@ export default function FDCalculator({ currency }: FDCalculatorProps) {
           max={10000000}
           step={1000}
           prefix={currency.symbol}
+          scalable
+          locale={localeForCurrency(currency.code)}
           onChange={setPrincipal}
         />
         <SliderInput

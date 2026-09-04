@@ -3,6 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FIRECalculator from '../../components/calculators/engines/FIRECalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { GROWW } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Is 3% withdrawal rate safe for India?`,
+    a: `Most Indian FIRE practitioners recommend 2.5-3.5%. The original 4% rule was designed for US markets with 2% inflation. With India's 6-7% inflation, a lower withdrawal rate provides more safety. Some use a "bucket strategy" — 2-3 years in liquid funds, rest in equity — to manage sequence-of-returns risk.`,
+  },
+  {
+    q: `How much do I need to FIRE in India?`,
+    a: `It depends on your monthly expenses. At 3% withdrawal rate: ₹50K/month expenses = ₹2 crore FIRE number. ₹1L/month = ₹4 crore. ₹2L/month = ₹8 crore. Remember to account for inflation — your actual expenses will be higher when you retire.`,
+  },
+  {
+    q: `Should I include my house in FIRE corpus?`,
+    a: `No. Your primary residence is not an income-generating asset (unless you plan to sell/downsize). Only count investments that produce passive income: equity mutual funds, debt instruments, rental properties (not your own home), PPF, NPS.`,
+  },
+];
 ---
 <BaseLayout
   title="FIRE Calculator India — When Can You Retire Early? | PennyMath"
@@ -44,12 +60,7 @@ import { GROWW } from '../../lib/affiliates';
 
     <AffiliateCTA partner={GROWW} title="Build your FIRE corpus" blurb="Invest your SIPs directly in mutual funds with zero commission. Track progress toward FIRE in one place." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item"><summary>Is 3% withdrawal rate safe for India?</summary><div class="faq-answer">Most Indian FIRE practitioners recommend 2.5-3.5%. The original 4% rule was designed for US markets with 2% inflation. With India's 6-7% inflation, a lower withdrawal rate provides more safety. Some use a "bucket strategy" — 2-3 years in liquid funds, rest in equity — to manage sequence-of-returns risk.</div></details>
-    <details class="faq-item"><summary>How much do I need to FIRE in India?</summary><div class="faq-answer">It depends on your monthly expenses. At 3% withdrawal rate: ₹50K/month expenses = ₹2 crore FIRE number. ₹1L/month = ₹4 crore. ₹2L/month = ₹8 crore. Remember to account for inflation — your actual expenses will be higher when you retire.</div></details>
-    <details class="faq-item"><summary>Should I include my house in FIRE corpus?</summary><div class="faq-answer">No. Your primary residence is not an income-generating asset (unless you plan to sell/downsize). Only count investments that produce passive income: equity mutual funds, debt instruments, rental properties (not your own home), PPF, NPS.</div></details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Tools</h2>

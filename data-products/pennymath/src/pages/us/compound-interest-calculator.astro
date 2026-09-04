@@ -3,6 +3,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CompoundInterestCalculator from '../../components/calculators/engines/CompoundInterestCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { BETTERMENT } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What's the Rule of 72?`,
+    a: `The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the annual interest rate. At 7%, your money doubles in approximately 72/7 = 10.3 years. At 10%, it doubles in about 7.2 years.`,
+  },
+  {
+    q: `How does compound interest differ from simple interest?`,
+    a: `Simple interest is calculated only on the original principal. Compound interest is calculated on principal plus all accumulated interest. Over time, compound interest grows exponentially while simple interest grows linearly. For $10,000 at 7% over 10 years: simple interest = $7,000, compound interest = $9,671+ (annual compounding).`,
+  },
+];
 ---
 <BaseLayout
   title="Compound Interest Calculator - Free Online Tool | PennyMath"
@@ -47,17 +59,7 @@ import { BETTERMENT } from '../../lib/affiliates';
 
     <AffiliateCTA partner={BETTERMENT} title="Put compound interest to work" blurb="Betterment automates long-term investing with tax-loss harvesting. Start with $10 and let compounding do the rest." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <details class="faq-item">
-      <summary>What's the Rule of 72?</summary>
-      <div class="faq-answer">The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the annual interest rate. At 7%, your money doubles in approximately 72/7 = 10.3 years. At 10%, it doubles in about 7.2 years.</div>
-    </details>
-    <details class="faq-item">
-      <summary>How does compound interest differ from simple interest?</summary>
-      <div class="faq-answer">Simple interest is calculated only on the original principal. Compound interest is calculated on principal plus all accumulated interest. Over time, compound interest grows exponentially while simple interest grows linearly. For $10,000 at 7% over 10 years: simple interest = $7,000, compound interest = $9,671+ (annual compounding).</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

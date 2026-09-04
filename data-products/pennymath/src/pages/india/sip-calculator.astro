@@ -3,6 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SIPCalculator from '../../components/calculators/engines/SIPCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { GROWW } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What is a good SIP amount to start with?`,
+    a: `You can start a SIP with as little as ₹500 per month. Financial advisors recommend investing at least 20% of your monthly income. If you're just starting out, begin with what's comfortable and increase by 10-15% annually.`,
+  },
+  {
+    q: `What is the average return on SIP in India?`,
+    a: `Historically, equity mutual fund SIPs in India have delivered 12-15% annual returns over 10+ year periods. Large-cap funds tend to return 10-12%, while mid and small-cap funds can deliver 14-18% but with higher volatility. Debt fund SIPs typically return 6-8%. Past performance does not guarantee future results.`,
+  },
+  {
+    q: `Is SIP better than Fixed Deposit?`,
+    a: `SIP in equity mutual funds has historically offered higher returns (12-15%) compared to FDs (6-7%). However, SIPs carry market risk while FDs offer guaranteed returns. SIPs are better for long-term goals (5+ years), while FDs suit short-term needs or emergency funds where capital preservation is priority.`,
+  },
+  {
+    q: `Can I stop or pause my SIP?`,
+    a: `Yes, you can stop or pause your SIP at any time without any penalty or exit charges (for most funds). Your existing investments remain invested and continue to grow. You can restart your SIP whenever you want, or even change the amount.`,
+  },
+  {
+    q: `Is SIP tax-free?`,
+    a: `SIP investments in ELSS (Equity Linked Savings Scheme) funds qualify for tax deduction up to ₹1.5 lakh under Section 80C. However, long-term capital gains (LTCG) above ₹1.25 lakh from equity funds are taxed at 12.5%. Short-term gains (held less than 1 year) are taxed at 20%.`,
+  },
+];
 ---
 
 <BaseLayout
@@ -19,37 +43,6 @@ import { GROWW } from '../../lib/affiliates';
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a good SIP amount to start with?",
-          "acceptedAnswer": { "@type": "Answer", "text": "You can start a SIP with as little as ₹500 per month. Financial advisors recommend investing at least 20% of your monthly income in SIPs for long-term wealth creation." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the average return on SIP in India?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Historically, equity mutual fund SIPs in India have delivered 12-15% annual returns over 10+ year periods. Debt fund SIPs typically return 6-8%. Past performance does not guarantee future results." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is SIP better than Fixed Deposit?",
-          "acceptedAnswer": { "@type": "Answer", "text": "SIP in equity mutual funds has historically offered higher returns (12-15%) compared to FDs (6-7%). However, SIPs carry market risk while FDs offer guaranteed returns. SIPs are better for long-term goals (5+ years) while FDs suit short-term, low-risk needs." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I stop or pause my SIP?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can stop or pause your SIP at any time without penalty. Your existing investments remain invested and continue to grow. You can restart whenever you want." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is SIP tax-free?",
-          "acceptedAnswer": { "@type": "Answer", "text": "SIP investments in ELSS (Equity Linked Savings Scheme) funds qualify for tax deduction up to ₹1.5 lakh under Section 80C. Long-term capital gains above ₹1.25 lakh from equity funds are taxed at 12.5%." }
-        }
-      ]
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -134,34 +127,7 @@ import { GROWW } from '../../lib/affiliates';
 
   <AffiliateCTA partner={GROWW} title="Start your SIP today" blurb="Open a free demat account and invest in direct mutual funds with zero commission." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>What is a good SIP amount to start with?</summary>
-      <div class="faq-answer">You can start a SIP with as little as ₹500 per month. Financial advisors recommend investing at least 20% of your monthly income. If you're just starting out, begin with what's comfortable and increase by 10-15% annually.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>What is the average return on SIP in India?</summary>
-      <div class="faq-answer">Historically, equity mutual fund SIPs in India have delivered 12-15% annual returns over 10+ year periods. Large-cap funds tend to return 10-12%, while mid and small-cap funds can deliver 14-18% but with higher volatility. Debt fund SIPs typically return 6-8%. Past performance does not guarantee future results.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Is SIP better than Fixed Deposit?</summary>
-      <div class="faq-answer">SIP in equity mutual funds has historically offered higher returns (12-15%) compared to FDs (6-7%). However, SIPs carry market risk while FDs offer guaranteed returns. SIPs are better for long-term goals (5+ years), while FDs suit short-term needs or emergency funds where capital preservation is priority.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Can I stop or pause my SIP?</summary>
-      <div class="faq-answer">Yes, you can stop or pause your SIP at any time without any penalty or exit charges (for most funds). Your existing investments remain invested and continue to grow. You can restart your SIP whenever you want, or even change the amount.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Is SIP tax-free?</summary>
-      <div class="faq-answer">SIP investments in ELSS (Equity Linked Savings Scheme) funds qualify for tax deduction up to ₹1.5 lakh under Section 80C. However, long-term capital gains (LTCG) above ₹1.25 lakh from equity funds are taxed at 12.5%. Short-term gains (held less than 1 year) are taxed at 20%.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>

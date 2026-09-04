@@ -2,39 +2,8 @@ import { useState } from 'preact/hooks';
 import { formatCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
 import DoughnutChart from '../ui/DoughnutChart';
-
-function calcStepUpSIP(monthly: number, annualRate: number, years: number, stepUpPct: number) {
-  const monthlyRate = annualRate / 12 / 100;
-  let totalInvested = 0;
-  let totalValue = 0;
-  let currentMonthly = monthly;
-  const yearlyBreakdown = [];
-
-  for (let y = 1; y <= years; y++) {
-    // Each year, invest currentMonthly for 12 months
-    for (let m = 0; m < 12; m++) {
-      totalInvested += currentMonthly;
-      totalValue = (totalValue + currentMonthly) * (1 + monthlyRate);
-    }
-    yearlyBreakdown.push({
-      year: y,
-      monthlySIP: currentMonthly,
-      invested: totalInvested,
-      value: totalValue,
-    });
-    // Step up at year end
-    currentMonthly = Math.round(currentMonthly * (1 + stepUpPct / 100));
-  }
-
-  return { totalInvested, totalValue, totalReturns: totalValue - totalInvested, yearlyBreakdown };
-}
-
-function calcRegularSIP(monthly: number, annualRate: number, years: number) {
-  const monthlyRate = annualRate / 12 / 100;
-  const months = years * 12;
-  if (monthlyRate === 0) return monthly * months;
-  return monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-}
+import { stepUpSipProjection } from '../../../lib/formulas/step-up-sip';
+import { sipFutureValue } from '../../../lib/formulas/compound-growth';
 
 export default function StepUpSIPCalculator() {
   const [monthly, setMonthly] = useState(10000);
@@ -42,14 +11,14 @@ export default function StepUpSIPCalculator() {
   const [years, setYears] = useState(15);
   const [stepUp, setStepUp] = useState(10);
 
-  const stepUpResult = calcStepUpSIP(monthly, rate, years, stepUp);
-  const regularValue = calcRegularSIP(monthly, rate, years);
+  const stepUpResult = stepUpSipProjection(monthly, rate, years, stepUp);
+  const regularValue = sipFutureValue(monthly, rate, years).totalValue;
   const extraWealth = stepUpResult.totalValue - regularValue;
 
   return (
     <div class="calculator-widget">
       <div class="calc-inputs">
-        <SliderInput id="monthly" label="Starting Monthly SIP" value={monthly} min={500} max={500000} step={500} prefix="₹" onChange={setMonthly} />
+        <SliderInput id="monthly" label="Starting Monthly SIP" value={monthly} min={500} max={500000} step={500} prefix="₹" scalable locale="en-IN" onChange={setMonthly} />
         <SliderInput id="step-up" label="Annual Step-Up" value={stepUp} min={0} max={50} step={1} suffix="%" onChange={setStepUp} />
         <SliderInput id="return-rate" label="Expected Return (p.a.)" value={rate} min={1} max={25} step={0.5} suffix="%" onChange={setRate} />
         <SliderInput id="years" label="Time Period" value={years} min={1} max={30} step={1} suffix=" Yr" onChange={setYears} />

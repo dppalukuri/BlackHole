@@ -3,21 +3,32 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import UAEGratuityCalculator from '../../components/calculators/engines/UAEGratuityCalculator';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 import { SARWA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `How is gratuity calculated in UAE?`,
+    a: `For the first 5 years of service, you receive 21 days' basic salary for each year. After 5 years, you receive 30 days' basic salary for each additional year. Your daily wage is calculated as basic monthly salary divided by 30. The total gratuity amount is capped at 2 years' total salary.`,
+  },
+  {
+    q: `When am I eligible for gratuity in UAE?`,
+    a: `You must complete at least 1 year of continuous service with the same employer. If you resign before completing 1 year, you are not entitled to any gratuity payment.`,
+  },
+  {
+    q: `Is gratuity taxed in UAE?`,
+    a: `No. The UAE has no personal income tax. Your full gratuity amount is paid to you without any deductions. If you're transferring the money to your home country, check the tax laws there — some countries tax foreign income.`,
+  },
+  {
+    q: `Does gratuity include allowances?`,
+    a: `No. Gratuity is calculated on your basic salary only. Housing allowance, transport allowance, phone allowance, and other benefits are excluded from the calculation. Check your employment contract for your basic salary breakdown.`,
+  },
+];
 ---
 <BaseLayout
   title="UAE Gratuity Calculator 2026 - End of Service Benefits | PennyMath"
   description="Free UAE gratuity calculator. Calculate your end-of-service gratuity based on UAE Labour Law (Federal Decree-Law No. 33 of 2021). Supports limited and unlimited contracts."
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How is gratuity calculated in UAE?", "acceptedAnswer": { "@type": "Answer", "text": "For the first 5 years: 21 days' basic salary for each year. After 5 years: 30 days' basic salary for each additional year. Daily wage = basic monthly salary / 30. Total gratuity cannot exceed 2 years' total salary." }},
-        { "@type": "Question", "name": "When am I eligible for gratuity in UAE?", "acceptedAnswer": { "@type": "Answer", "text": "You must complete at least 1 year of continuous service with the same employer to be eligible for end-of-service gratuity." }},
-        { "@type": "Question", "name": "Is gratuity taxed in UAE?", "acceptedAnswer": { "@type": "Answer", "text": "No, there is no income tax in the UAE. Your full gratuity amount is paid to you without any tax deductions." }}
-      ]
-    })} />
   </Fragment>
 
   <nav class="breadcrumbs">
@@ -64,29 +75,7 @@ import { SARWA } from '../../lib/affiliates';
 
     <AffiliateCTA partner={SARWA} title="Grow your gratuity safely" blurb="Don’t let your end-of-service gratuity sit idle. Sarwa’s regulated portfolios grow it with diversified ETFs, from AED 500." />
 
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-
-    <details class="faq-item">
-      <summary>How is gratuity calculated in UAE?</summary>
-      <div class="faq-answer">For the first 5 years of service, you receive 21 days' basic salary for each year. After 5 years, you receive 30 days' basic salary for each additional year. Your daily wage is calculated as basic monthly salary divided by 30. The total gratuity amount is capped at 2 years' total salary.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>When am I eligible for gratuity in UAE?</summary>
-      <div class="faq-answer">You must complete at least 1 year of continuous service with the same employer. If you resign before completing 1 year, you are not entitled to any gratuity payment.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Is gratuity taxed in UAE?</summary>
-      <div class="faq-answer">No. The UAE has no personal income tax. Your full gratuity amount is paid to you without any deductions. If you're transferring the money to your home country, check the tax laws there — some countries tax foreign income.</div>
-    </details>
-
-    <details class="faq-item">
-      <summary>Does gratuity include allowances?</summary>
-      <div class="faq-answer">No. Gratuity is calculated on your basic salary only. Housing allowance, transport allowance, phone allowance, and other benefits are excluded from the calculation. Check your employment contract for your basic salary breakdown.</div>
-    </details>
-  </section>
+  <FAQ faqs={faqs} />
 
   <section>
     <h2>Related Calculators</h2>
