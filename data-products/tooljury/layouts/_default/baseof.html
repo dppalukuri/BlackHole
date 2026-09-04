@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
   {{- if .IsHome }}
-  <!-- impact.com partner property verification -->
-  <meta name="impact-site-verification" value="45691ff7-ed8e-4cbf-8a82-e43edf9f7449" />
+  {{/* impact.com partner verification. Impact supplies this snippet with
+       single quotes and no self-closing slash; public/index.html is kept
+       byte-identical to it. NOTE: Hugo's minifier strips attribute quotes
+       on rebuild, turning this into name=impact-site-verification. That is
+       still valid HTML, but re-check verification after any `hugo` run. */}}
+  <meta name='impact-site-verification' value='45691ff7-ed8e-4cbf-8a82-e43edf9f7449'>
   {{- end }}
 
   {{- $desc := "" -}}
