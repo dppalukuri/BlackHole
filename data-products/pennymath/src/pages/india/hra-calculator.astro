@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HRACalculator from '../../components/calculators/engines/HRACalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { hraExemption } from '../../lib/formulas/hra';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'HRA Exemption Calculator (India)';
+const description = 'Free HRA exemption calculator for FY 2026-27. Works out your tax-free house rent allowance, including the 50% limit now applying in Bengaluru, Hyderabad, Pune and Ahmedabad.';
+const path = '/india/hra-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const ex = hraExemption({ annualSalary: 720000, annualHraReceived: 288000, annualRentPaid: 300000, city: 'new-metro', year: 'fy-2026-27' });
+
+const faqs = [
+  {
+    q: `How is HRA exemption calculated?`,
+    a: `It is the lowest of three amounts: the HRA you actually received, the rent you paid minus 10% of your salary, or a percentage of your salary set by your city. Salary here means basic pay plus any dearness allowance that counts for retirement benefits.`,
+  },
+  {
+    q: `Which cities get the 50% HRA limit?`,
+    a: `Delhi, Mumbai, Kolkata and Chennai have long been at 50%. From FY 2026-27, the Income-tax Rules, 2026 are reported to add Bengaluru, Hyderabad, Pune and Ahmedabad. Other cities are at 40%. For FY 2025-26, those four new cities remain at 40%.`,
+  },
+  {
+    q: `Can I claim HRA under the new tax regime?`,
+    a: `No. HRA exemption is only available under the old regime. Under the new regime, the whole allowance is taxable, so compare both regimes before you choose.`,
+  },
+  {
+    q: `Do I need my landlord's PAN to claim HRA?`,
+    a: `Employers generally ask for your landlord's PAN when your rent is above ₹1 lakh a year. Keep your rent receipts and rental agreement too, since you may need them if your claim is questioned.`,
+  },
+  {
+    q: `Can I claim HRA if I pay rent to my parents?`,
+    a: `Generally yes, if the rent is genuine and paid to a parent who owns the home. They should report it as income, and you should keep records of payment. A claim for rent paid to a spouse is much more likely to be challenged.`,
+  },
+];
+---
+
+<BaseLayout title="HRA Exemption Calculator FY 2026-27 — New 50% Cities | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> HRA Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See how much of your house rent allowance is tax-free</p>
+  <p class="page-intro">
+    Enter your salary, HRA and rent to see your exempt and taxable HRA for the year. HRA exemption only applies under the old tax regime.
+  </p>
+
+  <HRACalculator client:visible />
+  <p style="font-size: 0.85rem; color: #64748b;">The city list reflects reports of the Income-tax Rules, 2026 reviewed in November 2026. Confirm with the Income Tax Department or a tax professional before filing.</p>
+
+  <section class="content-section">
+    <h2>HRA Exemption Formula</h2>
+    <div class="formula-box">
+      Exempt HRA = lowest of:<br />
+      1. HRA actually received<br />
+      2. Rent paid &minus; 10% of salary<br />
+      3. 50% of salary (listed cities) or 40% of salary (others)
+    </div>
+    <p>
+      <strong>Example:</strong> You live in Bengaluru in FY 2026-27, with {inr(60000)} a month in basic pay, {inr(24000)} in HRA and {inr(25000)} in rent. Over the year, your HRA is {inr(ex.actualHra)}, your rent minus 10% of salary is {inr(ex.rentMinusTenPercent)}, and 50% of salary is {inr(ex.percentOfSalary)}. The lowest gives {inr(ex.exempt)} exempt and {inr(ex.taxable)} taxable.
+    </p>
+    <p>
+      In this example, the move to 50% changes nothing, because the rent test is lower. The new limit only helps renters paying a high rent compared with their salary.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your monthly <strong>basic pay plus DA</strong> from your payslip</li>
+      <li>Enter the <strong>HRA</strong> you receive and the <strong>rent</strong> you pay each month</li>
+      <li>Choose your <strong>city group</strong> and the <strong>financial year</strong></li>
+      <li>Check the <strong>exempt amount</strong>, and which of the three limits sets it</li>
+    </ol>
+    <p>If your salary or rent changed during the year, the rules work month by month, so run each period separately and add up the results.</p>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/old-vs-new-tax-regime" class="related-card"><h3>Old vs New Tax Regime</h3><p>Check whether claiming HRA beats the new regime.</p></a>
+      <a href="/india/in-hand-salary-calculator" class="related-card"><h3>In-Hand Salary Calculator</h3><p>Convert your CTC to monthly take-home pay.</p></a>
+      <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
+    </div>
+  </section>
+</BaseLayout>

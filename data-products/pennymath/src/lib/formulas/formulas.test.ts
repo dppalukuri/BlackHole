@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { hraExemption, hraSalaryPercent } from './hra';
 import { salaryBreakdown } from './salary';
 import { compareRentVsBuy } from './rent-vs-buy';
 import { maxAffordability, INDIA_LTV_TIERS } from './affordability';
@@ -829,5 +830,49 @@ describe('salaryBreakdown', () => {
     const gross = 2000000 - 120000;
     expect(r.grossSalary).toBe(gross);
     expect(r.incomeTax).toBeCloseTo(indiaIncomeTaxOldRegime(gross, 152400).totalTaxWithCess, 6);
+  });
+});
+
+describe('hraExemption', () => {
+  const base = { annualSalary: 600000, annualHraReceived: 240000, annualRentPaid: 240000, city: 'other' as const, year: 'fy-2026-27' as const };
+
+  it('takes the lowest of the three limits', () => {
+    const r = hraExemption(base);
+    expect(r.actualHra).toBe(240000);
+    expect(r.rentMinusTenPercent).toBe(180000);
+    expect(r.percentOfSalary).toBe(240000);
+    expect(r.exempt).toBe(180000);
+    expect(r.taxable).toBe(60000);
+    expect(r.limitedBy).toBe('rent');
+  });
+
+  it('is limited by HRA received when that is lowest', () => {
+    const r = hraExemption({ ...base, annualHraReceived: 100000 });
+    expect(r.exempt).toBe(100000);
+    expect(r.taxable).toBe(0);
+    expect(r.limitedBy).toBe('actual-hra');
+  });
+
+  it('is limited by salary when rent is high', () => {
+    const r = hraExemption({ ...base, annualHraReceived: 400000, annualRentPaid: 600000 });
+    expect(r.exempt).toBe(240000);
+    expect(r.limitedBy).toBe('salary');
+  });
+
+  it('gives no exemption when rent is under 10% of salary', () => {
+    const r = hraExemption({ ...base, annualRentPaid: 50000 });
+    expect(r.exempt).toBe(0);
+    expect(r.taxable).toBe(240000);
+  });
+
+  it('uses 50% for the original metros in either year', () => {
+    expect(hraSalaryPercent('original-metro', 'fy-2025-26')).toBe(50);
+    expect(hraSalaryPercent('original-metro', 'fy-2026-27')).toBe(50);
+  });
+
+  it('moves the four new metros to 50% only from FY 2026-27', () => {
+    expect(hraSalaryPercent('new-metro', 'fy-2025-26')).toBe(40);
+    expect(hraSalaryPercent('new-metro', 'fy-2026-27')).toBe(50);
+    expect(hraSalaryPercent('other', 'fy-2026-27')).toBe(40);
   });
 });
