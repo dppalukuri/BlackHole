@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EPFCalculator from '../../components/calculators/engines/EPFCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { epfProjection } from '../../lib/formulas/epf';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'EPF Calculator (India)';
+const description = 'Free EPF calculator for India. Estimate your Employees\' Provident Fund balance at retirement, with your contributions, employer contributions and interest at 8.25%.';
+const path = '/india/epf-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const ex = epfProjection({ currentAge: 30, retirementAge: 58, monthlyBasic: 50000, annualRaisePercent: 6, pfBasis: 'full', existingBalance: 0, interestRatePercent: 8.25 });
+
+const faqs = [
+  {
+    q: `What is the current EPF interest rate?`,
+    a: `The rate for FY 2025-26 is 8.25%, as ratified by the government in June 2026. The rate is reviewed every year, so a long-term projection is only an estimate.`,
+  },
+  {
+    q: `How much do my employer and I contribute to EPF?`,
+    a: `Generally you each contribute 12% of basic pay plus DA. Of the employer's share, 8.33% of wages goes to the Employees' Pension Scheme, up to ₹1,250 a month on the ₹15,000 wage ceiling, and the rest goes to your EPF.`,
+  },
+  {
+    q: `What is the EPF wage ceiling?`,
+    a: `It is ₹15,000 a month. Contributions are mandatory up to that level for covered employees, though many employers contribute on full basic pay. An increase has been discussed, but we found no notification of a change as of November 2026.`,
+  },
+  {
+    q: `Is EPF interest taxable?`,
+    a: `Interest on your own contributions above ₹2.5 lakh a year is generally taxable, or above ₹5 lakh where your employer does not contribute. This calculator does not deduct that tax, so high earners may end up with somewhat less.`,
+  },
+  {
+    q: `Is the EPF withdrawal tax-free?`,
+    a: `Generally yes, after five continuous years of service. Earlier withdrawals can be taxed, with some exceptions such as a job loss due to ill health. Check the current rules before you withdraw.`,
+  },
+];
+---
+
+<BaseLayout title="EPF Calculator India — Balance at Retirement at 8.25% | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> EPF Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">Estimate your provident fund balance at retirement</p>
+  <p class="page-intro">
+    Enter your basic pay, expected raises and current balance to see what your EPF could grow to, and how much comes from you, your employer and interest.
+  </p>
+
+  <EPFCalculator client:visible />
+  <p style="font-size: 0.85rem; color: #64748b;">The starting rate is the 8.25% declared for FY 2025-26. Future rates may differ, and this calculation assumes one rate throughout.</p>
+
+  <section class="content-section">
+    <h2>How EPF Is Calculated</h2>
+    <div class="formula-box">
+      Your contribution = 12% of PF wages<br />
+      Employer's EPF share = 12% of PF wages &minus; EPS<br />
+      EPS = 8.33% of wages, on up to ₹15,000 a month
+    </div>
+    <p>
+      Interest accrues on your balance each month and is credited at the end of the year. Each month's contribution starts earning from the following month.
+    </p>
+    <p>
+      <strong>Example:</strong> Age 30, with {inr(50000)} a month in basic pay, 6% yearly raises and PF on full basic until 58. You contribute {inr(ex.totalEmployee)}, your employer adds {inr(ex.totalEmployer)} to EPF, and interest adds {inr(ex.totalInterest)}, for a balance of about {inr(ex.finalBalance)}.
+    </p>
+    <p>That balance is in future rupees. Inflation over 28 years will reduce what it can buy.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>age</strong> and <strong>retirement age</strong></li>
+      <li>Enter your <strong>basic pay plus DA</strong> and your expected <strong>yearly raise</strong></li>
+      <li>Choose how PF is calculated. A ₹1,800 monthly deduction on your payslip usually means the <strong>wage ceiling</strong> applies</li>
+      <li>Add your <strong>current balance</strong> from your EPF passbook</li>
+    </ol>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/nps-calculator" class="related-card"><h3>NPS Calculator</h3><p>Estimate your NPS corpus and monthly pension.</p></a>
+      <a href="/india/in-hand-salary-calculator" class="related-card"><h3>In-Hand Salary Calculator</h3><p>See how PF affects your take-home pay.</p></a>
+      <a href="/india/ppf-calculator" class="related-card"><h3>PPF Calculator</h3><p>Calculate PPF maturity over 15 years or more.</p></a>
+    </div>
+  </section>
+</BaseLayout>

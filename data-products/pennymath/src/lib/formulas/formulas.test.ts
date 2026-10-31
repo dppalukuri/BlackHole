@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { epfProjection } from './epf';
 import { npsProjection } from './nps';
 import { capitalGainsTax } from './capital-gains';
 import { hraExemption, hraSalaryPercent } from './hra';
@@ -997,5 +998,54 @@ describe('npsProjection', () => {
   it('holds its value at a 0% return', () => {
     const r = npsProjection({ ...base, expectedReturnPercent: 0, retirementAge: 31 });
     expect(r.corpus).toBeCloseTo(120000, 6);
+  });
+});
+
+describe('epfProjection', () => {
+  const base = { currentAge: 30, retirementAge: 31, monthlyBasic: 15000, annualRaisePercent: 0, pfBasis: 'capped' as const, existingBalance: 0, interestRatePercent: 8.25 };
+
+  it('splits contributions at the wage ceiling: 12%, 3.67% and 8.33%', () => {
+    const r = epfProjection(base);
+    expect(r.firstMonthEmployee).toBe(1800);
+    expect(r.firstMonthEps).toBeCloseTo(1249.5, 6);
+    expect(r.firstMonthEmployerEpf).toBeCloseTo(550.5, 6);
+  });
+
+  it('caps EPS but not EPF when contributing on full basic', () => {
+    const r = epfProjection({ ...base, monthlyBasic: 50000, pfBasis: 'full' });
+    expect(r.firstMonthEmployee).toBe(6000);
+    expect(r.firstMonthEps).toBeCloseTo(1249.5, 6);
+    expect(r.firstMonthEmployerEpf).toBeCloseTo(4750.5, 6);
+  });
+
+  it('caps wages at the ceiling when chosen, however high the basic', () => {
+    expect(epfProjection({ ...base, monthlyBasic: 50000 }).firstMonthEmployee).toBe(1800);
+  });
+
+  it('earns interest on the running balance from the following month', () => {
+    const r = epfProjection(base);
+    const monthly = 1800 + 550.5;
+    // Balances of 0, 1 x monthly ... 11 x monthly across the 12 months.
+    const expected = 66 * monthly * (0.0825 / 12);
+    expect(r.totalInterest).toBeCloseTo(expected, 6);
+    expect(r.finalBalance).toBeCloseTo(12 * monthly + expected, 6);
+  });
+
+  it('compounds at the end of each year', () => {
+    const r = epfProjection({ ...base, monthlyBasic: 0, existingBalance: 100000, retirementAge: 32 });
+    const yearOne = 100000 * 1.0825;
+    expect(r.yearlyBreakdown[0].closingBalance).toBeCloseTo(yearOne, 6);
+    expect(r.finalBalance).toBeCloseTo(yearOne * 1.0825, 6);
+  });
+
+  it('raises contributions with salary above the ceiling on full basic', () => {
+    const rows = epfProjection({ ...base, monthlyBasic: 50000, pfBasis: 'full', annualRaisePercent: 10, retirementAge: 32 }).yearlyBreakdown;
+    expect(rows[0].employee).toBeCloseTo(72000, 6);
+    expect(rows[1].employee).toBeCloseTo(79200, 6);
+  });
+
+  it('reconciles the balance against every source', () => {
+    const r = epfProjection({ ...base, retirementAge: 58, existingBalance: 200000, annualRaisePercent: 5, pfBasis: 'full', monthlyBasic: 40000 });
+    expect(200000 + r.totalEmployee + r.totalEmployer + r.totalInterest).toBeCloseTo(r.finalBalance, 4);
   });
 });
