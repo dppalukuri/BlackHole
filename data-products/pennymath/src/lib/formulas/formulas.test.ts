@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { compareRemittance } from './remittance';
 import { epfProjection } from './epf';
 import { npsProjection } from './nps';
 import { capitalGainsTax } from './capital-gains';
@@ -1080,5 +1081,41 @@ describe('gstBreakdown', () => {
       const total = gstBreakdown(5000, rate, false, true).totalAmount;
       expect(gstBreakdown(total, rate, true, true).netAmount).toBeCloseTo(5000, 6);
     }
+  });
+});
+
+describe('compareRemittance', () => {
+  const providers = [
+    { name: 'A', rate: 26, fee: 20 },
+    { name: 'B', rate: 26.1, fee: 40 },
+    { name: 'C', rate: 25.8, fee: 0 },
+  ];
+
+  it('works out the amount received and total paid', () => {
+    const [a] = compareRemittance(5000, 26.2, providers);
+    expect(a.received).toBe(130000);
+    expect(a.totalPaid).toBe(5020);
+    expect(a.effectiveRate).toBeCloseTo(130000 / 5020, 6);
+  });
+
+  it('measures the cost against the mid-market rate, fee included', () => {
+    const [a] = compareRemittance(5000, 26.2, providers);
+    expect(a.costInr).toBeCloseTo(5020 * 26.2 - 130000, 6);
+    expect(a.costPercent).toBeCloseTo(((5020 * 26.2 - 130000) / (5020 * 26.2)) * 100, 6);
+  });
+
+  it('shows zero cost at the mid-market rate with no fee', () => {
+    const [q] = compareRemittance(5000, 26, [{ name: 'X', rate: 26, fee: 0 }]);
+    expect(q.costInr).toBe(0);
+    expect(q.costPercent).toBe(0);
+  });
+
+  it('lets a zero-fee provider win on small transfers despite a weaker rate', () => {
+    // On a small amount, the fees of A and B outweigh their better rates.
+    expect(compareRemittance(500, 26.2, providers).filter((q) => q.isBest).map((q) => q.name)).toEqual(['C']);
+  });
+
+  it('lets the better rate win on large transfers', () => {
+    expect(compareRemittance(100000, 26.2, providers).filter((q) => q.isBest).map((q) => q.name)).toEqual(['B']);
   });
 });

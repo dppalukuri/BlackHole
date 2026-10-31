@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RemittanceCalculator from '../../components/calculators/engines/RemittanceCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { compareRemittance } from '../../lib/formulas/remittance';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'AED to INR Remittance Calculator';
+const description = 'Free UAE to India remittance calculator. Compare the exchange rate and fee from up to three providers to see which one delivers the most rupees for your dirhams.';
+const path = '/uae/aed-to-inr-remittance-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const aed = (n: number) => formatCurrency(n, 'AED');
+const [a, b] = compareRemittance(5000, 26.2, [{ name: 'A', rate: 26.05, fee: 22 }, { name: 'B', rate: 25.8, fee: 0 }]);
+
+const faqs = [
+  {
+    q: `What is the best way to compare remittance services?`,
+    a: `Compare the rupees received for the same dirhams paid, on the same day. The rate and the fee must be looked at together, because a "zero fee" transfer can carry a weaker rate. The effective rate above combines the two.`,
+  },
+  {
+    q: `What is the mid-market rate?`,
+    a: `It is the midpoint between the rates at which banks buy and sell a currency, and is what you see on most currency charts. Consumers rarely receive it, so the gap between it and your rate is effectively a charge.`,
+  },
+  {
+    q: `Why does this calculator not show live rates?`,
+    a: `Rates change through the day and differ by provider, amount and payment method, and we do not take live feeds. Enter the current quotes from each provider's own app or branch just before you send, so that you compare actual offers.`,
+  },
+  {
+    q: `Is the money I send to India taxed?`,
+    a: `This depends on who receives it and why, and on your residency status in India. Gifts from certain relatives are generally exempt, while other receipts can be taxable. Check with a tax professional if you are sending large amounts.`,
+  },
+  {
+    q: `When is the best time to send money to India?`,
+    a: `No one can reliably predict short-term exchange rates. If you send money regularly, a consistent schedule avoids trying to time the market, and the choice of provider is something you can control.`,
+  },
+];
+---
+
+<BaseLayout title="AED to INR Remittance Calculator — Compare UAE to India Transfers | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="AED" countryName="UAE" countryPath="/uae/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> AED to INR Remittance Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See which provider delivers the most rupees for your dirhams</p>
+  <p class="page-intro">
+    Enter each provider's rate and fee to compare what your family actually receives, and how much the transfer really costs you.
+  </p>
+
+  <RemittanceCalculator client:visible defaultMidRate={26.2} />
+  <p style="font-size: 0.85rem; color: #64748b;">This page does not show live rates. The starting values are examples based on a mid-market rate of about ₹26.2 per dirham in early October 2026, and provider figures are illustrative. Enter current quotes before you decide.</p>
+
+  <section class="content-section">
+    <h2>How the Comparison Works</h2>
+    <div class="formula-box">
+      Rupees received = amount sent &times; provider's rate<br />
+      Effective rate = rupees received / (amount sent + fee)<br />
+      Hidden cost = (amount sent + fee) &times; mid-market rate &minus; rupees received
+    </div>
+    <p>
+      <strong>Example:</strong> You send {aed(5000)} when the mid-market rate is ₹26.20. Provider A offers ₹26.05 with an {aed(22)} fee, so you pay {aed(a.totalPaid)} and your family receives {inr(a.received)}, for an effective rate of ₹{a.effectiveRate.toFixed(4)}. Provider B offers ₹25.80 with no fee, so you pay {aed(b.totalPaid)} and your family receives {inr(b.received)}, for an effective rate of ₹{b.effectiveRate.toFixed(4)}. Provider {a.effectiveRate > b.effectiveRate ? 'A' : 'B'} is the better value, even with {a.effectiveRate > b.effectiveRate ? 'its fee' : 'its weaker rate'}.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter the <strong>amount you want to send</strong> in dirhams</li>
+      <li>Look up today's <strong>mid-market rate</strong> on a currency site</li>
+      <li>Enter the <strong>rate and fee</strong> from each provider's app, website or branch, including any VAT on the fee</li>
+      <li>Compare the <strong>rupees received</strong> and the <strong>hidden cost</strong>. The best value is highlighted in green</li>
+    </ol>
+    <p>Ask whether the provider's quoted amount is what arrives. The receiving bank may also make a charge, and payment by card may cost more than by bank transfer.</p>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/gratuity-calculator" class="related-card"><h3>UAE Gratuity Calculator</h3><p>Calculate your end-of-service benefit.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>See what a monthly investment in India could grow to.</p></a>
+      <a href="/india/fd-calculator" class="related-card"><h3>FD Calculator</h3><p>Calculate the maturity value of a fixed deposit.</p></a>
+    </div>
+  </section>
+</BaseLayout>
