@@ -60,7 +60,8 @@ function calcNewRegime(income: number) {
     prev = s.max;
   }
 
-  if (taxable <= 1200000) tax = 0;
+  // 87A rebate, with marginal relief just above the ceiling.
+  tax = taxable <= 1200000 ? 0 : Math.min(tax, taxable - 1200000);
   const cess = tax * 0.04;
   return { taxable, totalDeductions: standardDeduction, tax, cess, total: tax + cess };
 }

@@ -49,14 +49,49 @@ export function indiaIncomeTaxNewRegime(annualIncome: number): TaxResult {
     });
   }
 
-  // Section 87A rebate: no tax if taxable income <= 12,00,000 (new regime)
+  // Section 87A rebate: no tax if taxable income <= 12,00,000 (new regime).
+  // Just above that, marginal relief caps the tax at the income over 12,00,000,
+  // so earning one more rupee can never cost more than that rupee.
   if (taxableIncome <= 1200000) {
     totalTax = 0;
+  } else {
+    totalTax = Math.min(totalTax, taxableIncome - 1200000);
   }
 
   const cess = totalTax * 0.04; // 4% Health & Education Cess
   const totalTaxWithCess = totalTax + cess;
   const effectiveRate = annualIncome > 0 ? (totalTaxWithCess / annualIncome) * 100 : 0;
 
+  return { taxableIncome, totalTax, cess, totalTaxWithCess, effectiveRate, slabBreakdown };
+}
+
+/**
+ * India Income Tax — Old Regime, for an individual under 60. `deductions` covers
+ * everything except the 50,000 standard deduction, which is applied here.
+ */
+export function indiaIncomeTaxOldRegime(annualIncome: number, deductions: number = 0): TaxResult {
+  const taxableIncome = Math.max(0, annualIncome - 50000 - deductions);
+  const slabs = [
+    { min: 0, max: 250000, rate: 0, label: 'Up to ₹2,50,000' },
+    { min: 250000, max: 500000, rate: 5, label: '₹2,50,001 - ₹5,00,000' },
+    { min: 500000, max: 1000000, rate: 20, label: '₹5,00,001 - ₹10,00,000' },
+    { min: 1000000, max: Infinity, rate: 30, label: 'Above ₹10,00,000' },
+  ];
+
+  let totalTax = 0;
+  const slabBreakdown: TaxResult['slabBreakdown'] = [];
+  for (const slab of slabs) {
+    if (taxableIncome <= slab.min) break;
+    const taxableAmount = Math.min(taxableIncome, slab.max) - slab.min;
+    const tax = (taxableAmount * slab.rate) / 100;
+    totalTax += tax;
+    slabBreakdown.push({ slab: slab.label, rate: slab.rate, taxableAmount, tax });
+  }
+
+  if (taxableIncome <= 500000) totalTax = 0; // Section 87A rebate
+
+  const cess = totalTax * 0.04;
+  const totalTaxWithCess = totalTax + cess;
+  const effectiveRate = annualIncome > 0 ? (totalTaxWithCess / annualIncome) * 100 : 0;
   return { taxableIncome, totalTax, cess, totalTaxWithCess, effectiveRate, slabBreakdown };
 }

@@ -11,13 +11,13 @@
  */
 
 /** Financial year the slab data in `formulas/tax-slab.ts` encodes. */
-export const TAX_DATA_FY = 'FY 2025-26';
+export const TAX_DATA_FY = 'FY 2026-27';
 
 /** Assessment year corresponding to `TAX_DATA_FY`. */
-export const TAX_DATA_AY = 'AY 2026-27';
+export const TAX_DATA_AY = 'AY 2027-28';
 
 /** Calendar year in which `TAX_DATA_FY` began (Indian FY starts 1 April). */
-export const TAX_DATA_FY_START_YEAR = 2025;
+export const TAX_DATA_FY_START_YEAR = 2026;
 
 /**
  * The Indian financial year containing `date`. The FY runs 1 April to 31 March,

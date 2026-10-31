@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { sipFutureValue, lumpSumFutureValue, ppfFutureValue } from './compound-growth';
 import { calculateEMI } from './loan-emi';
 import { uaeGratuity, indiaGratuity, calculateVAT } from './flat-rate';
-import { indiaIncomeTaxNewRegime } from './tax-slab';
+import { indiaIncomeTaxNewRegime, indiaIncomeTaxOldRegime } from './tax-slab';
 import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
@@ -176,6 +176,13 @@ describe('indiaIncomeTaxNewRegime', () => {
     expect(indiaIncomeTaxNewRegime(1275001).totalTaxWithCess).toBeGreaterThan(0);
   });
 
+  it('applies marginal relief just past the rebate ceiling', () => {
+    // 12,10,000 taxable: slab tax is 61,500, but relief caps it at the 10,000 excess.
+    expect(indiaIncomeTaxNewRegime(1285000).totalTax).toBe(10000);
+    // By 12,75,000 taxable the slab tax of 71,250 is below the 75,000 excess.
+    expect(indiaIncomeTaxNewRegime(1350000).totalTax).toBe(71250);
+  });
+
   it('sums the slabs progressively', () => {
     // taxable 20,00,000: 4L nil + 4L@5% + 4L@10% + 4L@15% + 4L@20%
     const expected = 400000 * 0.05 + 400000 * 0.1 + 400000 * 0.15 + 400000 * 0.2;
@@ -199,6 +206,23 @@ describe('indiaIncomeTaxNewRegime', () => {
     const r = indiaIncomeTaxNewRegime(0);
     expect(r.totalTaxWithCess).toBe(0);
     expect(r.effectiveRate).toBe(0);
+  });
+});
+
+describe('indiaIncomeTaxOldRegime', () => {
+  it('applies the 50,000 standard deduction and other deductions', () => {
+    expect(indiaIncomeTaxOldRegime(1000000, 150000).taxableIncome).toBe(800000);
+  });
+
+  it('levies no tax when taxable income is within the 87A limit', () => {
+    expect(indiaIncomeTaxOldRegime(550000).totalTaxWithCess).toBe(0);
+  });
+
+  it('sums the slabs progressively with cess', () => {
+    // 12,00,000 taxable: 12,500 + 1,00,000 + 60,000 = 1,72,500, plus 4% cess.
+    const r = indiaIncomeTaxOldRegime(1250000);
+    expect(r.totalTax).toBe(172500);
+    expect(r.totalTaxWithCess).toBeCloseTo(179400, 6);
   });
 });
 
