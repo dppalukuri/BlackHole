@@ -1,9 +1,13 @@
 import { useState } from 'preact/hooks';
-import { formatCurrency } from '../../../lib/formatters';
+import { formatCompactCurrency, formatCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
-import DoughnutChart from '../ui/DoughnutChart';
+import ResultCard from '../ui/ResultCard';
+import LineChart from '../ui/LineChart';
+import Verdict from '../ui/Verdict';
 import { stepUpSipProjection } from '../../../lib/formulas/step-up-sip';
 import { sipFutureValue } from '../../../lib/formulas/compound-growth';
+
+const fmt = (n: number) => formatCurrency(n, 'INR');
 
 export default function StepUpSIPCalculator() {
   const [monthly, setMonthly] = useState(10000);
@@ -11,9 +15,9 @@ export default function StepUpSIPCalculator() {
   const [years, setYears] = useState(15);
   const [stepUp, setStepUp] = useState(10);
 
-  const stepUpResult = stepUpSipProjection(monthly, rate, years, stepUp);
-  const regularValue = sipFutureValue(monthly, rate, years).totalValue;
-  const extraWealth = stepUpResult.totalValue - regularValue;
+  const stepped = stepUpSipProjection(monthly, rate, years, stepUp);
+  const regular = sipFutureValue(monthly, rate, years);
+  const extraWealth = stepped.totalValue - regular.totalValue;
 
   return (
     <div class="calculator-widget">
@@ -24,77 +28,58 @@ export default function StepUpSIPCalculator() {
         <SliderInput id="years" label="Time Period" value={years} min={1} max={30} step={1} suffix=" Yr" onChange={setYears} />
       </div>
 
-      {/* Comparison Banner */}
-      <div style={{
-        background: '#f0fdf4', border: '2px solid #22c55e', borderRadius: '12px',
-        padding: '1.25rem', margin: '1.5rem 0', textAlign: 'center',
-      }}>
-        <div style={{ fontSize: '0.85rem', color: '#64748b' }}>Step-Up SIP creates</div>
-        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#16a34a' }}>
-          {formatCurrency(extraWealth, 'INR')} more
-        </div>
-        <div style={{ fontSize: '0.85rem', color: '#64748b' }}>than a regular SIP of {formatCurrency(monthly, 'INR')}/month</div>
-      </div>
-
-      <div class="calc-results">
-        <div class="result-card">
-          <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748b', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Step-Up SIP ({stepUp}% annual increase)</div>
-          <div class="result-item">
-            <span class="result-label">Total Invested</span>
-            <span class="result-value">{formatCurrency(stepUpResult.totalInvested, 'INR')}</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">Est. Returns</span>
-            <span class="result-value">{formatCurrency(stepUpResult.totalReturns, 'INR')}</span>
-          </div>
-          <div class="result-item result-highlight">
-            <span class="result-label">Total Value</span>
-            <span class="result-value">{formatCurrency(stepUpResult.totalValue, 'INR')}</span>
-          </div>
-
-          <div style={{ marginTop: '1.25rem', fontSize: '0.8rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Regular SIP (no increase)</div>
-          <div class="result-item" style={{ opacity: 0.7 }}>
-            <span class="result-label">Total Value</span>
-            <span class="result-value">{formatCurrency(regularValue, 'INR')}</span>
-          </div>
-        </div>
-
-        <DoughnutChart
-          segments={[
-            { label: 'Invested', value: stepUpResult.totalInvested, color: '#6366f1' },
-            { label: 'Returns', value: stepUpResult.totalReturns, color: '#22c55e' },
+      <div class="calc-answer">
+        <ResultCard
+          currencyCode="INR"
+          results={[
+            { label: `Value after ${years} ${years === 1 ? 'year' : 'years'}`, value: stepped.totalValue, highlight: true },
+            { label: 'Regular SIP would reach', value: regular.totalValue, seriesKey: 2 },
+            { label: 'Total you invest', value: stepped.totalInvested, seriesKey: 3 },
+            { label: 'Estimated returns', value: stepped.totalReturns },
           ]}
         />
+        <Verdict title={`Stepping up adds ${fmt(extraWealth)}`} tone="good">
+          That is against keeping your SIP at {fmt(monthly)} a month for the whole period.
+        </Verdict>
       </div>
 
-      {/* Year-by-year table */}
-      <details style={{ marginTop: '1.5rem' }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.95rem', padding: '0.75rem 0' }}>
-          View Year-by-Year Breakdown
-        </summary>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', marginTop: '0.5rem' }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid #e2e8f0', textAlign: 'left' }}>
-                <th style={{ padding: '0.5rem' }}>Year</th>
-                <th style={{ padding: '0.5rem' }}>Monthly SIP</th>
-                <th style={{ padding: '0.5rem', textAlign: 'right' }}>Total Invested</th>
-                <th style={{ padding: '0.5rem', textAlign: 'right' }}>Portfolio Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stepUpResult.yearlyBreakdown.map((row) => (
-                <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
-                  <td style={{ padding: '0.5rem' }}>{row.year}</td>
-                  <td style={{ padding: '0.5rem' }}>{formatCurrency(row.monthlySIP, 'INR')}</td>
-                  <td style={{ padding: '0.5rem', textAlign: 'right' }}>{formatCurrency(row.invested, 'INR')}</td>
-                  <td style={{ padding: '0.5rem', textAlign: 'right', fontWeight: 600 }}>{formatCurrency(row.value, 'INR')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <div class="calc-below">
+        <LineChart
+          title="Step-up against a regular SIP"
+          caption="At the end of each year"
+          x={[0, ...stepped.yearlyBreakdown.map((r) => r.year)]}
+          series={[
+            { name: 'Step-up SIP', values: [0, ...stepped.yearlyBreakdown.map((r) => r.value)] },
+            { name: 'Regular SIP', values: [0, ...regular.yearlyBreakdown.map((r) => r.total)] },
+            { name: 'Amount invested', values: [0, ...stepped.yearlyBreakdown.map((r) => r.invested)] },
+          ]}
+          format={fmt}
+          formatTick={(n) => formatCompactCurrency(n, 'INR')}
+          xTick={(y) => `Yr ${y}`}
+          xTitle={(y) => (y === 0 ? 'Today' : `Year ${y}`)}
+          showTable={false}
+        />
+        <details class="year-table panel-card">
+          <summary>View year-by-year figures</summary>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th scope="col">Year</th><th scope="col">Monthly SIP</th><th scope="col">Total invested</th><th scope="col">Portfolio value</th></tr>
+              </thead>
+              <tbody>
+                {stepped.yearlyBreakdown.map((row) => (
+                  <tr>
+                    <th scope="row">{row.year}</th>
+                    <td>{fmt(row.monthlySIP)}</td>
+                    <td>{fmt(row.invested)}</td>
+                    <td>{fmt(row.value)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useState } from 'preact/hooks';
 import { npsProjection } from '../../../lib/formulas/nps';
-import { formatCurrency } from '../../../lib/formatters';
+import { formatCompactCurrency, formatCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
-import DoughnutChart from '../ui/DoughnutChart';
+import LineChart from '../ui/LineChart';
 
 const fmt = (n: number) => formatCurrency(n, 'INR');
 
@@ -41,47 +41,35 @@ export default function NPSCalculator() {
         <SliderInput id="nps-annuity-rate" label="Annuity Rate (p.a.)" value={annuityRate} min={1} max={10} step={0.1} suffix="%" onChange={setAnnuityRate} />
       </div>
 
-      <div class="calc-results">
+      <div class="calc-answer">
         <ResultCard
           currencyCode="INR"
           results={[
-            { label: 'Total you invest', value: r.totalInvested },
-            { label: 'Corpus at exit', value: r.corpus },
-            { label: 'Lump sum', value: r.lumpSum },
             { label: 'Estimated monthly pension', value: r.monthlyPension, highlight: true },
-          ]}
-        />
-        <DoughnutChart
-          segments={[
-            { label: 'Lump Sum', value: r.lumpSum, color: '#6366f1' },
-            { label: 'Annuity Purchase', value: r.annuityPurchase, color: '#22c55e' },
+            { label: 'Corpus at exit', value: r.corpus, seriesKey: 1 },
+            { label: 'Lump sum you can take', value: r.lumpSum },
+            { label: 'Used to buy the annuity', value: r.annuityPurchase },
+            { label: 'Total you invest', value: r.totalInvested, seriesKey: 2 },
           ]}
         />
       </div>
 
-      <details style={{ marginTop: '1.25rem' }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.95rem', padding: '0.75rem 0' }}>View Year-by-Year Breakdown</summary>
-        <div style={{ overflowX: 'auto', marginTop: '0.5rem' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
-            <thead>
-              <tr style={{ textAlign: 'right', color: 'var(--color-text-muted)' }}>
-                <th style={{ textAlign: 'left', padding: '0.5rem 0.6rem', fontWeight: 600 }}>Age</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>Total invested</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>Corpus</th>
-              </tr>
-            </thead>
-            <tbody style={{ fontFamily: 'var(--font-mono)' }}>
-              {r.yearlyBreakdown.map((row) => (
-                <tr style={{ borderTop: '1px solid var(--color-border)', textAlign: 'right' }}>
-                  <td style={{ textAlign: 'left', padding: '0.45rem 0.6rem', fontWeight: 600 }}>{row.age}</td>
-                  <td style={{ padding: '0.45rem 0.6rem' }}>{fmt(row.invested)}</td>
-                  <td style={{ padding: '0.45rem 0.6rem', fontWeight: 600 }}>{fmt(row.corpus)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <div class="calc-below">
+        <LineChart
+          title="How your NPS grows"
+          caption="At each birthday, in future rupees"
+          x={[age, ...r.yearlyBreakdown.map((y) => y.age)]}
+          series={[
+            { name: 'Corpus', values: [existing, ...r.yearlyBreakdown.map((y) => y.corpus)] },
+            { name: 'Amount invested', values: [0, ...r.yearlyBreakdown.map((y) => y.invested)] },
+          ]}
+          format={fmt}
+          formatTick={(n) => formatCompactCurrency(n, 'INR')}
+          xTick={(a) => `Age ${a}`}
+          xTitle={(a) => `Age ${a}`}
+          xHeading="Age"
+        />
+      </div>
     </div>
   );
 }
