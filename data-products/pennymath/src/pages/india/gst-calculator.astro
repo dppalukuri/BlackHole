@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GSTCalculator from '../../components/calculators/engines/GSTCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { gstBreakdown } from '../../lib/formulas/flat-rate';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'GST Calculator (India)';
+const description = 'Free GST calculator for India. Add or remove GST at the current 5%, 18% and 40% rates, and split the tax into CGST and SGST or IGST.';
+const path = '/india/gst-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const added = gstBreakdown(10000, 18, false, false);
+const removed = gstBreakdown(11800, 18, true, false);
+
+const faqs = [
+  {
+    q: `What are the current GST rates in India?`,
+    a: `Since 22 September 2025, the main rates are 5% and 18%, with 40% on certain luxury and sin goods and 0% on exempt or nil-rated items. Special low rates such as 3% and 0.25% are reported to continue for items including gold and rough diamonds.`,
+  },
+  {
+    q: `How do I remove GST from a price?`,
+    a: `Divide the total by 1 plus the rate. At 18%, ₹11,800 / 1.18 gives ₹10,000 before GST, so the tax is ₹1,800. Do not just take 18% of the total, because that gives too much tax.`,
+  },
+  {
+    q: `What is the difference between CGST, SGST and IGST?`,
+    a: `For a sale within a state, the tax splits equally into CGST for the centre and SGST or UTGST for the state or union territory. For a sale between states, the whole amount is IGST. The total rate is the same either way.`,
+  },
+  {
+    q: `Why does the calculator still show 12% and 28%?`,
+    a: `Those rates were mostly removed on 22 September 2025, when most items moved to 5% or 18% and some to 40%. They are here for checking older bills. For a current sale, check your item's rate in the official schedule.`,
+  },
+  {
+    q: `How do I find the GST rate for my product?`,
+    a: `Rates depend on the HSN or SAC code of the item or service. Check the CBIC rate schedule or the GST portal, since secondary lists can be out of date.`,
+  },
+];
+---
+
+<BaseLayout title="GST Calculator India — Add or Remove GST, CGST & SGST | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> GST Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">Add or remove GST, and split it into CGST and SGST or IGST</p>
+  <p class="page-intro">
+    Enter an amount, choose a rate and see the tax and final price immediately. Rates shown include the structure in force since 22 September 2025.
+  </p>
+
+  <GSTCalculator client:visible />
+
+  <section class="content-section">
+    <h2>GST Formula</h2>
+    <div class="formula-box">
+      Adding GST: GST = amount &times; rate / 100<br />
+      Removing GST: amount before GST = total / (1 + rate / 100)
+    </div>
+    <p>
+      <strong>Adding:</strong> {inr(10000)} at 18% gives GST of {inr(added.cgst + added.sgst)} and a total of {inr(added.totalAmount)}. Within a state, that is {inr(added.cgst)} in CGST and {inr(added.sgst)} in SGST.
+    </p>
+    <p>
+      <strong>Removing:</strong> {inr(11800)} including 18% GST is {inr(removed.netAmount)} before tax, so the GST is {inr(removed.cgst + removed.sgst)}.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>GST Rates Since 22 September 2025</h2>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
+            <th style="padding: 0.6rem;">Rate</th><th style="padding: 0.6rem;">Examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.6rem;">0%</td><td style="padding: 0.6rem;">Exempt or nil-rated items, including lifesaving medicines</td></tr>
+          <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.6rem;">5%</td><td style="padding: 0.6rem;">Many everyday goods, including shampoo and toothpaste</td></tr>
+          <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.6rem;">18%</td><td style="padding: 0.6rem;">The standard rate, including air conditioners and large TVs</td></tr>
+          <tr><td style="padding: 0.6rem;">40%</td><td style="padding: 0.6rem;">Luxury and sin goods, including luxury cars and motorcycles above 350cc</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>These are examples only. The rate for any item depends on its classification, so check the official schedule before you invoice.</p>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/vat-calculator" class="related-card"><h3>UAE VAT Calculator</h3><p>Add or extract 5% UAE VAT from any amount.</p></a>
+      <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
+    </div>
+  </section>
+</BaseLayout>

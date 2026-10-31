@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { sipFutureValue, lumpSumFutureValue, ppfFutureValue } from './compound-growth';
 import { calculateEMI } from './loan-emi';
-import { uaeGratuity, indiaGratuity, calculateVAT } from './flat-rate';
+import { uaeGratuity, indiaGratuity, calculateVAT, gstBreakdown } from './flat-rate';
 import { indiaIncomeTaxNewRegime, indiaIncomeTaxOldRegime } from './tax-slab';
 import { swpProjection } from './swp';
 import { fireProjection } from './fire';
@@ -1047,5 +1047,38 @@ describe('epfProjection', () => {
   it('reconciles the balance against every source', () => {
     const r = epfProjection({ ...base, retirementAge: 58, existingBalance: 200000, annualRaisePercent: 5, pfBasis: 'full', monthlyBasic: 40000 });
     expect(200000 + r.totalEmployee + r.totalEmployer + r.totalInterest).toBeCloseTo(r.finalBalance, 4);
+  });
+});
+
+describe('gstBreakdown', () => {
+  it('adds GST and splits it evenly within a state', () => {
+    const r = gstBreakdown(10000, 18, false, false);
+    expect(r.netAmount).toBe(10000);
+    expect(r.cgst).toBe(900);
+    expect(r.sgst).toBe(900);
+    expect(r.igst).toBe(0);
+    expect(r.totalAmount).toBe(11800);
+  });
+
+  it('charges the whole tax as IGST between states', () => {
+    const r = gstBreakdown(10000, 18, false, true);
+    expect(r.igst).toBe(1800);
+    expect(r.cgst).toBe(0);
+    expect(r.sgst).toBe(0);
+    expect(r.totalAmount).toBe(11800);
+  });
+
+  it('removes GST by dividing, not by taking a percentage of the total', () => {
+    const r = gstBreakdown(11800, 18, true, false);
+    expect(r.netAmount).toBeCloseTo(10000, 6);
+    expect(r.cgst + r.sgst).toBeCloseTo(1800, 6);
+    expect(r.totalAmount).toBe(11800);
+  });
+
+  it('round-trips adding and removing at every rate', () => {
+    for (const rate of [0.25, 3, 5, 12, 18, 28, 40]) {
+      const total = gstBreakdown(5000, rate, false, true).totalAmount;
+      expect(gstBreakdown(total, rate, true, true).netAmount).toBeCloseTo(5000, 6);
+    }
   });
 });

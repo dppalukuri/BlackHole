@@ -62,3 +62,20 @@ export function calculateVAT(
   const vatAmount = amount * (vatRate / 100);
   return { netAmount: amount, vatAmount, totalAmount: amount + vatAmount };
 }
+
+/** India GST: split equally into CGST and SGST, or all IGST between states. */
+export function gstBreakdown(
+  amount: number,
+  gstRate: number,
+  inclusive: boolean,
+  interstate: boolean
+): { netAmount: number; cgst: number; sgst: number; igst: number; totalAmount: number } {
+  const { netAmount, vatAmount, totalAmount } = calculateVAT(amount, gstRate, inclusive);
+  return {
+    netAmount,
+    cgst: interstate ? 0 : vatAmount / 2,
+    sgst: interstate ? 0 : vatAmount / 2,
+    igst: interstate ? vatAmount : 0,
+    totalAmount,
+  };
+}
