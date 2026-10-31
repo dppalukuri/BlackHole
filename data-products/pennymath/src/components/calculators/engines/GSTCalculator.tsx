@@ -12,29 +12,21 @@ export default function GSTCalculator() {
   const [rate, setRate] = useState(18);
   const [supply, setSupply] = useState<'intra' | 'inter'>('intra');
 
-  const r = gstBreakdown(amount, rate, mode === 'remove', supply === 'inter');
+  const removing = mode === 'remove';
+  const r = gstBreakdown(amount, rate, removing, supply === 'inter');
   const tax = supply === 'inter'
-    ? [{ label: `IGST (${rate}%)`, value: r.igst }]
+    ? [{ label: `IGST at ${rate}%`, value: r.igst }]
     : [
-        { label: `CGST (${rate / 2}%)`, value: r.cgst },
-        { label: `SGST (${rate / 2}%)`, value: r.sgst },
+        { label: `CGST at ${rate / 2}%`, value: r.cgst },
+        { label: `SGST at ${rate / 2}%`, value: r.sgst },
       ];
 
   return (
     <div class="calculator-widget">
       <div class="calc-inputs">
-        <SliderInput
-          id="gst-amount"
-          label={mode === 'add' ? 'Amount Before GST' : 'Amount Including GST'}
-          value={amount}
-          min={1}
-          max={1000000}
-          step={100}
-          prefix="₹"
-          scalable
-          locale="en-IN"
-          onChange={setAmount}
-        />
+        <div class="span-all">
+          <SliderInput id="gst-amount" label={removing ? 'Amount Including GST' : 'Amount Before GST'} value={amount} min={1} max={1000000} step={100} prefix="₹" scalable locale="en-IN" onChange={setAmount} />
+        </div>
         <ChoiceButtons label="What Do You Want to Do?" value={mode} options={[{ value: 'add', label: 'Add GST' }, { value: 'remove', label: 'Remove GST' }]} onChange={setMode} />
         <ChoiceButtons
           label="GST Rate"
@@ -45,14 +37,17 @@ export default function GSTCalculator() {
         <ChoiceButtons label="Where Is the Supply?" value={supply} options={[{ value: 'intra', label: 'Within a state' }, { value: 'inter', label: 'Between states' }]} onChange={setSupply} />
       </div>
 
-      <ResultCard
-        currencyCode="INR"
-        results={[
-          { label: 'Amount before GST', value: r.netAmount },
-          ...tax,
-          { label: 'Total including GST', value: r.totalAmount, highlight: true },
-        ]}
-      />
+      <div class="calc-answer">
+        <ResultCard
+          currencyCode="INR"
+          results={[
+            removing
+              ? { label: 'Amount before GST', value: r.netAmount, highlight: true }
+              : { label: 'Total including GST', value: r.totalAmount, highlight: true },
+            ...tax,
+          ]}
+        />
+      </div>
     </div>
   );
 }
