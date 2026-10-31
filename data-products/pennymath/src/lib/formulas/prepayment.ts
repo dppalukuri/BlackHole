@@ -27,6 +27,8 @@ export interface PrepaymentResult {
   shorterTerm: PrepaymentOption;
   /** Keep the end date, and lower the payment. Extra monthly still goes on top. */
   lowerPayment: PrepaymentOption;
+  /** Balance left on each path at the end of each year, from year 0. */
+  yearly: Array<{ year: number; baseline: number; shorterTerm: number; lowerPayment: number }>;
 }
 
 /** Runs a loan at a fixed monthly outflow until it clears. */
@@ -35,13 +37,17 @@ function amortise(balance: number, annualRate: number, outflow: number, maxMonth
   let remaining = balance;
   let months = 0;
   let totalInterest = 0;
-  while (remaining > 0.005 && months < maxMonths) {
-    const interest = remaining * i;
-    totalInterest += interest;
-    remaining = remaining + interest - Math.min(outflow, remaining + interest);
-    months++;
+  const yearEnd = [balance];
+  for (let m = 1; m <= maxMonths; m++) {
+    if (remaining > 0.005) {
+      const interest = remaining * i;
+      totalInterest += interest;
+      remaining = remaining + interest - Math.min(outflow, remaining + interest);
+      months = m;
+    }
+    if (m % 12 === 0) yearEnd.push(remaining > 0.005 ? remaining : 0);
   }
-  return { months, totalInterest };
+  return { months, totalInterest, yearEnd };
 }
 
 /**
@@ -56,20 +62,28 @@ export function comparePrepayment(input: PrepaymentInput): PrepaymentResult {
 
   const baselinePayment = monthlyPayment(balance, annualRate, remainingMonths);
   const baselineInterest = baselinePayment * remainingMonths - balance;
-  const option = (payment: number): PrepaymentOption => {
-    const run = amortise(after, annualRate, payment + extraMonthly, remainingMonths);
-    return {
-      payment,
-      months: run.months,
-      totalInterest: run.totalInterest,
-      netSaving: baselineInterest - run.totalInterest - fee,
-    };
-  };
+  const run = (payment: number) => amortise(after, annualRate, payment + extraMonthly, remainingMonths);
+  const lowered = monthlyPayment(after, annualRate, remainingMonths);
+  const shorterRun = run(baselinePayment);
+  const lowerRun = run(lowered);
+  const baselineRun = amortise(balance, annualRate, baselinePayment, remainingMonths);
+  const option = (payment: number, r: ReturnType<typeof run>): PrepaymentOption => ({
+    payment,
+    months: r.months,
+    totalInterest: r.totalInterest,
+    netSaving: baselineInterest - r.totalInterest - fee,
+  });
 
   return {
     baselinePayment,
     baselineInterest,
-    shorterTerm: option(baselinePayment),
-    lowerPayment: option(monthlyPayment(after, annualRate, remainingMonths)),
+    shorterTerm: option(baselinePayment, shorterRun),
+    lowerPayment: option(lowered, lowerRun),
+    yearly: baselineRun.yearEnd.map((baseline, year) => ({
+      year,
+      baseline,
+      shorterTerm: shorterRun.yearEnd[year],
+      lowerPayment: lowerRun.yearEnd[year],
+    })),
   };
 }

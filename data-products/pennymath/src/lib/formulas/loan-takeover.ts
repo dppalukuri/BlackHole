@@ -26,6 +26,11 @@ export interface LoanTakeoverResult {
    * counting payments made, debt left and fees. Null if that never happens.
    */
   breakEvenMonth: number | null;
+  /**
+   * Interest paid so far on each path, with the fees on the moving path, from
+   * year 0. The lines cross at the break-even point.
+   */
+  yearly: Array<{ year: number; stay: number; move: number }>;
 }
 
 /**
@@ -48,6 +53,7 @@ export function compareLoanTakeover(input: LoanTakeoverInput): LoanTakeoverResul
   let newPaid = 0;
   let breakEvenMonth: number | null = null;
   const horizon = Math.max(remainingMonths, newTenureMonths);
+  const yearly = [{ year: 0, stay: 0, move: totalFees }];
 
   for (let m = 1; m <= horizon; m++) {
     if (m <= remainingMonths) {
@@ -60,6 +66,13 @@ export function compareLoanTakeover(input: LoanTakeoverInput): LoanTakeoverResul
     }
     if (breakEvenMonth === null && oldPaid + oldBalance >= newPaid + newBalance + totalFees) {
       breakEvenMonth = m;
+    }
+    if (m % 12 === 0) {
+      yearly.push({
+        year: m / 12,
+        stay: oldPaid + oldBalance - balance,
+        move: newPaid + newBalance - balance + totalFees,
+      });
     }
   }
 
@@ -75,5 +88,6 @@ export function compareLoanTakeover(input: LoanTakeoverInput): LoanTakeoverResul
     totalFees,
     netSaving: currentInterest - newInterest - totalFees,
     breakEvenMonth,
+    yearly,
   };
 }

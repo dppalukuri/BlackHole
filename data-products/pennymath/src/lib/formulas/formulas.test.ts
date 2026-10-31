@@ -7,6 +7,8 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { niceTicks, spreadLabels, nearestIndex } from '../chart-scale';
+import { formatCompactCurrency, formatPeriod } from '../formatters';
 import { compareRemittance } from './remittance';
 import { epfProjection } from './epf';
 import { npsProjection } from './nps';
@@ -1117,5 +1119,112 @@ describe('compareRemittance', () => {
 
   it('lets the better rate win on large transfers', () => {
     expect(compareRemittance(100000, 26.2, providers).filter((q) => q.isBest).map((q) => q.name)).toEqual(['B']);
+  });
+});
+
+describe('chart data', () => {
+  it('starts the takeover lines at zero and at the fees', () => {
+    const r = compareLoanTakeover({ balance: 1200000, currentRate: 5.75, remainingMonths: 240, newRate: 4.75, newTenureMonths: 240, exitFee: 10000, newLoanCosts: 20000 });
+    expect(r.yearly[0]).toEqual({ year: 0, stay: 0, move: 30000 });
+    expect(r.yearly).toHaveLength(21);
+  });
+
+  it('ends the takeover lines at the total interest on each path', () => {
+    const r = compareLoanTakeover({ balance: 1200000, currentRate: 5.75, remainingMonths: 240, newRate: 4.75, newTenureMonths: 240, exitFee: 10000, newLoanCosts: 20000 });
+    const end = r.yearly[r.yearly.length - 1];
+    expect(end.stay).toBeCloseTo(r.currentInterest, 2);
+    expect(end.move).toBeCloseTo(r.newInterest + 30000, 2);
+  });
+
+  it('crosses the takeover lines in the break-even year', () => {
+    const r = compareLoanTakeover({ balance: 1200000, currentRate: 5.75, remainingMonths: 240, newRate: 4.75, newTenureMonths: 240, exitFee: 10000, newLoanCosts: 20000 });
+    const year = Math.ceil(r.breakEvenMonth! / 12);
+    expect(r.yearly[year].stay).toBeGreaterThanOrEqual(r.yearly[year].move);
+    expect(r.yearly[year - 1].stay).toBeLessThan(r.yearly[year - 1].move);
+  });
+
+  it('runs prepayment balances from the start to zero on every path', () => {
+    const r = comparePrepayment({ balance: 4000000, annualRate: 8.5, remainingMonths: 240, lumpSum: 500000, extraMonthly: 0, fee: 0 });
+    expect(r.yearly[0]).toEqual({ year: 0, baseline: 4000000, shorterTerm: 3500000, lowerPayment: 3500000 });
+    const end = r.yearly[r.yearly.length - 1];
+    expect(end.baseline).toBeCloseTo(0, 1);
+    expect(end.shorterTerm).toBe(0);
+    expect(end.lowerPayment).toBeCloseTo(0, 1);
+    expect(r.yearly).toHaveLength(21);
+  });
+
+  it('keeps prepayment results consistent with the balance lines', () => {
+    const r = comparePrepayment({ balance: 4000000, annualRate: 8.5, remainingMonths: 240, lumpSum: 500000, extraMonthly: 0, fee: 0 });
+    const clearedYear = Math.ceil(r.shorterTerm.months / 12);
+    expect(r.yearly[clearedYear].shorterTerm).toBe(0);
+    expect(r.yearly[clearedYear - 1].shorterTerm).toBeGreaterThan(0);
+    for (let y = 1; y < r.yearly.length; y++) {
+      expect(r.yearly[y].baseline).toBeLessThan(r.yearly[y - 1].baseline);
+    }
+  });
+});
+
+describe('niceTicks', () => {
+  it('covers the range with round numbers', () => {
+    expect(niceTicks(8126, 9619, 4)).toEqual([8000, 8500, 9000, 9500, 10000]);
+    expect(niceTicks(0, 1000000, 4)).toEqual([0, 500000, 1000000]);
+  });
+
+  it('copes with a flat line', () => {
+    const t = niceTicks(5000, 5000);
+    expect(t[0]).toBeLessThan(5000);
+    expect(t[t.length - 1]).toBeGreaterThan(5000);
+  });
+
+  it('does not produce floating point dust', () => {
+    niceTicks(0, 0.3, 3).forEach((t) => expect(String(t).length).toBeLessThan(6));
+  });
+});
+
+describe('spreadLabels', () => {
+  it('leaves labels alone when they already fit', () => {
+    expect(spreadLabels([10, 100, 200], 34, 0, 300)).toEqual([10, 100, 200]);
+  });
+
+  it('separates close labels and keeps their order', () => {
+    const [a, b] = spreadLabels([100, 102], 34, 0, 300);
+    expect(b - a).toBeGreaterThanOrEqual(34);
+    expect(a).toBeLessThan(b);
+  });
+
+  it('returns positions in the input order', () => {
+    const [top, mid] = spreadLabels([200, 100], 34, 0, 300);
+    expect(top).toBe(200);
+    expect(mid).toBe(100);
+  });
+
+  it('stays inside the bounds', () => {
+    const out = spreadLabels([295, 298, 299], 34, 0, 300);
+    expect(Math.max(...out)).toBeLessThanOrEqual(300);
+    expect(Math.min(...out)).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe('chart formatting', () => {
+  it('finds the nearest x', () => {
+    expect(nearestIndex([0, 5, 10], 6)).toBe(1);
+    expect(nearestIndex([0, 5, 10], 99)).toBe(2);
+  });
+
+  it('shortens rupees to lakh and crore', () => {
+    expect(formatCompactCurrency(1500000, 'INR')).toBe('₹15 L');
+    expect(formatCompactCurrency(25000000, 'INR')).toBe('₹2.5 Cr');
+    expect(formatCompactCurrency(5000, 'INR')).toBe('₹5K');
+  });
+
+  it('shortens other currencies', () => {
+    expect(formatCompactCurrency(1500000, 'USD')).toBe('$1.5M');
+    expect(formatCompactCurrency(250000, 'GBP')).toBe('£250k');
+  });
+
+  it('writes periods in years and months', () => {
+    expect(formatPeriod(135)).toBe('11 yrs 3 mos');
+    expect(formatPeriod(12)).toBe('1 yr');
+    expect(formatPeriod(0)).toBe('0 months');
   });
 });
