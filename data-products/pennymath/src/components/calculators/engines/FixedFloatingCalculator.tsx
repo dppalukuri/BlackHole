@@ -3,6 +3,8 @@ import { compareFixedFloating } from '../../../lib/formulas/fixed-floating';
 import { formatCurrency, localeForCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
+import LineChart from '../ui/LineChart';
+import Verdict from '../ui/Verdict';
 
 interface FixedFloatingCalculatorProps {
   currency: { code: string; symbol: string };
@@ -76,224 +78,97 @@ export default function FixedFloatingCalculator({
   const floatLeg = result.floating;
 
   const gap = Math.abs(result.costDifference);
-  const fixingWins = result.costDifference > 0;
-  const paymentRises = result.paymentJump >= 0;
+  const winner = result.costDifference > 0 ? 'Fixing' : 'Floating';
   const breakEven = result.breakEvens[0];
+  const jump = Math.abs(result.paymentJump);
 
   return (
     <div class="calculator-widget">
       <div class="calc-inputs">
-        <SliderInput
-          id="ff-amount"
-          label="Loan Amount or Outstanding Balance"
-          value={amount}
-          min={amountRange.min}
-          max={amountRange.max}
-          step={amountRange.step}
-          prefix={currency.symbol}
-          scalable
-          locale={locale}
-          onChange={setAmount}
-        />
-        <SliderInput
-          id="ff-tenure"
-          label="Term Remaining"
-          value={years}
-          min={3}
-          max={maxTenureYears}
-          step={1}
-          suffix=" Yr"
-          onChange={setYears}
-        />
-        <SliderInput
-          id="ff-fixed-rate"
-          label="Fixed Rate (p.a.)"
-          value={fixedRate}
-          min={1}
-          max={16}
-          step={0.05}
-          suffix="%"
-          onChange={setFixedRate}
-        />
-        <SliderInput
-          id="ff-fixed-years"
-          label="Fixed Period"
-          value={fixedYears}
-          min={1}
-          max={maxFixedYears}
-          step={1}
-          suffix=" Yr"
-          onChange={setFixedYears}
-        />
-        <SliderInput
-          id="ff-benchmark-now"
-          label={`${benchmarkName} Today`}
-          value={benchmarkNow}
-          min={0}
-          max={12}
-          step={0.05}
-          suffix="%"
-          onChange={setBenchmarkNow}
-        />
-        <SliderInput
-          id="ff-benchmark-end"
-          label={`${benchmarkName} When the Fixed Period Ends (your forecast)`}
-          value={benchmarkAtFixEnd}
-          min={0}
-          max={12}
-          step={0.05}
-          suffix="%"
-          onChange={setBenchmarkAtFixEnd}
-        />
-        <SliderInput
-          id="ff-margin-after"
-          label={`${Margin} After the Fixed Period`}
-          value={marginAfterFix}
-          min={0}
-          max={6}
-          step={0.05}
-          suffix="%"
-          onChange={setMarginAfterFix}
-        />
-        <SliderInput
-          id="ff-margin-floating"
-          label={`${Margin} on a Floating Loan from Day One`}
-          value={floatingMargin}
-          min={0}
-          max={6}
-          step={0.05}
-          suffix="%"
-          onChange={setFloatingMargin}
-        />
-        {showFloor && (
-          <SliderInput
-            id="ff-floor"
-            label="Minimum Floating Rate, If Any (0 = none)"
-            value={floorRate}
-            min={0}
-            max={10}
-            step={0.05}
-            suffix="%"
-            onChange={setFloorRate}
-          />
-        )}
-        <SliderInput
-          id="ff-switch-cost"
-          label="One-Off Cost of Going Floating (0 if taking a new loan)"
-          value={switchCost}
-          min={0}
-          max={100000}
-          step={500}
-          prefix={currency.symbol}
-          scalable
-          locale={locale}
-          onChange={setSwitchCost}
-        />
+        <SliderInput id="ff-amount" label="Loan Amount or Outstanding Balance" value={amount} min={amountRange.min} max={amountRange.max} step={amountRange.step} prefix={currency.symbol} scalable locale={locale} onChange={setAmount} />
+        <SliderInput id="ff-tenure" label="Term Remaining" value={years} min={3} max={maxTenureYears} step={1} suffix=" Yr" onChange={setYears} />
+        <SliderInput id="ff-fixed-rate" label="Fixed Rate (p.a.)" value={fixedRate} min={1} max={16} step={0.05} suffix="%" onChange={setFixedRate} />
+        <SliderInput id="ff-fixed-years" label="Fixed Period" value={fixedYears} min={1} max={maxFixedYears} step={1} suffix=" Yr" onChange={setFixedYears} />
+        <SliderInput id="ff-benchmark-now" label={`${benchmarkName} Today`} value={benchmarkNow} min={0} max={12} step={0.05} suffix="%" onChange={setBenchmarkNow} />
+        <SliderInput id="ff-benchmark-end" label={`${benchmarkName} When the Fixed Period Ends (your forecast)`} value={benchmarkAtFixEnd} min={0} max={12} step={0.05} suffix="%" onChange={setBenchmarkAtFixEnd} />
+        <details class="calc-more">
+          <summary>{Margin}s, fees{showFloor ? ' and minimum rate' : ''}</summary>
+          <div class="calc-more-grid">
+            <SliderInput id="ff-margin-after" label={`${Margin} After the Fixed Period`} value={marginAfterFix} min={0} max={6} step={0.05} suffix="%" onChange={setMarginAfterFix} />
+            <SliderInput id="ff-margin-floating" label={`${Margin} on a Floating Loan from Day One`} value={floatingMargin} min={0} max={6} step={0.05} suffix="%" onChange={setFloatingMargin} />
+            {showFloor && <SliderInput id="ff-floor" label="Minimum Floating Rate (0 = none)" value={floorRate} min={0} max={10} step={0.05} suffix="%" onChange={setFloorRate} />}
+            <SliderInput id="ff-switch-cost" label="One-Off Cost of Going Floating (0 for a new loan)" value={switchCost} min={0} max={100000} step={500} prefix={currency.symbol} scalable locale={locale} onChange={setSwitchCost} />
+          </div>
+        </details>
       </div>
 
-      <div class="calc-results">
-        <div>
-          <h3 style={{ marginTop: 0, fontSize: '0.9rem' }}>Fixed, then floating</h3>
-          <ResultCard
-            currencyCode={currency.code}
-            results={[
-              { label: `${Payment} at ${pct(fixedRate)}`, value: fixedLeg.firstPayment },
-              { label: `${Payment} from year ${fixedYears + 1} at ${pct(fixedLeg.rateAtFixEnd)}`, value: fixedLeg.paymentAtFixEnd },
-              { label: 'Total cost over the term', value: fixedLeg.totalCost, highlight: true },
-            ]}
-          />
-        </div>
-        <div>
-          <h3 style={{ marginTop: 0, fontSize: '0.9rem' }}>Floating from day one</h3>
-          <ResultCard
-            currencyCode={currency.code}
-            results={[
-              { label: `${Payment} today at ${pct(floatLeg.firstRate)}`, value: floatLeg.firstPayment },
-              { label: `${Payment} from year ${fixedYears + 1} at ${pct(floatLeg.rateAtFixEnd)}`, value: floatLeg.paymentAtFixEnd },
-              { label: 'Total cost over the term', value: floatLeg.totalCost, highlight: true },
-            ]}
-          />
-        </div>
-      </div>
-
-      <div class="gratuity-breakdown" style={{ marginTop: '1.25rem' }}>
-        <h3 style={{ marginTop: 0 }}>
-          {gap < 1
-            ? 'Both loans cost the same on this forecast'
-            : `${fixingWins ? 'Fixing' : 'Floating'} is ${fmt(gap)} cheaper on this forecast`}
-        </h3>
-        <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', margin: '0 0 0.5rem' }}>
-          When the fixed period ends, your {paymentWord}{' '}
-          {Math.abs(result.paymentJump) < 1 ? (
-            'stays about the same'
-          ) : (
-            <>
-              {paymentRises ? 'rises' : 'falls'} by{' '}
-              <strong>
-                {fmt(Math.abs(result.paymentJump))}/month ({Math.abs(result.paymentJumpPercent).toFixed(1)}%)
-              </strong>
-            </>
-          )}
-          .{result.paymentJump >= 1 && ' Check that you could afford the higher amount before you rely on the lower fixed rate.'}
-        </p>
-        <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', margin: 0 }}>
+      <div class="calc-answer">
+        <ResultCard
+          currencyCode={currency.code}
+          results={[
+            { label: `Monthly ${paymentWord} from year ${fixedYears + 1}`, value: fixedLeg.paymentAtFixEnd, highlight: true },
+            { label: `${Payment} today at ${pct(fixedRate)}`, value: fixedLeg.firstPayment },
+            { label: 'Fixed, then floating', note: 'Total cost over the term', value: fixedLeg.totalCost, seriesKey: 1 },
+            { label: 'Floating from day one', note: `Total cost, starting at ${fmt(floatLeg.firstPayment)} a month`, value: floatLeg.totalCost, seriesKey: 2 },
+          ]}
+        />
+        <Verdict title={gap < 1 ? 'Both loans cost the same on this forecast' : `${winner} is ${fmt(gap)} cheaper on this forecast`}>
           {result.breakEvens.length > 1 ? (
-            <>
-              The cheaper loan changes more than once as {benchmarkName} moves, at{' '}
-              <strong>{result.breakEvens.map((b) => pct(b.benchmark)).join(' and ')}</strong>, so try several
-              forecasts before you decide.
-            </>
+            <>The cheaper loan changes more than once as {benchmarkName} moves, at {result.breakEvens.map((b) => pct(b.benchmark)).join(' and ')}. Try several forecasts.</>
           ) : breakEven ? (
-            <>
-              Break-even: {breakEven.fixingWinsAbove ? 'fixing' : 'floating'} wins if {benchmarkName} is above{' '}
-              <strong>{pct(breakEven.benchmark)}</strong> when the fixed period ends, and{' '}
-              {breakEven.fixingWinsAbove ? 'floating' : 'fixing'} wins if it is below that.
-            </>
+            <>Break-even: {breakEven.fixingWinsAbove ? 'fixing' : 'floating'} wins if {benchmarkName} is above {pct(breakEven.benchmark)} when the fixed period ends.</>
           ) : (
-            <>
-              {fixingWins ? 'Fixing' : 'Floating'} stays cheaper at every {benchmarkName} level from 0% to 30%, so
-              your rate forecast does not change the answer here.
-            </>
+            <>{winner} stays cheaper at every {benchmarkName} level from 0% to 30%.</>
           )}
-        </p>
+          {jump >= 1 && result.paymentJump > 0 && <> Check you could afford the {fmt(jump)} rise in your monthly {paymentWord}.</>}
+        </Verdict>
       </div>
 
-      <details style={{ marginTop: '1.25rem' }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.95rem', padding: '0.75rem 0' }}>
-          View Year-by-Year Breakdown
-        </summary>
-        <div style={{ overflowX: 'auto', marginTop: '0.5rem' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
-            <thead>
-              <tr style={{ textAlign: 'right', color: 'var(--color-text-muted)' }}>
-                <th style={{ textAlign: 'left', padding: '0.5rem 0.6rem', fontWeight: 600 }}>Year</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>Fixed loan rate</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>{Payment}</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>Balance</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>Floating loan rate</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>{Payment}</th>
-                <th style={{ padding: '0.5rem 0.6rem', fontWeight: 600 }}>Balance</th>
-              </tr>
-            </thead>
-            <tbody style={{ fontFamily: 'var(--font-mono)' }}>
-              {fixedLeg.yearlyBreakdown.map((row, i) => {
-                const other = floatLeg.yearlyBreakdown[i];
-                return (
-                  <tr style={{ borderTop: '1px solid var(--color-border)', textAlign: 'right' }}>
-                    <td style={{ textAlign: 'left', padding: '0.45rem 0.6rem', fontWeight: 600 }}>{row.year}</td>
-                    <td style={{ padding: '0.45rem 0.6rem' }}>{pct(row.rate)}</td>
-                    <td style={{ padding: '0.45rem 0.6rem' }}>{fmt(row.payment)}</td>
-                    <td style={{ padding: '0.45rem 0.6rem' }}>{fmt(row.closingBalance)}</td>
-                    <td style={{ padding: '0.45rem 0.6rem' }}>{pct(other.rate)}</td>
-                    <td style={{ padding: '0.45rem 0.6rem' }}>{fmt(other.payment)}</td>
-                    <td style={{ padding: '0.45rem 0.6rem' }}>{fmt(other.closingBalance)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <div class="calc-below">
+        <LineChart
+          title={`Your ${paymentWord} over time`}
+          caption={`${currency.code} a month, at the end of each year`}
+          x={fixedLeg.yearlyBreakdown.map((r) => r.year)}
+          series={[
+            { name: 'Fixed, then floating', values: fixedLeg.yearlyBreakdown.map((r) => r.payment) },
+            { name: 'Floating', values: floatLeg.yearlyBreakdown.map((r) => r.payment) },
+          ]}
+          format={fmt}
+          formatTick={(n) => Math.round(n).toLocaleString(locale)}
+          xTick={(y) => `Yr ${y}`}
+          xTitle={(y) => `Year ${y}`}
+          step
+          zeroBased={false}
+          marker={{ x: fixedYears, label: 'Fixed period ends' }}
+          showTable={false}
+        />
+        <details class="year-table panel-card">
+          <summary>View year-by-year figures</summary>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th scope="col">Year</th><th scope="col">Fixed first: rate</th><th scope="col">{Payment}</th><th scope="col">Balance</th><th scope="col">Floating: rate</th><th scope="col">{Payment}</th><th scope="col">Balance</th></tr>
+              </thead>
+              <tbody>
+                {fixedLeg.yearlyBreakdown.map((row, i) => {
+                  const other = floatLeg.yearlyBreakdown[i];
+                  return (
+                    <tr>
+                      <th scope="row">{row.year}</th>
+                      <td>{pct(row.rate)}</td>
+                      <td>{fmt(row.payment)}</td>
+                      <td>{fmt(row.closingBalance)}</td>
+                      <td>{pct(other.rate)}</td>
+                      <td>{fmt(other.payment)}</td>
+                      <td>{fmt(other.closingBalance)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
     </div>
   );
 }

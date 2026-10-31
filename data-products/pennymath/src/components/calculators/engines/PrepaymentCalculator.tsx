@@ -1,8 +1,10 @@
 import { useState } from 'preact/hooks';
 import { comparePrepayment } from '../../../lib/formulas/prepayment';
-import { formatCurrency, localeForCurrency } from '../../../lib/formatters';
+import { formatCompactCurrency, formatCurrency, formatPeriod, localeForCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
+import LineChart from '../ui/LineChart';
+import Verdict from '../ui/Verdict';
 
 interface PrepaymentCalculatorProps {
   currency: { code: string; symbol: string };
@@ -15,16 +17,6 @@ interface PrepaymentCalculatorProps {
   feeCap?: { percent: number; max: number };
   defaults: { balance: number; annualRate: number; remainingYears: number; lumpSum: number; fee: number };
 }
-
-const formatPeriod = (months: number) => {
-  if (months === 0) return '0 months';
-  const y = Math.floor(months / 12);
-  const m = months % 12;
-  const parts = [];
-  if (y > 0) parts.push(`${y} ${y === 1 ? 'yr' : 'yrs'}`);
-  if (m > 0) parts.push(`${m} ${m === 1 ? 'mo' : 'mos'}`);
-  return parts.join(' ');
-};
 
 export default function PrepaymentCalculator({
   currency,
@@ -45,7 +37,6 @@ export default function PrepaymentCalculator({
   const r = comparePrepayment({ balance, annualRate, remainingMonths: years * 12, lumpSum, extraMonthly, fee });
   const fmt = (n: number) => formatCurrency(n, currency.code);
   const locale = localeForCurrency(currency.code);
-  const Payment = paymentWord[0].toUpperCase() + paymentWord.slice(1);
   const Term = termWord[0].toUpperCase() + termWord.slice(1);
   const cap = feeCap ? Math.min((balance * feeCap.percent) / 100, feeCap.max) : null;
   const edge = r.shorterTerm.netSaving - r.lowerPayment.netSaving;
@@ -61,47 +52,40 @@ export default function PrepaymentCalculator({
         <SliderInput id="pp-extra" label="Extra Payment Every Month" value={extraMonthly} min={0} max={100000} step={500} prefix={currency.symbol} scalable locale={locale} onChange={setExtraMonthly} />
         <SliderInput id="pp-fee" label="Prepayment Fee, If Any" value={fee} min={0} max={100000} step={500} prefix={currency.symbol} scalable locale={locale} onChange={setFee} />
         {cap !== null && (
-          <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: '-0.6rem 0 0' }}>
-            The {feeCap!.percent}% cap on this balance comes to {fmt(cap)}. Your bank may charge less, so check your contract.
-          </p>
+          <div class="calc-note">The {feeCap!.percent}% cap on this balance comes to {fmt(cap)}. Your bank may charge less, so check your contract.</div>
         )}
       </div>
 
-      <div class="calc-results">
-        <div>
-          <h3 style={{ marginTop: 0, fontSize: '0.9rem' }}>Option 1: Finish sooner, in {formatPeriod(r.shorterTerm.months)}</h3>
-          <ResultCard
-            currencyCode={currency.code}
-            results={[
-              { label: `Regular ${paymentWord}`, value: r.shorterTerm.payment },
-              { label: 'Total interest left', value: r.shorterTerm.totalInterest },
-              { label: 'Net saving after fee', value: r.shorterTerm.netSaving, highlight: true },
-            ]}
-          />
-        </div>
-        <div>
-          <h3 style={{ marginTop: 0, fontSize: '0.9rem' }}>Option 2: Pay less each month, in {formatPeriod(r.lowerPayment.months)}</h3>
-          <ResultCard
-            currencyCode={currency.code}
-            results={[
-              { label: `Regular ${paymentWord}`, value: r.lowerPayment.payment },
-              { label: 'Total interest left', value: r.lowerPayment.totalInterest },
-              { label: 'Net saving after fee', value: r.lowerPayment.netSaving, highlight: true },
-            ]}
-          />
-        </div>
+      <div class="calc-answer">
+        <ResultCard
+          currencyCode={currency.code}
+          results={[
+            { label: 'Finishing sooner saves you, after fees', value: r.shorterTerm.netSaving, highlight: true },
+            { label: 'Loan finishes in', note: `${formatPeriod(monthsSaved)} early, at ${fmt(r.shorterTerm.payment)} a month`, value: formatPeriod(r.shorterTerm.months), seriesKey: 2 },
+            { label: `Or pay less: new ${paymentWord}`, note: `${fmt(r.baselinePayment - r.lowerPayment.payment)} a month lower`, value: r.lowerPayment.payment, seriesKey: 3 },
+            { label: 'Paying less saves you, after fees', value: r.lowerPayment.netSaving },
+          ]}
+        />
+        <Verdict title={edge >= 1 ? `Finishing sooner saves ${fmt(edge)} more` : 'Both options save the same'}>
+          Paying less each month leaves more cash free, which can matter more if your income is tight.
+        </Verdict>
       </div>
 
-      <div class="gratuity-breakdown" style={{ marginTop: '1.25rem' }}>
-        <h3 style={{ marginTop: 0 }}>
-          {edge >= 1 ? `Finishing sooner saves ${fmt(edge)} more` : 'Both options save the same'}
-        </h3>
-        <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', margin: 0 }}>
-          With no prepayment, your {paymentWord} is {fmt(r.baselinePayment)} and you would pay {fmt(r.baselineInterest)}{' '}
-          in interest. Option 1 cuts <strong>{formatPeriod(monthsSaved)}</strong> from your {termWord}. Option 2 lowers
-          your {paymentWord} by <strong>{fmt(r.baselinePayment - r.lowerPayment.payment)}/month</strong> and leaves more
-          cash free each month.
-        </p>
+      <div class="calc-below">
+        <LineChart
+          title="Your balance on each path"
+          caption="At the end of each year"
+          x={r.yearly.map((y) => y.year)}
+          series={[
+            { name: 'No prepayment', values: r.yearly.map((y) => y.baseline) },
+            { name: 'Finish sooner', values: r.yearly.map((y) => y.shorterTerm) },
+            { name: 'Pay less monthly', values: r.yearly.map((y) => y.lowerPayment) },
+          ]}
+          format={fmt}
+          formatTick={(n) => formatCompactCurrency(n, currency.code)}
+          xTick={(y) => `Yr ${y}`}
+          xTitle={(y) => (y === 0 ? 'Today' : `Year ${y}`)}
+        />
       </div>
     </div>
   );

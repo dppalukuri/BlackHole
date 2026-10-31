@@ -3,6 +3,7 @@ import { maxAffordability, type LtvTier } from '../../../lib/formulas/affordabil
 import { formatCurrency, localeForCurrency } from '../../../lib/formatters';
 import SliderInput from '../ui/SliderInput';
 import ResultCard from '../ui/ResultCard';
+import Verdict from '../ui/Verdict';
 
 interface AffordabilityCalculatorProps {
   currency: { code: string; symbol: string };
@@ -64,40 +65,34 @@ export default function AffordabilityCalculator({
       <div class="calc-inputs">
         <SliderInput id="af-income" label="Monthly Income" value={income} min={incomeRange.min} max={incomeRange.max} step={incomeRange.step} prefix={currency.symbol} scalable locale={locale} onChange={setIncome} />
         <SliderInput id="af-debts" label="Existing Monthly Debt Payments" value={debts} min={0} max={incomeRange.max} step={incomeRange.step} prefix={currency.symbol} scalable locale={locale} onChange={setDebts} />
-        <SliderInput id="af-ratio" label={`Debt Limit as a Share of Income (${debtRatioName})`} value={debtRatio} min={20} max={70} step={1} suffix="%" onChange={setDebtRatio} />
+        <SliderInput id="af-savings" label="Savings Available" value={savings} min={savingsRange.min} max={savingsRange.max} step={savingsRange.step} prefix={currency.symbol} scalable locale={locale} onChange={setSavings} />
         <SliderInput id="af-rate" label="Interest Rate (p.a.)" value={rate} min={1} max={16} step={0.05} suffix="%" onChange={setRate} />
         <SliderInput id="af-years" label="Loan Term" value={years} min={5} max={maxTenureYears} step={1} suffix=" Yr" onChange={setYears} />
-        <SliderInput id="af-savings" label="Savings Available" value={savings} min={savingsRange.min} max={savingsRange.max} step={savingsRange.step} prefix={currency.symbol} scalable locale={locale} onChange={setSavings} />
+        <SliderInput id="af-ratio" label={`Debt Limit as a Share of Income (${debtRatioName})`} value={debtRatio} min={20} max={70} step={1} suffix="%" onChange={setDebtRatio} />
         <SliderInput id="af-costs" label="Buying Costs as a Share of Price" value={costs} min={0} max={15} step={0.25} suffix="%" onChange={setCosts} />
         {!ltvTiers && <SliderInput id="af-ltv" label="Maximum Loan-to-Value (LTV)" value={ltv} min={40} max={85} step={1} suffix="%" onChange={setLtv} />}
       </div>
 
-      <ResultCard
-        currencyCode={currency.code}
-        results={[
-          { label: 'Maximum loan', value: r.loan },
-          { label: `Monthly ${paymentWord}`, value: r.payment },
-          { label: 'Down payment', value: r.downPayment },
-          { label: 'Buying costs', value: r.buyingCosts },
-          { label: 'Maximum property price', value: r.maxPrice, highlight: true },
-        ]}
-      />
-
-      <div class="gratuity-breakdown" style={{ marginTop: '1.25rem' }}>
-        <h3 style={{ marginTop: 0 }}>{r.limitedBy === 'income' ? 'Your income sets the limit' : 'Your savings set the limit'}</h3>
-        <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', margin: 0 }}>
-          {r.limitedBy === 'income' ? (
-            <>
-              After your existing debts, the {debtRatio}% limit leaves {fmt(r.maxPayment)}/month for this loan, which
-              supports borrowing about {fmt(r.incomeLoanLimit)}. A longer term or fewer debts would raise that.
-            </>
-          ) : (
-            <>
-              Your income could support a loan of about {fmt(r.incomeLoanLimit)}, but at {r.ltvPercent}% LTV your savings
-              cannot cover the rest of a pricier home and its costs. More savings would raise your budget.
-            </>
-          )}
-        </p>
+      <div class="calc-answer">
+        <ResultCard
+          currencyCode={currency.code}
+          results={[
+            { label: 'Maximum property price', value: r.maxPrice, highlight: true },
+            { label: 'Maximum loan', value: r.loan },
+            { label: `Monthly ${paymentWord}`, value: r.payment },
+            { label: 'Down payment', value: r.downPayment },
+            { label: 'Buying costs', value: r.buyingCosts },
+          ]}
+        />
+        {r.limitedBy === 'income' ? (
+          <Verdict title="Your income sets the limit">
+            After your existing debts, the {debtRatio}% limit leaves {fmt(r.maxPayment)} a month for this loan. A longer term or fewer debts would raise it.
+          </Verdict>
+        ) : (
+          <Verdict title="Your savings set the limit">
+            Your income could support a loan of about {fmt(r.incomeLoanLimit)}, but at {r.ltvPercent}% LTV your savings cannot cover the rest of a dearer home and its costs.
+          </Verdict>
+        )}
       </div>
     </div>
   );
