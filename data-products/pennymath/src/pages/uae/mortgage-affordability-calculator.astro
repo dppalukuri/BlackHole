@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AffordabilityCalculator from '../../components/calculators/engines/AffordabilityCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { maxAffordability } from '../../lib/formulas/affordability';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Mortgage Affordability Calculator (UAE)';
+const description = 'Free UAE mortgage affordability calculator. See the maximum loan and property price your salary, debts and savings support under the 50% debt burden limit.';
+const path = '/uae/mortgage-affordability-calculator';
+const aed = (n: number) => formatCurrency(n, 'AED');
+const ex = maxAffordability({ monthlyIncome: 30000, existingMonthlyDebts: 2000, debtRatioPercent: 50, annualRate: 5, tenureMonths: 300, savings: 500000, buyingCostPercent: 7, ltvTiers: [{ maxPrice: Infinity, ltvPercent: 80 }] });
+
+const faqs = [
+  {
+    q: `How much mortgage can I get on my salary in the UAE?`,
+    a: `It depends on your income, debts, rate and term. The Central Bank's debt burden limit means total monthly debt payments generally cannot exceed 50% of your income, and many banks apply a stricter internal limit. Enter your figures above to see an estimate.`,
+  },
+  {
+    q: `What is the debt burden ratio (DBR)?`,
+    a: `It is your total monthly debt payments as a share of your monthly income, including the new mortgage. Credit cards count too, and banks often include a percentage of your card limit even if you pay it in full, so closing unused cards can raise what you can borrow.`,
+  },
+  {
+    q: `How much down payment do I need in the UAE?`,
+    a: `For a first home up to AED 5 million, buyers commonly need at least 20% as an expat or 15% as a UAE national. Requirements are usually higher above AED 5 million, on second homes and on off-plan property, and sources differ on the exact figures. Ask your bank what applies to you.`,
+  },
+  {
+    q: `What is the longest mortgage term in the UAE?`,
+    a: `Generally 25 years, and the loan usually needs to be repaid by about age 65 for salaried borrowers or 70 for the self-employed. Older buyers may therefore have a shorter term and a smaller loan.`,
+  },
+  {
+    q: `Will a bank lend me this much?`,
+    a: `Not necessarily. This is an estimate of the regulatory limits, not an offer. Banks also look at your credit score, employer, length of service, minimum salary and the property's valuation.`,
+  },
+];
+---
+
+<BaseLayout title="Mortgage Affordability Calculator UAE — How Much Can I Borrow? | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="AED" countryName="UAE" countryPath="/uae/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Mortgage Affordability Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See how much you can borrow and what you can afford to buy</p>
+  <p class="page-intro">
+    Your budget depends on two limits: what your income can repay, and how much cash you have for the down payment and fees. This calculator checks both and tells you which one holds you back.
+  </p>
+
+  <AffordabilityCalculator
+    client:visible
+    currency={{ code: 'AED', symbol: 'AED ' }}
+    paymentWord="payment"
+    debtRatioName="DBR"
+    maxTenureYears={25}
+    incomeRange={{ min: 5000, max: 200000, step: 500 }}
+    savingsRange={{ min: 0, max: 5000000, step: 10000 }}
+    defaults={{ monthlyIncome: 30000, existingDebts: 2000, debtRatio: 50, annualRate: 5, tenureYears: 25, savings: 500000, buyingCostPercent: 7, ltvPercent: 80 }}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">This is an estimate, not a lending decision. Limits reflect commonly reported rules reviewed in November 2026, and banks may apply stricter ones.</p>
+
+  <section class="content-section">
+    <h2>How It Works</h2>
+    <div class="formula-box">
+      Maximum payment = income &times; debt limit &minus; existing debts<br />
+      Cash needed = price &times; (1 + costs) &minus; loan
+    </div>
+    <p>
+      The calculator finds the highest price at which your loan fits both your maximum payment and the LTV limit, and your savings cover the rest.
+    </p>
+    <p>
+      <strong>Example:</strong> {aed(30000)} monthly income, {aed(2000)} in existing debt payments, a 5% rate over 25 years and {aed(500000)} in savings. Your income supports borrowing up to about {aed(ex.incomeLoanLimit)}, but your savings cap the property price at about {aed(ex.maxPrice)}, with a loan of {aed(ex.loan)} and a monthly payment of {aed(ex.payment)}.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>monthly income</strong>. Banks may not count all allowances or variable pay</li>
+      <li>Add your <strong>existing debt payments</strong>, including loans and credit cards</li>
+      <li>Set the <strong>debt limit</strong>. The regulatory maximum is 50%, but try 40% to 45% for a more cautious estimate</li>
+      <li>Enter the <strong>rate, term and savings</strong> available for the purchase</li>
+      <li>Set the <strong>buying costs and LTV</strong>. About 7% in costs is typical for a resale bought with an agent and a mortgage</li>
+    </ol>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/dubai-property-purchase-cost-calculator" class="related-card"><h3>Dubai Purchase Cost Calculator</h3><p>Add up every fee and the total cash you need.</p></a>
+      <a href="/uae/fixed-to-floating-mortgage-calculator" class="related-card"><h3>Fixed to Floating Calculator</h3><p>See your payment after a fixed rate ends.</p></a>
+    </div>
+  </section>
+</BaseLayout>

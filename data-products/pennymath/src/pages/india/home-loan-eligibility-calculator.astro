@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AffordabilityCalculator from '../../components/calculators/engines/AffordabilityCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { maxAffordability, INDIA_LTV_TIERS } from '../../lib/formulas/affordability';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Home Loan Eligibility Calculator (India)';
+const description = 'Free home loan eligibility calculator for India. See the loan and property price your salary, EMIs and savings support, using FOIR and the RBI loan-to-value limits.';
+const path = '/india/home-loan-eligibility-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const ex = maxAffordability({ monthlyIncome: 150000, existingMonthlyDebts: 10000, debtRatioPercent: 50, annualRate: 8.5, tenureMonths: 240, savings: 2000000, buyingCostPercent: 6, ltvTiers: INDIA_LTV_TIERS });
+
+const faqs = [
+  {
+    q: `How much home loan can I get on my salary?`,
+    a: `Lenders look at how much of your income is free for an EMI, typically allowing total EMIs of about 40% to 60% of income. The rate and tenure then decide how large a loan that EMI supports. Enter your figures above to see an estimate.`,
+  },
+  {
+    q: `What is FOIR?`,
+    a: `FOIR stands for Fixed Obligations to Income Ratio. It is your EMIs and other fixed obligations, including the new home loan, as a share of your monthly income. Each lender sets its own limit, often depending on your income level.`,
+  },
+  {
+    q: `How much down payment do I need for a home loan?`,
+    a: `The RBI caps loans at 90% of the property's value up to ₹30 lakh, 80% from ₹30 lakh to ₹75 lakh, and 75% above ₹75 lakh. You must fund the rest. Stamp duty and registration are generally left out of the value, so you pay those from your savings too.`,
+  },
+  {
+    q: `Does a co-applicant increase home loan eligibility?`,
+    a: `Usually, because lenders can add a co-applicant's income. Combine both incomes and both sets of EMIs in the calculator to see the effect. Remember that both of you are then responsible for the loan.`,
+  },
+  {
+    q: `Will a bank approve this amount?`,
+    a: `Not necessarily. This is an estimate, not an offer. Lenders also consider your credit score, employment, age at the end of the loan and the property's legal status and valuation.`,
+  },
+];
+---
+
+<BaseLayout title="Home Loan Eligibility Calculator India — Based on Salary & FOIR | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Home Loan Eligibility Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See how much you can borrow and what you can afford to buy</p>
+  <p class="page-intro">
+    Your budget depends on two limits: what your income can repay, and how much cash you have for the down payment and costs. This calculator checks both and tells you which one holds you back.
+  </p>
+
+  <AffordabilityCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    paymentWord="EMI"
+    debtRatioName="FOIR"
+    maxTenureYears={30}
+    incomeRange={{ min: 15000, max: 1000000, step: 5000 }}
+    savingsRange={{ min: 0, max: 20000000, step: 50000 }}
+    ltvTiers={INDIA_LTV_TIERS.map((t) => ({ ...t, maxPrice: Number.isFinite(t.maxPrice) ? t.maxPrice : 1e15 }))}
+    defaults={{ monthlyIncome: 150000, existingDebts: 10000, debtRatio: 50, annualRate: 8.5, tenureYears: 20, savings: 2000000, buyingCostPercent: 6 }}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">This is an estimate, not a lending decision. Stamp duty and registration vary by state, so adjust the buying costs for yours.</p>
+
+  <section class="content-section">
+    <h2>How It Works</h2>
+    <div class="formula-box">
+      Maximum EMI = income &times; FOIR &minus; existing EMIs<br />
+      Cash needed = price &times; (1 + costs) &minus; loan
+    </div>
+    <p>
+      The calculator finds the highest price at which your loan fits both your maximum EMI and the RBI's LTV limit, and your savings cover the rest. Since the LTV limit steps down at ₹30 lakh and ₹75 lakh, a slightly dearer home can need much more cash, and the calculator accounts for that.
+    </p>
+    <p>
+      <strong>Example:</strong> {inr(150000)} monthly income, {inr(10000)} in existing EMIs, 8.50% over 20 years and {inr(2000000)} in savings. With a 50% FOIR, your income supports borrowing up to about {inr(ex.incomeLoanLimit)}. The maximum property price is about {inr(ex.maxPrice)}, with a loan of {inr(ex.loan)} and an EMI of {inr(ex.payment)}.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>net monthly income</strong>, adding a co-applicant's if applicable</li>
+      <li>Add your <strong>existing EMIs</strong> and other fixed obligations</li>
+      <li>Set the <strong>FOIR</strong>. Try 40% to 50% for a more cautious estimate</li>
+      <li>Enter the <strong>rate, tenure and savings</strong> available for the purchase</li>
+      <li>Set the <strong>buying costs</strong>, including stamp duty and registration for your state</li>
+    </ol>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card"><h3>EMI Calculator</h3><p>Calculate the EMI for any loan amount.</p></a>
+      <a href="/india/fixed-to-floating-home-loan-calculator" class="related-card"><h3>Fixed to Floating Calculator</h3><p>Compare a fixed or hybrid home loan with a floating rate.</p></a>
+      <a href="/india/home-loan-prepayment-calculator" class="related-card"><h3>Prepayment Calculator</h3><p>See how much interest a part-payment saves.</p></a>
+    </div>
+  </section>
+</BaseLayout>

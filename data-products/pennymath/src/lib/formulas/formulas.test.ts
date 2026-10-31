@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { maxAffordability, INDIA_LTV_TIERS } from './affordability';
 import { dubaiPurchaseCosts } from './dubai-purchase-costs';
 import { comparePrepayment } from './prepayment';
 import { compareLoanTakeover } from './loan-takeover';
@@ -641,5 +642,81 @@ describe('dubaiPurchaseCosts', () => {
   it('reports costs as a share of the price', () => {
     const r = dubaiPurchaseCosts(base);
     expect(r.costsPercentOfPrice).toBeCloseTo((r.totalCosts / 1500000) * 100, 6);
+  });
+});
+
+describe('maxAffordability', () => {
+  const base = {
+    monthlyIncome: 30000,
+    existingMonthlyDebts: 2000,
+    debtRatioPercent: 50,
+    annualRate: 5,
+    tenureMonths: 300,
+    savings: 500000,
+    buyingCostPercent: 7,
+    ltvTiers: [{ maxPrice: Infinity, ltvPercent: 80 }],
+  };
+
+  // Largest price with every limit respected, found the slow and obvious way.
+  const bruteForce = (input: typeof base) => {
+    const perUnit = calculateEMI(1, input.annualRate, input.tenureMonths).emi;
+    const incomeLoan = Math.max(0, (input.monthlyIncome * input.debtRatioPercent) / 100 - input.existingMonthlyDebts) / perUnit;
+    let best = 0;
+    for (let p = 0; p <= 50000000; p += 1000) {
+      const tier = input.ltvTiers.find((t) => p <= t.maxPrice)!;
+      const loan = Math.min(incomeLoan, (p * tier.ltvPercent) / 100);
+      if (p * (1 + input.buyingCostPercent / 100) - loan <= input.savings) best = p;
+    }
+    return best;
+  };
+
+  it('turns the debt limit into a loan with the EMI formula', () => {
+    const r = maxAffordability(base);
+    expect(r.maxPayment).toBe(13000);
+    expect(calculateEMI(r.incomeLoanLimit, 5, 300).emi).toBeCloseTo(13000, 4);
+  });
+
+  it('stops at savings when income would allow more', () => {
+    const r = maxAffordability({ ...base, monthlyIncome: 100000 });
+    expect(r.limitedBy).toBe('savings');
+    expect(r.maxPrice).toBeCloseTo(500000 / (1.07 - 0.8), 4);
+    expect(r.downPayment + r.buyingCosts).toBeCloseTo(500000, 4);
+    expect(r.loan).toBeCloseTo(r.maxPrice * 0.8, 4);
+  });
+
+  it('stops at income when savings would allow more', () => {
+    const r = maxAffordability({ ...base, monthlyIncome: 15000, savings: 5000000 });
+    expect(r.limitedBy).toBe('income');
+    expect(r.payment).toBeCloseTo(5500, 4);
+    expect(r.loan).toBeCloseTo(r.incomeLoanLimit, 4);
+  });
+
+  it('returns only what savings buy when debts use up the limit', () => {
+    const r = maxAffordability({ ...base, existingMonthlyDebts: 20000 });
+    expect(r.maxPayment).toBe(0);
+    expect(r.loan).toBe(0);
+    expect(r.maxPrice).toBeCloseTo(500000 / 1.07, 4);
+  });
+
+  it('applies the RBI tier for the resulting price', () => {
+    const r = maxAffordability({ ...base, monthlyIncome: 300000, annualRate: 8.5, tenureMonths: 240, savings: 2500000, buyingCostPercent: 6, ltvTiers: INDIA_LTV_TIERS });
+    expect(r.ltvPercent).toBe(75);
+    expect(r.maxPrice).toBeGreaterThan(7500000);
+  });
+
+  it('stays inside a lower tier when a higher one would need more cash', () => {
+    // At exactly 30 lakh, 90% LTV needs far less cash than 80% just above it.
+    const r = maxAffordability({ ...base, monthlyIncome: 300000, annualRate: 8.5, tenureMonths: 240, savings: 480000, buyingCostPercent: 6, ltvTiers: INDIA_LTV_TIERS });
+    expect(r.maxPrice).toBeCloseTo(3000000, 2);
+    expect(r.ltvPercent).toBe(90);
+  });
+
+  it('agrees with a brute-force search across tiers', () => {
+    for (const income of [40000, 90000, 200000, 500000]) {
+      for (const savings of [300000, 700000, 1500000, 4000000]) {
+        const input = { ...base, monthlyIncome: income, annualRate: 8.5, tenureMonths: 240, savings, buyingCostPercent: 6, ltvTiers: INDIA_LTV_TIERS };
+        expect(Math.abs(maxAffordability(input).maxPrice - bruteForce(input))).toBeLessThanOrEqual(1000);
+      }
+    }
   });
 });
