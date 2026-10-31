@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { npsProjection } from './nps';
 import { capitalGainsTax } from './capital-gains';
 import { hraExemption, hraSalaryPercent } from './hra';
 import { salaryBreakdown } from './salary';
@@ -952,5 +953,49 @@ describe('capitalGainsTax', () => {
 
   it('deducts expenses from the gain', () => {
     expect(capitalGainsTax({ ...base, expenses: 75000 }).taxableGain).toBe(100000);
+  });
+});
+
+describe('npsProjection', () => {
+  const base = { currentAge: 30, retirementAge: 60, monthlyContribution: 10000, annualStepUpPercent: 0, expectedReturnPercent: 10, existingCorpus: 0, annuityPercent: 20, annuityRatePercent: 6 };
+
+  it('matches the annuity-due future value at an effective monthly rate', () => {
+    const i = Math.pow(1.1, 1 / 12) - 1;
+    const n = 360;
+    const expected = 10000 * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+    expect(npsProjection(base).corpus).toBeCloseTo(expected, 2);
+  });
+
+  it('splits the corpus between lump sum and annuity', () => {
+    const r = npsProjection(base);
+    expect(r.annuityPurchase).toBeCloseTo(r.corpus * 0.2, 6);
+    expect(r.lumpSum + r.annuityPurchase).toBeCloseTo(r.corpus, 6);
+  });
+
+  it('pays a pension at the annuity rate', () => {
+    const r = npsProjection(base);
+    expect(r.monthlyPension).toBeCloseTo((r.annuityPurchase * 0.06) / 12, 6);
+  });
+
+  it('grows an existing corpus at the same return', () => {
+    const r = npsProjection({ ...base, monthlyContribution: 0, existingCorpus: 100000, retirementAge: 40 });
+    expect(r.corpus).toBeCloseTo(100000 * Math.pow(1.1, 10), 4);
+    expect(r.totalInvested).toBe(0);
+  });
+
+  it('steps up contributions each year', () => {
+    const r = npsProjection({ ...base, retirementAge: 32, annualStepUpPercent: 10 });
+    expect(r.totalInvested).toBeCloseTo(120000 + 132000, 6);
+  });
+
+  it('reconciles growth, invested and corpus', () => {
+    const r = npsProjection({ ...base, existingCorpus: 50000 });
+    expect(r.totalInvested + r.growth + 50000).toBeCloseTo(r.corpus, 6);
+    expect(r.yearlyBreakdown).toHaveLength(30);
+  });
+
+  it('holds its value at a 0% return', () => {
+    const r = npsProjection({ ...base, expectedReturnPercent: 0, retirementAge: 31 });
+    expect(r.corpus).toBeCloseTo(120000, 6);
   });
 });

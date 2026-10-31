@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NPSCalculator from '../../components/calculators/engines/NPSCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { npsProjection } from '../../lib/formulas/nps';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'NPS Calculator (India)';
+const description = 'Free NPS calculator for India. Estimate your National Pension System corpus, lump sum and monthly pension, using the 80% lump sum option for non-government subscribers.';
+const path = '/india/nps-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const ex = npsProjection({ currentAge: 30, retirementAge: 60, monthlyContribution: 10000, annualStepUpPercent: 5, expectedReturnPercent: 10, existingCorpus: 0, annuityPercent: 20, annuityRatePercent: 6 });
+
+const faqs = [
+  {
+    q: `How much of my NPS can I withdraw as a lump sum?`,
+    a: `Under PFRDA's December 2025 amendment, non-government subscribers can generally withdraw up to 80% at exit and use at least 20% to buy an annuity. Government subscribers with larger balances generally stay at 60% and 40%. Different rules apply to small balances and early exits, so check the current PFRDA rules.`,
+  },
+  {
+    q: `What pension will I get from NPS?`,
+    a: `Your pension depends on the amount used to buy an annuity and the rate an insurer offers when you exit. The calculator uses a simple rate you can change. Rates vary by age and annuity type, and a plan that returns your capital to your family usually pays less.`,
+  },
+  {
+    q: `What return should I expect from NPS?`,
+    a: `It depends on your mix of equity, corporate bonds and government securities, and returns are not guaranteed. Try a cautious and an optimistic figure, since long-run results can differ a lot from any assumption.`,
+  },
+  {
+    q: `What are the tax benefits of NPS?`,
+    a: `Under the old regime, contributions can qualify under 80C, plus an extra deduction of up to ₹50,000. Employer contributions can also qualify within limits under either regime. Tax treatment of withdrawals and annuity income can change, so check the current rules before you exit.`,
+  },
+  {
+    q: `Is NPS better than EPF or PPF?`,
+    a: `They do different jobs. EPF and PPF offer declared interest rates and more certainty, while NPS has market exposure and may grow more over long periods, but ties part of the money to an annuity. Many people use more than one.`,
+  },
+];
+---
+
+<BaseLayout title="NPS Calculator India — Corpus, Lump Sum & Monthly Pension | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> NPS Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">Estimate your National Pension System corpus and pension</p>
+  <p class="page-intro">
+    Enter your contribution and retirement age to see your likely corpus at exit, how much you can take as a lump sum, and the monthly pension from the annuity.
+  </p>
+
+  <NPSCalculator client:visible />
+  <p style="font-size: 0.85rem; color: #64748b;">Projections are estimates, and NPS returns are not guaranteed. The 20% annuity starting value reflects the exit rules for non-government subscribers reported in 2026. Government subscribers should generally use 40%.</p>
+
+  <section class="content-section">
+    <h2>How the NPS Calculation Works</h2>
+    <div class="formula-box">
+      Corpus = contributions compounded monthly until exit<br />
+      Monthly pension = corpus &times; annuity share &times; annuity rate / 12
+    </div>
+    <p>
+      <strong>Example:</strong> Start at age 30 with {inr(10000)} a month, raise it by 5% a year, and earn 10% a year until 60. You invest {inr(ex.totalInvested)} and reach a corpus of about {inr(ex.corpus)}. With 20% in an annuity at 6%, you could take {inr(ex.lumpSum)} as a lump sum and receive about {inr(ex.monthlyPension)} a month.
+    </p>
+    <p>That amount is in future rupees. Inflation over 30 years will reduce what it can buy, so consider what it means in today's money.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>age</strong> and the age you expect to <strong>exit NPS</strong></li>
+      <li>Enter your <strong>monthly contribution</strong>, the yearly increase and any existing balance</li>
+      <li>Set an <strong>expected return</strong> that suits your asset mix</li>
+      <li>Set the <strong>annuity share and rate</strong>. Use a current insurer's quote if you have one</li>
+    </ol>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/ppf-calculator" class="related-card"><h3>PPF Calculator</h3><p>Calculate PPF maturity over 15 years or more.</p></a>
+      <a href="/india/fire-calculator" class="related-card"><h3>FIRE Calculator</h3><p>Work out when you can retire early.</p></a>
+      <a href="/india/swp-calculator" class="related-card"><h3>SWP Calculator</h3><p>Plan withdrawals from a retirement corpus.</p></a>
+    </div>
+  </section>
+</BaseLayout>
