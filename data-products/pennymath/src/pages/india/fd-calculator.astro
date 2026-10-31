@@ -29,10 +29,11 @@ const faqs = [
   </nav>
 
   <h1>FD Calculator</h1>
-  <p class="page-subtitle">Calculate your Fixed Deposit maturity amount</p>
   <p class="page-intro">Estimate how much your FD will grow at maturity. Interest is compounded quarterly as per Indian banking standards.</p>
 
   <FDCalculator client:visible currency={{ code: 'INR', symbol: '₹' }} />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>What is a Fixed Deposit?</h2>
@@ -57,4 +58,5 @@ const faqs = [
       <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>Calculate tax on your FD interest income.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

@@ -52,7 +52,6 @@ const faqs = [
   </nav>
 
   <h1>Mortgage Calculator</h1>
-  <p class="page-subtitle">Estimate your monthly home loan payment</p>
   <p class="page-intro">
     See your monthly principal + interest payment on a fixed-rate mortgage. Adjust the loan amount, rate, and term to compare scenarios — 15, 20, or 30 years.
   </p>
@@ -62,6 +61,8 @@ const faqs = [
     currency={{ code: 'USD', symbol: '$' }}
     defaults={{ loanAmount: 400000, interestRate: 6.5, loanTenure: 30 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>How Mortgage Payments Work</h2>
@@ -124,4 +125,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

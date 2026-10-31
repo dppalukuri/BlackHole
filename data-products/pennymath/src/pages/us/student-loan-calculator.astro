@@ -52,7 +52,6 @@ const faqs = [
   </nav>
 
   <h1>Student Loan Calculator</h1>
-  <p class="page-subtitle">Estimate your monthly student loan payment</p>
   <p class="page-intro">
     See your monthly payment and total interest cost for federal or private student loans. Compare standard 10-year, 20-year, and 25-year repayment plans.
   </p>
@@ -62,6 +61,8 @@ const faqs = [
     currency={{ code: 'USD', symbol: '$' }}
     defaults={{ loanAmount: 40000, interestRate: 6.53, loanTenure: 10 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>Federal Student Loan Rates (2025-26)</h2>
@@ -129,4 +130,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

@@ -11,10 +11,11 @@ import { GROWW } from '../../lib/affiliates';
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Loan Comparison</nav>
 
   <h1>Loan Comparison Calculator</h1>
-  <p class="page-subtitle">Compare 3 bank loan offers side-by-side — find the cheapest deal</p>
   <p class="page-intro">Got multiple loan offers? Enter each bank's terms below and instantly see which one costs you the least in total interest. A 0.25% rate difference on a ₹50L loan can mean ₹3-5 lakh in extra interest.</p>
 
   <MultiLoanComparator client:visible />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>Why Small Rate Differences Matter</h2>
@@ -47,4 +48,5 @@ import { GROWW } from '../../lib/affiliates';
   </section>
 
   <AffiliateCTA partner={GROWW} title="Start investing while paying EMIs" blurb="Don’t wait until you’re debt-free — even a ₹5,000 SIP in direct mutual funds starts compounding now." />
+  </div>
 </BaseLayout>

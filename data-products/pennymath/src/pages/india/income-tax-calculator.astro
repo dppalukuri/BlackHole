@@ -31,11 +31,12 @@ const faqs = [
   </nav>
 
   <h1>Income Tax Calculator</h1>
-  <p class="page-subtitle">New Regime {TAX_DATA_FY} ({TAX_DATA_AY})</p>
   <DataVintage />
   <p class="page-intro">Calculate your income tax under the new tax regime with updated slabs. Includes ₹75,000 standard deduction and Section 87A rebate for income up to ₹12 lakh.</p>
 
   <IncomeTaxCalculator client:visible />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>New Regime Tax Slabs {TAX_DATA_FY}</h2>
@@ -83,4 +84,5 @@ const faqs = [
       <a href="/india/emi-calculator" class="related-card"><h3>EMI Calculator</h3><p>Calculate your home loan EMI and interest.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

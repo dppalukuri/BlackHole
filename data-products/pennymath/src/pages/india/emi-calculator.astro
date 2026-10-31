@@ -43,7 +43,6 @@ const faqs = [
   </nav>
 
   <h1>EMI Calculator</h1>
-  <p class="page-subtitle">Calculate your Equated Monthly Installment for any loan</p>
   <p class="page-intro">
     Find out your monthly EMI for home loans, car loans, or personal loans. Adjust the loan amount, interest rate, and tenure to plan your repayment.
   </p>
@@ -53,6 +52,8 @@ const faqs = [
     currency={{ code: 'INR', symbol: '₹' }}
     defaults={{ loanAmount: 3000000, interestRate: 8.5, loanTenure: 20 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>What is EMI?</h2>
@@ -108,4 +109,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

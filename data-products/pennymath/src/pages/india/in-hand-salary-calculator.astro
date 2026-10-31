@@ -51,13 +51,14 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> In-Hand Salary Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See how much of your CTC reaches your bank account</p>
   <p class="page-intro">
     Enter your CTC to see your monthly in-hand salary after PF, professional tax and income tax. It is useful for comparing job offers, since two equal CTCs can pay quite differently.
   </p>
 
   <DataVintage />
   <SalaryCalculator client:visible />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">This is an estimate. It leaves out the surcharge on incomes above ₹50 lakh and assumes you are under 60.</p>
 
   <section class="content-section">
@@ -100,4 +101,5 @@ const faqs = [
       <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>See what a monthly investment could grow to.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

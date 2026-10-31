@@ -1,0 +1,128 @@
+---
+/**
+ * Finds a calculator as you type and goes straight to it. There is one on every
+ * page: in the homepage hero, and in the header everywhere else.
+ */
+import { CALCULATORS } from '../data/calculators';
+
+interface Props {
+  variant: 'hero' | 'header';
+}
+
+const { variant } = Astro.props;
+const entries = CALCULATORS.map((c) => ({ n: c.name, c: c.country, p: c.path, t: c.tags }));
+---
+
+<div class={`site-search site-search-${variant}`} data-site-search>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+  <input
+    type="search"
+    role="combobox"
+    aria-expanded="false"
+    aria-controls={`search-results-${variant}`}
+    aria-autocomplete="list"
+    aria-label="Find a calculator"
+    placeholder={variant === 'hero' ? 'What do you want to work out?' : 'Find a calculator'}
+    autocomplete="off"
+  />
+  <ul id={`search-results-${variant}`} role="listbox" aria-label="Matching calculators" hidden></ul>
+  <script type="application/json" set:html={JSON.stringify(entries)} />
+</div>
+
+<script is:inline>
+(function () {
+  document.querySelectorAll('[data-site-search]').forEach(function (box) {
+    if (box.dataset.ready) return;
+    box.dataset.ready = '1';
+    var input = box.querySelector('input');
+    var list = box.querySelector('ul');
+    var data = JSON.parse(box.querySelector('script[type="application/json"]').textContent);
+    var matches = [];
+    var active = -1;
+
+    function search(q) {
+      var words = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!words.length) return [];
+      return data
+        .map(function (d) {
+          var name = d.n.toLowerCase();
+          var all = (d.n + ' ' + d.c + ' ' + d.t).toLowerCase();
+          if (!words.every(function (w) { return all.indexOf(w) !== -1; })) return null;
+          var score = name.indexOf(words[0]) === 0 ? 2 : name.indexOf(words[0]) !== -1 ? 1 : 0;
+          return { d: d, score: score };
+        })
+        .filter(Boolean)
+        .sort(function (a, b) { return b.score - a.score; })
+        .slice(0, 8)
+        .map(function (m) { return m.d; });
+    }
+
+    function close() {
+      list.hidden = true;
+      active = -1;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+    }
+
+    function paintActive() {
+      Array.prototype.forEach.call(list.children, function (li, i) {
+        li.classList.toggle('is-active', i === active);
+        li.setAttribute('aria-selected', i === active ? 'true' : 'false');
+      });
+      if (active >= 0) input.setAttribute('aria-activedescendant', list.children[active].id);
+      else input.removeAttribute('aria-activedescendant');
+    }
+
+    function render() {
+      var q = input.value.trim();
+      list.textContent = '';
+      active = -1;
+      if (!q) { close(); return; }
+      matches = search(q);
+      if (!matches.length) {
+        var none = document.createElement('li');
+        none.className = 'search-none';
+        none.textContent = 'No calculator matches that. Try a shorter word.';
+        list.appendChild(none);
+      }
+      matches.forEach(function (m, i) {
+        var li = document.createElement('li');
+        li.id = list.id + '-' + i;
+        li.setAttribute('role', 'option');
+        var a = document.createElement('a');
+        a.href = m.p;
+        a.tabIndex = -1;
+        var name = document.createElement('b');
+        name.textContent = m.n;
+        var country = document.createElement('em');
+        country.textContent = m.c;
+        a.appendChild(name);
+        a.appendChild(country);
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      list.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      paintActive();
+    }
+
+    input.addEventListener('input', render);
+    input.addEventListener('focus', function () { if (input.value.trim()) render(); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (!matches.length) return;
+        e.preventDefault();
+        var step = e.key === 'ArrowDown' ? 1 : -1;
+        active = (active + step + matches.length) % matches.length;
+        paintActive();
+      } else if (e.key === 'Enter') {
+        var pick = matches[active >= 0 ? active : 0];
+        if (pick && !list.hidden) { e.preventDefault(); location.href = pick.p; }
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+    document.addEventListener('pointerdown', function (e) { if (!box.contains(e.target)) close(); });
+  });
+})();
+</script>

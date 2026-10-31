@@ -52,7 +52,6 @@ const faqs = [
   </nav>
 
   <h1>Investment Calculator</h1>
-  <p class="page-subtitle">Project the future value of your portfolio</p>
   <p class="page-intro">
     See how monthly investments grow over time at any expected return. Useful for taxable brokerage accounts, mutual funds, ETFs, or any periodic investment plan.
   </p>
@@ -62,6 +61,8 @@ const faqs = [
     currency={{ code: 'USD', symbol: '$' }}
     defaults={{ monthlyInvestment: 1000, expectedReturn: 7, timePeriod: 20 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>The Three Levers of Investment Growth</h2>
@@ -130,4 +131,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

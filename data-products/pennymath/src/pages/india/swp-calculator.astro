@@ -66,7 +66,6 @@ const faqs = [
   </nav>
 
   <h1>SWP Calculator</h1>
-  <p class="page-subtitle">Calculate your Systematic Withdrawal Plan payouts</p>
   <p class="page-intro">
     See how much monthly income your mutual fund corpus can pay out, how much is left at the end of the term, and whether your money runs out before the term does.
   </p>
@@ -76,6 +75,8 @@ const faqs = [
     currency={{ code: 'INR', symbol: '₹' }}
     defaults={{ totalInvestment: 1000000, monthlyWithdrawal: 8000, expectedReturn: 8, timePeriod: 10 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>What is an SWP?</h2>
@@ -176,4 +177,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

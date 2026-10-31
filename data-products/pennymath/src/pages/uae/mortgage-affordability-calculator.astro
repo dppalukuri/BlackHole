@@ -44,7 +44,6 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Mortgage Affordability Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See how much you can borrow and what you can afford to buy</p>
   <p class="page-intro">
     Your budget depends on two limits: what your income can repay, and how much cash you have for the down payment and fees. This calculator checks both and tells you which one holds you back.
   </p>
@@ -59,6 +58,8 @@ const faqs = [
     savingsRange={{ min: 0, max: 5000000, step: 10000 }}
     defaults={{ monthlyIncome: 30000, existingDebts: 2000, debtRatio: 50, annualRate: 5, tenureYears: 25, savings: 500000, buyingCostPercent: 7, ltvPercent: 80 }}
   />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">This is an estimate, not a lending decision. Limits reflect commonly reported rules reviewed in November 2026, and banks may apply stricter ones.</p>
 
   <section class="content-section">
@@ -95,4 +96,5 @@ const faqs = [
       <a href="/uae/fixed-to-floating-mortgage-calculator" class="related-card"><h3>Fixed to Floating Calculator</h3><p>See your payment after a fixed rate ends.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

@@ -68,7 +68,6 @@ const url = 'https://pennymath.techtools365.com/uae/fixed-to-floating-mortgage-c
   </nav>
 
   <h1>Fixed to Floating Mortgage Calculator (UAE)</h1>
-  <p class="page-subtitle">See what happens when your fixed rate ends and EIBOR takes over</p>
   <p class="page-intro">
     Find your monthly payment after a fixed rate reverts to EIBOR plus margin, compare the total cost against a variable mortgage, and see the EIBOR level at which the two break even.
   </p>
@@ -84,6 +83,8 @@ const url = 'https://pennymath.techtools365.com/uae/fixed-to-floating-mortgage-c
     maxTenureYears={25}
     defaults={{ amount: 1500000, tenureYears: 25, fixedRate: 4.25, fixedYears: 3, benchmarkNow: 4.45, marginAfterFix: 1.5, floatingMargin: 1.5 }}
   />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">
     The starting values are examples based on rates published in October 2026, not a quote. 3-month EIBOR was about 4.45% at the 22 October fixing, as reported by a UAE mortgage broker. Check the Central Bank of the UAE's published fixings and use the figures in your own offer.
   </p>
@@ -172,4 +173,5 @@ const url = 'https://pennymath.techtools365.com/uae/fixed-to-floating-mortgage-c
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

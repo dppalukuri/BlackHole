@@ -51,12 +51,13 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Capital Gains Tax Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">Work out the tax on shares, mutual funds, property and gold</p>
   <p class="page-intro">
     Enter what you sold, the buying and selling values, and how long you held it. The calculator applies the current rate, and on older property it compares the two available options.
   </p>
 
   <CapitalGainsCalculator client:visible />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">Rates reflect rules reported for FY 2026-27 as reviewed in November 2026. This is an estimate for residents, not tax advice. Confirm with a tax professional before filing.</p>
 
   <section class="content-section">
@@ -101,4 +102,5 @@ const faqs = [
       <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

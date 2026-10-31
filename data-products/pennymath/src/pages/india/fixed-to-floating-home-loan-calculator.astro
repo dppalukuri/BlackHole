@@ -68,7 +68,6 @@ const url = 'https://pennymath.techtools365.com/india/fixed-to-floating-home-loa
   </nav>
 
   <h1>Fixed to Floating Home Loan Calculator (India)</h1>
-  <p class="page-subtitle">Compare a fixed or hybrid home loan with a floating rate</p>
   <p class="page-intro">
     Find your EMI after a fixed period ends, compare the total cost against a floating-rate loan, and see the repo rate at which the two break even.
   </p>
@@ -83,6 +82,8 @@ const url = 'https://pennymath.techtools365.com/india/fixed-to-floating-home-loa
     maxTenureYears={30}
     defaults={{ amount: 5000000, tenureYears: 20, fixedRate: 9.25, fixedYears: 3, benchmarkNow: 5.5, marginAfterFix: 2.75, floatingMargin: 2.75 }}
   />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">
     The starting values are examples, not a quote. The repo rate is shown at 5.50%, the level reported after the RBI's 7 October 2026 decision. Check the RBI's latest policy statement and use the rate and spread from your own sanction letter.
   </p>
@@ -168,4 +169,5 @@ const url = 'https://pennymath.techtools365.com/india/fixed-to-floating-home-loa
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

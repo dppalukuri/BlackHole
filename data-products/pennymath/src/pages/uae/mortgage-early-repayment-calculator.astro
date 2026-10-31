@@ -40,7 +40,6 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Mortgage Early Repayment Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See how much a partial settlement saves after fees</p>
   <p class="page-intro">
     Enter a lump sum, a monthly top-up or both, then compare finishing sooner with lowering your monthly payment.
   </p>
@@ -55,6 +54,8 @@ const faqs = [
     maxTenureYears={25}
     defaults={{ balance: 1200000, annualRate: 5.5, remainingYears: 20, lumpSum: 200000, fee: 2000 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>Shorter Term or Lower Payment?</h2>
@@ -87,4 +88,5 @@ const faqs = [
       <a href="/uae/gratuity-calculator" class="related-card"><h3>UAE Gratuity Calculator</h3><p>Calculate the end-of-service benefit you could put towards your mortgage.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

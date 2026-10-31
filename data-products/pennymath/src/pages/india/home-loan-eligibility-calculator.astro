@@ -44,7 +44,6 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Home Loan Eligibility Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See how much you can borrow and what you can afford to buy</p>
   <p class="page-intro">
     Your budget depends on two limits: what your income can repay, and how much cash you have for the down payment and costs. This calculator checks both and tells you which one holds you back.
   </p>
@@ -60,6 +59,8 @@ const faqs = [
     ltvTiers={INDIA_LTV_TIERS.map((t) => ({ ...t, maxPrice: Number.isFinite(t.maxPrice) ? t.maxPrice : 1e15 }))}
     defaults={{ monthlyIncome: 150000, existingDebts: 10000, debtRatio: 50, annualRate: 8.5, tenureYears: 20, savings: 2000000, buyingCostPercent: 6 }}
   />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">This is an estimate, not a lending decision. Stamp duty and registration vary by state, so adjust the buying costs for yours.</p>
 
   <section class="content-section">
@@ -97,4 +98,5 @@ const faqs = [
       <a href="/india/home-loan-prepayment-calculator" class="related-card"><h3>Prepayment Calculator</h3><p>See how much interest a part-payment saves.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

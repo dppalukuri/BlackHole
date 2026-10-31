@@ -52,7 +52,6 @@ const faqs = [
   </nav>
 
   <h1>Roth IRA Calculator</h1>
-  <p class="page-subtitle">See your tax-free retirement growth</p>
   <p class="page-intro">
     Project the balance of your Roth IRA at retirement. Every dollar grows tax-free and comes out tax-free — see what consistent contributions become over decades.
   </p>
@@ -62,6 +61,8 @@ const faqs = [
     currency={{ code: 'USD', symbol: '$' }}
     defaults={{ monthlyInvestment: 583, expectedReturn: 7, timePeriod: 30 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>Why a Roth IRA Is the Crown Jewel of Retirement Accounts</h2>
@@ -122,4 +123,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

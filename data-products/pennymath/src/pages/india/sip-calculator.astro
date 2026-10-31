@@ -62,7 +62,6 @@ const faqs = [
   </nav>
 
   <h1>SIP Calculator</h1>
-  <p class="page-subtitle">Calculate your Systematic Investment Plan returns</p>
   <p class="page-intro">
     Estimate how much wealth your monthly SIP can create over time. Adjust the amount, expected return rate, and time period to see your projected corpus.
   </p>
@@ -72,6 +71,8 @@ const faqs = [
     currency={{ code: 'INR', symbol: '₹' }}
     defaults={{ monthlyInvestment: 5000, expectedReturn: 12, timePeriod: 10 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>What is a SIP?</h2>
@@ -146,4 +147,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

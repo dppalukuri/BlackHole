@@ -45,12 +45,13 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> GST Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">Add or remove GST, and split it into CGST and SGST or IGST</p>
   <p class="page-intro">
     Enter an amount, choose a rate and see the tax and final price immediately. Rates shown include the structure in force since 22 September 2025.
   </p>
 
   <GSTCalculator client:visible />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>GST Formula</h2>
@@ -95,4 +96,5 @@ const faqs = [
       <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

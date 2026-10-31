@@ -50,7 +50,6 @@ const faqs = [
   </nav>
 
   <h1>UK ISA Calculator</h1>
-  <p class="page-subtitle">See how your tax-free ISA grows over time</p>
   <p class="page-intro">
     Project the value of your Cash or Stocks & Shares ISA with monthly contributions. All growth and withdrawals are completely tax-free — no income tax, no capital gains tax, no dividend tax.
   </p>
@@ -60,6 +59,8 @@ const faqs = [
     currency={{ code: 'GBP', symbol: '£' }}
     defaults={{ monthlyInvestment: 500, expectedReturn: 7, timePeriod: 20 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>The Power of Maxing the £20k Allowance</h2>
@@ -123,4 +124,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

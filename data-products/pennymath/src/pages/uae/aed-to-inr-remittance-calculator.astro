@@ -45,12 +45,13 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> AED to INR Remittance Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See which provider delivers the most rupees for your dirhams</p>
   <p class="page-intro">
     Enter each provider's rate and fee to compare what your family actually receives, and how much the transfer really costs you.
   </p>
 
   <RemittanceCalculator client:visible defaultMidRate={26.2} />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">This page does not show live rates. The starting values are examples based on a mid-market rate of about ₹26.2 per dirham in early October 2026, and provider figures are illustrative. Enter current quotes before you decide.</p>
 
   <section class="content-section">
@@ -86,4 +87,5 @@ const faqs = [
       <a href="/india/fd-calculator" class="related-card"><h3>FD Calculator</h3><p>Calculate the maturity value of a fixed deposit.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

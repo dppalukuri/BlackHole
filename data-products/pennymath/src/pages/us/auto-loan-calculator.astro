@@ -52,7 +52,6 @@ const faqs = [
   </nav>
 
   <h1>Auto Loan Calculator</h1>
-  <p class="page-subtitle">Estimate your monthly car payment</p>
   <p class="page-intro">
     See your monthly payment on a new or used car loan. Adjust the price, down payment, rate, and term to compare scenarios.
   </p>
@@ -62,6 +61,8 @@ const faqs = [
     currency={{ code: 'USD', symbol: '$' }}
     defaults={{ loanAmount: 35000, interestRate: 7.5, loanTenure: 5 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>How Auto Loans Work</h2>
@@ -126,4 +127,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

@@ -44,7 +44,6 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Home Loan Prepayment Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See how much interest a part-payment saves</p>
   <p class="page-intro">
     Enter a lump sum, a monthly top-up or both, then compare a shorter tenure with a lower EMI.
   </p>
@@ -58,6 +57,8 @@ const faqs = [
     maxTenureYears={30}
     defaults={{ balance: 4000000, annualRate: 8.5, remainingYears: 20, lumpSum: 500000, fee: 0 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>Lower EMI or Shorter Tenure?</h2>
@@ -90,4 +91,5 @@ const faqs = [
       <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Estimate what the same money could grow to if invested instead.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

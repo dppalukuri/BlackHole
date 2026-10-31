@@ -50,7 +50,6 @@ const faqs = [
   </nav>
 
   <h1>UK Mortgage Calculator</h1>
-  <p class="page-subtitle">Estimate your monthly mortgage payment</p>
   <p class="page-intro">
     Calculate your monthly repayment on a UK fixed or variable rate mortgage. Adjust the loan amount, rate, and term to compare scenarios.
   </p>
@@ -60,6 +59,8 @@ const faqs = [
     currency={{ code: 'GBP', symbol: '£' }}
     defaults={{ loanAmount: 250000, interestRate: 5.5, loanTenure: 25 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>How UK Mortgages Work</h2>
@@ -122,4 +123,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

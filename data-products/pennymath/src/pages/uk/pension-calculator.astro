@@ -50,7 +50,6 @@ const faqs = [
   </nav>
 
   <h1>UK Pension Calculator</h1>
-  <p class="page-subtitle">Project your pension pot at retirement</p>
   <p class="page-intro">
     See how monthly pension contributions grow with compound returns over your working life. Useful for workplace pensions, SIPPs, or combined retirement saving.
   </p>
@@ -60,6 +59,8 @@ const faqs = [
     currency={{ code: 'GBP', symbol: '£' }}
     defaults={{ monthlyInvestment: 500, expectedReturn: 6, timePeriod: 30 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>The Power of Tax Relief + Time</h2>
@@ -125,4 +126,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

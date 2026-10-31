@@ -47,7 +47,6 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Rent vs Buy Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See whether renting or buying leaves you better off</p>
   <p class="page-intro">
     Comparing rent with an EMI leaves out most of the picture. This calculator compares your net worth after buying with what you would have after renting and investing the difference.
   </p>
@@ -61,6 +60,8 @@ const faqs = [
     maxTenureYears={30}
     defaults={defaults}
   />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples only. Home prices, rents and investment returns can all differ sharply from any assumption, and this is not financial advice.</p>
 
   <section class="content-section">
@@ -96,4 +97,5 @@ const faqs = [
       <a href="/india/emi-calculator" class="related-card"><h3>EMI Calculator</h3><p>Calculate the EMI for any loan amount.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

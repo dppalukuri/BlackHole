@@ -15,7 +15,6 @@ import { GROWW } from '../../lib/affiliates';
   </nav>
 
   <h1>Lump Sum Calculator</h1>
-  <p class="page-subtitle">Calculate returns on a one-time mutual fund investment</p>
   <p class="page-intro">
     Find out how much your one-time investment can grow over time. See the power of compounding on a lump sum investment in mutual funds.
   </p>
@@ -25,6 +24,8 @@ import { GROWW } from '../../lib/affiliates';
     currency={{ code: 'INR', symbol: '₹' }}
     defaults={{ principal: 100000, expectedReturn: 12, timePeriod: 10 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>What is Lump Sum Investment?</h2>
@@ -66,4 +67,5 @@ import { GROWW } from '../../lib/affiliates';
   </section>
 
   <AffiliateCTA partner={GROWW} title="Invest your lump sum in direct mutual funds" blurb="Zero-commission direct mutual funds on Groww save 0.5–1% in expense ratio vs regular plans — compounds into lakhs over time." />
+  </div>
 </BaseLayout>

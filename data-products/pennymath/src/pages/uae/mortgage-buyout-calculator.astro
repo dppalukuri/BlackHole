@@ -45,7 +45,6 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Mortgage Buyout Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">Find out if moving your mortgage to a new bank pays for itself</p>
   <p class="page-intro">
     A lower rate does not always mean a better deal. Enter your current loan and the new offer to see your net saving after fees and how long it takes to recover them.
   </p>
@@ -59,6 +58,8 @@ const faqs = [
     maxTenureYears={25}
     defaults={{ balance: 1200000, currentRate: 5.75, remainingYears: 20, newRate: 4.75, exitFee: 10000, newLoanCosts: 20000 }}
   />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples, not a quote. Use the figures from your own loan statement and offer letter.</p>
 
   <section class="content-section">
@@ -116,4 +117,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

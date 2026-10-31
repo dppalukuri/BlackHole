@@ -52,7 +52,6 @@ const faqs = [
   </nav>
 
   <h1>401(k) Calculator</h1>
-  <p class="page-subtitle">See how your retirement savings grow over time</p>
   <p class="page-intro">
     Project your 401(k) balance at retirement. Adjust your monthly contribution, expected return, and time horizon to see the impact of small changes over decades.
   </p>
@@ -62,6 +61,8 @@ const faqs = [
     currency={{ code: 'USD', symbol: '$' }}
     defaults={{ monthlyInvestment: 1500, expectedReturn: 7, timePeriod: 30 }}
   />
+
+  <div class="reading">
 
   <section class="content-section">
     <h2>The Power of Starting Early</h2>
@@ -120,4 +121,5 @@ const faqs = [
       </a>
     </div>
   </section>
+  </div>
 </BaseLayout>

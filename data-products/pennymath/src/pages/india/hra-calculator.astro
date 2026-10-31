@@ -44,12 +44,13 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> HRA Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">See how much of your house rent allowance is tax-free</p>
   <p class="page-intro">
     Enter your salary, HRA and rent to see your exempt and taxable HRA for the year. HRA exemption only applies under the old tax regime.
   </p>
 
   <HRACalculator client:visible />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">The city list reflects reports of the Income-tax Rules, 2026 reviewed in November 2026. Confirm with the Income Tax Department or a tax professional before filing.</p>
 
   <section class="content-section">
@@ -89,4 +90,5 @@ const faqs = [
       <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>

@@ -44,12 +44,13 @@ const faqs = [
   <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> EPF Calculator</nav>
 
   <h1>{title}</h1>
-  <p class="page-subtitle">Estimate your provident fund balance at retirement</p>
   <p class="page-intro">
     Enter your basic pay, expected raises and current balance to see what your EPF could grow to, and how much comes from you, your employer and interest.
   </p>
 
   <EPFCalculator client:visible />
+
+  <div class="reading">
   <p style="font-size: 0.85rem; color: #64748b;">The starting rate is the 8.25% declared for FY 2025-26. Future rates may differ, and this calculation assumes one rate throughout.</p>
 
   <section class="content-section">
@@ -88,4 +89,5 @@ const faqs = [
       <a href="/india/ppf-calculator" class="related-card"><h3>PPF Calculator</h3><p>Calculate PPF maturity over 15 years or more.</p></a>
     </div>
   </section>
+  </div>
 </BaseLayout>
