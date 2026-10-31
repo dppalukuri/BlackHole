@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LoanTakeoverCalculator from '../../components/calculators/engines/LoanTakeoverCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { compareLoanTakeover } from '../../lib/formulas/loan-takeover';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Mortgage Buyout Calculator (UAE)';
+const description = 'Free UAE mortgage buyout calculator. See whether moving your home loan to another bank saves money after the early settlement fee and new loan costs, and when you break even.';
+const path = '/uae/mortgage-buyout-calculator';
+const aed = (n: number) => formatCurrency(n, 'AED');
+
+const ex = compareLoanTakeover({ balance: 1200000, currentRate: 5.75, remainingMonths: 240, newRate: 4.75, newTenureMonths: 240, exitFee: 10000, newLoanCosts: 20000 });
+
+const faqs = [
+  {
+    q: `What is a mortgage buyout in the UAE?`,
+    a: `A buyout is when a new bank pays off your existing mortgage and takes over the loan, usually on a lower rate. You then repay the new bank. It is also called a loan takeover, a balance transfer or refinancing.`,
+  },
+  {
+    q: `How much does a mortgage buyout cost?`,
+    a: `Expect the early settlement fee on the old loan, plus the new loan's processing, valuation and mortgage registration costs. Mortgage registration at the Dubai Land Department is widely quoted at 0.25% of the loan plus AED 290. Some banks waive or absorb part of these costs, so ask for a written list.`,
+  },
+  {
+    q: `What is the early settlement fee on a UAE mortgage?`,
+    a: `A 2019 Central Bank of the UAE circular capped it at 1% of the outstanding balance or AED 10,000, whichever is lower. Some lenders may set different terms during a fixed period, so ask your bank for a settlement figure in writing.`,
+  },
+  {
+    q: `When is a mortgage buyout worth it?`,
+    a: `When the interest saved clearly exceeds the fees and you expect to keep the loan past the break-even point shown above. A lower rate on a small balance or a short remaining term may not recover the costs.`,
+  },
+  {
+    q: `Should I compare the rate or the margin?`,
+    a: `Both. An attractive fixed rate may only last a few years, after which the loan reverts to EIBOR plus a margin. To test that part of an offer, use the fixed to floating calculator linked below.`,
+  },
+];
+---
+
+<BaseLayout title="Mortgage Buyout Calculator UAE — Is Switching Banks Worth It? | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="AED" countryName="UAE" countryPath="/uae/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Mortgage Buyout Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">Find out if moving your mortgage to a new bank pays for itself</p>
+  <p class="page-intro">
+    A lower rate does not always mean a better deal. Enter your current loan and the new offer to see your net saving after fees and how long it takes to recover them.
+  </p>
+
+  <LoanTakeoverCalculator
+    client:visible
+    currency={{ code: 'AED', symbol: 'AED ' }}
+    paymentWord="payment"
+    exitFeeCap={{ percent: 1, max: 10000 }}
+    amountRange={{ min: 100000, max: 10000000, step: 50000 }}
+    maxTenureYears={25}
+    defaults={{ balance: 1200000, currentRate: 5.75, remainingYears: 20, newRate: 4.75, exitFee: 10000, newLoanCosts: 20000 }}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples, not a quote. Use the figures from your own loan statement and offer letter.</p>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>outstanding balance</strong>, current rate and the term left, all from your latest statement</li>
+      <li>Enter the <strong>new bank's rate and term</strong>. Keep the same term for a fair comparison of the rate</li>
+      <li>Add the <strong>exit fee</strong> and the <strong>costs of the new loan</strong>, including processing, valuation and registration</li>
+      <li>Check the <strong>net saving</strong> and the <strong>break-even point</strong>, then ask how long you expect to keep the loan</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>How the Comparison Works</h2>
+    <div class="formula-box">
+      Net saving = interest left on current loan &minus; interest on new loan &minus; all fees
+    </div>
+    <p>
+      The break-even point is the first month you would be ahead if you repaid the loan at that moment, counting payments made, debt left and fees. This is stricter than dividing the fees by the monthly saving, which can make a longer term look better than it is.
+    </p>
+    <p>
+      <strong>Example:</strong> {aed(1200000)} with 20 years left, moving from 5.75% to 4.75%, with {aed(30000)} in total fees. The monthly payment falls from {aed(ex.currentPayment)} to {aed(ex.newPayment)}. You save {aed(ex.netSaving)} over the term after fees, and you break even in month {ex.breakEvenMonth}.
+    </p>
+    <p>
+      These totals assume both rates hold for the full term. Most UAE mortgages move to a variable rate after a few years, so treat the result as a guide and try a rate closer to the likely long-run cost.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Costs to Ask About</h2>
+    <ul>
+      <li><strong>Early settlement fee:</strong> charged by your current bank, and capped as described below</li>
+      <li><strong>Bank processing fee:</strong> commonly quoted at up to about 1% of the loan, though promotions vary</li>
+      <li><strong>Valuation:</strong> often around AED 2,500 to 3,500</li>
+      <li><strong>Mortgage registration:</strong> widely quoted at 0.25% of the loan plus AED 290 in Dubai</li>
+      <li><strong>Life and property insurance:</strong> a new policy may cost more or less, which changes your true saving</li>
+    </ul>
+    <p>
+      The Central Bank of the UAE capped early settlement fees at 1% of the outstanding balance or AED 10,000, whichever is lower, in a 2019 circular. Fee figures above are market estimates from 2026 and differ by bank and emirate.
+    </p>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/fixed-to-floating-mortgage-calculator" class="related-card">
+        <h3>Fixed to Floating Calculator</h3>
+        <p>See your payment when a fixed rate reverts to EIBOR plus margin.</p>
+      </a>
+      <a href="/uae/rental-yield-calculator" class="related-card">
+        <h3>Dubai Rental Yield Calculator</h3>
+        <p>Work out net ROI on a property, including fees and service charges.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

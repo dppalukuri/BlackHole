@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LoanTakeoverCalculator from '../../components/calculators/engines/LoanTakeoverCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { compareLoanTakeover } from '../../lib/formulas/loan-takeover';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Home Loan Balance Transfer Calculator (India)';
+const description = 'Free home loan balance transfer calculator for India. See your EMI, net saving after processing fees and stamp duty, and how long it takes to recover the cost of switching.';
+const path = '/india/home-loan-balance-transfer-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+
+const ex = compareLoanTakeover({ balance: 4000000, currentRate: 9.25, remainingMonths: 180, newRate: 8.5, newTenureMonths: 180, exitFee: 0, newLoanCosts: 50000 });
+
+const faqs = [
+  {
+    q: `What is a home loan balance transfer?`,
+    a: `A new lender pays off your existing home loan and you repay the new lender, usually at a lower rate. It is also called a loan takeover or refinancing. You keep the property, but go through credit approval, valuation and paperwork again.`,
+  },
+  {
+    q: `What does a home loan balance transfer cost?`,
+    a: `Costs can include the new lender's processing fee, legal and valuation charges, stamp duty on the new mortgage where it applies, and GST on fees. One 2026 estimate put these at about ₹40,000 to ₹1.5 lakh on a ₹50 to ₹60 lakh loan. Ask for the full list in writing.`,
+  },
+  {
+    q: `Do banks charge a foreclosure fee on a balance transfer?`,
+    a: `Lenders cannot charge individuals pre-payment fees on floating-rate loans taken for non-business purposes. Fixed-rate loans can carry charges, and a hybrid loan's treatment depends on whether it is on a floating rate when you pre-pay. Check your loan agreement.`,
+  },
+  {
+    q: `When is a balance transfer worth it?`,
+    a: `It tends to work best when the rate gap is meaningful and plenty of the loan is left, since interest is heaviest in the early years. Near the end of a loan, there may be too little interest left to recover the fees. The calculator above shows the result for your loan.`,
+  },
+  {
+    q: `Should I ask my current bank to match the rate first?`,
+    a: `Yes. Many lenders let existing borrowers move to a lower spread for a conversion fee, and it usually involves less paperwork. Enter that fee as the cost of the new loan and keep the exit fee at zero to compare it with a transfer.`,
+  },
+];
+---
+
+<BaseLayout title="Home Loan Balance Transfer Calculator India — Savings & Break-Even | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Home Loan Balance Transfer Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">Find out if moving your home loan to a new lender pays for itself</p>
+  <p class="page-intro">
+    A lower rate does not always mean a better deal. Enter your current loan and the new offer to see your net saving after fees and how long it takes to recover them.
+  </p>
+
+  <LoanTakeoverCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    paymentWord="EMI"
+    amountRange={{ min: 500000, max: 50000000, step: 50000 }}
+    maxTenureYears={30}
+    defaults={{ balance: 4000000, currentRate: 9.25, remainingYears: 15, newRate: 8.5, exitFee: 0, newLoanCosts: 50000 }}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples, not a quote. Use the figures from your own loan statement and sanction letter.</p>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>outstanding balance</strong>, current rate and the tenure left, all from your latest statement</li>
+      <li>Enter the <strong>new lender's rate and tenure</strong>. Keep the same tenure for a fair comparison of the rate</li>
+      <li>Add any <strong>exit fee</strong>, which is usually zero on a floating-rate loan, and the <strong>costs of the new loan</strong></li>
+      <li>Check the <strong>net saving</strong> and the <strong>break-even point</strong>, then ask how long you expect to keep the loan</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>How the Comparison Works</h2>
+    <div class="formula-box">
+      Net saving = interest left on current loan &minus; interest on new loan &minus; all fees
+    </div>
+    <p>
+      The break-even point is the first month you would be ahead if you repaid the loan at that moment, counting EMIs paid, debt left and fees. This is stricter than dividing the fees by the EMI saving, which can make a longer tenure look better than it is.
+    </p>
+    <p>
+      <strong>Example:</strong> {inr(4000000)} with 15 years left, moving from 9.25% to 8.50%, with {inr(50000)} in costs. The EMI falls from {inr(ex.currentPayment)} to {inr(ex.newPayment)}. You save {inr(ex.netSaving)} over the tenure after fees, and you break even in month {ex.breakEvenMonth}.
+    </p>
+    <p>
+      These totals assume both rates hold for the full tenure. Most Indian home loans float with the repo rate, but the gap between two lenders depends mainly on their spreads, which usually stay put.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Costs to Ask About</h2>
+    <ul>
+      <li><strong>Processing fee:</strong> charged by the new lender, plus GST</li>
+      <li><strong>Legal and valuation charges:</strong> the new lender will check the property and its title again</li>
+      <li><strong>Stamp duty on the mortgage:</strong> depends on your state, and may apply again on the new loan</li>
+      <li><strong>Pre-payment charge:</strong> not allowed on individuals' floating-rate home loans, but possible on a fixed rate</li>
+      <li><strong>Insurance:</strong> a policy bundled with your old loan may need to be moved or replaced</li>
+    </ul>
+    <p>
+      The RBI's Pre-payment Charges on Loans Directions, 2025 apply to loans sanctioned or renewed from 1 January 2026, and earlier rules already barred these charges on individuals' floating-rate home loans.
+    </p>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card">
+        <h3>EMI Calculator</h3>
+        <p>Calculate the EMI on a home, car or personal loan.</p>
+      </a>
+      <a href="/india/fixed-to-floating-home-loan-calculator" class="related-card">
+        <h3>Fixed to Floating Calculator</h3>
+        <p>Compare a fixed or hybrid home loan with a floating rate.</p>
+      </a>
+      <a href="/india/loan-comparison" class="related-card">
+        <h3>Loan Comparison Tool</h3>
+        <p>Compare three bank loan offers side by side.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

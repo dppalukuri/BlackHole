@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { compareLoanTakeover } from './loan-takeover';
 
 /**
  * These calculators are the product. A wrong number here is the one defect
@@ -496,5 +497,51 @@ describe('compareFixedFloating', () => {
     const r = compareFixedFloating({ ...base, fixedMonths: 300 });
     expect(r.paymentJump).toBeCloseTo(0, 6);
     expect(r.fixedThenFloating.totalInterest).toBeCloseTo(calculateEMI(1500000, 4.25, 300).totalInterest, 4);
+  });
+});
+
+describe('compareLoanTakeover', () => {
+  const base = { balance: 1200000, currentRate: 5.75, remainingMonths: 240, newRate: 4.75, newTenureMonths: 240, exitFee: 10000, newLoanCosts: 20000 };
+
+  it('prices both loans with the plain EMI formula', () => {
+    const r = compareLoanTakeover(base);
+    expect(r.currentPayment).toBeCloseTo(calculateEMI(1200000, 5.75, 240).emi, 6);
+    expect(r.newPayment).toBeCloseTo(calculateEMI(1200000, 4.75, 240).emi, 6);
+  });
+
+  it('nets the fees off the interest saved', () => {
+    const r = compareLoanTakeover(base);
+    const saved = calculateEMI(1200000, 5.75, 240).totalInterest - calculateEMI(1200000, 4.75, 240).totalInterest;
+    expect(r.totalFees).toBe(30000);
+    expect(r.netSaving).toBeCloseTo(saved - 30000, 4);
+  });
+
+  it('breaks even around fees / monthly interest gap, on the same term', () => {
+    // A 1% gap on 12 lakh is about 1,000 a month in the early years.
+    const m = compareLoanTakeover(base).breakEvenMonth!;
+    expect(m).toBeGreaterThan(25);
+    expect(m).toBeLessThan(35);
+  });
+
+  it('breaks even immediately with no fees and a lower rate', () => {
+    expect(compareLoanTakeover({ ...base, exitFee: 0, newLoanCosts: 0 }).breakEvenMonth).toBe(1);
+  });
+
+  it('never breaks even at a higher rate', () => {
+    const r = compareLoanTakeover({ ...base, newRate: 6.25 });
+    expect(r.breakEvenMonth).toBeNull();
+    expect(r.netSaving).toBeLessThan(0);
+  });
+
+  it('flags that a longer term can cut the payment yet cost more overall', () => {
+    const r = compareLoanTakeover({ ...base, newRate: 5.5, newTenureMonths: 300, exitFee: 0, newLoanCosts: 0 });
+    expect(r.monthlySaving).toBeGreaterThan(0);
+    expect(r.netSaving).toBeLessThan(0);
+  });
+
+  it('treats a shorter term at the same rate as no change in net worth by month', () => {
+    const r = compareLoanTakeover({ ...base, newRate: 5.75, newTenureMonths: 120, exitFee: 0, newLoanCosts: 0 });
+    expect(r.monthlySaving).toBeLessThan(0);
+    expect(r.netSaving).toBeGreaterThan(0);
   });
 });
