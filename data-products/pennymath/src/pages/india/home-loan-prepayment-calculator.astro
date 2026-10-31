@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PrepaymentCalculator from '../../components/calculators/engines/PrepaymentCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import FAQ from '../../components/FAQ.astro';
+import { comparePrepayment } from '../../lib/formulas/prepayment';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Home Loan Prepayment Calculator (India)';
+const description = 'Free home loan prepayment calculator for India. Compare reducing your EMI with reducing your tenure after a part-payment, and see the interest you save.';
+const path = '/india/home-loan-prepayment-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const ex = comparePrepayment({ balance: 4000000, annualRate: 8.5, remainingMonths: 240, lumpSum: 500000, extraMonthly: 0, fee: 0 });
+
+const faqs = [
+  {
+    q: `Should I reduce my EMI or my tenure after a prepayment?`,
+    a: `Reducing tenure usually saves more interest, because you keep repaying at the higher amount. Reducing the EMI leaves more cash free each month, which can matter more if your income is tight or uncertain. The calculator above shows the difference for your loan.`,
+  },
+  {
+    q: `Are there charges for prepaying a home loan in India?`,
+    a: `Lenders cannot charge individuals pre-payment fees on floating-rate loans taken for non-business purposes. Fixed-rate loans can carry charges, and a hybrid loan's treatment depends on whether it is on a floating rate when you pre-pay. Check your loan agreement.`,
+  },
+  {
+    q: `When should I prepay my home loan?`,
+    a: `Earlier generally saves more, because interest is charged on a larger balance in the early years. Before prepaying, keep an emergency fund and consider paying off costlier debts such as credit cards first.`,
+  },
+  {
+    q: `Is it better to prepay or invest?`,
+    a: `Prepaying earns a certain return equal to your loan rate, while investing may earn more but with risk. Tax matters too, since any deduction on home loan interest lowers its real cost under the old regime. Many borrowers do some of both.`,
+  },
+  {
+    q: `Does prepaying affect my tax deduction?`,
+    a: `It can. Paying less interest may reduce any deduction you claim on home loan interest under the old regime, and that deduction is generally unavailable for a self-occupied home under the new regime. This calculator does not include tax.`,
+  },
+];
+---
+
+<BaseLayout title="Home Loan Prepayment Calculator India — Reduce EMI or Tenure? | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Home Loan Prepayment Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See how much interest a part-payment saves</p>
+  <p class="page-intro">
+    Enter a lump sum, a monthly top-up or both, then compare a shorter tenure with a lower EMI.
+  </p>
+
+  <PrepaymentCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    paymentWord="EMI"
+    termWord="tenure"
+    amountRange={{ min: 100000, max: 50000000, step: 50000 }}
+    maxTenureYears={30}
+    defaults={{ balance: 4000000, annualRate: 8.5, remainingYears: 20, lumpSum: 500000, fee: 0 }}
+  />
+
+  <section class="content-section">
+    <h2>Lower EMI or Shorter Tenure?</h2>
+    <p>
+      When you part-prepay, most lenders let you either keep the EMI and finish sooner, or keep the end date and lower the EMI. Keeping the EMI usually saves more interest. Lowering it gives you more breathing room each month.
+    </p>
+    <p>
+      <strong>Example:</strong> {inr(4000000)} at 8.50% with 20 years left, and a {inr(500000)} part-payment today. Keeping the EMI at {inr(ex.shorterTerm.payment)} finishes the loan {240 - ex.shorterTerm.months} months early and saves {inr(ex.shorterTerm.netSaving)} in interest. Lowering the EMI to {inr(ex.lowerPayment.payment)} saves {inr(ex.lowerPayment.netSaving)}.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>outstanding balance</strong>, rate and remaining tenure from your latest statement</li>
+      <li>Add a <strong>lump sum</strong>, a <strong>monthly extra payment</strong> or both</li>
+      <li>Add any <strong>prepayment fee</strong>, which is usually zero on an individual's floating-rate loan</li>
+      <li>Compare the <strong>net saving</strong> and new EMI under each option</li>
+    </ol>
+    <p>The calculation assumes your rate stays the same. On a floating loan it will move, so treat the saving as an estimate.</p>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card"><h3>EMI Calculator</h3><p>Calculate the EMI on a home, car or personal loan.</p></a>
+      <a href="/india/home-loan-balance-transfer-calculator" class="related-card"><h3>Balance Transfer Calculator</h3><p>See if moving your loan to a new lender saves money.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>Estimate what the same money could grow to if invested instead.</p></a>
+    </div>
+  </section>
+</BaseLayout>

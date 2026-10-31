@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { comparePrepayment } from './prepayment';
 import { compareLoanTakeover } from './loan-takeover';
 
 /**
@@ -543,5 +544,60 @@ describe('compareLoanTakeover', () => {
     const r = compareLoanTakeover({ ...base, newRate: 5.75, newTenureMonths: 120, exitFee: 0, newLoanCosts: 0 });
     expect(r.monthlySaving).toBeLessThan(0);
     expect(r.netSaving).toBeGreaterThan(0);
+  });
+});
+
+describe('comparePrepayment', () => {
+  const base = { balance: 4000000, annualRate: 8.5, remainingMonths: 240, lumpSum: 500000, extraMonthly: 0, fee: 0 };
+
+  it('matches the plain loan when nothing is prepaid', () => {
+    const r = comparePrepayment({ ...base, lumpSum: 0 });
+    const plain = calculateEMI(4000000, 8.5, 240);
+    expect(r.baselinePayment).toBeCloseTo(plain.emi, 6);
+    expect(r.shorterTerm.months).toBe(240);
+    expect(r.shorterTerm.netSaving).toBeCloseTo(0, 2);
+    expect(r.lowerPayment.netSaving).toBeCloseTo(0, 2);
+  });
+
+  it('prices the lower payment as a new loan on the reduced balance', () => {
+    const r = comparePrepayment(base);
+    const reduced = calculateEMI(3500000, 8.5, 240);
+    expect(r.lowerPayment.payment).toBeCloseTo(reduced.emi, 6);
+    expect(r.lowerPayment.months).toBe(240);
+    expect(r.lowerPayment.totalInterest).toBeCloseTo(reduced.totalInterest, 2);
+  });
+
+  it('saves more by finishing sooner than by lowering the payment', () => {
+    const r = comparePrepayment(base);
+    expect(r.shorterTerm.months).toBeLessThan(240);
+    expect(r.shorterTerm.payment).toBeCloseTo(r.baselinePayment, 6);
+    expect(r.shorterTerm.netSaving).toBeGreaterThan(r.lowerPayment.netSaving);
+  });
+
+  it('takes the fee off both savings', () => {
+    const free = comparePrepayment(base);
+    const paid = comparePrepayment({ ...base, fee: 10000 });
+    expect(paid.shorterTerm.netSaving).toBeCloseTo(free.shorterTerm.netSaving - 10000, 6);
+    expect(paid.lowerPayment.netSaving).toBeCloseTo(free.lowerPayment.netSaving - 10000, 6);
+  });
+
+  it('clears the loan today when the lump sum covers it', () => {
+    const r = comparePrepayment({ ...base, lumpSum: 9000000 });
+    expect(r.shorterTerm.months).toBe(0);
+    expect(r.shorterTerm.totalInterest).toBe(0);
+    expect(r.lowerPayment.payment).toBe(0);
+    expect(r.shorterTerm.netSaving).toBeCloseTo(r.baselineInterest, 6);
+  });
+
+  it('shortens the loan further with a monthly top-up', () => {
+    const r = comparePrepayment({ ...base, lumpSum: 0, extraMonthly: 5000 });
+    expect(r.shorterTerm.months).toBeLessThan(240);
+    expect(r.shorterTerm.netSaving).toBeGreaterThan(0);
+  });
+
+  it('handles a 0% rate', () => {
+    const r = comparePrepayment({ ...base, annualRate: 0 });
+    expect(r.shorterTerm.months).toBe(210);
+    expect(r.shorterTerm.totalInterest).toBe(0);
   });
 });
