@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CapitalGainsCalculator from '../../components/calculators/engines/CapitalGainsCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { ZERODHA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+import { capitalGainsTax } from '../../lib/formulas/capital-gains';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Capital Gains Tax Calculator (India)';
+const description = 'Free capital gains tax calculator for India, FY 2026-27. Work out LTCG and STCG on shares, mutual funds, property and gold, including the property indexation option.';
+const path = '/india/capital-gains-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const eq = capitalGainsTax({ asset: 'equity', purchaseValue: 500000, saleValue: 800000, expenses: 0, holdingMonths: 24, slabRate: 30, exemptionAvailable: 125000, indexationEligible: false, purchaseFyStart: 2015, saleFyStart: 2026 });
+const prop = capitalGainsTax({ asset: 'property', purchaseValue: 5000000, saleValue: 9000000, expenses: 0, holdingMonths: 132, slabRate: 30, exemptionAvailable: 0, indexationEligible: true, purchaseFyStart: 2015, saleFyStart: 2026 });
+
+const faqs = [
+  {
+    q: `What is the capital gains tax rate on shares in India?`,
+    a: `On listed shares and equity mutual funds, gains on holdings of up to 12 months are taxed at 20%. Longer holdings are taxed at 12.5% on gains above ₹1.25 lakh a year. Both also carry 4% cess, and surcharge can apply on high incomes.`,
+  },
+  {
+    q: `How are debt mutual funds taxed?`,
+    a: `Debt funds bought on or after 1 April 2023 are taxed at your income tax slab rate, however long you hold them. Older purchases can follow different rules, so check before relying on this calculator for those units.`,
+  },
+  {
+    q: `How is tax on property sale calculated?`,
+    a: `Property held for up to 24 months is taxed at your slab rate. Longer holdings are taxed at 12.5% without indexation. Resident individuals and HUFs who bought land or a building before 23 July 2024 can instead choose 20% with indexation, whichever is lower.`,
+  },
+  {
+    q: `What is the Cost Inflation Index?`,
+    a: `It is a government index used to raise your purchase cost for inflation. The indexed cost is your cost multiplied by the index for the year of sale, divided by the index for the year of purchase. It is notified as 384 for FY 2026-27.`,
+  },
+  {
+    q: `Can I avoid capital gains tax on selling a house?`,
+    a: `You may be able to reduce or defer it by reinvesting in another home or in specified bonds, subject to conditions and deadlines. This calculator does not include those exemptions, so speak to a tax professional before a large sale.`,
+  },
+  {
+    q: `Does this calculator include surcharge?`,
+    a: `No. It includes 4% cess, but not surcharge on high incomes, set-off of losses, or the grandfathering rule for equity bought before 1 February 2018. NRIs can also face different rules and tax deducted at source.`,
+  },
+];
+---
+
+<BaseLayout title="Capital Gains Tax Calculator India FY 2026-27 — LTCG & STCG | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Capital Gains Tax Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">Work out the tax on shares, mutual funds, property and gold</p>
+  <p class="page-intro">
+    Enter what you sold, the buying and selling values, and how long you held it. The calculator applies the current rate, and on older property it compares the two available options.
+  </p>
+
+  <CapitalGainsCalculator client:visible />
+  <p style="font-size: 0.85rem; color: #64748b;">Rates reflect rules reported for FY 2026-27 as reviewed in November 2026. This is an estimate for residents, not tax advice. Confirm with a tax professional before filing.</p>
+
+  <section class="content-section">
+    <h2>Capital Gains Tax Rates for FY 2026-27</h2>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
+            <th style="padding: 0.6rem;">Asset</th><th style="padding: 0.6rem;">Long term after</th><th style="padding: 0.6rem;">Short-term rate</th><th style="padding: 0.6rem;">Long-term rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.6rem;">Listed shares, equity funds</td><td style="padding: 0.6rem;">12 months</td><td style="padding: 0.6rem;">20%</td><td style="padding: 0.6rem;">12.5% above ₹1.25 lakh</td></tr>
+          <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.6rem;">Debt funds bought from 1 April 2023</td><td style="padding: 0.6rem;">Not applicable</td><td style="padding: 0.6rem;">Your slab</td><td style="padding: 0.6rem;">Your slab</td></tr>
+          <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.6rem;">Property</td><td style="padding: 0.6rem;">24 months</td><td style="padding: 0.6rem;">Your slab</td><td style="padding: 0.6rem;">12.5%, or 20% with indexation on eligible older purchases</td></tr>
+          <tr><td style="padding: 0.6rem;">Gold and other assets</td><td style="padding: 0.6rem;">24 months</td><td style="padding: 0.6rem;">Your slab</td><td style="padding: 0.6rem;">12.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>4% cess applies on top of all of these rates. Certain products, including some gold and specified funds, have their own holding periods, so check yours.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>Worked Examples</h2>
+    <p>
+      <strong>Equity funds:</strong> Bought for {inr(500000)} and sold for {inr(800000)} after 2 years. The gain is {inr(eq.gain)}. After the {inr(eq.exemptionUsed)} allowance, {inr(eq.taxableGain)} is taxed at 12.5%, so tax with cess comes to {inr(eq.totalTax)}.
+    </p>
+    <p>
+      <strong>Older property:</strong> A resident bought a flat for {inr(5000000)} in FY 2015-16 and sold it for {inr(9000000)} in FY 2026-27. Indexation raises the cost to {inr(prop.indexation!.indexedCost)}, using an index of 384 / 254. Tax before cess is {inr(prop.indexation!.taxAt20)} at 20% with indexation, against {inr(prop.indexation!.taxAt12Point5)} at 12.5% without. The {prop.indexation!.used ? 'indexed' : 'flat-rate'} route is lower.
+    </p>
+  </section>
+
+  <AffiliateCTA partner={ZERODHA} title="Planning your next investment?" blurb="Check the tax on selling before you switch. Investments can fall as well as rise." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/swp-calculator" class="related-card"><h3>SWP Calculator</h3><p>Plan withdrawals from a mutual fund corpus.</p></a>
+      <a href="/india/lumpsum-calculator" class="related-card"><h3>Lump Sum Calculator</h3><p>Estimate returns on a one-time investment.</p></a>
+      <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
+    </div>
+  </section>
+</BaseLayout>

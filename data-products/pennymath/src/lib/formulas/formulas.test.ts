@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { capitalGainsTax } from './capital-gains';
 import { hraExemption, hraSalaryPercent } from './hra';
 import { salaryBreakdown } from './salary';
 import { compareRentVsBuy } from './rent-vs-buy';
@@ -874,5 +875,82 @@ describe('hraExemption', () => {
     expect(hraSalaryPercent('new-metro', 'fy-2025-26')).toBe(40);
     expect(hraSalaryPercent('new-metro', 'fy-2026-27')).toBe(50);
     expect(hraSalaryPercent('other', 'fy-2026-27')).toBe(40);
+  });
+});
+
+describe('capitalGainsTax', () => {
+  const base = { asset: 'equity' as const, purchaseValue: 500000, saleValue: 800000, expenses: 0, holdingMonths: 24, slabRate: 30, exemptionAvailable: 125000, indexationEligible: false, purchaseFyStart: 2015, saleFyStart: 2026 };
+
+  it('taxes long-term equity at 12.5% above the 1.25 lakh allowance', () => {
+    const r = capitalGainsTax(base);
+    expect(r.term).toBe('long');
+    expect(r.taxableGain).toBe(175000);
+    expect(r.tax).toBe(21875);
+    expect(r.totalTax).toBeCloseTo(22750, 6);
+  });
+
+  it('taxes short-term equity at 20% with no allowance', () => {
+    const r = capitalGainsTax({ ...base, holdingMonths: 12 });
+    expect(r.term).toBe('short');
+    expect(r.exemptionUsed).toBe(0);
+    expect(r.tax).toBe(60000);
+  });
+
+  it('turns long term only after more than 12 months on equity', () => {
+    expect(capitalGainsTax({ ...base, holdingMonths: 13 }).term).toBe('long');
+  });
+
+  it('respects an allowance already partly used', () => {
+    expect(capitalGainsTax({ ...base, exemptionAvailable: 25000 }).taxableGain).toBe(275000);
+  });
+
+  it('taxes debt funds at slab rate however long they are held', () => {
+    const r = capitalGainsTax({ ...base, asset: 'debt-fund', holdingMonths: 120 });
+    expect(r.term).toBe('short');
+    expect(r.tax).toBe(90000);
+  });
+
+  it('taxes short-term property at slab rate', () => {
+    const r = capitalGainsTax({ ...base, asset: 'property', holdingMonths: 24 });
+    expect(r.term).toBe('short');
+    expect(r.rate).toBe(30);
+    expect(r.tax).toBe(90000);
+  });
+
+  it('taxes long-term property at 12.5% with no indexation by default', () => {
+    const r = capitalGainsTax({ ...base, asset: 'property', holdingMonths: 25 });
+    expect(r.term).toBe('long');
+    expect(r.tax).toBe(37500);
+    expect(r.indexation).toBeNull();
+  });
+
+  it('picks 20% with indexation when that is lower', () => {
+    // Bought for 50 lakh in FY 2015-16, sold for 90 lakh in FY 2026-27.
+    const r = capitalGainsTax({ ...base, asset: 'property', purchaseValue: 5000000, saleValue: 9000000, holdingMonths: 132, indexationEligible: true });
+    const indexedCost = 5000000 * (384 / 254);
+    expect(r.indexation!.indexedCost).toBeCloseTo(indexedCost, 4);
+    expect(r.indexation!.taxAt20).toBeCloseTo((9000000 - indexedCost) * 0.2, 4);
+    expect(r.indexation!.used).toBe(true);
+    expect(r.rate).toBe(20);
+    expect(r.tax).toBeCloseTo((9000000 - indexedCost) * 0.2, 4);
+  });
+
+  it('keeps 12.5% when it beats the indexed route', () => {
+    // Prices rose far faster than inflation, so the flat rate wins.
+    const r = capitalGainsTax({ ...base, asset: 'property', purchaseValue: 2000000, saleValue: 20000000, holdingMonths: 132, indexationEligible: true });
+    expect(r.indexation!.used).toBe(false);
+    expect(r.rate).toBe(12.5);
+    expect(r.tax).toBeCloseTo(18000000 * 0.125, 4);
+  });
+
+  it('owes nothing on a loss', () => {
+    const r = capitalGainsTax({ ...base, saleValue: 400000 });
+    expect(r.gain).toBe(-100000);
+    expect(r.totalTax).toBe(0);
+    expect(r.netProceeds).toBe(400000);
+  });
+
+  it('deducts expenses from the gain', () => {
+    expect(capitalGainsTax({ ...base, expenses: 75000 }).taxableGain).toBe(100000);
   });
 });
