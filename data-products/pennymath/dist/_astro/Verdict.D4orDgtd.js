@@ -1,0 +1,1 @@
+import{u as r}from"./jsxRuntime.module.Df2jPm6g.js";function d({title:e,tone:t="neutral",children:i}){return r("div",{class:`verdict tone-${t}`,children:[r("i",{"aria-hidden":"true"}),r("div",{children:[r("strong",{children:e}),i&&r("p",{children:i})]})]})}export{d as V};
