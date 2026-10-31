@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SalaryCalculator from '../../components/calculators/engines/SalaryCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import DataVintage from '../../components/DataVintage.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { ZERODHA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+import { salaryBreakdown } from '../../lib/formulas/salary';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'In-Hand Salary Calculator (India)';
+const description = 'Free CTC to in-hand salary calculator for India. See your monthly take-home after PF, professional tax and income tax, under the new or old tax regime.';
+const path = '/india/in-hand-salary-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const ex = salaryBreakdown({ annualCtc: 1500000, basicPercent: 50, annualVariable: 0, pfBasis: 'full', includeGratuityInCtc: false, monthlyProfessionalTax: 200, regime: 'new', oldRegimeDeductions: 0 });
+
+const faqs = [
+  {
+    q: `What is the difference between CTC and in-hand salary?`,
+    a: `CTC is everything your employer spends on you in a year, including its PF contribution and sometimes gratuity and insurance. In-hand salary is what reaches your bank account after your PF contribution, professional tax and income tax.`,
+  },
+  {
+    q: `How do the new labour codes affect my take-home pay?`,
+    a: `The labour codes generally require wages, including basic pay, to be at least 50% of total pay. If your basic is lower today, your PF may rise if it is based on full wages, which can lower your take-home while increasing retirement savings. Your employer's approach decides the effect, so check your payslip.`,
+  },
+  {
+    q: `Is PF calculated on my full basic pay?`,
+    a: `Mandatory contributions apply on wages up to ₹15,000 a month, but many employers contribute on full basic pay. Check your payslip: a PF deduction of ₹1,800 a month suggests the ceiling is being used. Choose the matching option above.`,
+  },
+  {
+    q: `How much professional tax will I pay?`,
+    a: `It depends on your state and income, and is commonly up to ₹200 a month, with a total limit of ₹2,500 a year. Some states do not charge it, so set it to zero if yours does not.`,
+  },
+  {
+    q: `Which tax regime should I choose?`,
+    a: `The new regime is the default and often better unless you claim large deductions such as HRA, 80C and home loan interest. Switch between them above, then use the old vs new regime calculator for a more detailed comparison.`,
+  },
+  {
+    q: `Why does my payslip show a different amount?`,
+    a: `Employers structure pay differently, and may also deduct insurance or meal cards, or spread tax based on your declarations. Bonuses are often taxed when they are paid. Treat this as a close estimate rather than your exact payslip.`,
+  },
+];
+---
+
+<BaseLayout title="In-Hand Salary Calculator India — CTC to Take-Home | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> In-Hand Salary Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See how much of your CTC reaches your bank account</p>
+  <p class="page-intro">
+    Enter your CTC to see your monthly in-hand salary after PF, professional tax and income tax. It is useful for comparing job offers, since two equal CTCs can pay quite differently.
+  </p>
+
+  <DataVintage />
+  <SalaryCalculator client:visible />
+  <p style="font-size: 0.85rem; color: #64748b;">This is an estimate. It leaves out the surcharge on incomes above ₹50 lakh and assumes you are under 60.</p>
+
+  <section class="content-section">
+    <h2>How Your CTC Becomes Take-Home Pay</h2>
+    <div class="formula-box">
+      Gross salary = CTC &minus; employer PF &minus; gratuity provision<br />
+      Take-home = gross salary &minus; your PF &minus; professional tax &minus; income tax
+    </div>
+    <p>
+      <strong>Example:</strong> A {inr(1500000)} CTC with basic pay at 50%, PF on full basic and {inr(200)} a month in professional tax. Employer PF of {inr(ex.employerPf)} leaves a gross salary of {inr(ex.grossSalary)}. After your {inr(ex.employeePf)} PF contribution, professional tax and {inr(ex.incomeTax)} in income tax under the new regime, you take home {inr(ex.annualTakeHome)} a year, or about {inr(ex.monthlyInHand)} a month.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter your <strong>annual CTC</strong> from your offer letter</li>
+      <li>Set your <strong>basic pay share</strong>. The labour codes generally push wages to at least 50% of total pay</li>
+      <li>Add any <strong>bonus or variable pay</strong>. The monthly figure leaves it out, and the annual figure assumes you receive it all</li>
+      <li>Choose your <strong>tax regime</strong>, and how your employer calculates <strong>PF</strong> and <strong>gratuity</strong></li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>Why PF Is Not Lost Money</h2>
+    <p>
+      PF reduces your in-hand pay, but it still belongs to you. It builds a retirement balance that earned 8.25% interest for FY 2025-26. When comparing two job offers, look at both the take-home pay and the retirement contributions.
+    </p>
+  </section>
+
+  <AffiliateCTA partner={ZERODHA} title="Put part of your take-home to work" blurb="Start investing a set share of each month's pay. Investments can fall as well as rise." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/old-vs-new-tax-regime" class="related-card"><h3>Old vs New Tax Regime</h3><p>See which regime saves you more.</p></a>
+      <a href="/india/income-tax-calculator" class="related-card"><h3>Income Tax Calculator</h3><p>See the slab-wise tax on your income.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>See what a monthly investment could grow to.</p></a>
+    </div>
+  </section>
+</BaseLayout>

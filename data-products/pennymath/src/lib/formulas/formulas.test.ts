@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { salaryBreakdown } from './salary';
 import { compareRentVsBuy } from './rent-vs-buy';
 import { maxAffordability, INDIA_LTV_TIERS } from './affordability';
 import { dubaiPurchaseCosts } from './dubai-purchase-costs';
@@ -779,5 +780,54 @@ describe('compareRentVsBuy', () => {
     const r = compareRentVsBuy({ ...base, monthlyRent: 2000, appreciationPercent: 0, investmentReturnPercent: 10 });
     expect(r.advantage).toBeLessThan(0);
     expect(r.breakEvenYear).toBeNull();
+  });
+});
+
+describe('salaryBreakdown', () => {
+  const base = { annualCtc: 1200000, basicPercent: 50, annualVariable: 0, pfBasis: 'full' as const, includeGratuityInCtc: false, monthlyProfessionalTax: 200, regime: 'new' as const, oldRegimeDeductions: 0 };
+
+  it('takes employer PF out of the CTC at 12% of full basic', () => {
+    const r = salaryBreakdown(base);
+    expect(r.annualBasic).toBe(600000);
+    expect(r.employerPf).toBe(72000);
+    expect(r.grossSalary).toBe(1128000);
+  });
+
+  it('caps PF at the 15,000 wage ceiling when chosen', () => {
+    const r = salaryBreakdown({ ...base, pfBasis: 'capped' });
+    expect(r.employerPf).toBe(21600);
+    expect(r.employeePf).toBe(21600);
+  });
+
+  it('does not cap PF below the ceiling for low basic pay', () => {
+    const r = salaryBreakdown({ ...base, annualCtc: 240000, pfBasis: 'capped' });
+    expect(r.employerPf).toBe(120000 * 0.12);
+  });
+
+  it('reconciles take-home against every deduction', () => {
+    const r = salaryBreakdown(base);
+    expect(r.incomeTax).toBe(0); // 11,28,000 is inside the 12.75 lakh zero-tax range
+    expect(r.annualTakeHome).toBeCloseTo(1128000 - 72000 - 2400, 6);
+    expect(r.monthlyInHand).toBeCloseTo(r.annualTakeHome / 12, 6);
+  });
+
+  it('adds gratuity at 15/26 of a month of basic when included', () => {
+    const r = salaryBreakdown({ ...base, includeGratuityInCtc: true });
+    expect(r.gratuityProvision).toBeCloseTo((600000 / 12) * (15 / 26), 6);
+    expect(r.grossSalary).toBeCloseTo(1128000 - r.gratuityProvision, 6);
+  });
+
+  it('holds variable pay and its tax out of the monthly figure', () => {
+    const r = salaryBreakdown({ ...base, annualCtc: 2000000, annualVariable: 300000 });
+    const noBonusPay = r.annualTakeHome - r.monthlyInHand * 12;
+    expect(noBonusPay).toBeGreaterThan(0);
+    expect(noBonusPay).toBeLessThan(300000); // the bonus, after its share of tax
+  });
+
+  it('uses old regime slabs with deductions and professional tax', () => {
+    const r = salaryBreakdown({ ...base, annualCtc: 2000000, regime: 'old', oldRegimeDeductions: 150000 });
+    const gross = 2000000 - 120000;
+    expect(r.grossSalary).toBe(gross);
+    expect(r.incomeTax).toBeCloseTo(indiaIncomeTaxOldRegime(gross, 152400).totalTaxWithCess, 6);
   });
 });
