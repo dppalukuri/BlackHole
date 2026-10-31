@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DubaiPurchaseCostCalculator from '../../components/calculators/engines/DubaiPurchaseCostCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { SARWA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+import { dubaiPurchaseCosts } from '../../lib/formulas/dubai-purchase-costs';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Dubai Property Purchase Cost Calculator';
+const description = 'Free Dubai property cost calculator. Add up the 4% DLD fee, agent commission, mortgage registration, trustee and bank fees to see the total cash you need to buy.';
+const path = '/uae/dubai-property-purchase-cost-calculator';
+const aed = (n: number) => formatCurrency(n, 'AED');
+const ex = dubaiPurchaseCosts({ price: 1500000, loanPercent: 80, useAgent: true, agentPercent: 2, bankFeePercent: 1, valuationFee: 3000, otherCosts: 0 });
+
+const faqs = [
+  {
+    q: `How much are the fees when buying property in Dubai?`,
+    a: `Allow roughly 7% of the price for a typical ready property bought with an agent and a mortgage, and less for a cash purchase. The biggest item is the 4% Dubai Land Department transfer fee. The calculator above adds up each cost for your purchase.`,
+  },
+  {
+    q: `Who pays the 4% DLD fee?`,
+    a: `The buyer usually pays it, though the parties can agree otherwise and some developers offer to cover part of it as a promotion. Confirm this in your sale contract.`,
+  },
+  {
+    q: `How much cash do I need to buy with a mortgage?`,
+    a: `You need the down payment plus all fees, since banks generally do not lend against these costs. First-home buyers often face a minimum down payment of 20% for expats and 15% for UAE nationals on properties up to AED 5 million, though terms vary by bank.`,
+  },
+  {
+    q: `What is the Dubai trustee office fee?`,
+    a: `It is the fee a registration trustee charges to process the transfer. It is commonly quoted at AED 2,000 plus VAT for properties under AED 500,000 and AED 4,000 plus VAT above that. Ask your trustee office to confirm the current charge.`,
+  },
+  {
+    q: `Does this work for off-plan property?`,
+    a: `Not fully. Off-plan purchases are usually registered through Oqood, with their own fee structure and a payment plan paid to the developer. The 4% fee still generally applies, but the other items can differ, so ask the developer for a full cost sheet.`,
+  },
+];
+---
+
+<BaseLayout title="Dubai Property Purchase Cost Calculator 2026 — DLD Fees & Total Cash | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="AED" countryName="UAE" countryPath="/uae/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Dubai Property Purchase Cost Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See the total cash you need to buy a ready property</p>
+  <p class="page-intro">
+    The down payment is only part of the money you need. This adds the DLD fee, agent commission, trustee fee and mortgage costs so you can see the full amount upfront.
+  </p>
+
+  <DubaiPurchaseCostCalculator client:visible />
+  <p style="font-size: 0.85rem; color: #64748b;">Fee levels reflect published and market figures reviewed in November 2026. Bank, valuation and agent fees vary, so get a final statement from your trustee and bank before you transfer funds.</p>
+
+  <section class="content-section">
+    <h2>What You Pay When Buying in Dubai</h2>
+    <ul>
+      <li><strong>DLD transfer fee:</strong> 4% of the purchase price, plus an admin fee of AED 580 for an apartment or villa</li>
+      <li><strong>Trustee office fee:</strong> commonly AED 2,000 or AED 4,000 plus 5% VAT, depending on the price</li>
+      <li><strong>Agent commission:</strong> usually 2% of the price plus 5% VAT on a resale, if you use an agent</li>
+      <li><strong>Mortgage registration:</strong> 0.25% of the loan plus AED 290</li>
+      <li><strong>Bank processing fee:</strong> often up to about 1% of the loan plus VAT, with some banks charging less</li>
+      <li><strong>Valuation:</strong> often AED 2,500 to AED 3,500</li>
+      <li><strong>Developer NOC:</strong> charged by many developers on a resale, so enter it under other costs</li>
+    </ul>
+    <p>
+      <strong>Example:</strong> A {aed(1500000)} resale apartment with an 80% mortgage and a 2% agent. The fees come to {aed(ex.totalCosts)}, or {ex.costsPercentOfPrice.toFixed(1)}% of the price. With the {aed(ex.downPayment)} down payment, you need {aed(ex.cashNeeded)} in cash.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li>Enter the <strong>property price</strong> and choose cash or a mortgage</li>
+      <li>Set your <strong>loan share</strong>, which is typically up to 80% for an expat's first home up to AED 5 million</li>
+      <li>Say whether you are using an <strong>agent</strong>, and adjust the commission if needed</li>
+      <li>Adjust the <strong>bank and valuation fees</strong> to match your offer, and add any other costs</li>
+    </ol>
+  </section>
+
+  <AffiliateCTA partner={SARWA} title="Still building your deposit?" blurb="If your purchase is a few years away, Sarwa offers globally diversified portfolios from AED 500. Remember that invested money can fall in value." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/rental-yield-calculator" class="related-card"><h3>Dubai Rental Yield Calculator</h3><p>Work out net ROI if you are buying to let.</p></a>
+      <a href="/uae/fixed-to-floating-mortgage-calculator" class="related-card"><h3>Fixed to Floating Calculator</h3><p>Compare a fixed mortgage with a variable one.</p></a>
+    </div>
+  </section>
+</BaseLayout>

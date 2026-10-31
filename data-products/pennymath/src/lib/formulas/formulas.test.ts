@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { dubaiPurchaseCosts } from './dubai-purchase-costs';
 import { comparePrepayment } from './prepayment';
 import { compareLoanTakeover } from './loan-takeover';
 
@@ -599,5 +600,46 @@ describe('comparePrepayment', () => {
     const r = comparePrepayment({ ...base, annualRate: 0 });
     expect(r.shorterTerm.months).toBe(210);
     expect(r.shorterTerm.totalInterest).toBe(0);
+  });
+});
+
+describe('dubaiPurchaseCosts', () => {
+  const base = { price: 1500000, loanPercent: 80, useAgent: true, agentPercent: 2, bankFeePercent: 1, valuationFee: 3000, otherCosts: 0 };
+
+  it('adds up a financed purchase through an agent', () => {
+    const r = dubaiPurchaseCosts(base);
+    const expected =
+      60000 + 580 + 4200 + // DLD, admin, trustee
+      31500 + // 2% agent with VAT
+      (3000 + 290) + // registration on 12,00,000
+      12600 + // 1% bank fee with VAT
+      3000; // valuation
+    expect(r.loan).toBe(1200000);
+    expect(r.downPayment).toBe(300000);
+    expect(r.totalCosts).toBeCloseTo(expected, 6);
+    expect(r.cashNeeded).toBeCloseTo(300000 + expected, 6);
+  });
+
+  it('drops the mortgage costs on a cash purchase', () => {
+    const r = dubaiPurchaseCosts({ ...base, loanPercent: 0 });
+    expect(r.downPayment).toBe(1500000);
+    expect(r.totalCosts).toBeCloseTo(60000 + 580 + 4200 + 31500, 6);
+    expect(r.costs.some((c) => c.label.includes('Mortgage'))).toBe(false);
+  });
+
+  it('drops the commission without an agent', () => {
+    const withAgent = dubaiPurchaseCosts(base).totalCosts;
+    expect(dubaiPurchaseCosts({ ...base, useAgent: false }).totalCosts).toBeCloseTo(withAgent - 31500, 6);
+  });
+
+  it('charges the lower trustee fee below AED 500,000', () => {
+    const line = (price: number) => dubaiPurchaseCosts({ ...base, price }).costs.find((c) => c.label.includes('Trustee'))!.amount;
+    expect(line(499999)).toBeCloseTo(2100, 6);
+    expect(line(500000)).toBeCloseTo(4200, 6);
+  });
+
+  it('reports costs as a share of the price', () => {
+    const r = dubaiPurchaseCosts(base);
+    expect(r.costsPercentOfPrice).toBeCloseTo((r.totalCosts / 1500000) * 100, 6);
   });
 });
