@@ -1,0 +1,33 @@
+---
+/** Calculators grouped by what they help you decide. */
+import { TOPICS, type CalculatorEntry } from '../data/calculators';
+
+interface Props {
+  calculators: CalculatorEntry[];
+  /** Show each one-line description. Used where a country's list has room for it. */
+  detailed?: boolean;
+}
+
+const { calculators, detailed = false } = Astro.props;
+const groups = TOPICS
+  .map((topic) => ({ topic, items: calculators.filter((c) => c.topic === topic.id) }))
+  .filter((g) => g.items.length > 0);
+---
+
+<div class={`panels ${detailed ? 'panels-detailed' : ''}`}>
+  {groups.map(({ topic, items }) => (
+    <section class="topic">
+      <header class="topic-head">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={topic.icon} />
+        <h2>{topic.name}</h2>
+        <span>{items.length}</span>
+      </header>
+      {items.map((c) => (
+        <a class="row" href={c.path}>
+          <b>{c.name}</b>
+          {detailed ? <small>{c.desc}</small> : <em>{c.country}</em>}
+        </a>
+      ))}
+    </section>
+  ))}
+</div>

@@ -1,0 +1,107 @@
+---
+/** The homepage scene: a copper penny setting behind a valley. Drawn in the browser, so no image to load. */
+---
+
+<canvas class="dusk" data-dusk aria-hidden="true"></canvas>
+
+<script is:inline>
+(function () {
+  var canvas = document.querySelector('[data-dusk]');
+  if (!canvas) return;
+  function ridge(x, W, seed, rough) {
+    var u = x / W;
+    return Math.sin(u * 7.3 + seed) * 0.5 * rough + Math.sin(u * 17.9 + seed * 2.1) * 0.28 * rough +
+      Math.sin(u * 41.3 + seed * 3.7) * 0.13 * rough + Math.sin(u * 97.1 + seed * 5.3) * 0.05 * rough;
+  }
+  function paint() {
+    var box = canvas.getBoundingClientRect();
+    if (!box.width) return;
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = box.width * dpr;
+    canvas.height = box.height * dpr;
+    var g = canvas.getContext('2d');
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var W = box.width, H = box.height;
+
+    var sky = g.createLinearGradient(0, 0, 0, H * 0.82);
+    sky.addColorStop(0, '#262839');
+    sky.addColorStop(0.32, '#45455F');
+    sky.addColorStop(0.56, '#7E6780');
+    sky.addColorStop(0.76, '#C98F82');
+    sky.addColorStop(1, '#EDB994');
+    g.fillStyle = sky;
+    g.fillRect(0, 0, W, H);
+
+    [[0.14, 0.2, 0.34, 0.1, '150,110,120', 0.28], [0.86, 0.17, 0.36, 0.11, '70,78,112', 0.5], [0.3, 0.5, 0.3, 0.05, '245,205,185', 0.2], [0.74, 0.47, 0.34, 0.05, '245,205,185', 0.16]].forEach(function (c) {
+      g.save();
+      g.translate(W * c[0], H * c[1]);
+      g.scale(W * c[2], H * c[3]);
+      var r = g.createRadialGradient(0, 0, 0, 0, 0, 1);
+      r.addColorStop(0, 'rgba(' + c[4] + ',' + c[5] + ')');
+      r.addColorStop(1, 'rgba(' + c[4] + ',0)');
+      g.fillStyle = r;
+      g.beginPath();
+      g.arc(0, 0, 1, 0, Math.PI * 2);
+      g.fill();
+      g.restore();
+    });
+
+    var cx = W * 0.5, cy = H * 0.725, R = Math.max(40, Math.min(66, W * 0.05));
+    var glow = g.createRadialGradient(cx, cy, R * 0.6, cx, cy, R * 5.4);
+    glow.addColorStop(0, 'rgba(255,196,146,0.6)');
+    glow.addColorStop(1, 'rgba(255,196,146,0)');
+    g.fillStyle = glow;
+    g.fillRect(cx - R * 6, cy - R * 6, R * 12, R * 12);
+    var coin = g.createRadialGradient(cx - R * 0.32, cy - R * 0.38, R * 0.1, cx, cy, R * 1.12);
+    coin.addColorStop(0, '#FBCBA2');
+    coin.addColorStop(0.55, '#E58F55');
+    coin.addColorStop(1, '#B85C25');
+    g.fillStyle = coin;
+    g.beginPath(); g.arc(cx, cy, R, 0, Math.PI * 2); g.fill();
+    g.lineWidth = 1.5;
+    g.strokeStyle = 'rgba(255,240,225,0.6)';
+    g.beginPath(); g.arc(cx, cy, R * 0.82, 0, Math.PI * 2); g.stroke();
+
+    [
+      { base: 0.76, rise: 0.17, rough: 12, seed: 1.1, color: '#94788A' },
+      { base: 0.80, rise: 0.25, rough: 18, seed: 2.7, color: '#6D6480' },
+      { base: 0.85, rise: 0.31, rough: 24, seed: 4.3, color: '#494A67' },
+      { base: 0.90, rise: 0.33, rough: 26, seed: 5.9, color: '#30324A' },
+      { base: 0.95, rise: 0.34, rough: 22, seed: 7.7, color: '#1F2130' },
+      { base: 1.0, rise: 0.22, rough: 14, seed: 9.2, color: '#15161E' }
+    ].forEach(function (l, i) {
+      g.fillStyle = l.color;
+      g.beginPath();
+      g.moveTo(0, H);
+      for (var x = 0; x <= W + 3; x += 3) {
+        var v = Math.pow(Math.abs(x / W - 0.5) * 2, 1.7);
+        g.lineTo(x, H * l.base - v * H * l.rise - ridge(x, W, l.seed, l.rough));
+      }
+      g.lineTo(W, H);
+      g.closePath();
+      g.fill();
+      if (i < 4) {
+        var y = H * l.base;
+        var mist = g.createRadialGradient(cx, y, 0, cx, y, W * 0.42);
+        mist.addColorStop(0, 'rgba(248,214,192,' + (0.26 - i * 0.05) + ')');
+        mist.addColorStop(1, 'rgba(248,214,192,0)');
+        g.save();
+        g.translate(0, y);
+        g.scale(1, 0.09);
+        g.translate(0, -y);
+        g.fillStyle = mist;
+        g.fillRect(0, y - H * 6, W, H * 12);
+        g.restore();
+      }
+    });
+  }
+  paint();
+  var w = canvas.getBoundingClientRect().width;
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () {
+      var n = canvas.getBoundingClientRect().width;
+      if (n && n !== w) { w = n; paint(); }
+    }).observe(canvas);
+  }
+})();
+</script>

@@ -1,38 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalculatorDirectory from '../../components/CalculatorDirectory.astro';
+import { CALCULATORS } from '../../data/calculators';
 
-const calculators = [
-  { slug: 'mortgage-calculator', name: 'Mortgage Calculator', desc: 'Estimate your monthly home loan payment. Compare 15, 20, and 30-year terms.' },
-  { slug: '401k-calculator', name: '401(k) Calculator', desc: 'Project your retirement balance with contributions, employer match, and growth.' },
-  { slug: 'roth-ira-calculator', name: 'Roth IRA Calculator', desc: 'Tax-free retirement growth — $7,000/year contribution limit.' },
-  { slug: 'investment-calculator', name: 'Investment Calculator', desc: 'Long-term growth projections for taxable brokerage accounts.' },
-  { slug: 'auto-loan-calculator', name: 'Auto Loan Calculator', desc: 'See your monthly car payment. Compare 36, 48, 60, and 72-month terms.' },
-  { slug: 'personal-loan-calculator', name: 'Personal Loan Calculator', desc: 'Estimate monthly payments for debt consolidation or any unsecured loan.' },
-  { slug: 'student-loan-calculator', name: 'Student Loan Calculator', desc: 'Federal and private student loan payment estimator.' },
-  { slug: 'savings-calculator', name: 'Savings Calculator', desc: 'See how your savings grow over time. High-yield vs traditional rates.' },
-  { slug: 'compound-interest-calculator', name: 'Compound Interest Calculator', desc: 'See how your money grows with different compounding frequencies.' },
-];
+const calculators = CALCULATORS.filter((c) => c.country === 'US');
 ---
 
 <BaseLayout
-  title="US Financial Calculators - Mortgage, 401k, IRA, Loans & More | PennyMath"
-  description="Free financial calculators for the US. Mortgage, 401(k), Roth IRA, investment, auto loan, savings, and more. No signup, no email required."
+  title="US Financial Calculators: Mortgage, 401(k), IRA, Loans and More | PennyMath"
+  description={`${calculators.length} free financial calculators for the US. Mortgage, 401(k), Roth IRA, investment, auto loan, savings and more. No signup.`}
 >
   <nav class="breadcrumbs">
     <a href="/">Home</a> <span>/</span> US
   </nav>
 
-  <h1>US Financial Calculators</h1>
-  <p class="page-intro">
-    Free online calculators for US borrowers, savers, and investors. Plan a mortgage, project retirement, compare loan terms, model savings goals — no signup, no email gates.
-  </p>
+  <h1>US calculators</h1>
+  <p class="page-intro">Plan loans, retirement and savings using dollar figures.</p>
 
-  <div class="calc-grid">
-    {calculators.map((calc) => (
-      <a href={`/us/${calc.slug}`} class="calc-card">
-        <h2>{calc.name}</h2>
-        <p>{calc.desc}</p>
-      </a>
-    ))}
-  </div>
+  <CalculatorDirectory calculators={calculators} detailed />
 </BaseLayout>

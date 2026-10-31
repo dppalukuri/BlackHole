@@ -1,39 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalculatorDirectory from '../../components/CalculatorDirectory.astro';
+import { CALCULATORS } from '../../data/calculators';
 
-const calculators = [
-  { slug: "aed-to-inr-remittance-calculator", name: "AED to INR Remittance Calculator", desc: "Compare rates and fees from up to three providers to see which delivers the most rupees." },
-  { slug: "rent-vs-buy-calculator", name: "Rent vs Buy Calculator", desc: "Compare your net worth after buying with renting and investing, and find your break-even year." },
-  { slug: "mortgage-affordability-calculator", name: "Mortgage Affordability Calculator", desc: "See the loan and property price your salary, debts and savings support under the debt burden limit." },
-  { slug: "dubai-property-purchase-cost-calculator", name: "Dubai Property Purchase Cost Calculator", desc: "Add up the DLD fee, agent, trustee and mortgage costs to see the total cash you need." },
-  { slug: "mortgage-early-repayment-calculator", name: "Mortgage Early Repayment Calculator", desc: "See how much a partial settlement saves after fees, and compare a shorter term with a lower payment." },
-  { slug: "mortgage-buyout-calculator", name: "Mortgage Buyout Calculator", desc: "See if moving your mortgage to another bank saves money after fees, and when you break even." },
-  { slug: 'fixed-to-floating-mortgage-calculator', name: 'Fixed to Floating Mortgage Calculator', desc: 'See your payment when a fixed rate reverts to EIBOR + margin, and whether fixing or floating costs less.' },
-  { slug: 'rental-yield-calculator', name: 'Dubai Rental Yield Calculator', desc: 'Calculate net ROI with DLD fees, service charges, vacancy. Compare against Dubai benchmarks.' },
-  { slug: 'gratuity-calculator', name: 'Gratuity Calculator', desc: 'Calculate your end-of-service benefits under UAE Labour Law.' },
-  { slug: 'vat-calculator', name: 'VAT Calculator', desc: 'Add or extract 5% UAE VAT from any amount.' },
-];
+const calculators = CALCULATORS.filter((c) => c.country === 'UAE');
 ---
 
 <BaseLayout
-  title="UAE Financial Calculators - Gratuity, VAT & More | PennyMath"
-  description="Free financial calculators for UAE residents and expats. End-of-service gratuity calculator, VAT calculator, golden visa cost calculator, and more."
+  title="UAE Financial Calculators: Mortgages, Gratuity, Property and More | PennyMath"
+  description={`${calculators.length} free financial calculators for the UAE. Mortgages, gratuity, VAT, Dubai property costs, rental yield and remittances. No signup.`}
 >
   <nav class="breadcrumbs">
     <a href="/">Home</a> <span>/</span> UAE
   </nav>
 
-  <h1>UAE Financial Calculators</h1>
-  <p class="page-intro">
-    Free online financial calculators for UAE residents and expats. Calculate your gratuity, VAT, and more — all instant, no signup required.
-  </p>
+  <h1>UAE calculators</h1>
+  <p class="page-intro">Plan a mortgage, a property purchase or your end-of-service benefit using UAE rules and dirham figures.</p>
 
-  <div class="calc-grid">
-    {calculators.map((calc) => (
-      <a href={`/uae/${calc.slug}`} class="calc-card">
-        <h2>{calc.name}</h2>
-        <p>{calc.desc}</p>
-      </a>
-    ))}
-  </div>
+  <CalculatorDirectory calculators={calculators} detailed />
 </BaseLayout>
