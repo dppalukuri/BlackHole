@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FixedFloatingCalculator from '../../components/calculators/engines/FixedFloatingCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { SARWA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What happens when my fixed-rate mortgage ends in the UAE?`,
+    a: `The loan usually moves to a variable rate of EIBOR plus the margin set out in your offer letter. If 3-month EIBOR is 4.45% and your margin is 1.50%, you pay 5.95%. Your payment is then recalculated on the remaining balance and term, and it changes again as EIBOR resets.`,
+  },
+  {
+    q: `Is a fixed or variable mortgage better in the UAE?`,
+    a: `It depends on the rates you are quoted and where EIBOR goes. When introductory fixed rates sit below EIBOR plus margin, as many did in October 2026, fixing is often cheaper even if EIBOR falls. Enter your own offers above, and the break-even figure shows how far EIBOR would have to fall for floating to win.`,
+  },
+  {
+    q: `How much is the early settlement fee on a UAE mortgage?`,
+    a: `The Central Bank of the UAE capped the fee on home loans at 1% of the outstanding balance or AED 10,000, whichever is lower, in a 2019 circular. Some lenders may set different terms during a fixed period, so check your own contract and ask for a settlement figure in writing.`,
+  },
+  {
+    q: `Can I switch from fixed to variable before my fixed period ends?`,
+    a: `Usually, by refinancing or by asking your bank to rebook the loan, though you may pay an early settlement fee and other charges. Enter your outstanding balance, the term left and the years left on your fix, then add those costs under the one-off cost input to see if the switch pays for itself.`,
+  },
+  {
+    q: `What is the margin on a UAE mortgage?`,
+    a: `It is the bank's fixed percentage added to EIBOR. Published reversion margins ran from about 1.09% to 1.99% in October 2026. The margin typically lasts for the rest of the loan, so a small difference can matter more than a low introductory rate.`,
+  },
+  {
+    q: `What is a floor rate on a variable mortgage?`,
+    a: `It is the lowest rate the loan can charge, however far EIBOR falls. A loan with a 4.75% floor stays at 4.75% even if EIBOR plus margin comes to 4%. Not every loan has one, so check your offer letter and enter any floor in the calculator.`,
+  },
+];
+
+const url = 'https://pennymath.techtools365.com/uae/fixed-to-floating-mortgage-calculator';
+---
+
+<BaseLayout
+  title="Fixed to Floating Mortgage Calculator UAE — EIBOR Reversion | PennyMath"
+  description="Free UAE fixed vs variable mortgage calculator. See your payment when a fixed rate reverts to EIBOR plus margin, the total cost of each option, and the break-even EIBOR."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Fixed to Floating Mortgage Calculator UAE",
+      "description": "Compare a fixed-rate UAE mortgage that reverts to EIBOR plus margin against a variable mortgage, with the break-even EIBOR level",
+      "url": url,
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AED" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pennymath.techtools365.com/" },
+        { "@type": "ListItem", "position": 2, "name": "UAE", "item": "https://pennymath.techtools365.com/uae/" },
+        { "@type": "ListItem", "position": 3, "name": "Fixed to Floating Mortgage Calculator", "item": url }
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/uae/">UAE</a> <span>/</span>
+    Fixed to Floating Mortgage Calculator
+  </nav>
+
+  <h1>Fixed to Floating Mortgage Calculator (UAE)</h1>
+  <p class="page-subtitle">See what happens when your fixed rate ends and EIBOR takes over</p>
+  <p class="page-intro">
+    Find your monthly payment after a fixed rate reverts to EIBOR plus margin, compare the total cost against a variable mortgage, and see the EIBOR level at which the two break even.
+  </p>
+
+  <FixedFloatingCalculator
+    client:visible
+    currency={{ code: 'AED', symbol: 'AED ' }}
+    benchmarkName="3-month EIBOR"
+    marginWord="margin"
+    paymentWord="payment"
+    showFloor
+    amountRange={{ min: 100000, max: 10000000, step: 50000 }}
+    maxTenureYears={25}
+    defaults={{ amount: 1500000, tenureYears: 25, fixedRate: 4.25, fixedYears: 3, benchmarkNow: 4.45, marginAfterFix: 1.5, floatingMargin: 1.5 }}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">
+    The starting values are examples based on rates published in October 2026, not a quote. 3-month EIBOR was about 4.45% at the 22 October fixing, as reported by a UAE mortgage broker. Check the Central Bank of the UAE's published fixings and use the figures in your own offer.
+  </p>
+
+  <section class="content-section">
+    <h2>How Fixed-Rate Mortgages Work in the UAE</h2>
+    <p>
+      Most UAE "fixed" mortgages are only fixed for the first part of the loan, commonly one to five years. After that, the loan reverts to a variable rate: <strong>EIBOR plus a margin</strong>. EIBOR moves with the market, while the margin is set by your bank and normally stays the same for the rest of the loan.
+    </p>
+    <p>
+      So you are really choosing two prices at once: the introductory rate you see in the advert, and the reversion margin in the small print. On a 25-year loan with a 3-year fix, the reversion margin applies for 22 of the 25 years.
+    </p>
+    <p>
+      In October 2026, UAE banks' published fixed rates ran from about 3.89% to 4.74% for fixes of one to three years, and their reversion margins from about 1.09% to 1.99%. With EIBOR near 4.45%, that puts reversion rates at about 5.5% to 6.4%, well above the fixed rates.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li><strong>If you are taking a new mortgage:</strong> enter the loan amount, full term, and the rates from your fixed and variable offers. Leave the one-off cost at zero.</li>
+      <li><strong>If you are already on a fixed rate:</strong> enter your outstanding balance, the term left and the years left on your fix. Then enter your early settlement fee and other costs of switching as the one-off cost.</li>
+      <li><strong>Set your EIBOR forecast</strong> for the date your fix ends. It starts equal to today's rate, so the first result assumes EIBOR does not move.</li>
+      <li><strong>Compare the results:</strong> check the payment after the fix, the total cost of each option, and the break-even EIBOR.</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>How the Comparison Is Calculated</h2>
+    <div class="formula-box">
+      Floating rate = max(EIBOR + margin, floor)<br />
+      Payment = B &times; i &times; (1 + i)<sup>n</sup> / ((1 + i)<sup>n</sup> &minus; 1)
+    </div>
+    <p>
+      <strong>B</strong> is the balance when the rate changes, <strong>i</strong> is the annual rate / 12 / 100, and <strong>n</strong> is the months left. The payment is recalculated at every rate change, so both loans end on the same date.
+    </p>
+    <p>
+      EIBOR moves in a straight line from today's level to your forecast by the end of the fixed period, then holds there. The variable loan resets every three months and the fixed loan only moves at reversion.
+    </p>
+    <p>
+      <strong>Example:</strong> AED 1,500,000 over 25 years, fixed at 4.25% for 3 years, then 3-month EIBOR + 1.50%, with EIBOR flat at 4.45%. The payment starts at AED 8,126 and rises to AED 9,468 in year 4, an increase of 16.5%. A variable loan at the same margin costs AED 9,619 from day one. Fixing saves AED 93,397 in interest over the term, and EIBOR would need to be about 0.69% by the end of the fix for floating to match it.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Should You Switch from Fixed to Variable?</h2>
+    <p>
+      Paying to leave a fixed rate early rarely makes sense just because EIBOR has dipped, because the fixed period may be nearly over anyway. It can make sense when your fixed rate is well above current pricing and a new loan comes with a lower margin for the many years that follow.
+    </p>
+    <p>
+      <strong>Example:</strong> AED 1,200,000 outstanding with 20 years left, at 5.50% fixed for 2 more years, then EIBOR + 1.75%. Suppose a new variable loan offers EIBOR + 1.25%, you expect EIBOR to fall to 3.50%, and the switch costs AED 10,000. Switching still comes out AED 61,677 cheaper, and most of that comes from the lower margin rather than the forecast.
+    </p>
+    <p>
+      The AED 10,000 in that example is the capped early settlement fee alone: 1% of the balance would be AED 12,000. A real switch can also involve valuation, processing and mortgage registration costs, so ask for a full list and add them to the one-off cost.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>What This Calculator Leaves Out</h2>
+    <ul>
+      <li><strong>Timing of payments:</strong> totals are simple sums, so a dirham paid today counts the same as one paid in 20 years</li>
+      <li><strong>Refinancing later:</strong> many borrowers move to a new deal when a fix ends, which this does not assume</li>
+      <li><strong>Forecast risk:</strong> no one can predict EIBOR, so try a high and a low forecast rather than relying on one number</li>
+      <li><strong>Islamic home finance:</strong> profit rates often follow the same pattern, but contract terms differ, so check how yours resets</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={SARWA} title="Put the difference to work" blurb="If fixing lowers your payment for a few years, investing the difference can help you prepare for the reversion. Sarwa offers globally diversified portfolios from AED 500." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/rental-yield-calculator" class="related-card">
+        <h3>Dubai Rental Yield Calculator</h3>
+        <p>Work out net ROI on a property, including DLD fees and service charges.</p>
+      </a>
+      <a href="/uae/gratuity-calculator" class="related-card">
+        <h3>UAE Gratuity Calculator</h3>
+        <p>Calculate the end-of-service benefit you could put towards your mortgage.</p>
+      </a>
+      <a href="/india/fixed-to-floating-home-loan-calculator" class="related-card">
+        <h3>India Fixed to Floating Calculator</h3>
+        <p>The same comparison for Indian home loans priced off the RBI repo rate.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

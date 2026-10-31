@@ -6,6 +6,7 @@ import { indiaIncomeTaxNewRegime } from './tax-slab';
 import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
+import { compareFixedFloating } from './fixed-floating';
 
 /**
  * These calculators are the product. A wrong number here is the one defect
@@ -346,5 +347,130 @@ describe('stepUpSipProjection', () => {
     const r = stepUpSipProjection(10000, 0, 3, 0);
     expect(r.totalValue).toBeCloseTo(10000 * 36, 6);
     expect(r.totalReturns).toBeCloseTo(0, 6);
+  });
+});
+
+describe('compareFixedFloating', () => {
+  const base = {
+    principal: 1500000,
+    tenureMonths: 300,
+    fixedRate: 4.25,
+    fixedMonths: 36,
+    benchmarkNow: 4.45,
+    benchmarkAtFixEnd: 4.45,
+    marginAfterFix: 1.5,
+    floatingMargin: 1.5,
+  };
+
+  it('prices the fixed period and the floating loan with the plain EMI formula', () => {
+    const r = compareFixedFloating(base);
+    expect(r.fixedThenFloating.firstPayment).toBeCloseTo(calculateEMI(1500000, 4.25, 300).emi, 6);
+    // A flat benchmark means the floating loan never changes rate.
+    const flat = calculateEMI(1500000, 5.95, 300);
+    expect(r.floating.firstPayment).toBeCloseTo(flat.emi, 6);
+    expect(r.floating.totalInterest).toBeCloseTo(flat.totalInterest, 4);
+  });
+
+  it('re-levels the payment at reversion over the months remaining', () => {
+    const r = compareFixedFloating(base);
+    const balanceAtReversion = r.fixedThenFloating.yearlyBreakdown[2].closingBalance;
+    const expected = calculateEMI(balanceAtReversion, 5.95, 264).emi;
+    expect(r.fixedThenFloating.paymentAtFixEnd).toBeCloseTo(expected, 6);
+    expect(r.paymentJump).toBeCloseTo(expected - r.fixedThenFloating.firstPayment, 6);
+  });
+
+  it('clears both loans by the end of the term', () => {
+    const r = compareFixedFloating({ ...base, benchmarkAtFixEnd: 6.5 });
+    expect(r.fixedThenFloating.yearlyBreakdown[24].closingBalance).toBeCloseTo(0, 4);
+    expect(r.floating.yearlyBreakdown[24].closingBalance).toBeCloseTo(0, 4);
+  });
+
+  it('reconciles interest against everything paid', () => {
+    // Fixed payments for 36 months, then the re-levelled payment for 264.
+    const leg = compareFixedFloating(base).fixedThenFloating;
+    const paid = leg.firstPayment * 36 + leg.paymentAtFixEnd * 264;
+    expect(leg.totalInterest).toBeCloseTo(paid - 1500000, 4);
+  });
+
+  it('moves the floating rate in a straight line, resetting quarterly', () => {
+    const r = compareFixedFloating({ ...base, benchmarkAtFixEnd: 7.45 });
+    const rows = r.floating.yearlyBreakdown;
+    // Month 11 was last reset at month 9: 4.45 + 3 * 9/36, plus the 1.5 margin.
+    expect(rows[0].rate).toBeCloseTo(6.7, 6);
+    expect(rows[1].rate).toBeCloseTo(7.7, 6);
+    // Held at 7.45 + 1.5 from the end of the fixed period onward.
+    expect(rows[3].rate).toBeCloseTo(8.95, 6);
+    expect(r.floating.rateAtFixEnd).toBeCloseTo(8.95, 6);
+  });
+
+  it('applies the floor to both floating phases but not to the fixed period', () => {
+    const r = compareFixedFloating({ ...base, benchmarkNow: 1, benchmarkAtFixEnd: 1, floorRate: 4.75 });
+    expect(r.floating.rateAtFixEnd).toBe(4.75);
+    expect(r.fixedThenFloating.rateAtFixEnd).toBe(4.75);
+    expect(r.fixedThenFloating.yearlyBreakdown[0].rate).toBe(4.25);
+  });
+
+  it('adds the one-off cost to the floating loan only', () => {
+    const without = compareFixedFloating(base);
+    const withFee = compareFixedFloating({ ...base, switchCost: 10000 });
+    expect(withFee.floating.totalCost).toBeCloseTo(without.floating.totalCost + 10000, 6);
+    expect(withFee.floating.totalInterest).toBeCloseTo(without.floating.totalInterest, 6);
+    expect(withFee.fixedThenFloating.totalCost).toBeCloseTo(without.fixedThenFloating.totalCost, 6);
+  });
+
+  it('finds the benchmark level at which both loans cost the same', () => {
+    const { breakEvens } = compareFixedFloating({ ...base, fixedRate: 6.5 });
+    expect(breakEvens).toHaveLength(1);
+    const { benchmark, fixingWinsAbove } = breakEvens[0];
+    expect(fixingWinsAbove).toBe(true);
+    const atBreakEven = compareFixedFloating({ ...base, fixedRate: 6.5, benchmarkAtFixEnd: benchmark });
+    expect(atBreakEven.costDifference).toBeCloseTo(0, 2);
+    const above = compareFixedFloating({ ...base, fixedRate: 6.5, benchmarkAtFixEnd: benchmark + 1 });
+    const below = compareFixedFloating({ ...base, fixedRate: 6.5, benchmarkAtFixEnd: benchmark - 1 });
+    expect(above.costDifference).toBeGreaterThan(0);
+    expect(below.costDifference).toBeLessThan(0);
+  });
+
+  it('reports no break-even when one loan wins at every benchmark level', () => {
+    const r = compareFixedFloating({ ...base, fixedRate: 1, benchmarkNow: 0, floatingMargin: 3 });
+    expect(r.breakEvens).toEqual([]);
+    expect(r.costDifference).toBeGreaterThan(0);
+  });
+
+  it('reports every crossing with the direction measured, across unusual inputs', () => {
+    // Seeded so a failure reproduces. Covers the floors and unequal margins that
+    // break the assumption that the cost gap simply rises with the benchmark.
+    let seed = 12345;
+    const rand = (lo: number, hi: number) => {
+      seed = (seed * 1664525 + 1013904223) % 4294967296;
+      return lo + (seed / 4294967296) * (hi - lo);
+    };
+    for (let i = 0; i < 150; i++) {
+      const years = Math.floor(rand(3, 31));
+      const input = {
+        principal: 1000000,
+        tenureMonths: years * 12,
+        fixedRate: rand(1, 16),
+        fixedMonths: Math.floor(rand(1, Math.min(10, years - 1) + 1)) * 12,
+        benchmarkNow: rand(0, 12),
+        benchmarkAtFixEnd: 5,
+        marginAfterFix: rand(0, 6),
+        floatingMargin: rand(0, 6),
+        floorRate: rand(0, 1) < 0.3 ? rand(0, 10) : 0,
+        switchCost: rand(0, 1) < 0.3 ? rand(0, 30000) : 0,
+      };
+      const gapAt = (level: number) =>
+        compareFixedFloating({ ...input, benchmarkAtFixEnd: level }).costDifference;
+      for (const { benchmark, fixingWinsAbove } of compareFixedFloating(input).breakEvens) {
+        expect(Math.abs(gapAt(benchmark))).toBeLessThan(1);
+        expect(gapAt(benchmark + 0.01) > gapAt(benchmark - 0.01)).toBe(fixingWinsAbove);
+      }
+    }
+  });
+
+  it('never reverts when the fixed period covers the whole term', () => {
+    const r = compareFixedFloating({ ...base, fixedMonths: 300 });
+    expect(r.paymentJump).toBeCloseTo(0, 6);
+    expect(r.fixedThenFloating.totalInterest).toBeCloseTo(calculateEMI(1500000, 4.25, 300).totalInterest, 4);
   });
 });

@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FixedFloatingCalculator from '../../components/calculators/engines/FixedFloatingCalculator';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { ZERODHA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Which is better for a home loan in India, fixed or floating?`,
+    a: `Floating is usually cheaper, because fixed and hybrid home loans tend to cost about 1 to 2 percentage points more. Fixing can still make sense if you expect the repo rate to rise sharply or could not absorb a higher EMI. The break-even figure above shows how far the repo rate would have to rise for your fixed offer to pay off.`,
+  },
+  {
+    q: `What is a hybrid home loan?`,
+    a: `A hybrid or dual-rate loan charges a fixed rate for the first few years, often two to five, and then moves to a floating rate for the rest of the term. This calculator models that structure. Check the sanction letter for the spread that applies after the fixed period, since that sets your cost for most of the loan.`,
+  },
+  {
+    q: `Can I switch from a fixed to a floating home loan?`,
+    a: `Usually, through your lender for a conversion fee or by moving the loan to another lender. Enter your outstanding balance, the term left and the years left on your fix, then add the fee and any other charges as the one-off cost. Your existing loan may also carry a pre-payment charge while it is on a fixed rate.`,
+  },
+  {
+    q: `Does my bank have to let me switch from floating to fixed?`,
+    a: `Not any more. RBI's 2023 reset rules required lenders to offer this switch, but an amendment effective 1 October 2025 made it optional. Lenders may offer it under their own policy, so ask yours about availability, rate and charges before relying on it.`,
+  },
+  {
+    q: `Are there pre-payment charges on fixed and floating home loans?`,
+    a: `Lenders cannot charge individuals pre-payment fees on floating-rate loans taken for non-business purposes. Under RBI directions covering loans sanctioned or renewed from 1 January 2026, a hybrid loan's treatment depends on whether it is on a floating rate when you pre-pay. Fixed-rate loans can carry charges, so check your loan agreement.`,
+  },
+  {
+    q: `How quickly does a repo rate change reach my home loan?`,
+    a: `Repo-linked floating loans must reset at least once every three months, so a change can take up to a quarter to reach you. Your spread over the repo rate normally stays the same, unless your credit risk assessment changes or your lender's policy allows otherwise.`,
+  },
+];
+
+const url = 'https://pennymath.techtools365.com/india/fixed-to-floating-home-loan-calculator';
+---
+
+<BaseLayout
+  title="Fixed to Floating Home Loan Calculator India — EMI & Break-Even | PennyMath"
+  description="Free fixed vs floating home loan calculator for India. See your EMI when a fixed or hybrid rate reverts to floating, the total cost of each, and the break-even repo rate."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Fixed to Floating Home Loan Calculator India",
+      "description": "Compare a fixed or hybrid Indian home loan against a floating-rate loan, with the EMI after reversion and the break-even repo rate",
+      "url": url,
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pennymath.techtools365.com/" },
+        { "@type": "ListItem", "position": 2, "name": "India", "item": "https://pennymath.techtools365.com/india/" },
+        { "@type": "ListItem", "position": 3, "name": "Fixed to Floating Home Loan Calculator", "item": url }
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/india/">India</a> <span>/</span>
+    Fixed to Floating Home Loan Calculator
+  </nav>
+
+  <h1>Fixed to Floating Home Loan Calculator (India)</h1>
+  <p class="page-subtitle">Compare a fixed or hybrid home loan with a floating rate</p>
+  <p class="page-intro">
+    Find your EMI after a fixed period ends, compare the total cost against a floating-rate loan, and see the repo rate at which the two break even.
+  </p>
+
+  <FixedFloatingCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    benchmarkName="RBI Repo Rate"
+    marginWord="spread"
+    paymentWord="EMI"
+    amountRange={{ min: 500000, max: 50000000, step: 50000 }}
+    maxTenureYears={30}
+    defaults={{ amount: 5000000, tenureYears: 20, fixedRate: 9.25, fixedYears: 3, benchmarkNow: 5.5, marginAfterFix: 2.75, floatingMargin: 2.75 }}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">
+    The starting values are examples, not a quote. The repo rate is shown at 5.50%, the level reported after the RBI's 7 October 2026 decision. Check the RBI's latest policy statement and use the rate and spread from your own sanction letter.
+  </p>
+
+  <section class="content-section">
+    <h2>Fixed, Floating and Hybrid Home Loans in India</h2>
+    <p>
+      Most Indian home loans are <strong>floating</strong>: your rate is an external benchmark, usually the RBI repo rate, plus a spread set by the lender. When the repo rate moves, your rate follows at the next reset, at least once every three months.
+    </p>
+    <p>
+      True fixed-for-life loans are uncommon. What most lenders call "fixed" is a <strong>hybrid</strong> loan that is fixed for the first few years and then turns floating. You usually pay about 1 to 2 percentage points more than a floating loan for that certainty, though quotes vary widely by lender and borrower.
+    </p>
+    <p>
+      That premium is the price of protection. If the repo rate rises enough, fixing pays off. If it holds steady or falls, you have paid extra for insurance you did not need.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li><strong>If you are taking a new loan:</strong> enter the loan amount, full tenure, and the rates from your fixed or hybrid and floating offers. Leave the one-off cost at zero.</li>
+      <li><strong>If you are already on a fixed rate:</strong> enter your outstanding balance, the tenure left and the years left on your fix. Then enter your conversion fee, any pre-payment charge and other costs as the one-off cost.</li>
+      <li><strong>Set your repo rate forecast</strong> for the date your fix ends. It starts equal to today's rate, so the first result assumes the repo rate does not move.</li>
+      <li><strong>Compare the results:</strong> check the EMI after the fix, the total cost of each option, and the break-even repo rate.</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>How the Comparison Is Calculated</h2>
+    <div class="formula-box">
+      Floating rate = repo rate + spread<br />
+      EMI = B &times; i &times; (1 + i)<sup>n</sup> / ((1 + i)<sup>n</sup> &minus; 1)
+    </div>
+    <p>
+      <strong>B</strong> is the balance when the rate changes, <strong>i</strong> is the annual rate / 12 / 100, and <strong>n</strong> is the months left. The EMI is recalculated at every rate change, so both loans end on the same date.
+    </p>
+    <p>
+      The repo rate moves in a straight line from today's level to your forecast by the end of the fixed period, then holds there. The floating loan resets every three months and the hybrid loan only moves at reversion.
+    </p>
+    <p>
+      <strong>Example:</strong> ₹50,00,000 over 20 years, fixed at 9.25% for 3 years, then repo + 2.75%, compared with a floating loan at repo + 2.75%. With the repo rate flat at 5.50%, the fixed EMI is ₹45,793 against ₹42,603 on floating, and floating saves ₹1,80,493 over the term. If the repo rate climbs to 7% by the end of the fix, floating is still ₹60,204 cheaper. The break-even is a repo rate of about 7.72%.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Why Your Bank May Extend the Tenure Instead</h2>
+    <p>
+      This calculator keeps your end date and changes the EMI, which makes the monthly impact easy to see. In practice, many Indian lenders keep the EMI the same when rates rise and extend the tenure instead. That can feel painless, but it adds more interest over the life of the loan.
+    </p>
+    <p>
+      RBI's reset rules require lenders to tell you about rate changes and their effect on your EMI or tenure, and to set out your options, including raising the EMI, extending the tenure or pre-paying. If your rate has gone up, check which of these your lender has applied. Since pre-payment on an individual's floating-rate home loan is free of charges, any extra you can pay directly reduces the interest.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>What This Calculator Leaves Out</h2>
+    <ul>
+      <li><strong>Timing of payments:</strong> totals are simple sums, so a rupee paid today counts the same as one paid in 20 years</li>
+      <li><strong>Income tax:</strong> any deduction on home loan interest depends on your regime and is not included</li>
+      <li><strong>Spread changes:</strong> the spread is held constant, although your lender's terms may allow changes</li>
+      <li><strong>Forecast risk:</strong> no one can predict the repo rate, so try a high and a low forecast rather than relying on one number</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={ZERODHA} title="Invest what floating saves you" blurb="If a floating loan leaves you with a lower EMI, investing the difference builds a buffer against future rate rises." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card">
+        <h3>EMI Calculator</h3>
+        <p>Calculate the EMI on a home, car or personal loan at a single rate.</p>
+      </a>
+      <a href="/india/loan-comparison" class="related-card">
+        <h3>Loan Comparison Tool</h3>
+        <p>Compare three bank loan offers side by side.</p>
+      </a>
+      <a href="/uae/fixed-to-floating-mortgage-calculator" class="related-card">
+        <h3>UAE Fixed to Floating Calculator</h3>
+        <p>The same comparison for UAE mortgages priced off EIBOR.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

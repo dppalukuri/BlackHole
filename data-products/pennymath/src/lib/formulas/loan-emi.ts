@@ -10,6 +10,20 @@ export interface EMIResult {
   }>;
 }
 
+/** Level monthly payment that clears `principal` in `tenureMonths`. */
+export function monthlyPayment(
+  principal: number,
+  annualRate: number,
+  tenureMonths: number
+): number {
+  const monthlyRate = annualRate / 12 / 100;
+  if (monthlyRate === 0) return principal / tenureMonths;
+  return (
+    (principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
+    (Math.pow(1 + monthlyRate, tenureMonths) - 1)
+  );
+}
+
 /** EMI calculation with amortization schedule */
 export function calculateEMI(
   principal: number,
@@ -17,15 +31,7 @@ export function calculateEMI(
   tenureMonths: number
 ): EMIResult {
   const monthlyRate = annualRate / 12 / 100;
-
-  let emi: number;
-  if (monthlyRate === 0) {
-    emi = principal / tenureMonths;
-  } else {
-    emi =
-      (principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
-      (Math.pow(1 + monthlyRate, tenureMonths) - 1);
-  }
+  const emi = monthlyPayment(principal, annualRate, tenureMonths);
 
   const totalPayment = emi * tenureMonths;
   const totalInterest = totalPayment - principal;

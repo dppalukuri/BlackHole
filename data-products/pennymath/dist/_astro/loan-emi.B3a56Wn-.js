@@ -1,0 +1,1 @@
+function y(o,c,t){const n=c/12/100;return n===0?o/t:o*n*Math.pow(1+n,t)/(Math.pow(1+n,t)-1)}function f(o,c,t){const n=c/12/100,e=y(o,c,t),l=e*t,h=l-o,m=[];let a=o;for(let s=1;s<=t;s++){const r=a*n,i=e-r;a=a-i,m.push({month:s,principal:i,interest:r,balance:Math.max(0,a)})}return{emi:e,totalPayment:l,totalInterest:h,schedule:m}}export{f as c,y as m};
