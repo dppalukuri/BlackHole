@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RentVsBuyCalculator from '../../components/calculators/engines/RentVsBuyCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { ZERODHA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+import { compareRentVsBuy } from '../../lib/formulas/rent-vs-buy';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Rent vs Buy Calculator (India)';
+const description = 'Free rent vs buy calculator for India. Compare renting and investing in a SIP with buying a home, after stamp duty, EMIs and maintenance, and find your break-even year.';
+const path = '/india/rent-vs-buy-calculator';
+const inr = (n: number) => formatCurrency(n, 'INR');
+const defaults = { price: 8000000, downPercent: 25, annualRate: 8.5, tenureYears: 20, buyingCostPercent: 7, sellingCostPercent: 2, ownershipCostPercent: 0.5, appreciationPercent: 6, monthlyRent: 25000, rentGrowthPercent: 6, investmentReturnPercent: 10, years: 15 };
+const ex = compareRentVsBuy({ ...defaults, tenureMonths: 240 });
+
+const faqs = [
+  {
+    q: `Is it better to rent or buy a house in India?`,
+    a: `In many Indian cities, rent is low compared with home prices, so renting and investing can come out ahead financially, particularly over shorter periods. A home also offers stability that the numbers do not capture. The calculator shows how your own case works out.`,
+  },
+  {
+    q: `Why does the calculator invest the money for the renter?`,
+    a: `Because that is the true alternative. A renter keeps the down payment and stamp duty, and can invest them along with any monthly saving. Comparing rent with an EMI alone ignores that, and also ignores the debt the buyer repays and the value of the home.`,
+  },
+  {
+    q: `What should I include in buying costs?`,
+    a: `Include stamp duty and registration, which vary by state, along with brokerage, legal fees and the loan's processing fee. Under-construction homes can also carry GST. Allow around 6% to 9% as a starting point and adjust for your state.`,
+  },
+  {
+    q: `What about home loan tax benefits?`,
+    a: `This calculator leaves out tax. Under the old regime, you may be able to deduct home loan principal and interest within limits, which helps the buyer. Under the new regime, that deduction is generally unavailable for a self-occupied home. Gains on both property and investments can also be taxed.`,
+  },
+  {
+    q: `What return should I assume for investments?`,
+    a: `Use a figure you are comfortable with for your actual mix of investments, and try a few. Equity returns can be well above or below any long-run average. If you would not stick with a monthly investment, the renter's result will not be achievable in practice.`,
+  },
+];
+---
+
+<BaseLayout title="Rent vs Buy Calculator India — Break-Even with SIP Comparison | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="INR" countryName="India" countryPath="/india/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/india/">India</a> <span>/</span> Rent vs Buy Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See whether renting or buying leaves you better off</p>
+  <p class="page-intro">
+    Comparing rent with an EMI leaves out most of the picture. This calculator compares your net worth after buying with what you would have after renting and investing the difference.
+  </p>
+
+  <RentVsBuyCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    paymentWord="EMI"
+    priceRange={{ min: 1000000, max: 100000000, step: 100000 }}
+    rentRange={{ min: 5000, max: 500000, step: 1000 }}
+    maxTenureYears={30}
+    defaults={defaults}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples only. Home prices, rents and investment returns can all differ sharply from any assumption, and this is not financial advice.</p>
+
+  <section class="content-section">
+    <h2>How the Comparison Works</h2>
+    <p>
+      Both households start with the same cash. The buyer spends it on the down payment and buying costs, and the renter invests it. Each month, whichever household has lower housing costs invests the difference. At the end, the buyer's net worth is the home's sale value, less selling costs and the remaining loan, plus any investments. The renter's is the value of their investments.
+    </p>
+    <p>
+      <strong>Example:</strong> An {inr(8000000)} home or {inr(25000)} a month in rent, with the starting assumptions above. After 15 years, the buyer has {inr(ex.buyerNetWorth)} and the renter has {inr(ex.renterNetWorth)}, leaving {ex.advantage > 0 ? 'buying' : 'renting'} ahead by {inr(Math.abs(ex.advantage))}.
+    </p>
+    <p>The model leaves out tax and assumes steady growth rates. Real prices, rents and returns move unevenly, so test a low and a high case.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>What Changes the Answer Most</h2>
+    <ul>
+      <li><strong>Price-to-rent ratio:</strong> the higher the price compared with the rent, the more renting tends to win</li>
+      <li><strong>Home price growth:</strong> small changes compound into large differences over many years</li>
+      <li><strong>Investment return:</strong> the renter only benefits if they really do invest the money every month</li>
+      <li><strong>How long you stay:</strong> a longer stay spreads stamp duty and other costs over more years</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={ZERODHA} title="Renting and investing the difference?" blurb="A monthly investment plan is what makes renting competitive. Remember that investments can fall as well as rise." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/home-loan-eligibility-calculator" class="related-card"><h3>Home Loan Eligibility Calculator</h3><p>See what you can afford to buy.</p></a>
+      <a href="/india/sip-calculator" class="related-card"><h3>SIP Calculator</h3><p>See what a monthly investment could grow to.</p></a>
+      <a href="/india/emi-calculator" class="related-card"><h3>EMI Calculator</h3><p>Calculate the EMI for any loan amount.</p></a>
+    </div>
+  </section>
+</BaseLayout>

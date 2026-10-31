@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RentVsBuyCalculator from '../../components/calculators/engines/RentVsBuyCalculator';
+import CalculatorSchema from '../../components/CalculatorSchema.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+import { SARWA } from '../../lib/affiliates';
+import FAQ from '../../components/FAQ.astro';
+import { compareRentVsBuy } from '../../lib/formulas/rent-vs-buy';
+import { formatCurrency } from '../../lib/formatters';
+
+const title = 'Rent vs Buy Calculator (UAE)';
+const description = 'Free UAE rent vs buy calculator. Compare renting and investing with buying a home in Dubai or Abu Dhabi, after fees, service charges and mortgage costs, and find your break-even year.';
+const path = '/uae/rent-vs-buy-calculator';
+const aed = (n: number) => formatCurrency(n, 'AED');
+const defaults = { price: 1500000, downPercent: 20, annualRate: 5, tenureYears: 25, buyingCostPercent: 7, sellingCostPercent: 2, ownershipCostPercent: 1.5, appreciationPercent: 3, monthlyRent: 7500, rentGrowthPercent: 3, investmentReturnPercent: 6, years: 10 };
+const ex = compareRentVsBuy({ ...defaults, tenureMonths: 300 });
+
+const faqs = [
+  {
+    q: `Is it better to rent or buy in Dubai?`,
+    a: `It depends mainly on how long you will stay, the price compared with rent, and what your money could earn elsewhere. The upfront fees are large, so buying usually needs several years to pay off. The calculator shows when that happens on your assumptions.`,
+  },
+  {
+    q: `How long do I need to stay for buying to make sense?`,
+    a: `There is no fixed number. The fees of around 7% on a typical financed purchase, plus selling costs, need time to recover. A short expected stay favours renting, and your employment and visa position may matter as much as the maths.`,
+  },
+  {
+    q: `What ownership costs should I include?`,
+    a: `Include service charges, maintenance and insurance. Service charges vary widely between buildings, so check the Dubai Land Department's service charge index or the actual building's figures, then convert them into a yearly percentage of the price.`,
+  },
+  {
+    q: `What rate of home price growth should I use?`,
+    a: `Choose a cautious long-run figure and try a few. Past price rises in Dubai have come with sharp falls too, so a recent strong year is a poor guide. Compare a low, a medium and a high case.`,
+  },
+  {
+    q: `Why does the calculator invest the money for the renter?`,
+    a: `Because that is the true alternative. A renter keeps the deposit and fees, which could earn a return. Comparing rent with mortgage payments alone ignores that, and also ignores the debt the buyer repays and the value of the home.`,
+  },
+];
+---
+
+<BaseLayout title="Rent vs Buy Calculator UAE — Dubai & Abu Dhabi Break-Even | PennyMath" description={description}>
+  <Fragment slot="head">
+    <CalculatorSchema name={title} description={description} path={path} priceCurrency="AED" countryName="UAE" countryPath="/uae/" />
+  </Fragment>
+
+  <nav class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/uae/">UAE</a> <span>/</span> Rent vs Buy Calculator</nav>
+
+  <h1>{title}</h1>
+  <p class="page-subtitle">See whether renting or buying leaves you better off</p>
+  <p class="page-intro">
+    Comparing rent with a mortgage payment leaves out most of the picture. This calculator compares your net worth after buying with what you would have after renting and investing the difference.
+  </p>
+
+  <RentVsBuyCalculator
+    client:visible
+    currency={{ code: 'AED', symbol: 'AED ' }}
+    paymentWord="mortgage payment"
+    priceRange={{ min: 300000, max: 20000000, step: 50000 }}
+    rentRange={{ min: 1000, max: 100000, step: 250 }}
+    maxTenureYears={25}
+    defaults={defaults}
+  />
+  <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples only. Home prices, rents and investment returns can all differ sharply from any assumption, and this is not financial advice.</p>
+
+  <section class="content-section">
+    <h2>How the Comparison Works</h2>
+    <p>
+      Both households start with the same cash. The buyer spends it on the down payment and fees, and the renter invests it. Each month, whichever household has lower housing costs invests the difference. At the end, the buyer's net worth is the home's sale value, less selling costs and the remaining loan, plus any investments. The renter's is the value of their investments.
+    </p>
+    <p>
+      <strong>Example:</strong> A {aed(1500000)} home or {aed(7500)} a month in rent, with the starting assumptions above. After 10 years, the buyer has {aed(ex.buyerNetWorth)} and the renter has {aed(ex.renterNetWorth)}, leaving {ex.advantage > 0 ? 'buying' : 'renting'} ahead by {aed(Math.abs(ex.advantage))}.
+    </p>
+    <p>The model leaves out tax and assumes steady growth rates. Real prices and rents move unevenly, and a forced sale in a weak market can change the result.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>What Changes the Answer Most</h2>
+    <ul>
+      <li><strong>How long you stay:</strong> a longer stay spreads the fees over more years</li>
+      <li><strong>Price-to-rent ratio:</strong> the higher the price compared with the rent, the more renting tends to win</li>
+      <li><strong>Home price growth:</strong> small changes compound into large differences over many years</li>
+      <li><strong>Investment return:</strong> the renter only benefits if they really do invest the money</li>
+      <li><strong>Your mortgage rate:</strong> try the rate after any fixed period ends, not just the introductory one</li>
+    </ul>
+  </section>
+
+  <AffiliateCTA partner={SARWA} title="Renting and investing the difference?" blurb="Sarwa offers globally diversified portfolios from AED 500. Investments can fall as well as rise." />
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/mortgage-affordability-calculator" class="related-card"><h3>Mortgage Affordability Calculator</h3><p>See what you can afford to buy.</p></a>
+      <a href="/uae/dubai-property-purchase-cost-calculator" class="related-card"><h3>Dubai Purchase Cost Calculator</h3><p>Add up the fees and total cash needed.</p></a>
+      <a href="/uae/rental-yield-calculator" class="related-card"><h3>Dubai Rental Yield Calculator</h3><p>Work out net ROI if you are buying to let.</p></a>
+    </div>
+  </section>
+</BaseLayout>

@@ -7,6 +7,7 @@ import { swpProjection } from './swp';
 import { fireProjection } from './fire';
 import { stepUpSipProjection } from './step-up-sip';
 import { compareFixedFloating } from './fixed-floating';
+import { compareRentVsBuy } from './rent-vs-buy';
 import { maxAffordability, INDIA_LTV_TIERS } from './affordability';
 import { dubaiPurchaseCosts } from './dubai-purchase-costs';
 import { comparePrepayment } from './prepayment';
@@ -718,5 +719,65 @@ describe('maxAffordability', () => {
         expect(Math.abs(maxAffordability(input).maxPrice - bruteForce(input))).toBeLessThanOrEqual(1000);
       }
     }
+  });
+});
+
+describe('compareRentVsBuy', () => {
+  const base = {
+    price: 1500000, downPercent: 20, annualRate: 5, tenureMonths: 300,
+    buyingCostPercent: 7, sellingCostPercent: 2, ownershipCostPercent: 1,
+    appreciationPercent: 3, monthlyRent: 7000, rentGrowthPercent: 3,
+    investmentReturnPercent: 6, years: 10,
+  };
+
+  it('gives the renter the buyer\'s upfront cash to invest', () => {
+    const r = compareRentVsBuy(base);
+    expect(r.upfrontCash).toBeCloseTo(300000 + 105000, 6);
+    // With no growth, equal housing costs and a 0% return, the pot stays put.
+    const flat = compareRentVsBuy({ ...base, investmentReturnPercent: 0, ownershipCostPercent: 0, rentGrowthPercent: 0, monthlyRent: r.monthlyLoanPayment });
+    expect(flat.renterNetWorth).toBeCloseTo(405000, 4);
+  });
+
+  it('values the home at a sale, net of costs and debt', () => {
+    const cash = compareRentVsBuy({ ...base, downPercent: 100, appreciationPercent: 0, sellingCostPercent: 0, ownershipCostPercent: 0, monthlyRent: 0, rentGrowthPercent: 0, investmentReturnPercent: 0 });
+    expect(cash.monthlyLoanPayment).toBe(0);
+    expect(cash.buyerNetWorth).toBeCloseTo(1500000, 4);
+    // The renter keeps the price and the buying costs: buying loses just the costs.
+    expect(cash.advantage).toBeCloseTo(-105000, 4);
+  });
+
+  it('applies appreciation at the stated annual rate', () => {
+    const r = compareRentVsBuy({ ...base, downPercent: 100, sellingCostPercent: 0, ownershipCostPercent: 0, monthlyRent: 0, rentGrowthPercent: 0, investmentReturnPercent: 0, years: 5 });
+    expect(r.buyerNetWorth).toBeCloseTo(1500000 * Math.pow(1.03, 5), 2);
+  });
+
+  it('has the buyer invest the saving when rent costs more than owning', () => {
+    const r = compareRentVsBuy({ ...base, downPercent: 100, ownershipCostPercent: 0, sellingCostPercent: 0, appreciationPercent: 0, rentGrowthPercent: 0, investmentReturnPercent: 0, monthlyRent: 1000, years: 2 });
+    expect(r.buyerNetWorth).toBeCloseTo(1500000 + 24000, 4);
+  });
+
+  it('stops the loan payment once the tenure ends', () => {
+    const r = compareRentVsBuy({ ...base, tenureMonths: 60, ownershipCostPercent: 0, monthlyRent: 0, rentGrowthPercent: 0, investmentReturnPercent: 0, years: 10 });
+    expect(r.renterNetWorth).toBeCloseTo(405000 + r.monthlyLoanPayment * 60, 2);
+  });
+
+  it('favours buying as rents rise, all else equal', () => {
+    const low = compareRentVsBuy({ ...base, monthlyRent: 4000 });
+    const high = compareRentVsBuy({ ...base, monthlyRent: 12000 });
+    expect(high.advantage).toBeGreaterThan(low.advantage);
+  });
+
+  it('finds the year buying moves ahead for good', () => {
+    const r = compareRentVsBuy({ ...base, monthlyRent: 12000, years: 25 });
+    expect(r.breakEvenYear).not.toBeNull();
+    const i = r.breakEvenYear! - 1;
+    expect(r.yearly[i].buyerNetWorth).toBeGreaterThan(r.yearly[i].renterNetWorth);
+    if (i > 0) expect(r.yearly[i - 1].buyerNetWorth).toBeLessThanOrEqual(r.yearly[i - 1].renterNetWorth);
+  });
+
+  it('reports no break-even when renting stays ahead', () => {
+    const r = compareRentVsBuy({ ...base, monthlyRent: 2000, appreciationPercent: 0, investmentReturnPercent: 10 });
+    expect(r.advantage).toBeLessThan(0);
+    expect(r.breakEvenYear).toBeNull();
   });
 });
