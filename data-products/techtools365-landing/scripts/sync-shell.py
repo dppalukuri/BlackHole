@@ -1,88 +1,24 @@
-"""Sync the nav + footer + Google Fonts link across all techtools365.com pages.
+"""Apply the shared TechTools365 bar, footer, fonts and icons to every page on the landing site.
 
-Why: the landing got a Truvista-inspired redesign with a new nav/footer/font-stack.
-The supporting pages (about, privacy, contact, blog index, 4 articles) need to
-match. This script does a one-shot replacement of:
+Pages hold marker comments (<!-- tt:bar --> and so on) and the script fills them, so it can be
+re-run after any edit to shared/brand. Older pages without markers get converted on the first run.
 
-  1. Old `<link href="...family=Inter:...">` → new Plus Jakarta Sans + Inter link
-  2. Old <nav class="site-nav">...</nav> → new nav with "Browse tools" CTA
-  3. Old <footer class="site-footer">...</footer> → new multi-column footer
-
-After the script: build, verify, commit.
+    python data-products/techtools365-landing/scripts/sync-shell.py
 """
-
-from __future__ import annotations
-
+import importlib.util
 import re
 import sys
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-ROOT = Path(r"C:\Prasad\Projects\claude_workspace\BlackHole\data-products\techtools365-landing\public")
+ROOT = Path(__file__).resolve().parents[1] / "public"
+spec = importlib.util.spec_from_file_location("brand_sync", Path(__file__).resolve().parents[2] / "shared" / "brand" / "sync.py")
+brand = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(brand)
 
-# New <link> for Google Fonts
-NEW_FONTS = (
-    '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800'
-    '&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />'
-)
-
-NEW_NAV = """<nav class="site-nav" aria-label="Primary">
-    <div class="nav-inner">
-      <a href="/" class="nav-brand" aria-label="TechTools365 home">
-        <span class="nav-brand-mark">T</span>
-        <span>Tech<span class="nav-brand-accent">Tools</span>365</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="/about/"{about_active}>About</a></li>
-        <li><a href="/blog/"{blog_active}>Blog</a></li>
-        <li><a href="/contact/"{contact_active}>Contact</a></li>
-        <li><a href="/#tools" class="nav-cta">Browse tools</a></li>
-      </ul>
-    </div>
-  </nav>"""
-
-NEW_FOOTER = """<footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="/" class="nav-brand">
-          <span class="nav-brand-mark">T</span>
-          <span>Tech<span class="nav-brand-accent">Tools</span>365</span>
-        </a>
-        <p>Free tools for finance, travel, and tech decisions. Built in Dubai by Durga Prasad.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Tools</h4>
-        <ul>
-          <li><a href="https://pennymath.techtools365.com/" target="_blank" rel="noopener">PennyMath \u2197</a></li>
-          <li><a href="https://tooljury.techtools365.com/" target="_blank" rel="noopener">ToolJury \u2197</a></li>
-          <li><a href="https://wanderwise.techtools365.com/" target="_blank" rel="noopener">WanderWise \u2197</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Site</h4>
-        <ul>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/contact/">Contact</a></li>
-          <li><a href="/privacy/">Privacy</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Editorial</h4>
-        <ul>
-          <li><a href="/blog/techtools365-methodology/">Methodology</a></li>
-          <li><a href="mailto:palukuri.biz@gmail.com">Email us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 TechTools365 \u2014 free tools, no tricks. We may earn affiliate commissions on outbound links to NordVPN and Proton; partnerships are disclosed on every relevant page.</p>
-    </div>
-  </footer>"""
-
-# Files to update — exclude index.html (the landing — already redesigned)
-SECTION_PAGES = [
+PAGES = [
+    ("index.html", None),
     ("about/index.html", "about"),
     ("privacy/index.html", None),
     ("contact/index.html", "contact"),
@@ -93,38 +29,87 @@ SECTION_PAGES = [
     ("blog/techtools365-methodology/index.html", "blog"),
 ]
 
-NAV_RE = re.compile(r'<nav class="site-nav".*?</nav>', flags=re.DOTALL)
-FOOTER_RE = re.compile(r'<footer class="site-footer">.*?</footer>', flags=re.DOTALL)
-FONTS_RE = re.compile(r'<link href="https://fonts\.googleapis\.com/css2\?family=Inter[^"]*"[^>]*/>')
+ICON_SVG = (
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E"
+    "%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F7C39B'/%3E"
+    "%3Cstop offset='1' stop-color='%237786F0'/%3E%3C/linearGradient%3E%3C/defs%3E"
+    "%3Ccircle cx='16' cy='16' r='15.5' fill='url(%23g)'/%3E"
+    "%3Cpath d='M9.5 10h13v3.2h-4.9V23h-3.2v-9.8H9.5z' fill='white'/%3E%3C/svg%3E"
+)
+ICONS = f'<link rel="icon" href="{ICON_SVG}" />\n  <link rel="apple-touch-icon" href="{ICON_SVG}" />'
+STYLE = (
+    '<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&display=swap" rel="stylesheet" />\n'
+    '  <link rel="stylesheet" href="/css/brand.css" />\n'
+    '  <link rel="stylesheet" href="/css/site.css" />'
+)
+SITE_LINKS = """<nav aria-label="Contact">
+      <h2>Contact</h2>
+      <ul>
+        <li><a href="mailto:palukuri.biz@gmail.com">palukuri.biz@gmail.com</a></li>
+        <li><a href="/blog/techtools365-methodology/">Methodology</a></li>
+      </ul>
+    </nav>"""
+FINE = (
+    "&copy; 2026 TechTools365. We may earn affiliate commissions on outbound links to NordVPN and Proton. "
+    "Partnerships are disclosed on every relevant page."
+)
 
-count_pages = 0
-for rel_path, active in SECTION_PAGES:
-    path = ROOT / rel_path
-    if not path.exists():
-        print(f"  [skip] {rel_path} (does not exist)")
-        continue
-    text = path.read_text(encoding="utf-8")
-    orig = text
 
-    # 1. Fonts: replace any old Inter-only link with Plus Jakarta Sans + Inter
-    text = FONTS_RE.sub(NEW_FONTS, text)
-
-    # 2. Nav: insert active markers based on which page this is
-    nav = NEW_NAV.format(
-        about_active=' class="active"' if active == "about" else "",
-        blog_active=' class="active"' if active == "blog" else "",
-        contact_active=' class="active"' if active == "contact" else "",
+def spark():
+    """Sparkline for the PennyMath card: ₹5,000 a month at 12% for 10 years, against what went in."""
+    r, values, invested = 0.01, [0.0], [0.0]
+    for year in range(1, 11):
+        n = year * 12
+        values.append(5000 * ((1 + r) ** n - 1) / r * (1 + r))
+        invested.append(5000.0 * n)
+    top = values[-1]
+    path = lambda series: " ".join(
+        f"{'M' if i == 0 else 'L'}{i * 30} {54 - v / top * 50:.1f}" for i, v in enumerate(series)
     )
-    text = NAV_RE.sub(nav, text)
+    return (
+        '<svg viewBox="0 0 300 56" preserveAspectRatio="none" role="img" '
+        'aria-label="Growth of a monthly investment over 10 years, compared with the amount paid in">'
+        f'<path class="spark-invested" d="{path(invested)}"></path>'
+        f'<path class="spark-value" d="{path(values)}"></path></svg>'
+    )
 
-    # 3. Footer
-    text = FOOTER_RE.sub(NEW_FOOTER, text)
 
-    if text != orig:
-        path.write_text(text, encoding="utf-8")
-        count_pages += 1
-        print(f"  [updated] {rel_path}")
-    else:
-        print(f"  [no change] {rel_path}")
+def fill(text, name, content):
+    pattern = re.compile(rf"<!-- tt:{name} -->.*?<!-- /tt:{name} -->", flags=re.S)
+    return pattern.sub(lambda _: f"<!-- tt:{name} -->\n  {content}\n  <!-- /tt:{name} -->", text)
 
-print(f"\nUpdated {count_pages} pages.")
+
+def add_markers(text):
+    """Convert a page from the old nav, footer and font tags on its first run."""
+    text = re.sub(r'<nav class="site-nav".*?</nav>', "<!-- tt:bar -->\n  <!-- /tt:bar -->", text, count=1, flags=re.S)
+    text = re.sub(r'<footer class="site-footer">.*?</footer>', "<!-- tt:footer -->\n  <!-- /tt:footer -->", text, count=1, flags=re.S)
+    if "<!-- tt:style -->" not in text:
+        text, n = re.subn(r'<link href="https://fonts\.googleapis\.com/css2[^>]*>\s*<link rel="stylesheet" href="/css/site\.css"\s*/?>', "<!-- tt:style -->\n  <!-- /tt:style -->", text, count=1)
+        assert n == 1, "font and stylesheet tags not found"
+    if "<!-- tt:icons -->" not in text:
+        text = re.sub(r'\s*<link rel="apple-touch-icon"[^>]*>', "", text)
+        text, n = re.subn(r'<link rel="icon"[^>]*>', "<!-- tt:icons -->\n  <!-- /tt:icons -->", text, count=1)
+        assert n == 1, "icon tag not found"
+    text = re.sub(r'<meta name="theme-color" content="[^"]*"\s*/?>', '<meta name="theme-color" content="#15161E" />', text)
+    return text
+
+
+def page_bar(active):
+    links = [("/about/", "About", "about"), ("/blog/", "Blog", "blog"), ("/contact/", "Contact", "contact")]
+    extra = '<nav class="tt-extra" aria-label="TechTools365">' + "".join(
+        f'<a href="{href}"{" aria-current=" + chr(34) + "page" + chr(34) if key == active else ""}>{label}</a>'
+        for href, label, key in links
+    ) + "</nav>"
+    return brand.family_bar(extra)
+
+
+for rel, active in PAGES:
+    path = ROOT / rel
+    text = add_markers(path.read_text(encoding="utf-8"))
+    text = fill(text, "icons", ICONS)
+    text = fill(text, "style", STYLE)
+    text = fill(text, "bar", page_bar(active))
+    text = fill(text, "footer", brand.family_footer(SITE_LINKS, FINE))
+    text = fill(text, "spark", spark())
+    path.write_text(text, encoding="utf-8", newline="\n")
+    print("updated", rel)
