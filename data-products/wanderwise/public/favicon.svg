@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#7c3aed"/>
-  <text x="16" y="22" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">WW</text>
+  <defs><radialGradient id="g" cx="34%" cy="30%" r="80%"><stop offset="0" stop-color="#C6F0E4"/><stop offset="1" stop-color="#1F6F6E"/></radialGradient></defs>
+  <circle cx="16" cy="16" r="15" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.2"><ellipse cx="16" cy="16" rx="6.5" ry="15"/><path d="M1.5 16h29M3.5 9h25M3.5 23h25"/></g>
 </svg>

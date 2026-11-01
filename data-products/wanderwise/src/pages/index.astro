@@ -101,36 +101,39 @@ const jsonLd = {
     <Fragment set:html={`<meta name='impact-site-verification' value='45691ff7-ed8e-4cbf-8a82-e43edf9f7449'>`} />
   </Fragment>
 
-  <section class="home-hero">
-    <div class="eyebrow">Multi-passport · Residence permits · 199 countries</div>
-    <h1>Check visa-free countries <em>for every travel document you hold.</em></h1>
-    <p class="hero-sub">
-      Unlike other visa checkers, WanderWise handles multiple passports, residence permits,
-      and long-term visas at once. Enter every document you have — we'll show the easiest
-      legal way into any of 199 countries, with official sources.
-    </p>
-    <div class="trust-bar">
-      <div class="trust-stat">
-        <span class="trust-check">✓</span>
-        <strong>{permitExemptionsCount}</strong> residence-permit exemptions hand-sourced from embassy pages
-      </div>
-      <div class="trust-stat">
-        <span class="trust-check">✓</span>
-        <strong>{verifiedCount}</strong> high-traffic pairs re-verified against gov sources
-      </div>
-      {lastVerifiedRelative && (
-        <div class="trust-stat trust-freshness">
-          <span class="trust-dot" aria-hidden="true"></span>
-          Last re-verified <strong>{lastVerifiedRelative}</strong>
-        </div>
-      )}
-      <div class="trust-stat">
-        <a href="/methodology/">See methodology →</a>
-      </div>
+  <section class="ww-hero">
+    <canvas class="tt-dusk" data-dusk="globe" data-orb-y="0.635" data-orb-y-narrow="0.68" aria-hidden="true"></canvas>
+    <div class="ww-hero-copy">
+      <h1>Check visa-free countries for every travel document you hold</h1>
+      <p>Enter all your passports, residence permits and long-term visas to see the easiest legal way into any of 199 countries, with official sources where verified.</p>
     </div>
   </section>
+  <script is:inline src="/js/dusk.js" defer></script>
 
-  <VisaChecker client:load />
+  <div class="ww-checker">
+    <VisaChecker client:load />
+  </div>
+
+  <div class="trust-bar">
+    <div class="trust-stat">
+      <span class="trust-check">✓</span>
+      <strong>{permitExemptionsCount}</strong> residence-permit exemptions hand-sourced from embassy pages
+    </div>
+    <div class="trust-stat">
+      <span class="trust-check">✓</span>
+      <strong>{verifiedCount}</strong> high-traffic pairs re-verified against gov sources
+    </div>
+    {lastVerifiedRelative && (
+      <div class="trust-stat trust-freshness">
+        <span class="trust-dot" aria-hidden="true"></span>
+        Last re-verified <strong>{lastVerifiedRelative}</strong>
+      </div>
+    )}
+    <div class="trust-stat">
+      <a href="/methodology/">See methodology</a>
+    </div>
+  </div>
+
 
   <section class="popular-queries">
     <h2>Or pick a popular query</h2>
@@ -317,24 +320,13 @@ const jsonLd = {
   </section>
 
   <style>
-    .home-hero { padding: 1.25rem 0 .75rem; }
-    .home-hero .eyebrow {
-      display: inline-block; font-size: .7rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .12em;
-      color: #7c3aed; background: rgba(124,58,237,0.1);
-      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
-    }
-    .home-hero h1 {
-      font-size: clamp(1.55rem, 3vw, 2.05rem);
-      font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
-      margin-bottom: .35rem;
-    }
-    .home-hero h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, #7c3aed, #a78bfa);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .home-hero .hero-sub { font-size: .95rem; color: #6b7280; max-width: 62ch; margin: 0 0 1rem; }
+    .ww-hero { position: relative; margin: -44px calc(50% - 50vw) 0; height: 560px; text-align: center; background: linear-gradient(to bottom, #1E2A38, #5F8596 56%, #A9A99A 76%, #15161E); }
+    .ww-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(to bottom, rgba(21,22,30,0), var(--bg)); pointer-events: none; }
+    .ww-hero-copy { position: relative; z-index: 2; padding: 76px 24px 0; }
+    .ww-hero-copy h1 { margin: 0 auto; max-width: 20em; text-shadow: 0 1px 24px rgba(21,22,30,.35); }
+    .ww-hero-copy p { margin: 12px auto 0; max-width: 40em; font-size: 1.14rem; color: #E7E7EE; text-shadow: 0 1px 16px rgba(21,22,30,.45); }
+    .ww-checker { position: relative; z-index: 2; max-width: 880px; margin: -130px auto 0; }
+    @media (max-width: 640px) { .ww-hero { height: 640px; } .ww-checker { margin-top: -90px; } }
 
     .trust-bar {
       margin-top: 1rem; padding: .75rem 1rem;
@@ -365,7 +357,6 @@ const jsonLd = {
 
     .popular-passports, .permit-guides, .popular-queries, .popular-destinations, .home-content, .all-passports { margin: 2rem 0; }
     .popular-queries h2, .popular-destinations h2 {
-      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
       font-size: 1.35rem; font-weight: 800; letter-spacing: -.02em;
       margin-bottom: .25rem; color: var(--text);
     }
@@ -379,9 +370,8 @@ const jsonLd = {
       background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
       text-decoration: none; transition: all .15s;
     }
-    .pq-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(124,58,237,.25); }
+    .pq-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(140,155,255,.25); }
     .pq-label {
-      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
       font-size: .98rem; font-weight: 700; letter-spacing: .015em;
       color: var(--text); line-height: 1.2;
       text-transform: uppercase;
@@ -400,7 +390,7 @@ const jsonLd = {
       background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
       text-decoration: none; transition: all .15s;
     }
-    .dest-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(124,58,237,.3); }
+    .dest-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(140,155,255,.3); }
     .dc-name { font-size: .95rem; font-weight: 600; color: var(--text); letter-spacing: -.01em; }
     .dc-blurb { font-size: .8rem; color: var(--muted); margin-top: .25rem; line-height: 1.45; }
     .dest-see-all { margin-top: .75rem; text-align: right; font-size: .85rem; }
@@ -417,7 +407,7 @@ const jsonLd = {
       background: var(--surface); text-decoration: none;
       transition: all .15s;
     }
-    .section-cta:hover { border-color: var(--primary); background: rgba(124,58,237,.05); }
+    .section-cta:hover { border-color: var(--primary); background: rgba(140,155,255,.05); }
 
     .pp-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
@@ -428,7 +418,7 @@ const jsonLd = {
       background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
       text-decoration: none; transition: border-color .15s, box-shadow .15s, transform .15s;
     }
-    .pp-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(124,58,237,.3); }
+    .pp-card:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(140,155,255,.3); }
     .pp-name { font-size: .88rem; font-weight: 600; color: var(--text); }
     .pp-count { font-size: 1.45rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; margin-top: .25rem; line-height: 1; }
     .pp-count span { display: block; font-size: .65rem; color: var(--muted); font-weight: 500; margin-top: .15rem; letter-spacing: .04em; text-transform: uppercase; }
@@ -445,7 +435,7 @@ const jsonLd = {
       background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
       text-decoration: none; transition: all .15s;
     }
-    .permit-card:hover { border-color: var(--primary); box-shadow: 0 6px 14px -8px rgba(124,58,237,.3); }
+    .permit-card:hover { border-color: var(--primary); box-shadow: 0 6px 14px -8px rgba(140,155,255,.3); }
     .permit-name { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -.01em; margin-bottom: .3rem; }
     .permit-blurb { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: .6rem; }
     .permit-cta { font-size: .78rem; color: var(--primary); font-weight: 600; }
