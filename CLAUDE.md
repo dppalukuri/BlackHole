@@ -45,6 +45,7 @@ cd mcp-servers/linkedin && claude
 ## Data-products dependency
 
 - `data-products/wanderwise/src/lib/visa-data.ts` reads `src/data/_verified/verified-visas.json` at build time. That file is produced by `autonomous-agents/visa-verifier/agent.py --sync` — when the verifier runs it writes to its own `output/` then copies into the Astro src/data dir. **Deliberately NOT under public/**: the curated dataset is bundled into static pages but never served as a downloadable JSON.
+- `data-products/shared/brand/` is the TechTools365 brand and Dusk design for the landing page, PennyMath, ToolJury and WanderWise. Change it there and follow the steps in `data-products/shared/README.md`; every site carries a copy or a built version.
 
 ## Git
 
@@ -54,5 +55,5 @@ Single repo, single branch (`main`). Commit messages should prefix with the subp
 - `google-maps: ...`
 - `serp-scraper: ...`
 - `linkedin: ...`
-- `pennymath: ...` / `tooljury: ...` / `wanderwise: ...` / `landing: ...`
+- `pennymath: ...` / `tooljury: ...` / `wanderwise: ...` / `landing: ...` / `shared: ...`
 - `visa-verifier: ...`
