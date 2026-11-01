@@ -1,0 +1,7 @@
+{{- /* Icon for a comparison category. Pass the category name. */ -}}
+{{- $paths := dict
+  "VPN" `<path d="M12 3l8 3v6c0 4.5-3.2 7.7-8 9-4.8-1.3-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>`
+  "Web Hosting" `<rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/>`
+  "Email Marketing" `<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 7l8.5 6 8.5-6"/>`
+-}}
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ (index $paths . | default `<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>`) | safeHTML }}</svg>

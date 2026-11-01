@@ -7,6 +7,8 @@
   </nav>
   <h1>{{ .Title }}</h1>
   {{ with .Description }}<p class="subtitle">{{ . }}</p>{{ end }}
+  <div class="reading">
   {{ .Content }}
+  </div>
 </article>
 {{ end }}

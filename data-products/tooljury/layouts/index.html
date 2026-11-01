@@ -1,39 +1,32 @@
 {{ define "main" }}
-<section class="home-hero">
-  <div class="eyebrow">SaaS &amp; AI tool comparisons</div>
-  <h1>Honest comparisons, <em>transparent rankings.</em></h1>
-  <p class="hero-sub">Side-by-side pricing, features, and verdicts for VPN, web hosting, email marketing, and more — based on public pricing and our own testing.</p>
+<section class="tj-hero">
+  <canvas class="tt-dusk" data-dusk="jury" data-orb-y="0.72" data-orb-y-narrow="0.68" aria-hidden="true"></canvas>
+  <div class="tj-hero-copy">
+    <h1>Honest software comparisons, with a named winner</h1>
+    <p>Side-by-side pricing, features and verdicts for VPNs, web hosting and email marketing, based on public pricing and our own testing.</p>
+  </div>
 </section>
+<script src="/js/dusk.js" defer></script>
 
-<h2>Latest comparisons</h2>
-<div class="cards-grid">
-  {{ range first 9 (where .Site.RegularPages "Section" "compare") }}
-  <a href="{{ .Permalink }}" class="card">
-    <span class="tag">{{ .Params.category }}</span>
-    <h3>{{ .Title }}</h3>
-    <p>{{ .Description }}</p>
-    <span class="freshness">Verified {{ .Params.last_verified }}</span>
-  </a>
+<div class="panels">
+  {{ range (where .Site.RegularPages "Section" "compare").GroupByParam "category" }}
+  <section class="topic">
+    <header class="topic-head">
+      {{ partial "category-icon.html" .Key }}
+      <h2>{{ .Key }}</h2>
+      <span>{{ len .Pages }}</span>
+    </header>
+    {{ range .Pages }}
+    <a class="row" href="{{ .RelPermalink }}"><b>{{ index (split .Title " (") 0 }}</b><small>{{ .Params.verdict.winner }}</small></a>
+    {{ end }}
+  </section>
   {{ end }}
 </div>
-
-{{ with (where .Site.RegularPages "Section" "review") }}
-<h2>Tool reviews</h2>
-<div class="cards-grid">
-  {{ range first 6 . }}
-  <a href="{{ .Permalink }}" class="card">
-    <span class="tag">Review</span>
-    <h3>{{ .Title }}</h3>
-    <p>{{ .Description }}</p>
-  </a>
-  {{ end }}
-</div>
-{{ end }}
 
 <aside class="editors-pick" aria-label="Editor's pick: top VPN">
   <div class="pick-inner">
     <div class="pick-body">
-      <div class="pick-eyebrow">⭐ Editor's Pick · VPN</div>
+      <div class="pick-eyebrow">Editor's Pick · VPN</div>
       <h2>NordVPN — our top VPN pick for 2026</h2>
       <p>Wins 3 of our 4 VPN head-to-heads on this site (vs ExpressVPN, ProtonVPN, CyberGhost); Surfshark beats it on raw value. Fastest in independent speed tests, 6,400+ servers in 111 countries, audited no-logs (Deloitte 2022, 2023). From <strong>$3.39/mo</strong> on the 2-year intro · 30-day money-back. <em>Intro rate; renews higher.</em></p>
       <div class="pick-meta">
@@ -50,7 +43,7 @@
 <aside class="alt-pick" aria-label="Privacy-first VPN alternative">
   <div class="alt-inner">
     <div class="alt-body">
-      <div class="alt-eyebrow">🛡️ Privacy-First Alternative · VPN</div>
+      <div class="alt-eyebrow">Privacy-First Alternative · VPN</div>
       <h3>ProtonVPN — for open-source &amp; Swiss-jurisdiction priority</h3>
       <p>If fully open-source apps, audited Swiss jurisdiction, or the Proton Mail/Drive/Calendar bundle are what you want — ProtonVPN is our pick. Genuinely usable free plan; Plus from <strong>$4.99/mo</strong> on 2-year intro.</p>
     </div>
@@ -58,69 +51,4 @@
   </div>
 </aside>
 
-<style>
-  .home-hero { padding: 1.25rem 0 .75rem; }
-  .home-hero .eyebrow {
-    display: inline-block; font-size: .7rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: .12em;
-    color: #0ea5e9; background: rgba(14,165,233,0.1);
-    padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
-  }
-  .home-hero h1 {
-    font-size: clamp(1.55rem, 3vw, 2rem);
-    font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
-    margin-bottom: .35rem;
-  }
-  .home-hero h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .home-hero .hero-sub { font-size: .92rem; color: #6b7280; max-width: 58ch; margin: 0; }
-
-  .editors-pick {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #f1f5f9; border-radius: 14px; padding: 1.25rem 1.5rem;
-    margin: 3rem 0 1.5rem; border: 1px solid #334155;
-  }
-  .pick-inner { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; }
-  .pick-eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .08em; color: #fbbf24; text-transform: uppercase; margin-bottom: .35rem; }
-  .pick-body h2 { font-size: 1.15rem; font-weight: 700; margin: 0 0 .35rem; color: #fff; }
-  .pick-body p { font-size: .88rem; color: #cbd5e1; margin: 0 0 .6rem; line-height: 1.5; }
-  .pick-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; font-size: .78rem; }
-  .pick-secondary { color: #7dd3fc; text-decoration: underline; text-underline-offset: 3px; }
-  .pick-disclaimer { color: #94a3b8; font-size: .72rem; }
-  .pick-btn {
-    display: inline-block; background: #10b981; color: #fff;
-    padding: .7rem 1.1rem; border-radius: 8px; font-weight: 700; font-size: .9rem;
-    text-decoration: none; white-space: nowrap; box-shadow: 0 4px 14px rgba(16,185,129,.35);
-    transition: transform .15s, box-shadow .15s;
-  }
-  .pick-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(16,185,129,.45); }
-  @media (max-width: 640px) {
-    .pick-inner { grid-template-columns: 1fr; gap: .85rem; }
-    .pick-cta { align-self: stretch; }
-    .pick-btn { display: block; text-align: center; }
-  }
-
-  .alt-pick {
-    background: linear-gradient(135deg, #1a103d, #2d1b69);
-    color: #f1f5f9; border-radius: 12px; padding: 1rem 1.25rem;
-    margin: 1.5rem 0 2rem; border: 1px solid #4c1d95;
-  }
-  .alt-inner { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; align-items: center; }
-  .alt-eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .08em; color: #c4b5fd; text-transform: uppercase; margin-bottom: .25rem; }
-  .alt-body h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .25rem; color: #fff; }
-  .alt-body p { font-size: .82rem; color: #cbd5e1; margin: 0; line-height: 1.45; }
-  .alt-btn {
-    display: inline-block; background: #8b5cf6; color: #fff;
-    padding: .6rem .95rem; border-radius: 8px; font-weight: 700; font-size: .85rem;
-    text-decoration: none; white-space: nowrap; box-shadow: 0 3px 10px rgba(139,92,246,.35);
-  }
-  .alt-btn:hover { transform: translateY(-1px); }
-  @media (max-width: 640px) {
-    .alt-inner { grid-template-columns: 1fr; gap: .75rem; }
-    .alt-btn { display: block; text-align: center; }
-  }
-</style>
 {{ end }}
