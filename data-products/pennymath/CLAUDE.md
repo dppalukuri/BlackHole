@@ -15,7 +15,7 @@ Programmatic SEO site targeting high-CPC financial calculator queries across Ind
 - `src/lib/chart-scale.ts` — Chart layout maths, tested in the same file
 - `src/components/calculators/engines/` — One Preact widget per calculator
 - `src/components/calculators/ui/` — SliderInput, ResultCard, Verdict, ChoiceButtons, LineChart, GrowthChart
-- `src/components/` — SiteSearch, CalculatorDirectory, DuskHero, FAQ, AffiliateCTA, CalculatorSchema
+- `src/components/` — SiteSearch, CalculatorDirectory, DuskHero, FAQ, AffiliateCTA, CalculatorSchema, FamilyBar and FamilyFooter (the TechTools365 bar and footer, built from `../shared/brand/`)
 - `src/pages/{country}/{slug}.astro` — Calculator pages with full SEO content
 - `src/pages/{country}/index.astro` — Country pages, generated from the calculator list
 

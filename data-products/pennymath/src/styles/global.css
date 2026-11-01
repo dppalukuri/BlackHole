@@ -64,11 +64,8 @@ li { margin-bottom: 0.25rem; }
 .btn { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 99px; background: var(--color-button); color: #fff; font: inherit; font-weight: 500; padding: 9px 20px; cursor: pointer; }
 .btn:hover { background: var(--color-button-hover); color: #fff; }
 
-/* Header: one row, one set of country links */
-.top { position: relative; z-index: 20; max-width: 1320px; margin: 0 auto; padding: 16px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px; }
-.mark { display: inline-flex; align-items: center; gap: 12px; color: var(--color-text); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.2em; }
-.mark:hover { color: var(--color-text); }
-.mark svg { display: block; }
+/* The TechTools365 bar sits above this row, which holds PennyMath's own navigation */
+.top { position: relative; z-index: 20; max-width: 1320px; margin: 0 auto; padding: 8px 32px; min-height: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 32px; }
 .countries { display: flex; gap: 2px 22px; flex-wrap: wrap; }
 .countries a { color: var(--color-text); font-weight: 450; padding: 2px 0; border-bottom: 2px solid transparent; }
 .countries a:hover { color: var(--color-primary-hover); }
@@ -107,10 +104,9 @@ li { margin-bottom: 0.25rem; }
 .data-vintage-stale { background: rgba(229, 180, 84, 0.12); border: 1px solid rgba(229, 180, 84, 0.45); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; color: var(--color-text); }
 
 /* Homepage */
-.hero { position: relative; margin-top: -68px; height: 640px; text-align: center; background: linear-gradient(to bottom, #262839, #7E6780 56%, #C98F82 76%, #15161E); }
-.dusk { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero { position: relative; margin-top: -44px; height: 660px; text-align: center; background: linear-gradient(to bottom, #262839, #7E6780 56%, #C98F82 76%, #15161E); }
 .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(to bottom, rgba(21, 22, 30, 0), var(--color-bg)); pointer-events: none; }
-.hero-copy { position: relative; z-index: 2; padding: 118px 24px 0; }
+.hero-copy { position: relative; z-index: 2; padding: 86px 24px 0; }
 .hero h1 { font-size: clamp(2.5rem, 5.2vw, 3.7rem); text-shadow: 0 1px 24px rgba(21, 22, 30, 0.35); }
 .hero p { margin: 12px auto 0; max-width: 34em; font-size: 1.2rem; color: #E7E7EE; text-shadow: 0 1px 16px rgba(21, 22, 30, 0.45); }
 .directory-title { font-size: clamp(1.7rem, 3vw, 2.3rem); margin: 22px 0 18px; }
@@ -324,16 +320,9 @@ li { margin-bottom: 0.25rem; }
 .rail ins.adsbygoogle { display: block; width: 160px; height: 600px; }
 @media (min-width: 1560px) { .rail { display: block; } .ad-inline { display: none; } }
 
-/* Footer */
-.site-footer { border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 0.88rem; }
-.footer-inner { max-width: var(--content-width); margin: 0 auto; padding: 18px var(--gutter); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; }
-.footer-inner p { margin: 0; max-width: 62ch; }
-.site-footer a { color: var(--color-text-muted); text-decoration: underline; text-underline-offset: 3px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
-
 @media (max-width: 920px) {
   html { font-size: 16px; }
-  .top { padding: 12px 16px; gap: 8px 20px; }
+  .top { padding: 8px 16px; gap: 8px 20px; }
   .site-search-header { order: 3; width: 100%; margin-left: 0; }
   .calculator-widget { grid-template-columns: minmax(0, 1fr); }
   .calc-answer { position: static; }
@@ -341,7 +330,6 @@ li { margin-bottom: 0.25rem; }
   .try { grid-template-columns: minmax(0, 1fr); padding: 48px 0 56px; }
 }
 @media (max-width: 480px) {
-  .mark { letter-spacing: 0.14em; }
   .countries { gap: 2px 14px; }
   .calc-inputs, .calc-more-grid { grid-template-columns: minmax(0, 1fr); }
   .calc-inputs { padding: 16px; }
@@ -349,5 +337,5 @@ li { margin-bottom: 0.25rem; }
   .result-highlight { padding: 18px 16px 14px; }
   .chart-card, .panel-card { padding: 16px; }
   .hero { height: 620px; }
-  .hero-copy { padding-top: 104px; }
+  .hero-copy { padding-top: 76px; }
 }

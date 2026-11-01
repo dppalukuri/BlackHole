@@ -1,0 +1,20 @@
+---
+/** The TechTools365 footer on every page. The markup lives in shared/brand. */
+import fs from 'node:fs';
+import path from 'node:path';
+
+const read = (file: string) => fs.readFileSync(path.resolve('..', 'shared', 'brand', file), 'utf-8');
+const links = `<nav aria-label="PennyMath">
+      <h2>PennyMath</h2>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </nav>`;
+const html = read('family-footer.html')
+  .replace('<!--BRAND-->', read('brand-mark.html').trim().replace(/GRADID/g, 'foot'))
+  .replace('<!--SITE_LINKS-->', links)
+  .replace('<!--SITE_FINE-->', 'Calculations are for information only. Speak to a licensed adviser for personal advice.');
+---
+
+<Fragment set:html={html} />

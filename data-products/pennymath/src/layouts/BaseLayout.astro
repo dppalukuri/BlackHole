@@ -12,6 +12,8 @@ interface Props {
 
 import AdScripts from '../components/AdScripts.astro';
 import SiteSearch from '../components/SiteSearch.astro';
+import FamilyBar from '../components/FamilyBar.astro';
+import FamilyFooter from '../components/FamilyFooter.astro';
 import { COUNTRIES } from '../data/calculators';
 
 const {
@@ -69,6 +71,7 @@ const currentPath = Astro.url.pathname;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/brand.css" />
 
   <AdScripts />
 
@@ -77,11 +80,8 @@ const currentPath = Astro.url.pathname;
   <slot name="head" />
 </head>
 <body>
+  <FamilyBar />
   <header class="top">
-    <a class="mark" href="/" aria-label="PennyMath home">
-      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><defs><radialGradient id="penny" cx="34%" cy="30%" r="80%"><stop offset="0" stop-color="#F7BE92"></stop><stop offset="1" stop-color="#C4652A"></stop></radialGradient></defs><circle cx="15" cy="15" r="14" fill="url(#penny)"></circle><circle cx="15" cy="15" r="10.8" fill="none" stroke="#FFF" stroke-opacity=".45"></circle></svg>
-      PENNYMATH
-    </a>
     <nav class="countries" aria-label="Countries">
       {COUNTRIES.map((c) => (
         <a href={c.path} class={currentPath.startsWith(c.path) ? 'is-active' : ''} aria-current={currentPath.startsWith(c.path) ? 'true' : undefined}>{c.name}</a>
@@ -111,17 +111,7 @@ const currentPath = Astro.url.pathname;
     </aside>
   )}
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p>PennyMath by <a href="https://techtools365.com/" target="_blank" rel="noopener">TechTools365</a>. Calculations are for information only. Speak to a licensed adviser for personal advice.</p>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
-        <a href="https://tooljury.techtools365.com/" target="_blank" rel="noopener">ToolJury</a>
-        <a href="https://wanderwise.techtools365.com/" target="_blank" rel="noopener">WanderWise</a>
-      </nav>
-    </div>
-  </footer>
+  <FamilyFooter />
 
   {anyAdSlotConfigured && (
     <script is:inline>

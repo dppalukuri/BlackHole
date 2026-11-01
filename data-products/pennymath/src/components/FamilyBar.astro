@@ -1,0 +1,14 @@
+---
+/** The TechTools365 bar at the top of every page. The markup lives in shared/brand. */
+import fs from 'node:fs';
+import path from 'node:path';
+
+const SITE = 'pennymath';
+const read = (file: string) => fs.readFileSync(path.resolve('..', 'shared', 'brand', file), 'utf-8');
+const html = read('family-bar.html')
+  .replace('<!--BRAND-->', read('brand-mark.html').trim().replace(/GRADID/g, 'bar'))
+  .replace('<!--EXTRA-->', '')
+  .replace(`data-site="${SITE}"`, `data-site="${SITE}" aria-current="page"`);
+---
+
+<Fragment set:html={html} />
