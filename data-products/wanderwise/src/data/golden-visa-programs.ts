@@ -28,6 +28,9 @@ export interface GoldenVisa {
   notes: string;
 }
 
+/** When these programmes were last checked against their official sources. Change it only after re-checking them. */
+export const GOLDEN_VISAS_CHECKED_ON = '2026-04-19';
+
 export const goldenVisaPrograms: GoldenVisa[] = [
   // --- Europe --------------------------------------------------------------
   {

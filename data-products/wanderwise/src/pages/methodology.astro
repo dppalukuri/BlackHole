@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { verifiedData, visaMatrix, residencePermits, relativeFreshness } from '../lib/visa-data';
+import { verifiedData, visaMatrix, residencePermits, formatDay } from '../lib/visa-data';
 
 const verifiedCount = Object.values(verifiedData.data ?? {})
   .reduce((acc, v) => acc + Object.keys(v).length, 0);
@@ -10,10 +10,7 @@ const totalPassports = Object.keys(visaMatrix).length;
 const totalPermits = Object.keys(residencePermits).length;
 const totalPermitExemptions = Object.values(residencePermits)
   .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
-const lastVerifiedRelative = relativeFreshness(verifiedData.meta?.last_run);
-const lastVerifiedAbsolute = verifiedData.meta?.last_run
-  ? new Date(verifiedData.meta.last_run).toISOString().slice(0, 16).replace('T', ' ') + ' UTC'
-  : null;
+const lastVerified = formatDay(verifiedData.meta?.last_run);
 
 const faq = [
   {
@@ -89,13 +86,10 @@ const jsonLd = {
         <div class="kpi"><strong>{totalPermitExemptions}</strong><span>permit exemptions hand-sourced</span></div>
         <div class="kpi"><strong>{verifiedCount}</strong><span>pairs re-verified</span></div>
         <div class="kpi"><strong>{totalPassports}</strong><span>passports covered</span></div>
-        {lastVerifiedRelative && (
+        {lastVerified && (
           <div class="kpi kpi-fresh">
-            <strong>{lastVerifiedRelative}</strong>
-            <span>
-              last run
-              {lastVerifiedAbsolute && (<em title={lastVerifiedAbsolute}> · {lastVerifiedAbsolute}</em>)}
-            </span>
+            <strong>{lastVerified}</strong>
+            <span>last verification run</span>
           </div>
         )}
       </div>

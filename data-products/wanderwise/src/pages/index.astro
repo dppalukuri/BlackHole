@@ -6,14 +6,14 @@ import MidContentAd from '../components/MidContentAd.astro';
 import { priorityPassports } from '../data/priority-passports';
 import { priorityPermits } from '../data/priority-permits';
 import { priorityDestinations } from '../data/priority-destinations';
-import { summarizePassport, verifiedData, residencePermits, relativeFreshness } from '../lib/visa-data';
+import { summarizePassport, verifiedData, residencePermits, formatDay } from '../lib/visa-data';
 
 // Verification-progress stats for the homepage trust signal
 const verifiedCount = Object.values(verifiedData.data ?? {})
   .reduce((acc, v) => acc + Object.keys(v).length, 0);
 const permitExemptionsCount = Object.values(residencePermits)
   .reduce((acc, p) => acc + Object.keys(p.exemptions).length, 0);
-const lastVerifiedRelative = relativeFreshness(verifiedData.meta?.last_run);
+const lastVerified = formatDay(verifiedData.meta?.last_run);
 
 /** Top 9 passports by priority, with live counts for the card display. */
 const topPassports = priorityPassports
@@ -123,10 +123,10 @@ const jsonLd = {
       <span class="trust-check">✓</span>
       <strong>{verifiedCount}</strong> high-traffic pairs re-verified against gov sources
     </div>
-    {lastVerifiedRelative && (
+    {lastVerified && (
       <div class="trust-stat trust-freshness">
         <span class="trust-dot" aria-hidden="true"></span>
-        Last re-verified <strong>{lastVerifiedRelative}</strong>
+        Last re-verified <strong>{lastVerified}</strong>
       </div>
     )}
     <div class="trust-stat">

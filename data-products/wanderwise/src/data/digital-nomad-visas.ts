@@ -26,6 +26,9 @@ export interface NomadVisa {
   notes: string;                       // 1-2 sentence summary
 }
 
+/** When these programmes were last checked against their official sources. Change it only after re-checking them. */
+export const NOMAD_VISAS_CHECKED_ON = '2026-04-19';
+
 export const digitalNomadVisas: NomadVisa[] = [
   {
     slug: 'portugal-d8',

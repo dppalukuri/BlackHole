@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import VisaCountryGrid from '../components/VisaCountryGrid.astro';
 import MidContentAd from '../components/MidContentAd.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { summarizePassport, getVerified, type VisaStatus } from '../lib/visa-data';
+import { summarizePassport, getVerified, verifiedData, formatDay, type VisaStatus } from '../lib/visa-data';
 import { priorityPassports } from '../data/priority-passports';
 
 export async function getStaticPaths() {
@@ -36,9 +36,11 @@ const allDestinations = [
   ...summary.visaRequired,
 ];
 
+let latestCheck = '';
 for (const c of allDestinations) {
   const v = getVerified(passport, c);
   if (v) {
+    if (v.verified_at > latestCheck) latestCheck = v.verified_at;
     // Use the verified status, not the bulk matrix one.
     const status = v.status as 'vf' | 'voa' | 'ev' | 'eta' | 'vr';
     const entry: GridEntry = {
@@ -132,7 +134,7 @@ const jsonLd = {
     logo: { '@type': 'ImageObject', url: 'https://techtools365.com/logo.png' },
   },
   datePublished: '2026-04-18',
-  dateModified: '2026-04-18',
+  dateModified: (latestCheck || verifiedData.meta?.last_run || '2026-04-18').slice(0, 10),
   mainEntityOfPage: `https://wanderwise.techtools365.com/${slug}`,
 };
 ---
@@ -173,6 +175,7 @@ const jsonLd = {
           <li><a href="#e-visa"><i class="ev"></i>e-Visa <b>{eVisaEntries.length}</b></a></li>
           <li><a href="#visa-required"><i class="vr"></i>Visa required <b>{buckets.vr.length}</b></a></li>
         </ul>
+        {latestCheck && <p class="pp-checked">Most recent check against official sources: {formatDay(latestCheck)}</p>}
       </div>
     </header>
 
@@ -268,6 +271,7 @@ const jsonLd = {
     .pp-legend a { display: inline-flex; align-items: center; gap: 8px; color: var(--text-2); font-size: .95rem; }
     .pp-legend a:hover { color: var(--text); }
     .pp-legend i { width: 10px; height: 10px; border-radius: 3px; }
+    .pp-checked { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); font-size: .9rem; color: var(--muted); }
     .pp-legend b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
 
     /* The lists */

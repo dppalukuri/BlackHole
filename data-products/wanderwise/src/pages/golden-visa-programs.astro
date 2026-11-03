@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MidContentAd from '../components/MidContentAd.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { goldenVisaPrograms } from '../data/golden-visa-programs';
+import { goldenVisaPrograms, GOLDEN_VISAS_CHECKED_ON } from '../data/golden-visa-programs';
+import { formatDay } from '../lib/visa-data';
 
 const fmtK = (n: number) => {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
@@ -94,7 +95,7 @@ const jsonLd = {
     </nav>
 
     <header class="gv-header">
-      <div class="eyebrow">Guide · Updated {new Date().toISOString().slice(0, 10)}</div>
+      <div class="eyebrow">Guide · Last checked {formatDay(GOLDEN_VISAS_CHECKED_ON)}</div>
       <h1>Golden visa programs: <em>residence &amp; citizenship by investment</em></h1>
       <p class="lede">
         Every major residence-by-investment (RBI) and citizenship-by-investment (CBI) program in one place.
@@ -158,7 +159,7 @@ const jsonLd = {
     <section>
       <h2>No physical presence required</h2>
       <p>
-        These programs don\'t require you to actually live in the country — just a visit every year
+        These programs don't require you to actually live in the country — just a visit every year
         or two to keep the permit active. Good for second-home / "Plan B" holders.
       </p>
       <div class="chips">

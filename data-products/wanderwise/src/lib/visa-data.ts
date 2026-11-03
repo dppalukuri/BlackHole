@@ -57,20 +57,12 @@ export interface VerifiedData {
   data: Record<string, Record<string, VerifiedEntry>>;
 }
 
-/** Human-readable "X days ago" / "today" / "yesterday" formatter for freshness display. */
-export function relativeFreshness(isoDate: string | undefined): string | null {
-  if (!isoDate) return null;
-  const then = new Date(isoDate);
-  if (Number.isNaN(then.getTime())) return null;
-  const diffMs = Date.now() - then.getTime();
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  if (diffHours < 1) return 'less than an hour ago';
-  if (diffHours < 24) return diffHours === 1 ? '1 hour ago' : `${diffHours} hours ago`;
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays === 1) return 'yesterday';
-  if (diffDays < 30) return `${diffDays} days ago`;
-  const diffMonths = Math.floor(diffDays / 30);
-  return diffMonths === 1 ? '1 month ago' : `${diffMonths} months ago`;
+/** "3 September 2026" from a date or timestamp. Always absolute: the site is static, so "2 days ago" would freeze at build time. */
+export function formatDay(iso: string | undefined | null): string | null {
+  if (!iso) return null;
+  const d = new Date(iso.length === 10 ? `${iso}T12:00:00Z` : iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
 function loadVerified(): VerifiedData {

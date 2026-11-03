@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MidContentAd from '../components/MidContentAd.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { digitalNomadVisas, type NomadVisa } from '../data/digital-nomad-visas';
+import { digitalNomadVisas, NOMAD_VISAS_CHECKED_ON, type NomadVisa } from '../data/digital-nomad-visas';
+import { formatDay } from '../lib/visa-data';
 
 const fmtUsd = (n: number | null) =>
   n === null ? '—' : new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n);
@@ -76,7 +77,7 @@ const jsonLd = {
 
 <BaseLayout
   title="Digital Nomad Visas 2026 — 30+ Programs Compared | WanderWise"
-  description={`Complete comparison of ${total} digital nomad visa programs worldwide — income requirements, duration, tax treatment, family eligibility, and official source links. Updated ${new Date().toISOString().slice(0, 10)}.`}
+  description={`Complete comparison of ${total} digital nomad visa programs worldwide — income requirements, duration, tax treatment, family eligibility, and official source links. Last checked ${formatDay(NOMAD_VISAS_CHECKED_ON)}.`}
   keywords="digital nomad visa, remote worker visa, nomad visa 2026, best digital nomad visas, Portugal D8, Spain DNV, UAE virtual working, Thailand LTR DTV, Estonia nomad visa, Barbados Welcome Stamp"
   ogType="article"
   jsonLd={jsonLd}
@@ -88,7 +89,7 @@ const jsonLd = {
     </nav>
 
     <header class="dn-header">
-      <div class="eyebrow">Guide · Updated {new Date().toISOString().slice(0, 10)}</div>
+      <div class="eyebrow">Guide · Last checked {formatDay(NOMAD_VISAS_CHECKED_ON)}</div>
       <h1>Digital nomad visas: <em>{total} programs compared</em></h1>
       <p class="lede">
         Every serious digital-nomad visa program, ranked by monthly income requirement.
@@ -104,7 +105,7 @@ const jsonLd = {
 
     <section>
       <h2>Cheapest entry points by income threshold</h2>
-      <p>If you\'re not a high-earner yet, these are the most accessible programs. Pair any of them with a UAE residence permit later for a big travel-access jump (see our <a href="/indian-passport-uae-resident/">UAE residence guide</a>).</p>
+      <p>If you're not a high-earner yet, these are the most accessible programs. Pair any of them with a UAE residence permit later for a big travel-access jump (see our <a href="/indian-passport-uae-resident/">UAE residence guide</a>).</p>
       <table class="compact">
         <thead><tr><th>Country</th><th>Program</th><th>Min income / month</th><th>Duration</th><th>Family</th></tr></thead>
         <tbody>
@@ -146,8 +147,8 @@ const jsonLd = {
       <h2>Tax-friendly picks</h2>
       <p>
         Foreign-earned income either fully exempt, or a flat low-rate regime available.
-        "Tax-friendly" here means the program doesn\'t try to tax you as a local resident
-        on global income during the permit\'s validity — but <strong>every case is individual</strong>,
+        "Tax-friendly" here means the program doesn't try to tax you as a local resident
+        on global income during the permit's validity — but <strong>every case is individual</strong>,
         so treat this as a shortlist, not advice.
       </p>
       <div class="chips">
