@@ -206,6 +206,23 @@ li { margin-bottom: 0.25rem; }
 .verdict strong { font-weight: 500; }
 .verdict p { font-size: 0.92rem; color: var(--color-text-muted); margin: 2px 0 0; }
 
+/* Two options side by side: a row per measure, a column per option */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ff-compare table { width: 100%; border-collapse: collapse; }
+.ff-compare th, .ff-compare td { padding: 14px 18px; text-align: right; vertical-align: top; border-top: 1px solid var(--color-border); font-weight: 400; }
+.ff-compare thead th { border-top: 0; padding-top: 20px; font-size: 0.9rem; color: var(--color-text-2); line-height: 1.3; }
+.ff-compare thead .swatch-dot { margin-right: 7px; vertical-align: 1px; }
+.ff-compare tbody th { text-align: left; color: var(--color-text-2); white-space: nowrap; }
+.ff-compare td { font-size: 1.15rem; font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ff-compare td small { display: block; font-size: 0.82rem; font-weight: 400; color: var(--color-text-muted); margin-top: 2px; }
+.ff-saving { padding: 14px 18px 18px; background: var(--color-surface-2); border-top: 1px solid var(--color-border); }
+.ff-saving strong { display: inline-block; font-weight: 500; color: var(--good); border: 1px solid var(--good); border-radius: 99px; padding: 3px 12px; }
+.ff-saving p { font-size: 0.88rem; color: var(--color-text-muted); margin: 8px 0 0; }
+@media (max-width: 520px) {
+  .ff-compare th, .ff-compare td { padding: 12px 10px; }
+  .ff-compare td, .ff-compare tbody th { font-size: 1rem; white-space: normal; }
+}
+
 /* Charts */
 .chart-card { padding: 20px 22px; min-width: 0; }
 .chart-head { display: flex; flex-wrap: wrap; gap: 6px 24px; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
