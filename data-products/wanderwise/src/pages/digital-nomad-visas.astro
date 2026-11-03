@@ -242,6 +242,9 @@ const jsonLd = {
       width: 100%; border-collapse: collapse; font-size: .85rem; margin: .5rem 0 1rem;
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
     }
+    @media (max-width: 720px) {
+      table.compact { display: block; overflow-x: auto; }
+    }
     table.compact th, table.compact td { padding: .5rem .7rem; text-align: left; border-bottom: 1px solid var(--border); }
     table.compact th { background: var(--surface-2); font-weight: 600; font-size: .78rem; color: var(--text); }
     table.compact tr:last-child td { border-bottom: none; }
