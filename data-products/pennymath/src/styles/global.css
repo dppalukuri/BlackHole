@@ -161,6 +161,12 @@ li { margin-bottom: 0.25rem; }
 /* Inputs: type a value, or nudge the slider along the box's lower edge */
 .slider-group { display: flex; flex-direction: column; justify-content: space-between; gap: 5px; min-width: 0; }
 .field-label { display: block; font-size: 0.87rem; color: var(--color-text-muted); line-height: 1.25; }
+.field-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 4px 10px; flex-wrap: wrap; }
+.field-head .field-label { flex: 1 1 auto; min-width: 0; }
+.scaler { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 0.78rem; color: var(--color-text-muted); }
+.scaler button { font: inherit; font-size: 0.78rem; font-weight: 500; line-height: 1; color: var(--color-text-2); background: transparent; border: 1px solid var(--color-border); border-radius: 99px; padding: 3px 7px; cursor: pointer; }
+.scaler button:hover:not(:disabled) { border-color: var(--color-primary); color: var(--color-text); }
+.scaler button:disabled { opacity: 0.35; cursor: default; }
 .slider-field { position: relative; display: flex; align-items: center; gap: 6px; background: var(--color-input-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 9px 12px 14px; }
 .slider-field:focus-within { border-color: var(--color-primary); }
 .value-input { flex: 1; min-width: 0; width: 100%; background: transparent; border: 0; font: inherit; font-size: 1.1rem; font-weight: 500; color: var(--color-text); }

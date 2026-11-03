@@ -1,4 +1,5 @@
 import { useRef, useState } from 'preact/hooks';
+import { AMOUNT_FLOOR, MIN_WINDOW, amountCeiling, shortAmount, windowFor, windowStep } from '../../../lib/amount-range';
 
 interface SliderInputProps {
   id: string;
@@ -16,10 +17,12 @@ interface SliderInputProps {
    */
   locale?: string;
   /**
-   * Set where `max` is an arbitrary UI ceiling rather than a real limit of the
-   * quantity: amounts, balances, corpus. Typing a larger number then widens the
-   * slider instead of clamping the value. Leave it off where the maximum truly
-   * bounds the domain, such as a rate capped at 30%.
+   * Set on money amounts with no real upper limit: loans, prices, income,
+   * balances. The amount can then be anything from 1,000 to ₹100 crore, or to
+   * 100 million in other currencies, and ×10 / ÷10 buttons move the slider's
+   * range. `min` 0 keeps zero allowed, for amounts that can be "none". `max`
+   * only seeds the range when the value is zero, and `step` is ignored.
+   * Leave it off where a limit is real, such as the ₹1.5 lakh PPF cap.
    */
   scalable?: boolean;
   onChange: (value: number) => void;
@@ -41,10 +44,19 @@ export default function SliderInput({
 }: SliderInputProps) {
   const fmt = (n: number) => n.toLocaleString(locale);
 
-  // Ceiling after any widening caused by typing a larger number.
-  const [ceiling, setCeiling] = useState(max);
-  const effMax = scalable ? Math.max(ceiling, max) : max;
-  const effStep = scalable ? Math.max(step, step * Math.pow(10, Math.round(Math.log10(effMax / max)))) : step;
+  // Money amounts: the full range is fixed, and the slider shows a window of it.
+  const ceiling = amountCeiling(locale);
+  const floor = min === 0 ? 0 : AMOUNT_FLOOR;
+  const [windowTop, setWindowTop] = useState(() => windowFor(value, max, ceiling));
+  // A value set from outside, such as a preset, widens the window rather than pinning the slider.
+  const top = value > windowTop ? windowFor(value, max, ceiling) : windowTop;
+  const lo = scalable ? floor : min;
+  const hi = scalable ? top : max;
+  const sliderMin = scalable ? 0 : min;
+  const sliderStep = scalable ? windowStep(top) : step;
+  const canShrink = top / 10 >= MIN_WINDOW && top / 10 >= value;
+  const canGrow = top < ceiling;
+  const short = (n: number) => shortAmount(n, locale, prefix);
 
   // While the box has focus we hold the raw keystrokes here and leave `value`
   // alone. Committing on every keystroke made the box impossible to type in: a
@@ -62,12 +74,13 @@ export default function SliderInput({
     const num = parseFloat(cleaned);
     if (isNaN(num)) return;
 
-    let top = effMax;
-    if (scalable && num > effMax) {
-      top = num;
-      setCeiling(num);
+    if (!scalable) {
+      onChange(Math.min(max, Math.max(min, num)));
+      return;
     }
-    onChange(Math.min(top, Math.max(min, num)));
+    const next = Math.min(ceiling, Math.max(floor, num));
+    if (next > top) setWindowTop(windowFor(next, max, ceiling));
+    onChange(next);
   };
 
   const handleFocus = (e: Event) => {
@@ -113,13 +126,22 @@ export default function SliderInput({
     }
   };
 
-  const span = effMax - min;
-  const percent = span > 0 ? ((value - min) / span) * 100 : 0;
+  const span = hi - sliderMin;
+  const percent = span > 0 ? ((value - sliderMin) / span) * 100 : 0;
   const unit = (prefix + suffix).trim();
 
   return (
     <div class="slider-group">
-      <label class="field-label" htmlFor={`${id}-input`}>{label}</label>
+      <div class="field-head">
+        <label class="field-label" htmlFor={`${id}-input`}>{label}</label>
+        {scalable && (
+          <span class="scaler">
+            <button type="button" disabled={!canShrink} onClick={() => setWindowTop(top / 10)} aria-label={`Slider range ÷10, up to ${short(top / 10)}`}>÷10</button>
+            <span class="scaler-top" aria-hidden="true">up to {short(top)}</span>
+            <button type="button" disabled={!canGrow} onClick={() => setWindowTop(Math.min(ceiling, top * 10))} aria-label={`Slider range ×10, up to ${short(Math.min(ceiling, top * 10))}`}>×10</button>
+          </span>
+        )}
+      </div>
       <div class="slider-field">
         <input
           type="text"
@@ -138,11 +160,11 @@ export default function SliderInput({
           type="range"
           id={id}
           aria-label={`${label} slider`}
-          min={min}
-          max={effMax}
-          step={effStep}
+          min={sliderMin}
+          max={hi}
+          step={sliderStep}
           value={value}
-          onInput={(e: Event) => onChange(Number((e.target as HTMLInputElement).value))}
+          onInput={(e: Event) => onChange(Math.max(lo, Number((e.target as HTMLInputElement).value)))}
           class="range-slider"
           style={`--fill: ${Math.min(100, Math.max(0, percent))}%`}
         />

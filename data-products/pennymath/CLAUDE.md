@@ -36,7 +36,9 @@ Programmatic SEO site targeting high-CPC financial calculator queries across Ind
 
 ## Design rules
 - **No redundancy.** Say each thing once: one set of country links (the header), one search box per page, no result row that repeats an input, and no intro that repeats a subtitle.
-- **One large answer.** Exactly one `highlight` row in each ResultCard. It also drives the pinned answer on phones.
+- **One large answer.** Exactly one `highlight` row in each ResultCard. It also drives the pinned answer on phones. The exception is a two-option comparison such as fixed vs floating, which shows a side-by-side table (`.ff-compare`) instead.
+- **Few inputs, plain labels.** Ask only for what changes the answer, labelled the way a borrower would say it ("Loan amount", "Fixed rate (per year)").
+- **Money amounts are `scalable`.** They run from 1,000 to ₹100 crore, or to 100 million in other currencies, with ×10 / ÷10 buttons moving the slider's range (`src/lib/amount-range.ts`). Don't hand-tune their min, max or step. Leave `scalable` off only where a limit is real, such as the ₹1.5 lakh PPF cap.
 - **Use a LineChart wherever a number changes over time or across a range**, such as a balance, a payment, growth or a break-even. Skip it for one-off sums like GST or VAT. Use `GrowthChart` for "value against amount invested".
 - **Colours come from tokens.** No hex values in engines. Chart series use `--series-1` to `--series-3`, checked for colour-blind separation on the dark panel.
 - **Dark for tools, light for reading.** `.reading` swaps the tokens to a light page, so content inside it can use normal colours.
