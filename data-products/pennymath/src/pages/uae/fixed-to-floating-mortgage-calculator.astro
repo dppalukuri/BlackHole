@@ -76,6 +76,7 @@ const url = 'https://pennymath.techtools365.com/uae/fixed-to-floating-mortgage-c
     client:visible
     currency={{ code: 'AED', symbol: 'AED ' }}
     paymentWord="payment"
+    termLabel="Loan term"
     amountRange={{ min: 100000, max: 10000000, step: 50000 }}
     maxTenureYears={25}
     defaults={{ amount: 1500000, tenureYears: 25, fixedRate: 4.25, fixedYears: 3, floatingRate: 5.95 }}
@@ -102,7 +103,7 @@ const url = 'https://pennymath.techtools365.com/uae/fixed-to-floating-mortgage-c
   <section class="content-section">
     <h2>How to Use This Calculator</h2>
     <ol class="how-to-steps">
-      <li><strong>Enter the loan amount and tenure.</strong> If you already have a mortgage, use the outstanding balance and the years left.</li>
+      <li><strong>Enter the loan amount and term.</strong> If you already have a mortgage, use the outstanding balance and the years left.</li>
       <li><strong>Enter the fixed rate</strong> and how many years it is fixed for.</li>
       <li><strong>Enter the floating rate:</strong> 3-month EIBOR plus the margin in your offer. The fixed mortgage moves to this rate when its fixed years end.</li>
       <li><strong>Compare the two columns:</strong> the monthly payment, total interest and total amount. Then try a higher and a lower floating rate.</li>

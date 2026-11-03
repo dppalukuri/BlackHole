@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FlatReducingCalculator from '../../components/calculators/engines/FlatReducingCalculator';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `Why do UAE banks quote a flat rate?`,
+    a: `It is the long-standing way car and personal loans are advertised in the UAE, and it gives a smaller headline number. Banks usually state the equivalent reducing rate next to it, and that is the figure to compare.`,
+  },
+  {
+    q: `How do I convert a flat rate to a reducing rate?`,
+    a: `There is no fixed multiplier, because it depends on the rate and the term. For loans of one to five years, the reducing rate is usually about 1.6 to 1.9 times the flat rate, and close to double at the low rates of UAE car loans: 3% flat over 60 months is 5.64% reducing. The calculator above works it out exactly.`,
+  },
+  {
+    q: `Is the reducing rate the same as the effective interest rate?`,
+    a: `Banks use "effective rate" for the reducing rate, and the two match when there are no fees. Processing fees and required insurance add to what you really pay, so ask for them and add them up.`,
+  },
+  {
+    q: `Does this work for Islamic car or personal finance?`,
+    a: `Yes. Islamic finance quotes a profit rate rather than an interest rate, but a flat profit rate converts to a reducing one in exactly the same way.`,
+  },
+];
+
+const url = 'https://pennymath.techtools365.com/uae/flat-vs-reducing-rate-calculator';
+---
+
+<BaseLayout
+  title="Flat to Reducing Rate Calculator UAE — Car & Personal Loans | PennyMath"
+  description="Free UAE flat rate to reducing rate calculator for car and personal loans. Convert a bank's flat rate to its reducing rate and compare the monthly repayment and total repayable."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Flat to Reducing Rate Calculator UAE",
+      "description": "Convert a UAE car or personal loan's flat rate to the reducing rate that costs the same, and compare the monthly repayment and total repayable",
+      "url": url,
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AED" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pennymath.techtools365.com/" },
+        { "@type": "ListItem", "position": 2, "name": "UAE", "item": "https://pennymath.techtools365.com/uae/" },
+        { "@type": "ListItem", "position": 3, "name": "Flat to Reducing Rate Calculator", "item": url }
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/uae/">UAE</a> <span>/</span>
+    Flat to Reducing Rate Calculator
+  </nav>
+
+  <h1>Flat to Reducing Rate Calculator (UAE)</h1>
+  <p class="page-intro">
+    UAE banks often advertise car and personal loans at a flat rate. Convert it to the reducing rate that shows the real cost, and compare the monthly repayment and total repayable.
+  </p>
+
+  <FlatReducingCalculator
+    client:visible
+    currency={{ code: 'AED', symbol: 'AED ' }}
+    labels={{ term: 'Loan term', payment: 'Monthly repayment', total: 'Total repayable' }}
+    defaults={{ amount: 100000, rate: 3, months: 60 }}
+  />
+
+  <div class="reading">
+  <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples, not a quote. Use the rate and term from your own loan offer.</p>
+
+  <section class="content-section">
+    <h2>Flat Rate vs Reducing Rate</h2>
+    <p>
+      With a <strong>flat rate</strong>, interest is worked out on the original loan amount for the whole term. You pay it even on the part of the loan you have already repaid. With a <strong>reducing rate</strong>, each month's interest is charged only on the balance still outstanding, so it shrinks as you repay.
+    </p>
+    <p>
+      UAE banks usually print both. In November 2026, FAB advertised car loans for salaried customers from 2.15% flat, "equivalent to a reducing rate of 4.10%", and Emirates NBD's car loan guide gave 2.69% flat as equivalent to 5.06% reducing. For five-year loans, this calculator gives 4.09% and 5.08%.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li><strong>Enter the loan amount</strong> and the flat rate the bank quoted.</li>
+      <li><strong>Enter the term in months:</strong> 60 for five years.</li>
+      <li><strong>Read the reducing rate</strong> that the flat rate really costs, and compare offers on that number.</li>
+      <li><strong>Compare the two columns</strong> to see the monthly repayment, total interest and total repayable if the same rate were charged each way.</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>How the Conversion Is Calculated</h2>
+    <div class="formula-box">
+      Flat repayment = (P + P &times; R &times; N / 1200) / N<br />
+      Reducing repayment = P &times; i &times; (1 + i)<sup>N</sup> / ((1 + i)<sup>N</sup> &minus; 1)
+    </div>
+    <p>
+      <strong>P</strong> is the loan amount, <strong>R</strong> the yearly rate in percent, <strong>N</strong> the term in months and <strong>i</strong> the reducing rate / 12 / 100. The equivalent reducing rate is the one at which both monthly repayments are the same.
+    </p>
+    <p>
+      <strong>Example:</strong> AED 100,000 at 3% flat for 60 months is AED 1,917 a month and AED 15,000 in interest. The same repayment on a reducing balance means a rate of 5.64%. At 3% reducing, it would be AED 1,797 a month and AED 7,812 in interest, which is AED 7,188 less.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>What This Calculator Leaves Out</h2>
+    <ul>
+      <li><strong>Fees:</strong> processing fees, insurance and other charges are not included. Your bank's Key Facts Statement lists them.</li>
+      <li><strong>Early settlement:</strong> paying off early changes the interest, and fees may apply.</li>
+      <li><strong>Rounding:</strong> banks may round the monthly repayment or the first and last instalments differently.</li>
+    </ul>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/uae/fixed-to-floating-mortgage-calculator" class="related-card">
+        <h3>Fixed to Floating Mortgage Calculator</h3>
+        <p>Compare a mortgage fixed for a few years with one that floats from day one.</p>
+      </a>
+      <a href="/uae/mortgage-affordability-calculator" class="related-card">
+        <h3>Mortgage Affordability Calculator</h3>
+        <p>See what your salary, debts and savings let you buy.</p>
+      </a>
+      <a href="/india/flat-vs-reducing-rate-calculator" class="related-card">
+        <h3>India Flat to Reducing Rate Calculator</h3>
+        <p>The same conversion for Indian loans, with EMI and tenure.</p>
+      </a>
+    </div>
+  </section>
+  </div>
+</BaseLayout>

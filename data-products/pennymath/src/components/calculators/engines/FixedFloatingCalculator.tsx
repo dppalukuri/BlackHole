@@ -8,6 +8,8 @@ interface FixedFloatingCalculatorProps {
   currency: { code: string; symbol: string };
   /** What this market calls the monthly payment: "payment" or "EMI". */
   paymentWord: string;
+  /** "Loan tenure" in India, "Loan term" elsewhere. */
+  termLabel: string;
   amountRange: { min: number; max: number; step: number };
   maxTenureYears: number;
   defaults: {
@@ -22,7 +24,7 @@ interface FixedFloatingCalculatorProps {
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 /** A fixed rate for a few years, then floating, against floating from day one. Five inputs, one table. */
-export default function FixedFloatingCalculator({ currency, paymentWord, amountRange, maxTenureYears, defaults }: FixedFloatingCalculatorProps) {
+export default function FixedFloatingCalculator({ currency, paymentWord, termLabel, amountRange, maxTenureYears, defaults }: FixedFloatingCalculatorProps) {
   const [amount, setAmount] = useState(defaults.amount);
   const [years, setYears] = useState(defaults.tenureYears);
   const [fixedRate, setFixedRate] = useState(defaults.fixedRate);
@@ -57,7 +59,7 @@ export default function FixedFloatingCalculator({ currency, paymentWord, amountR
     <div class="calculator-widget">
       <div class="calc-inputs">
         <SliderInput id="ff-amount" label="Loan amount" value={amount} min={amountRange.min} max={amountRange.max} step={amountRange.step} prefix={currency.symbol} scalable locale={locale} onChange={setAmount} />
-        <SliderInput id="ff-tenure" label="Loan tenure" value={years} min={3} max={maxTenureYears} step={1} suffix=" Yr" onChange={setYears} />
+        <SliderInput id="ff-tenure" label={termLabel} value={years} min={3} max={maxTenureYears} step={1} suffix=" Yr" onChange={setYears} />
         <SliderInput id="ff-fixed-rate" label="Fixed rate (per year)" value={fixedRate} min={1} max={16} step={0.05} suffix="%" onChange={setFixedRate} />
         <SliderInput id="ff-fixed-years" label="Fixed for" value={fixedYears} min={1} max={maxFixedYears} step={1} suffix=" Yr" onChange={setFixedYears} />
         <SliderInput id="ff-floating-rate" label="Floating rate (per year)" value={floatingRate} min={1} max={16} step={0.05} suffix="%" onChange={setFloatingRate} />

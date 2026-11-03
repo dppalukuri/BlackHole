@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FlatReducingCalculator from '../../components/calculators/engines/FlatReducingCalculator';
+import FAQ from '../../components/FAQ.astro';
+
+const faqs = [
+  {
+    q: `What is the difference between a flat and a reducing interest rate?`,
+    a: `A flat rate charges interest on the original loan amount for the whole tenure, even though you repay part of it every month. A reducing rate charges interest only on the balance you still owe, so the interest falls as you repay. The same number costs far more as a flat rate.`,
+  },
+  {
+    q: `How do I convert a flat rate to a reducing rate?`,
+    a: `There is no fixed multiplier, because it depends on the rate and the tenure. For loans of one to five years, the reducing rate is usually about 1.6 to 1.9 times the flat rate: 10% flat over 60 months is 17.27% reducing. The calculator above works it out exactly.`,
+  },
+  {
+    q: `Which loans in India use a flat rate?`,
+    a: `Home loans are almost always on a reducing balance. Flat rates still turn up on some personal, car, two-wheeler and consumer-durable loans, often from dealers and non-bank lenders. If a quote does not say which it is, ask.`,
+  },
+  {
+    q: `Is the reducing rate the same as the APR?`,
+    a: `Not quite. The annual percentage rate (APR) also counts fees such as processing charges, so it is usually a little higher than the reducing rate. RBI requires lenders to show the APR in the Key Facts Statement for retail loans, which makes it the best single number for comparing offers.`,
+  },
+];
+
+const url = 'https://pennymath.techtools365.com/india/flat-vs-reducing-rate-calculator';
+---
+
+<BaseLayout
+  title="Flat to Reducing Rate Calculator India — Flat vs Reducing Interest | PennyMath"
+  description="Free flat vs reducing interest rate calculator for India. Convert a flat rate to its reducing rate and compare the EMI, total interest and total amount of each."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Flat to Reducing Rate Calculator India",
+      "description": "Convert a flat interest rate to the reducing rate that costs the same, and compare the EMI, total interest and total amount",
+      "url": url,
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pennymath.techtools365.com/" },
+        { "@type": "ListItem", "position": 2, "name": "India", "item": "https://pennymath.techtools365.com/india/" },
+        { "@type": "ListItem", "position": 3, "name": "Flat to Reducing Rate Calculator", "item": url }
+      ]
+    })} />
+  </Fragment>
+
+  <nav class="breadcrumbs">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/india/">India</a> <span>/</span>
+    Flat to Reducing Rate Calculator
+  </nav>
+
+  <h1>Flat to Reducing Rate Calculator (India)</h1>
+  <p class="page-intro">
+    Convert a flat interest rate to the reducing rate that costs the same, and compare the EMI, total interest and total amount of each.
+  </p>
+
+  <FlatReducingCalculator
+    client:visible
+    currency={{ code: 'INR', symbol: '₹' }}
+    labels={{ term: 'Loan tenure', payment: 'Monthly EMI', total: 'Total amount' }}
+    defaults={{ amount: 500000, rate: 10, months: 60 }}
+  />
+
+  <div class="reading">
+  <p style="font-size: 0.85rem; color: #64748b;">The starting values are examples, not a quote. Use the rate and tenure from your own loan offer.</p>
+
+  <section class="content-section">
+    <h2>Flat Rate vs Reducing Rate</h2>
+    <p>
+      With a <strong>flat rate</strong>, interest is worked out on the original loan amount for the whole tenure. You pay it even on the part of the loan you have already repaid. With a <strong>reducing rate</strong>, each month's interest is charged only on the balance still outstanding, so it shrinks as you repay.
+    </p>
+    <p>
+      That makes a flat rate look cheaper than it is. A 10% flat rate on a five-year loan costs as much as a 17.27% reducing rate, so always compare loans on the reducing rate.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use This Calculator</h2>
+    <ol class="how-to-steps">
+      <li><strong>Enter the loan amount</strong> and the interest rate you were quoted.</li>
+      <li><strong>Enter the tenure in months:</strong> 60 for five years.</li>
+      <li><strong>Read the reducing rate</strong> that a flat rate of that size really costs.</li>
+      <li><strong>Compare the two columns</strong> to see the EMI, total interest and total amount if the same rate were charged each way.</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>How the Conversion Is Calculated</h2>
+    <div class="formula-box">
+      Flat EMI = (P + P &times; R &times; N / 1200) / N<br />
+      Reducing EMI = P &times; i &times; (1 + i)<sup>N</sup> / ((1 + i)<sup>N</sup> &minus; 1)
+    </div>
+    <p>
+      <strong>P</strong> is the loan amount, <strong>R</strong> the yearly rate in percent, <strong>N</strong> the tenure in months and <strong>i</strong> the reducing rate / 12 / 100. The equivalent reducing rate is the one at which both EMIs are the same.
+    </p>
+    <p>
+      <strong>Example:</strong> ₹5,00,000 at 10% flat for 60 months has an EMI of ₹12,500 and ₹2,50,000 in interest. The same EMI on a reducing balance means a rate of 17.27%. At 10% reducing, the EMI would be ₹10,624 and the interest ₹1,37,411, which is ₹1,12,589 less.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>What This Calculator Leaves Out</h2>
+    <ul>
+      <li><strong>Fees:</strong> processing charges, GST on fees and insurance are not included. The APR in your Key Facts Statement adds them.</li>
+      <li><strong>Prepayment:</strong> paying early changes the interest, and flat-rate loans often refund less of it.</li>
+      <li><strong>Rounding:</strong> lenders may round the EMI or the first and last instalments differently.</li>
+    </ul>
+  </section>
+
+  <FAQ faqs={faqs} />
+
+  <section>
+    <h2>Related Calculators</h2>
+    <div class="related-grid">
+      <a href="/india/emi-calculator" class="related-card">
+        <h3>EMI Calculator</h3>
+        <p>Calculate the EMI on a home, car or personal loan at a single rate.</p>
+      </a>
+      <a href="/india/loan-comparison" class="related-card">
+        <h3>Loan Comparison Tool</h3>
+        <p>Compare three bank loan offers side by side.</p>
+      </a>
+      <a href="/uae/flat-vs-reducing-rate-calculator" class="related-card">
+        <h3>UAE Flat to Reducing Rate Calculator</h3>
+        <p>The same conversion for UAE car and personal loans.</p>
+      </a>
+    </div>
+  </section>
+  </div>
+</BaseLayout>
