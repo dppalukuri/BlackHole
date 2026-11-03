@@ -43,7 +43,7 @@ for (const c of allDestinations) {
     const status = v.status as 'vf' | 'voa' | 'ev' | 'eta' | 'vr';
     const entry: GridEntry = {
       country: c,
-      status: (v.days ?? status) as VisaStatus,
+      status: status as VisaStatus,
       days: v.days ?? undefined,
       note: v.notes || undefined,
       source: v.source ?? undefined,
@@ -77,6 +77,7 @@ const voaEntries = [...buckets.voa, ...buckets.eta];   // combine VoA + ETA for 
 const eVisaEntries = buckets.ev;
 
 const totalEasy = visaFreeEntries.length + voaEntries.length;
+const totalDestinations = visaFreeEntries.length + voaEntries.length + eVisaEntries.length + buckets.vr.length;
 
 // Related passports (same region/strength, up to 4)
 const related = priorityPassports
@@ -151,152 +152,152 @@ const jsonLd = {
     </nav>
 
     <header class="pp-header">
-      <div class="eyebrow">Passport guide · {nationality}</div>
-      <h1>{nationality} passport: <em>{totalEasy} visa-free destinations</em></h1>
-      <p class="lede">
-        Holders of a {passport} passport have easy entry to <strong>{totalEasy}</strong> countries
-        — {visaFreeEntries.length} visa-free and {voaEntries.length} with visa on arrival.
-        Below is the full, sourced list plus e-visa and visa-required countries.
-      </p>
-      <div class="kpis">
-        <div class="kpi"><strong>{visaFreeEntries.length}</strong><span>visa-free</span></div>
-        <div class="kpi"><strong>{voaEntries.length}</strong><span>visa on arrival</span></div>
-        <div class="kpi"><strong>{eVisaEntries.length}</strong><span>e-visa</span></div>
-        <div class="kpi"><strong>{buckets.vr.length}</strong><span>visa required</span></div>
+      <h1>Visa-free countries for {nationality} passport holders</h1>
+      <div class="pp-answer">
+        <div class="pp-big">
+          <strong class="pp-num">{totalEasy}</strong>
+          <p>
+            countries offer {nationality} passport holders easy entry: {visaFreeEntries.length} visa-free
+            and {voaEntries.length} with a visa on arrival{buckets.eta.length > 0 && ' or eTA'}.
+          </p>
+        </div>
+        <div class="pp-bar" role="img" aria-label={`Of ${totalDestinations} destinations: ${visaFreeEntries.length} visa-free, ${voaEntries.length} visa on arrival, ${eVisaEntries.length} e-visa, ${buckets.vr.length} visa required`}>
+          {visaFreeEntries.length > 0 && <span class="vf" style={`flex: ${visaFreeEntries.length}`} title={`${visaFreeEntries.length} visa-free`}></span>}
+          {voaEntries.length > 0 && <span class="voa" style={`flex: ${voaEntries.length}`} title={`${voaEntries.length} visa on arrival`}></span>}
+          {eVisaEntries.length > 0 && <span class="ev" style={`flex: ${eVisaEntries.length}`} title={`${eVisaEntries.length} e-visa`}></span>}
+          {buckets.vr.length > 0 && <span class="vr" style={`flex: ${buckets.vr.length}`} title={`${buckets.vr.length} visa required`}></span>}
+        </div>
+        <ul class="pp-legend">
+          <li><a href="#visa-free"><i class="vf"></i>Visa-free <b>{visaFreeEntries.length}</b></a></li>
+          <li><a href="#on-arrival"><i class="voa"></i>On arrival <b>{voaEntries.length}</b></a></li>
+          <li><a href="#e-visa"><i class="ev"></i>e-Visa <b>{eVisaEntries.length}</b></a></li>
+          <li><a href="#visa-required"><i class="vr"></i>Visa required <b>{buckets.vr.length}</b></a></li>
+        </ul>
       </div>
     </header>
 
-    <section>
-      <h2>Visa-free destinations</h2>
-      <p>
-        Countries a {nationality} passport holder can enter without arranging any visa in advance.
-        Day-limit shown where available.
-      </p>
-      <VisaCountryGrid entries={visaFreeEntries} emptyLabel="No visa-free destinations for this passport." />
-    </section>
-
-    <MidContentAd />
-
-    <section>
-      <h2>Visa on arrival</h2>
-      <p>
-        Visa issued at the border — typically quick, fee-paid, and no embassy visit required.
-        Still bring passport photos, proof of onward travel, and hotel bookings.
-      </p>
-      <VisaCountryGrid entries={voaEntries} emptyLabel="No visa-on-arrival destinations." />
-    </section>
-
-    <section>
-      <h2>e-Visa destinations</h2>
-      <p>
-        Apply online before you travel. Usually approved within a few days, cheaper and faster
-        than an embassy visa.
-      </p>
-      <VisaCountryGrid entries={eVisaEntries} emptyLabel="No e-visa destinations." />
-    </section>
-
-    <MidContentAd />
-
-    {buckets.vr.length > 0 && (
-      <section>
-        <details class="vr-section">
-          <summary>
-            <h2>Visa required — {buckets.vr.length} destinations</h2>
-            <span class="vr-hint">embassy visa needed · click to expand</span>
-          </summary>
-          <p>
-            These destinations require a full visa from an embassy or consulate in advance.
-            Entries marked <span class="vr-check">✓</span> have been re-verified against an official government source.
-          </p>
-          <VisaCountryGrid entries={buckets.vr} emptyLabel="" />
-        </details>
+    <div class="reading">
+      <section id="visa-free">
+        <h2>Visa-free <span class="count">{visaFreeEntries.length}</span></h2>
+        <p>Enter without arranging any visa in advance. Stay limits are shown where known.</p>
+        <VisaCountryGrid entries={visaFreeEntries} kind="vf" emptyLabel="No visa-free destinations for this passport." />
       </section>
-    )}
 
-    <section class="expand-access">
-      <h2>Expand your access with a residence permit</h2>
-      <p>
-        If your {nationality} passport has limited reach, a residence permit can unlock many
-        additional destinations. Pairing your passport with one of the permits below typically
-        adds 5–15 new visa-free or visa-on-arrival countries:
-      </p>
-      <ul class="permit-links">
-        <li><a href="/indian-passport-uae-resident/">UAE residence permit</a> — strong for South Asian passport holders, unlocks Armenia, Georgia, Azerbaijan, Serbia</li>
-        <li><a href="/us-green-card-holders/">US Green Card</a> — unlocks Mexico, Canada (via eTA), several Caribbean and Central American countries</li>
-        <li><a href="/schengen-residence-permit-benefits/">Schengen residence permit</a> — unlocks Turkey, Balkans, several visa-free short stays across the EU</li>
-      </ul>
-    </section>
+      <MidContentAd />
 
-    <FAQBlock items={faq} />
+      <section id="on-arrival">
+        <h2>Visa on arrival <span class="count">{voaEntries.length}</span></h2>
+        <p>
+          Issued at the border, usually for a fee and with no embassy visit. Still bring passport
+          photos, proof of onward travel and hotel bookings.
+        </p>
+        <VisaCountryGrid entries={voaEntries} kind="voa" emptyLabel="No visa-on-arrival destinations." />
+      </section>
 
-    <section class="related">
-      <h2>Other passport guides</h2>
-      <ul class="related-grid">
-        {related.map((r) => (
-          <li><a href={`/${r.slug}/`}>{r.nationality} passport</a></li>
-        ))}
-        <li><a href="/">Use the interactive multi-passport checker →</a></li>
-      </ul>
-    </section>
+      <section id="e-visa">
+        <h2>e-Visa <span class="count">{eVisaEntries.length}</span></h2>
+        <p>Apply online before you travel. Usually approved within a few days, and cheaper and faster than an embassy visa.</p>
+        <VisaCountryGrid entries={eVisaEntries} kind="ev" emptyLabel="No e-visa destinations." />
+      </section>
+
+      <MidContentAd />
+
+      {buckets.vr.length > 0 && (
+        <section>
+          <details class="vr-section" id="visa-required">
+            <summary>
+              <h2>Visa required <span class="count">{buckets.vr.length}</span></h2>
+              <span class="vr-hint">Show all</span>
+            </summary>
+            <p>
+              These destinations need a full visa from an embassy or consulate in advance. A green
+              check marks entries verified against an official government source.
+            </p>
+            <VisaCountryGrid entries={buckets.vr} kind="vr" emptyLabel="" />
+          </details>
+        </section>
+      )}
+
+      <section class="expand-access">
+        <h2>Expand your access with a residence permit</h2>
+        <p>
+          If your {nationality} passport has limited reach, a residence permit can unlock many
+          additional destinations. Pairing your passport with one of the permits below typically
+          adds 5–15 new visa-free or visa-on-arrival countries:
+        </p>
+        <ul class="permit-links">
+          <li><a href="/indian-passport-uae-resident/">UAE residence permit</a> — strong for South Asian passport holders, unlocks Armenia, Georgia, Azerbaijan, Serbia</li>
+          <li><a href="/us-green-card-holders/">US Green Card</a> — unlocks Mexico, Canada (via eTA), several Caribbean and Central American countries</li>
+          <li><a href="/schengen-residence-permit-benefits/">Schengen residence permit</a> — unlocks Turkey, Balkans, several visa-free short stays across the EU</li>
+        </ul>
+      </section>
+
+      <FAQBlock items={faq} />
+
+      <section class="related">
+        <h2>Other passport guides</h2>
+        <ul class="related-grid">
+          {related.map((r) => (
+            <li><a href={`/${r.slug}/`}>{r.nationality} passport</a></li>
+          ))}
+          <li><a href="/">Use the interactive multi-passport checker →</a></li>
+        </ul>
+      </section>
+    </div>
   </article>
 
   <style>
-    .passport-page { padding: 1rem 0 .5rem; }
-    .crumbs { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
-    .crumbs a { color: var(--muted); }
-    .crumbs a:hover { color: var(--primary); }
+    .passport-page { padding: 1rem 0 0; }
+    .crumbs { font-size: .85rem; color: var(--text-2); margin-bottom: .75rem; }
+    .crumbs a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
     .crumbs span { margin: 0 .25rem; }
-    .pp-header { margin-bottom: 2rem; }
-    .pp-header .eyebrow {
-      display: inline-block; font-size: .7rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .12em;
-      color: var(--primary); background: rgba(140,155,255,.1);
-      padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
-    }
-    .pp-header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 800; letter-spacing: -.025em; line-height: 1.12; margin-bottom: .6rem;
-    }
-    .pp-header h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, #F7C9A8, #A9B4FF);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .pp-header .lede { font-size: .95rem; color: var(--muted); max-width: 65ch; }
-    .kpis { display: flex; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
-    .kpi {
-      display: flex; flex-direction: column; gap: .15rem;
-      padding: .6rem .85rem; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; min-width: 95px;
-    }
-    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -.02em; line-height: 1; }
-    .kpi span { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
-    section h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.015em; margin: 2rem 0 .5rem; }
-    section p, section ol li, section ul li { font-size: .93rem; line-height: 1.6; }
-    .expand-access { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; margin: 2rem 0; }
-    .permit-links { list-style: none; padding: 0; margin: .25rem 0 0; }
-    .permit-links li { padding: .3rem 0; border-bottom: 1px dashed var(--border); }
-    .permit-links li:last-child { border-bottom: none; }
-    .permit-links a { color: var(--primary); font-weight: 600; }
-    .related .related-grid {
-      list-style: none; padding: 0;
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .4rem;
-    }
-    .related .related-grid li {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; padding: .45rem .7rem; font-size: .85rem;
-    }
-    .related .related-grid a { color: var(--text); font-weight: 500; }
-    .related .related-grid li:hover { border-color: var(--primary); }
-    .related .related-grid li:hover a { color: var(--primary); }
+    .pp-header h1 { margin-bottom: 1.25rem; }
 
-    .vr-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: .5rem 1rem; margin-top: 1rem; }
-    .vr-section summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: .75rem 0; }
+    /* The answer: how many countries, and how all destinations split */
+    .pp-answer { max-width: 920px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px 20px; }
+    .pp-big { display: flex; align-items: baseline; gap: 6px 18px; flex-wrap: wrap; }
+    .pp-num { font-size: clamp(3.2rem, 7vw, 4.6rem); font-weight: 450; letter-spacing: -0.035em; line-height: .95; font-variant-numeric: tabular-nums; }
+    .pp-big p { margin: 0; max-width: 44ch; font-size: 1.08rem; color: var(--text-2); }
+    .pp-bar { display: flex; gap: 2px; height: 14px; margin: 22px 0 14px; border-radius: 4px; overflow: hidden; }
+    .pp-bar span { min-width: 3px; }
+    .vf { background: #74E3AC; }
+    .voa { background: #38B08C; }
+    .ev { background: #257A74; }
+    .vr { background: #3A3C4E; }
+    .pp-legend { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 26px; }
+    .pp-legend a { display: inline-flex; align-items: center; gap: 8px; color: var(--text-2); font-size: .95rem; }
+    .pp-legend a:hover { color: var(--text); }
+    .pp-legend i { width: 10px; height: 10px; border-radius: 3px; }
+    .pp-legend b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    /* The lists */
+    .reading section { scroll-margin-top: 16px; }
+    .reading section:first-child h2 { margin-top: .25rem; }
+    .reading h2 { font-size: 1.5rem; margin: 2.25rem 0 .35rem; }
+    .reading h2 .count { color: var(--muted); font-weight: 400; margin-left: 4px; font-variant-numeric: tabular-nums; }
+    .reading section > p, .reading details > p { color: var(--text-2); }
+
+    .vr-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px 20px; margin-top: 1.5rem; }
+    .vr-section[open] { padding-bottom: 8px; }
+    .vr-section summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 14px 0; }
     .vr-section summary::-webkit-details-marker { display: none; }
     .vr-section summary h2 { margin: 0; }
-    .vr-section summary::after { content: '▸'; color: var(--muted); font-size: .85rem; transition: transform .15s; }
-    .vr-section[open] summary::after { content: '▾'; }
-    .vr-hint { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
-    .vr-check { display: inline-block; width: 14px; height: 14px; background: #16a34a; color: #fff; border-radius: 50%; font-size: .6rem; font-weight: 700; text-align: center; line-height: 14px; }
+    .vr-hint { font-size: .92rem; color: var(--primary); white-space: nowrap; }
+    .vr-hint::after { content: ' ▾'; }
+    .vr-section[open] .vr-hint { visibility: hidden; }
+
+    .expand-access { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px 22px 14px; margin: 2rem 0; }
+    .expand-access h2 { font-size: 1.25rem; margin-top: 1rem; }
+    .permit-links { list-style: none; padding: 0; margin: .25rem 0 0; }
+    .permit-links li { padding: .45rem 0; border-top: 1px solid var(--border); color: var(--text-2); }
+    .permit-links a { font-weight: 500; }
+    .related .related-grid { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
+    .related .related-grid a { display: inline-block; padding: 7px 14px; border: 1px solid var(--border-strong); border-radius: 99px; color: var(--text); text-decoration: none; font-size: .95rem; }
+    .related .related-grid a:hover { border-color: var(--primary); color: var(--primary); }
+
+    @media (max-width: 640px) {
+      .pp-answer { padding: 18px 16px; }
+      .pp-legend { gap: 6px 18px; }
+    }
   </style>
 </BaseLayout>

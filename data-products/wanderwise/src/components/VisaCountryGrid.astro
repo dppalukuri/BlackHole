@@ -1,9 +1,12 @@
 ---
 /**
- * Displays a grid of destination countries with visa-status tags.
+ * A list of destination countries with their visa status.
  * Used on passport-specific and residence-permit-specific pages.
+ *
+ * Pass `kind` when every entry belongs to one status (a section headed "Visa-free", say):
+ * rows then show only what differs from the heading. Without it, each row names its status.
  */
-import { statusLabel, statusClass, type VisaStatus } from '../lib/visa-data';
+import { statusLabel, type VisaStatus } from '../lib/visa-data';
 
 interface Entry {
   country: string;
@@ -19,32 +22,45 @@ interface Props {
   entries: Entry[];
   title?: string;
   emptyLabel?: string;
+  kind?: 'vf' | 'voa' | 'ev' | 'vr';
 }
 
-const { entries, title, emptyLabel = 'No entries in this category.' } = Astro.props;
+const { entries, title, emptyLabel = 'No entries in this category.', kind } = Astro.props;
+
+function aside(e: Entry): string {
+  const base = typeof e.status === 'number' ? 'vf' : e.status;
+  const days = e.days ?? (typeof e.status === 'number' ? e.status : undefined);
+  const stay = days ? `${days} days` : '';
+  if (kind && base === kind) return stay;
+  const label = base === 'vf' ? 'Visa-free' : statusLabel(base);
+  return stay ? `${label} · ${stay}` : label;
+}
 ---
 {title && <h3 class="vcg-title">{title}</h3>}
 {entries.length === 0 ? (
   <p class="vcg-empty">{emptyLabel}</p>
 ) : (
-  <ul class="vcg-grid">
+  <ul class="vcg-list">
     {entries.map((e) => (
-      <li class:list={['vcg-card', e.verified && 'is-verified']}>
-        <div class="vcg-country">
-          {e.country}
-          {e.verified && (
-            <span class="vcg-verified" title="Verified against an official government source">✓</span>
-          )}
+      <li class="vcg-row">
+        <div class="vcg-head">
+          <span class="vcg-country">
+            {e.country}
+            {e.verified && (
+              <span class="vcg-verified" title="Verified against an official government source" aria-label="verified">
+                <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor" /><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            )}
+          </span>
+          {aside(e) && <span class="vcg-aside">{aside(e)}</span>}
         </div>
-        <div class:list={['vcg-status', statusClass(e.status)]}>
-          {typeof e.status === 'number' ? `Visa-free · ${e.status} days` : statusLabel(e.status)}
-        </div>
-        {e.days && typeof e.status !== 'number' && (
-          <div class="vcg-days">{e.days} days</div>
-        )}
-        {e.note && <div class="vcg-note">{e.note}</div>}
-        {e.source && (
-          <a class="vcg-source" href={e.source} target="_blank" rel="noopener">Official source ↗</a>
+        {(e.note || e.source) && (
+          <p class:list={['vcg-note', !e.note && 'only-source']}>
+            {e.note}
+            {e.source && (
+              <a class="vcg-source" href={e.source} target="_blank" rel="noopener">Official source ↗</a>
+            )}
+          </p>
         )}
       </li>
     ))}
@@ -52,33 +68,18 @@ const { entries, title, emptyLabel = 'No entries in this category.' } = Astro.pr
 )}
 
 <style>
-  .vcg-title { font-size: 1.05rem; font-weight: 700; margin: 1.25rem 0 .6rem; letter-spacing: -.01em; }
-  .vcg-empty { color: var(--muted, #6b7280); font-size: .88rem; }
-  .vcg-grid {
-    list-style: none; padding: 0; margin: .5rem 0 1.25rem;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: .4rem;
+  .vcg-title { font-size: 1.1rem; font-weight: 500; margin: 1.25rem 0 .6rem; }
+  .vcg-empty { color: var(--muted); font-size: .92rem; }
+  .vcg-list {
+    list-style: none; padding: 0; margin: .9rem 0 1.75rem;
+    columns: 3 300px; column-gap: 40px;
   }
-  .vcg-card {
-    background: var(--surface, #fff); border: 1px solid var(--border, #e5e7eb);
-    border-radius: 6px; padding: .55rem .75rem;
-    transition: border-color .15s, box-shadow .15s, transform .15s;
-  }
-  .vcg-card:hover {
-    border-color: var(--primary);
-    box-shadow: 0 4px 12px -6px rgba(15,23,42,.12);
-    transform: translateY(-1px);
-  }
-  .vcg-country { font-size: .86rem; font-weight: 600; color: var(--text, #0b1220); display: inline-flex; align-items: center; gap: .35rem; }
-  .vcg-verified {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 14px; height: 14px; font-size: .6rem; font-weight: 700;
-    color: #fff; background: #16a34a; border-radius: 50%;
-  }
-  .vcg-card.is-verified { border-color: rgba(76,195,138,.45); }
-  .vcg-card.is-verified:hover { border-color: #4CC38A; }
-  .vcg-status { font-size: .72rem; font-weight: 600; margin-top: .15rem; }
-  .vcg-days { font-size: .7rem; color: var(--muted, #6b7280); margin-top: .1rem; }
-  .vcg-note { font-size: .72rem; color: var(--muted, #6b7280); margin-top: .25rem; line-height: 1.4; }
-  .vcg-source { font-size: .7rem; margin-top: .25rem; display: inline-block; }
+  .vcg-row { break-inside: avoid; padding: 10px 0 11px; border-top: 1px solid var(--border); }
+  .vcg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .vcg-country { font-weight: 500; color: var(--text); display: inline-flex; align-items: center; gap: 6px; }
+  .vcg-verified { display: inline-flex; color: var(--verified, #1E9E62); }
+  .vcg-aside { font-size: .88rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .vcg-note { font-size: .86rem; color: var(--muted); line-height: 1.45; margin: 3px 0 0; max-width: none !important; }
+  .vcg-source { margin-left: 6px; white-space: nowrap; }
+  .only-source .vcg-source { margin-left: 0; }
 </style>
