@@ -7,6 +7,7 @@
  * rows then show only what differs from the heading. Without it, each row names its status.
  */
 import { statusLabel, type VisaStatus } from '../lib/visa-data';
+import { isSchengen } from '../lib/schengen';
 
 interface Entry {
   country: string;
@@ -31,6 +32,8 @@ function aside(e: Entry): string {
   const base = typeof e.status === 'number' ? 'vf' : e.status;
   const days = e.days ?? (typeof e.status === 'number' ? e.status : undefined);
   const stay = days ? `${days} days` : '';
+  // A visa for the Schengen area is a Schengen visa, which covers all its countries.
+  if (base === 'vr' && isSchengen(e.country)) return 'Schengen visa needed';
   if (kind && base === kind) return stay;
   const label = base === 'vf' ? 'Visa-free' : statusLabel(base);
   return stay ? `${label} · ${stay}` : label;

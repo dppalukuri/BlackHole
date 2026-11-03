@@ -5,6 +5,7 @@ import MidContentAd from '../components/MidContentAd.astro';
 import FAQBlock from '../components/FAQBlock.astro';
 import { summarizePassport, getVerified, verifiedData, formatDay, type VisaStatus } from '../lib/visa-data';
 import { priorityPassports } from '../data/priority-passports';
+import { isSchengen } from '../lib/schengen';
 
 export async function getStaticPaths() {
   return priorityPassports.map((p) => ({
@@ -213,8 +214,9 @@ const jsonLd = {
               <span class="vr-hint">Show all</span>
             </summary>
             <p>
-              These destinations need a full visa from an embassy or consulate in advance. A green
-              check marks entries verified against an official government source.
+              These destinations need a full visa from an embassy or consulate in advance.
+              {buckets.vr.some((e) => isSchengen(e.country)) && ' For the Schengen area, one Schengen visa covers all 29 Schengen countries.'}
+              A green check marks entries verified against an official government source.
             </p>
             <VisaCountryGrid entries={buckets.vr} kind="vr" emptyLabel="" />
           </details>

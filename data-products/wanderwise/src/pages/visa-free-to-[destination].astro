@@ -5,6 +5,7 @@ import FAQBlock from '../components/FAQBlock.astro';
 import { visaMatrix } from '../lib/visa-data';
 import { priorityDestinations } from '../data/priority-destinations';
 import { priorityPassports } from '../data/priority-passports';
+import { isSchengen } from '../lib/schengen';
 
 export async function getStaticPaths() {
   return priorityDestinations.map((d) => ({
@@ -14,6 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { slug, country, displayName, blurb } = Astro.props;
+const schengen = isSchengen(country);
 
 // Build passport slug map so we can link passports to their own guide pages
 const passportSlug: Record<string, string> = {};
@@ -126,13 +128,13 @@ const renderPassportList = (list: Row[]) =>
         <strong>{bucket.visaFree.length}</strong> passports get visa-free entry,
         <strong>{bucket.voa.length}</strong> can get a visa on arrival, and
         <strong>{bucket.eVisa.length}</strong> can apply for an e-visa online.
-        The remaining <strong>{bucket.visaReq.length}</strong> nationalities need a full embassy visa.
+        The remaining <strong>{bucket.visaReq.length}</strong> nationalities need {schengen ? 'a Schengen visa' : 'a full embassy visa'}.
       </p>
       <div class="kpis">
         <div class="kpi"><strong>{bucket.visaFree.length}</strong><span>visa-free</span></div>
         <div class="kpi"><strong>{bucket.voa.length}</strong><span>visa on arrival</span></div>
         <div class="kpi"><strong>{bucket.eVisa.length}</strong><span>e-visa</span></div>
-        <div class="kpi"><strong>{bucket.visaReq.length}</strong><span>visa required</span></div>
+        <div class="kpi"><strong>{bucket.visaReq.length}</strong><span>{schengen ? 'Schengen visa needed' : 'visa required'}</span></div>
       </div>
     </header>
 
@@ -200,8 +202,10 @@ const renderPassportList = (list: Row[]) =>
     <MidContentAd />
 
     <section>
-      <h2>Full visa required for {country}</h2>
-      <p>Passport holders who need to apply for a visa at a {country} embassy before travel.</p>
+      <h2>{schengen ? `Schengen visa needed for ${country}` : `Full visa required for ${country}`}</h2>
+      <p>{schengen
+        ? `Passport holders who need a Schengen visa before travel. Apply at the embassy or visa centre of the Schengen country where you will spend the most time; one visa covers all 29 Schengen countries.`
+        : `Passport holders who need to apply for a visa at a ${country} embassy before travel.`}</p>
       <ul class="passport-pill-list passport-pill-list--dim">
         {bucket.visaReq.map((r) => (
           <li class="pill pill-vr">

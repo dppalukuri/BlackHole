@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { countrySlug } from '../lib/slug';
+import { isSchengen } from '../lib/schengen';
 
 /** What each passport needs to enter one destination. */
 interface DestinationColumn { [passport: string]: string | number }
@@ -11,7 +12,15 @@ interface ResidencePermitData {
   };
 }
 
-function statusInfo(code: string | number) {
+const SCHENGEN_VISA = {
+  text: 'Schengen visa needed',
+  detail: 'Apply for a Schengen short-stay visa at the embassy or visa centre of the Schengen country where you will spend the most time. One Schengen visa covers all 29 Schengen countries, for up to 90 days in any 180.',
+  action: 'Apply up to six months before you travel, and at least 15 days before. A decision usually takes about 15 days.',
+  color: '#EF6F6C', bg: 'rgba(239,111,108,.1)', border: '#EF6F6C', icon: '✗', priority: 5,
+};
+
+function statusInfo(code: string | number, destination: string) {
+  if (code === 'vr' && isSchengen(destination)) return SCHENGEN_VISA;
   if (typeof code === 'number') return {
     text: `Visa-free entry`,
     detail: `You can enter and stay for up to ${code} days. No visa application needed — just show your passport at immigration.`,
@@ -202,7 +211,7 @@ export default function VisaChecker({ countries, permits }: { countries: string[
 
     for (const passport of passports) {
       const req = column.data[passport];
-      if (req !== undefined) results.push({ document: `${passport} passport`, requirement: req, info: statusInfo(req) });
+      if (req !== undefined) results.push({ document: `${passport} passport`, requirement: req, info: statusInfo(req, destination) });
     }
     if (permits) {
       for (const permit of selectedPermits) {
@@ -213,7 +222,15 @@ export default function VisaChecker({ countries, permits }: { countries: string[
           // For voa / ev / eta / vr, ex.access is authoritative — ex.days is just
           // the max-stay and must not be mistaken for "visa-free for N days".
           const key = ex.access === 'vf' && typeof ex.days === 'number' ? ex.days : ex.access;
-          results.push({ document: permit, requirement: ex.access, info: statusInfo(key), source: ex.source, note: ex.note });
+          results.push({ document: permit, requirement: ex.access, info: statusInfo(key, destination), source: ex.source, note: ex.note });
+        } else if (/schengen/i.test(permit) && isSchengen(destination)) {
+          // A Schengen visa or residence permit is itself the entry document for the whole area.
+          results.push({ document: permit, requirement: 'vf', info: {
+            ...statusInfo('vf', destination),
+            text: 'No other visa needed',
+            detail: `Your ${/residence/i.test(permit) ? 'Schengen residence permit' : 'Schengen visa'} covers ${destination}, like every Schengen country. Short stays are limited to 90 days in any 180 days across the Schengen area.`,
+            action: 'Carry your passport and your Schengen visa or residence permit.',
+          } });
         }
       }
     }
