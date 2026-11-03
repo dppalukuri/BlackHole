@@ -138,7 +138,7 @@ pages = sorted(p.relative_to(PUBLIC).as_posix() for p in PUBLIC.rglob("index.htm
 for rel in pages:
     (PUBLIC / rel).write_text(transform(original(rel), rel), encoding="utf-8", newline="\n")
 
-for src, dest in (("css/style.css", "css/style.css"), ("css/brand.css", "css/brand.css"), ("js/dusk.js", "js/dusk.js"), ("favicon.svg", "favicon.svg")):
+for src, dest in (("css/style.css", "css/style.css"), ("css/brand.css", "css/brand.css"), ("js/dusk.js", "js/dusk.js"), ("favicon.svg", "favicon.svg"), ("ads.txt", "ads.txt")):
     (PUBLIC / dest).parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / "static" / src, PUBLIC / dest)
 print("patched", len(pages), "pages")
