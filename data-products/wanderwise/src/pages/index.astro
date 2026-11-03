@@ -6,7 +6,7 @@ import MidContentAd from '../components/MidContentAd.astro';
 import { priorityPassports } from '../data/priority-passports';
 import { priorityPermits } from '../data/priority-permits';
 import { priorityDestinations } from '../data/priority-destinations';
-import { summarizePassport, verifiedData, residencePermits, formatDay } from '../lib/visa-data';
+import { summarizePassport, verifiedData, residencePermits, formatDay, countries } from '../lib/visa-data';
 
 // Verification-progress stats for the homepage trust signal
 const verifiedCount = Object.values(verifiedData.data ?? {})
@@ -111,7 +111,7 @@ const jsonLd = {
   <script is:inline src="/js/dusk.js" defer></script>
 
   <div class="ww-checker">
-    <VisaChecker client:load />
+    <VisaChecker client:load countries={countries} permits={residencePermits} />
   </div>
 
   <div class="trust-bar">

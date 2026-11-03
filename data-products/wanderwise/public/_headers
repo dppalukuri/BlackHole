@@ -1,0 +1,10 @@
+# Cloudflare Pages response headers.
+#
+# Scripts and styles in /_astro/ have a content hash in their names, so a
+# changed file always gets a new name and browsers can keep these for a year.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The checker's per-destination visa rules change only when the data is rebuilt.
+/data/destinations/*
+  Cache-Control: public, max-age=86400

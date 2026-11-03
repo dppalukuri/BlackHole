@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
+import { countrySlug } from '../lib/slug';
 
-interface VisaMatrix { [passport: string]: { [destination: string]: string | number } }
+/** What each passport needs to enter one destination. */
+interface DestinationColumn { [passport: string]: string | number }
 interface PermitExemption { access: string; days?: number; source: string; note?: string; }
 interface ResidencePermitData {
   [permit: string]: {
@@ -80,10 +82,11 @@ const PRESETS = [
   { label: 'Filipino + UAE Resident', passports: ['Philippines'], permits: ['UAE Residence Permit'] },
 ];
 
-export default function VisaChecker() {
-  const [matrix, setMatrix] = useState<VisaMatrix | null>(null);
-  const [countries, setCountries] = useState<string[]>([]);
-  const [permits, setPermits] = useState<ResidencePermitData | null>(null);
+// The country list and permits are small, so the page carries them and the checker
+// is usable straight away. Visa rules are fetched for one destination once it is picked.
+export default function VisaChecker({ countries, permits }: { countries: string[]; permits: ResidencePermitData }) {
+  const [column, setColumn] = useState<{ destination: string; data: DestinationColumn } | null>(null);
+  const columnCache = useRef(new Map<string, DestinationColumn>());
   const [passports, setPassports] = useState<string[]>([]);
   const [selectedPermits, setSelectedPermits] = useState<string[]>([]);
   const [destination, setDestination] = useState('');
@@ -92,12 +95,19 @@ export default function VisaChecker() {
   const [reportState, setReportState] = useState<'idle' | 'copied'>('idle');
 
   useEffect(() => {
-    Promise.all([
-      fetch('/data/visa-matrix.json').then(r => r.json()),
-      fetch('/data/countries.json').then(r => r.json()),
-      fetch('/data/residence-permits.json').then(r => r.json()),
-    ]).then(([m, c, p]) => { setMatrix(m); setCountries(c); setPermits(p); });
-  }, []);
+    if (!destination) { setColumn(null); return; }
+    const cached = columnCache.current.get(destination);
+    if (cached) { setColumn({ destination, data: cached }); return; }
+    let current = true;
+    fetch(`/data/destinations/${countrySlug(destination)}.json`)
+      .then(r => (r.ok ? r.json() : {}))
+      .catch(() => ({}))
+      .then((data: DestinationColumn) => {
+        columnCache.current.set(destination, data);
+        if (current) setColumn({ destination, data });
+      });
+    return () => { current = false; };
+  }, [destination]);
 
   // Hydrate state from URL query params, once data is loaded.
   // BUG-FIX: do NOT use `||=` here — it short-circuits, so if `p` was applied,
@@ -106,7 +116,6 @@ export default function VisaChecker() {
   // restore) — users expect a logo-click / direct-load to be a fresh checker,
   // not the previous session.
   useEffect(() => {
-    if (!countries.length || !permits) return;
     const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
     const urlP = params.get('p');
     const urlR = params.get('perm');
@@ -128,12 +137,12 @@ export default function VisaChecker() {
     }
     // Clean URL (no params): leave state empty. localStorage hydration
     // intentionally removed — users expect a fresh checker on direct load.
-  }, [countries.length, permits]);
+  }, []);
 
   // Mirror state → URL so a manually-built selection produces a shareable link.
   // localStorage writes intentionally removed (see comment on hydration effect).
   useEffect(() => {
-    if (typeof window === 'undefined' || !countries.length) return;
+    if (typeof window === 'undefined') return;
     const params = new URLSearchParams();
     if (passports.length) params.set('p', passports.map(encodeURIComponent).join(','));
     if (selectedPermits.length) params.set('perm', selectedPermits.map(encodeURIComponent).join(','));
@@ -143,7 +152,7 @@ export default function VisaChecker() {
     if (window.location.pathname + window.location.search !== nextUrl) {
       window.history.replaceState(null, '', nextUrl);
     }
-  }, [passports, selectedPermits, destination, countries.length]);
+  }, [passports, selectedPermits, destination]);
 
   const copyShareLink = async () => {
     if (typeof window === 'undefined') return;
@@ -185,14 +194,14 @@ export default function VisaChecker() {
   const setDest = (d: string) => { if (countries.includes(d)) setDestination(d); };
 
   const getResults = () => {
-    if (!matrix || !destination || passports.length === 0) return null;
+    if (!destination || passports.length === 0 || column?.destination !== destination) return null;
     const results: Array<{
       document: string; requirement: string | number;
       info: ReturnType<typeof statusInfo>; source?: string; note?: string;
     }> = [];
 
     for (const passport of passports) {
-      const req = matrix[passport]?.[destination];
+      const req = column.data[passport];
       if (req !== undefined) results.push({ document: `${passport} passport`, requirement: req, info: statusInfo(req) });
     }
     if (permits) {
@@ -214,8 +223,7 @@ export default function VisaChecker() {
 
   const results = getResults();
   const best = results?.[0];
-
-  if (!matrix) return <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--muted)' }}>Loading visa data for 199 countries...</div>;
+  const checking = passports.length > 0 && !!destination && column?.destination !== destination;
 
   return (
     <div>
@@ -400,7 +408,13 @@ export default function VisaChecker() {
         </>
       )}
 
-      {passports.length > 0 && destination && !best && (
+      {checking && (
+        <div role="status" style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.5rem', textAlign: 'center', color: 'var(--muted)' }}>
+          Checking {destination}…
+        </div>
+      )}
+
+      {passports.length > 0 && destination && !checking && !best && (
         <div style={{ background: 'rgba(239,111,108,.1)', border: '2px solid var(--bad)', borderRadius: '16px', padding: '1.5rem', textAlign: 'center' }}>
           <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--bad)' }}>No data available</div>
           <div style={{ color: 'var(--muted)', marginTop: '0.5rem' }}>We don't have visa data for this combination. Please check with the embassy of {destination}.</div>
